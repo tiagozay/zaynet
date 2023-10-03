@@ -1,0 +1,34 @@
+#containerLogoEInput{
+    display: flex;
+    align-items: center; 
+}
+#logoHeader{
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+}
+#divInputPesquisarHeader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    background-color: #3A3B3C;
+    border-radius: 30px;
+    color: rgb(191, 191, 191);
+    padding: 0 20px;
+}
+#inputPesquisarHeader{
+    font-family: 'Montserrat', sans-serif;  
+    outline: none;
+    font-size: 17px;
+    background-color: #3A3B3C;
+    border: none;
+    border-radius: 30px;
+    color: rgb(237, 237, 237);
+    padding: 12px 0px;
+    margin-left: 10px;
+}
+#inputPesquisarHeader::placeholder {
+    color: rgb(191, 191, 191);
+    font-size: 15px;
+}
