@@ -1,0 +1,30 @@
+#listaDeMensagens{
+    margin-top: 30px;
+}
+.listaDeMensagens__mensagem{
+    display: flex;
+    padding: 12px 9px;
+    transition: 200ms;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.listaDeMensagens__mensagem:hover{
+    background-color: #333435;
+}
+#mensagem__perfil{
+    width: 58px;
+    border-radius: 50%;
+}
+#mensagem__informacoesPessoa{
+    color: rgb(237, 237, 237);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: 10px;
+}
+#mensagem__informacoesPessoa__nome{
+    font-weight: 600;
+}
+#mensagem__informacoesPessoa__ultimaMensagem{
+    font-size: 15px;
+}
