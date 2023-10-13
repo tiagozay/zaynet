@@ -1,0 +1,25 @@
+#listaDeNotificacoes{
+    margin-top: 30px;
+}
+.listaDeNotificacoes__notificacao{
+    display: flex;
+    padding: 12px 9px;
+    transition: 200ms;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.listaDeNotificacoes__notificacao:hover{
+    background-color: #333435;
+}
+#notificacao__perfil{
+    width: 58px;
+    border-radius: 50%;
+}
+#notificacao__acao{
+    color: rgb(237, 237, 237);
+    margin-left: 10px;
+    margin-top: 10px;
+}
+#notificacao__acao__autor{
+    font-weight: 600;
+}

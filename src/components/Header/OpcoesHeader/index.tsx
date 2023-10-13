@@ -3,6 +3,7 @@ import './OpcoesHeader.css';
 import { useState } from 'react';
 import ModalSolicitacoesDeAmizade from './ModalSolicitacoesDeAmizade';
 import ModalMensagens from './ModalMensagens';
+import ModalNotificacoes from './ModalNotificacoes';
 
 export default function OpcoesHeader() {
 
@@ -58,6 +59,7 @@ export default function OpcoesHeader() {
             </i>
             <ModalSolicitacoesDeAmizade aberto={modalSolicitacoesDeAmizadeAberto} clickFora={fecharModais} />
             <ModalMensagens aberto={modalMensagensAberto} clickFora={fecharModais} />
+            <ModalNotificacoes aberto={modalNotificacoesAberto} clickFora={fecharModais} />
         </div>
     )
 }
