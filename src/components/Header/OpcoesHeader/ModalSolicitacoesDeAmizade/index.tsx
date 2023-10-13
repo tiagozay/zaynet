@@ -13,7 +13,7 @@ export default function ModalSolicitacoesDeAmizade({ aberto, clickFora }: ModalS
             <>
                 <div className='modal-overlay' onClick={() => clickFora()}></div>
                 <nav id='navSolicitacoesDeAmizade' className='navOpcoesHeader'>
-                    <h3 id='navSolicitacoesDeAmizade__titulo'>
+                    <h3 className='navOpcoesHeader__titulo'>
                         Solicitações de amizade
                     </h3>
                     <ul id="listaDeSolicitacoesDeAmizade">

@@ -2,6 +2,7 @@ import React from 'react';
 import './OpcoesHeader.css';
 import { useState } from 'react';
 import ModalSolicitacoesDeAmizade from './ModalSolicitacoesDeAmizade';
+import ModalMensagens from './ModalMensagens';
 
 export default function OpcoesHeader() {
 
@@ -56,6 +57,7 @@ export default function OpcoesHeader() {
                 <img src="imagensDinamicas/perfil.jpg" alt="" />
             </i>
             <ModalSolicitacoesDeAmizade aberto={modalSolicitacoesDeAmizadeAberto} clickFora={fecharModais} />
+            <ModalMensagens aberto={modalMensagensAberto} clickFora={fecharModais} />
         </div>
     )
 }

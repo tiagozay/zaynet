@@ -1,33 +1,5 @@
 #navSolicitacoesDeAmizade{
-    background-color: #242526;
-    box-shadow: 0 0 5px rgba(20, 20, 20, 0.397);
-    min-height: 200px;
-    max-height: 550px;
-    position: fixed;
-    top: 80px;
-    width: 450px;
-    right: 10px;
-    font-family: 'Montserrat', sans-serif;
-    padding: 9px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    overflow-y: scroll;
-}
-#navSolicitacoesDeAmizade::-webkit-scrollbar {
-    width: 10px;
-}
-#navSolicitacoesDeAmizade::-webkit-scrollbar-thumb {
-    background-color: #666668; 
-    border-radius: 5px;
-}
-#navSolicitacoesDeAmizade::-webkit-scrollbar-track {
-    background-color: #242526;
-}
-#navSolicitacoesDeAmizade__titulo{
-    font-size: 22px;
-    font-weight: bold;
-    color: rgb(230, 230, 230);
-    padding: 9px;
+    
 }
 #listaDeSolicitacoesDeAmizade{
     margin-top: 30px;
