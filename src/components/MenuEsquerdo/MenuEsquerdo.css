@@ -1,7 +1,7 @@
 #menuEsquerdo{
     background-color: #18191A;
     height: 89vh;
-    width: 350px;
+    width: 300px;
     position: fixed;
 }
 #menuEsquerdo__opcoes{
@@ -19,11 +19,11 @@
     background-color: #3A3B3C;
 }
 #menuEsquerdo__opcao__perfil{
-    width: 45px;
+    width: 38px;
     border-radius: 50%;
 }
 #menuEsquerdo__opcao__icone{
-    font-size: 25px;
+    font-size: 20px;
     background-color: #4B4A4A;
     border-radius: 50%;
     color: white;
@@ -32,7 +32,7 @@
 #menuEsquerdo__opcao__nome{
     font-family: 'Montserrat', sans-serif;
     color: rgb(230, 230, 230);
-    font-size: 16px;
-    margin-left: 12px;
+    font-size: 14px;
+    margin-left: 10px;
     font-weight: 600;
 }

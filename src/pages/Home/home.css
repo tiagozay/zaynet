@@ -1,0 +1,9 @@
+#feed{
+    width: 800px;
+    height: 2000px;
+    background-color: red;
+
+    /* Ajustes para compensar a parte do menu */
+    margin-left: 350px;
+    padding-top: 80px;
+}

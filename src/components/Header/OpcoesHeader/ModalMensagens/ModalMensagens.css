@@ -12,7 +12,7 @@
     background-color: #333435;
 }
 #mensagem__perfil{
-    width: 58px;
+    width: 54px;
     border-radius: 50%;
 }
 #mensagem__informacoesPessoa{
@@ -24,7 +24,8 @@
 }
 #mensagem__informacoesPessoa__nome{
     font-weight: 600;
+    font-size: 14px;
 }
 #mensagem__informacoesPessoa__ultimaMensagem{
-    font-size: 15px;
+    font-size: 13px;
 }
