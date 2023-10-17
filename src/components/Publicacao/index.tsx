@@ -3,7 +3,7 @@ import './Publicacao.css';
 import UltimaImagemComSobreposicao from './UltimaImagemComSobreposicao';
 import CarrosselDeImagens from '../CarrosselDeImagens';
 import { CarrosselDeImagensContext } from '../../contexts/CarrosselDeImagens';
-import {useContext} from 'react';
+import { useContext } from 'react';
 
 export default function Publicacao() {
 
@@ -24,13 +24,13 @@ export default function Publicacao() {
 
   const classeDeCadaImagem = publicacao.imagens.length === 1 ? "imagemOcupandoTodoTamanho" : "imagemOcupandoMetade";
 
-  const {abrir} = useContext(CarrosselDeImagensContext); 
+  const { abrir } = useContext(CarrosselDeImagensContext);
 
-  function aoClicarEmUmaImagem(indice: number) { 
+  function aoClicarEmUmaImagem(indice: number) {
     abrir(publicacao.imagens, indice);
   }
 
-  function aoClicarEmVerMaisImagens() { 
+  function aoClicarEmVerMaisImagens() {
     abrir(publicacao.imagens, 3);
   }
 
