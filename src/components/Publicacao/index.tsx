@@ -1,5 +1,9 @@
 import React from 'react';
 import './Publicacao.css';
+import UltimaImagemComSobreposicao from './UltimaImagemComSobreposicao';
+import CarrosselDeImagens from '../CarrosselDeImagens';
+import { CarrosselDeImagensContext } from '../../contexts/CarrosselDeImagens';
+import {useContext} from 'react';
 
 export default function Publicacao() {
 
@@ -11,12 +15,24 @@ export default function Publicacao() {
     imagens: [
       './imagensDinamicas/publicacoes/pub1.jpg',
       './imagensDinamicas/publicacoes/pub2.jpg',
-      './imagensDinamicas/publicacoes/pub2.jpg',
-      './imagensDinamicas/publicacoes/pub1.jpg',
+      './imagensDinamicas/publicacoes/pub3.jpg',
+      './imagensDinamicas/publicacoes/pub4.jpg',
+      './imagensDinamicas/publicacoes/pub5.jpg',
+      './imagensDinamicas/publicacoes/pub6.jpg',
     ]
   }
 
   const classeDeCadaImagem = publicacao.imagens.length === 1 ? "imagemOcupandoTodoTamanho" : "imagemOcupandoMetade";
+
+  const {abrir} = useContext(CarrosselDeImagensContext); 
+
+  function aoClicarEmUmaImagem(indice: number) { 
+    abrir(publicacao.imagens, indice);
+  }
+
+  function aoClicarEmVerMaisImagens() { 
+    abrir(publicacao.imagens, 3);
+  }
 
   return (
     <div id='publicacao'>
@@ -32,32 +48,26 @@ export default function Publicacao() {
 
       <div id='publicacao__imagens'>
         {
-          publicacao.imagens.map((imagem, index) => {
+          publicacao.imagens.slice(0, 4).map((imagem, index) => {
 
             if (index === 3) {
 
-              const style = {
-                backgroundImage: `url(${imagem})`,
-                backgroundPosition: 'center',
-                backgroundSize: '100%'
-              }
-
-              return <div 
-                id='publicacao__imagens__sobreposicaoDaUltimaImagem' 
-                className={classeDeCadaImagem}
-                style={style}
-              >
-                <div>
-                  
-                </div>
-              </div>
+              return <UltimaImagemComSobreposicao
+                urlImagem={imagem}
+                key={imagem}
+                classeDeCadaImagem={classeDeCadaImagem}
+                quantidadeDeImagensRestantes={publicacao.imagens.slice(4).length}
+                aoClicarEmVerTodasImagens={aoClicarEmVerMaisImagens}
+              />
 
             } else {
               return < img
-                src={`${imagem}`}
+                key={imagem}
+                src={imagem}
                 alt="Imagem publicação"
                 id='publicacao_imagem'
                 className={classeDeCadaImagem}
+                onClick={() => aoClicarEmUmaImagem(index)}
               />
             }
 
