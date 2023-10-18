@@ -12,6 +12,31 @@
     align-items: center;
     justify-content: center;
 }
+#carrosselImagens__loader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    width: 500px;
+    height: 550px;
+    position: relative;
+}
+#laoder{
+    width: 30%;
+    height: 100%;
+    background: linear-gradient(to right, #00000000 0%, rgba(0, 0, 0, 0.485) 50%, #00000000 100%);
+    position: absolute;
+    animation: load 1s linear infinite;
+}
+@keyframes load {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+#carrosselImagens__imagens{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 #carrosselImagens__imagem{
     width: 500px;
     display: none;

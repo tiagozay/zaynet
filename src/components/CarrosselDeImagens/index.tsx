@@ -7,6 +7,8 @@ export default function CarrosselDeImagens() {
 
   const overlay = useRef(null);
 
+  const [indicadorImagensCarregadas, setIndicadorImagensCarregadas] = useState(false);
+
   const {
     carrosselAberto,
     imagensDoCarrossel,
@@ -17,7 +19,7 @@ export default function CarrosselDeImagens() {
 
 
   useEffect(() => {
-    document.addEventListener('keydown', (event: KeyboardEvent) => event.key === 'Escape' && fechar() );
+    document.addEventListener('keydown', (event: KeyboardEvent) => event.key === 'Escape' && fechar());
   }, []);
 
 
@@ -43,24 +45,44 @@ export default function CarrosselDeImagens() {
     }
   }
 
+  let contador = 0;
+  function imagemCarregada() {
+    contador++;
+    if (contador === imagensDoCarrossel.length) {
+      setIndicadorImagensCarregadas(true);
+    }
+  }
+
   return (
 
     carrosselAberto &&
 
     <div id='carrosselImagens__overlay' onClick={clickOverlay} ref={overlay} >
-      <button onClick={voltarImagem}>Voltar</button>
-      {
-        imagensDoCarrossel.map((imagem, index) => {
-          return <img
-            key={index}
-            src={imagem}
-            alt="Imagem publicação"
-            id="carrosselImagens__imagem"
-            className={`${(index === indiceImagemAtual) && 'imagemExibida'}`}
-          />
-        })
-      }
-      <button onClick={avancarImagem}>Avançar</button>
+
+      <div id='carrosselImagens__loader' className={`${indicadorImagensCarregadas && 'displayNone'}`}>
+        <div id='laoder'>
+
+        </div>
+      </div>
+
+      <div id='carrosselImagens__imagens' className={`${!indicadorImagensCarregadas && 'displayNone'}`}>
+        <button onClick={voltarImagem}>Voltar</button>
+        {
+          imagensDoCarrossel.map((imagem, index) => {
+            return <img
+              key={index}
+              src={imagem}
+              alt="Imagem publicação"
+              id="carrosselImagens__imagem"
+              className={`${(index === indiceImagemAtual) && 'imagemExibida'}`}
+              onLoad={imagemCarregada}
+            />
+          })
+        }
+        <button onClick={avancarImagem}>Avançar</button>
+      </div>
+
+
     </div>
 
   )
