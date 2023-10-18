@@ -66,7 +66,7 @@ export default function CarrosselDeImagens() {
       </div>
 
       <div id='carrosselImagens__imagens' className={`${!indicadorImagensCarregadas && 'displayNone'}`}>
-        <button onClick={voltarImagem}>Voltar</button>
+        <button onClick={voltarImagem} className='material-symbols-outlined carrosselImagens__btnAvancarEVoltar '>arrow_back_ios</button>
         {
           imagensDoCarrossel.map((imagem, index) => {
             return <img
@@ -79,7 +79,7 @@ export default function CarrosselDeImagens() {
             />
           })
         }
-        <button onClick={avancarImagem}>Avançar</button>
+        <button onClick={avancarImagem} className='material-symbols-outlined carrosselImagens__btnAvancarEVoltar'>arrow_forward_ios</button>
       </div>
 
 

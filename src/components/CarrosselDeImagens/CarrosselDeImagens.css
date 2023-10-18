@@ -38,9 +38,20 @@
     justify-content: center;
 }
 #carrosselImagens__imagem{
-    width: 500px;
+    max-width: 85%;
+    max-height: 100vh;
     display: none;
 }
 .imagemExibida{
     display: block!important;
+}
+.carrosselImagens__btnAvancarEVoltar{
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+    border-radius: 50%;
+    margin-left: 30px;
+    margin-right: 30px;
 }
