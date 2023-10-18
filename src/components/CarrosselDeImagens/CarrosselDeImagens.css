@@ -14,4 +14,8 @@
 }
 #carrosselImagens__imagem{
     width: 500px;
+    display: none;
+}
+.imagemExibida{
+    display: block!important;
 }

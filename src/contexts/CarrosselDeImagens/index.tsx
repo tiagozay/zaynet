@@ -33,6 +33,7 @@ export default function CarrosselDeImagensProvider({ children }: { children: Rea
     function fechar() {
         setCarrosselAberto(false);
         setImagensDoCarrossel([]);
+        setIndiceImagemAtual(0);
     }
 
     return (

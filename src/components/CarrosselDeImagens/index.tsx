@@ -15,7 +15,11 @@ export default function CarrosselDeImagens() {
     fechar
   } = useCarrosselContext();
 
-  document.addEventListener('keydown', (event: KeyboardEvent) => event.key === 'Escape' && fechar());
+
+  useEffect(() => {
+    document.addEventListener('keydown', (event: KeyboardEvent) => event.key === 'Escape' && fechar() );
+  }, []);
+
 
   function avancarImagem() {
     if (indiceImagemAtual === imagensDoCarrossel.length - 1) {
@@ -46,7 +50,15 @@ export default function CarrosselDeImagens() {
     <div id='carrosselImagens__overlay' onClick={clickOverlay} ref={overlay} >
       <button onClick={voltarImagem}>Voltar</button>
       {
-        <img src={imagensDoCarrossel[indiceImagemAtual]} alt="Imagem publicação" id="carrosselImagens__imagem" />
+        imagensDoCarrossel.map((imagem, index) => {
+          return <img
+            key={index}
+            src={imagem}
+            alt="Imagem publicação"
+            id="carrosselImagens__imagem"
+            className={`${(index === indiceImagemAtual) && 'imagemExibida'}`}
+          />
+        })
       }
       <button onClick={avancarImagem}>Avançar</button>
     </div>
