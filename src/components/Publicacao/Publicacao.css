@@ -41,6 +41,7 @@
 #publicacao__imagens{
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 15px;
 }
 #publicacao_imagem{
 
@@ -51,3 +52,8 @@
 .imagemOcupandoMetade{
     width: 50%;
 }
+#publicacao__linhaDivisoria{
+    background-color: rgb(72, 72, 72);
+    height: 0.1em;
+}
+

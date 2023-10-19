@@ -1,0 +1,60 @@
+#publicacao__quantidadeDeInteracoes{
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 10px;
+}
+#publicacao__quantidadeDeInteracoes__container{
+    display: flex;
+    justify-content: space-between;
+    width: 14%;
+}
+.publicacao__quantidadeDeInteracoes__interacao{
+    display: flex;
+    align-items: center;
+    color: rgb(209, 209, 209);
+    font-size: 14px;
+}   
+.publicacao__quantidadeDeInteracoes__interacao i{
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 4px;
+}   
+#interacaoLike{
+    color: rgb(213, 213, 213);
+}
+#interacaoLike i{
+    color: rgb(237, 237, 237);
+    background-color:#077DFE;
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-right: 5px;
+    margin-left: 0px;
+}
+#publicacao__opcoesDeInteracao{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+#publicacao__opcoesDeInteracao button{
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(194, 194, 194);
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    padding: 7px 40px;
+    border-radius: 5px;
+    transition: 100ms;
+}
+#publicacao__opcoesDeInteracao button:hover{
+    background-color: #3A3B3C;
+}
+#publicacao__opcoesDeInteracao button i{
+    margin-right: 5px;
+}

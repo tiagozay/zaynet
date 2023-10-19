@@ -1,0 +1,16 @@
+#publicacao__areaComentarios{
+    margin-top: 12px;
+}
+#publicacao__areaComentarios__comentarios{
+    margin-bottom: 10px;
+}
+
+
+#publicacao__inputNovoComentario{
+    display: flex;
+    align-items: center;
+}
+#inputNovoComentario__perfil{
+    border-radius: 50%;
+    width: 40px;
+}

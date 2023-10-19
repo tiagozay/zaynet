@@ -1,0 +1,33 @@
+#inputComentario__divInput{
+    background-color: #3A3B3C;
+    width: 100%;
+    border-radius: 20px;
+    margin-left: 8px;
+    display: flex;
+    align-items: center;
+}
+#inputComentario__input{
+    background-color: transparent;
+    width: 88%;
+    font-family: 'Montserrat', sans-serif;
+    color: rgb(218, 218, 218);
+    border: none;
+    padding: 10px;
+    outline: none;
+    font-size: 14px;
+}
+#inputComentario__btnEnviarComentario{
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: #2176FF;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 200ms;
+}
+.btnComentarInativo{
+    color: #757575!important;
+}
+#inputComentario__input::placeholder{
+    color: rgb(158, 158, 158);
+}

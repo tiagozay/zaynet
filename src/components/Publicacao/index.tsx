@@ -4,6 +4,8 @@ import UltimaImagemComSobreposicao from './UltimaImagemComSobreposicao';
 import CarrosselDeImagens from '../CarrosselDeImagens';
 import { CarrosselDeImagensContext } from '../../contexts/CarrosselDeImagens';
 import { useContext } from 'react';
+import Comentarios from './Comentarios';
+import InteracoesComAPublicacao from './InteracoesComAPublicacao';
 
 export default function Publicacao() {
 
@@ -76,6 +78,10 @@ export default function Publicacao() {
         }
       </div>
 
+      <InteracoesComAPublicacao />
+        
+      <div id='publicacao__linhaDivisoria'></div>
+      <Comentarios />
     </div>
   )
 }
