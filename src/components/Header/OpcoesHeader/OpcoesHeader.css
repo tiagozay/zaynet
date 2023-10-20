@@ -4,26 +4,6 @@
     align-items: center;
     position: relative;
 }
-.opcoesHeaderIcone{
-    color: rgb(238, 238, 238);
-    font-size: 21px;
-    background-color: #3A3B3C;
-    padding: 10px;
-    border-radius: 50%;
-    margin-left: 10px;
-    cursor: pointer;
-    transition: 100ms;
-}
-.opcoesHeader__iconeApenasParaCelular{
-    display: none;
-}
-.opcoesHeaderIcone:hover{
-    background-color: #4b4a4a;
-}
-.opcoesHeaderIcone__ativo{
-    color: #0866FF;
-    background-color: #0867ff1b;
-}
 #opcoesHeaderIcone__perfil{
     padding: 0px;
 }
@@ -78,23 +58,6 @@
 @media(max-width: 600px){
     #opcoesHeader{
         margin-top: 6px;
-    }
-    .opcoesHeader__iconeApenasParaCelular{
-        display: flex;
-    }
-    .opcoesHeaderIcone{
-        width: 100%;
-        color: rgb(238, 238, 238);
-        font-size: 21px;
-        background-color: transparent;
-        padding: 10px;
-        border-radius: 0;
-        margin-left: 0px;
-        cursor: pointer;
-        transition: 100ms;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
     #opcoesHeaderIcone__perfil img{
         width: 33px;

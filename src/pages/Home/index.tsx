@@ -7,14 +7,10 @@ import './home.css';
 export default function Home() {
   return (
     <>
-      <Header></Header>
-      <MenuEsquerdo></MenuEsquerdo>
-
-      <section id='feed'>
+      {/* <section id='feed'>
         <Publicacao></Publicacao>
         <Publicacao></Publicacao>
-      </section>
-
+      </section> */}
 
     </>
   )

@@ -1,15 +1,33 @@
 import React from 'react';
 import './OpcoesHeader.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ModalSolicitacoesDeAmizade from './ModalSolicitacoesDeAmizade';
 import ModalMensagens from './ModalMensagens';
 import ModalNotificacoes from './ModalNotificacoes';
+import OpcaoHeader from './OpcaoHeader';
 
 export default function OpcoesHeader() {
 
     const [modalSolicitacoesDeAmizadeAberto, setModalSolicitacoesDeAmizadeAberto] = useState<boolean>(false);
     const [modalMensagensAberto, setModalMensagensAberto] = useState<boolean>(false);
     const [modalNotificacoesAberto, setModalNotificacoesAberto] = useState<boolean>(false);
+
+    const [indicadorLayoutMobile, setIndicadorLayoutMobile] = useState(false);
+
+    useEffect(() => {
+        verificaTamanhoDaTelaEMudaState();
+        window.addEventListener('resize', () => {
+            verificaTamanhoDaTelaEMudaState();
+        })
+    }, []);
+
+    function verificaTamanhoDaTelaEMudaState() {
+        if (window.innerWidth <= 600) {
+            setIndicadorLayoutMobile(true);
+        } else {
+            setIndicadorLayoutMobile(false);
+        }
+    }
 
     function clickTecla(e: KeyboardEvent) {
         if (e.key === 'Escape') {
@@ -39,33 +57,45 @@ export default function OpcoesHeader() {
 
     return (
         <div id='opcoesHeader'>
-            <i className={`
-                material-symbols-outlined
-                opcoesHeaderIcone 
-                opcoesHeader__iconeApenasParaCelular
-                ${modalSolicitacoesDeAmizadeAberto && "opcoesHeaderIcone__ativo"}
-            `} onClick={clickSolicitacoesDeAmizade}>home</i>
-            <i className={`
-                material-symbols-outlined
-                opcoesHeaderIcone 
-                opcoesHeader__iconeApenasParaCelular
-                ${modalSolicitacoesDeAmizadeAberto && "opcoesHeaderIcone__ativo"}
-            `} onClick={clickSolicitacoesDeAmizade}>group</i>
-            <i className={`
-                material-symbols-outlined
-                opcoesHeaderIcone 
-                ${modalSolicitacoesDeAmizadeAberto && "opcoesHeaderIcone__ativo"}
-            `} onClick={clickSolicitacoesDeAmizade}>group_add</i>
-            <i className={`
-                material-symbols-outlined 
-                opcoesHeaderIcone
-                ${modalMensagensAberto && "opcoesHeaderIcone__ativo"}
-            `} onClick={clickMensagens}>chat_bubble</i>
-            <i className={`
-                material-symbols-outlined 
-                opcoesHeaderIcone
-                ${modalNotificacoesAberto && "opcoesHeaderIcone__ativo"}
-            `} onClick={clickNotificacoes}>notifications</i>
+
+            {
+                indicadorLayoutMobile &&
+                <>
+                    <OpcaoHeader
+                        nomeDoIcone='home'
+                        indicadorLayoutMobile={true}
+                        caminhoParaLinkMobile='/'
+                    />
+
+                    <OpcaoHeader
+                        nomeDoIcone='group'
+                        indicadorLayoutMobile={true}
+                        caminhoParaLinkMobile='/amigos'
+                    />
+
+                </>
+            }
+            <OpcaoHeader
+                nomeDoIcone='group_add'
+                indicadorLayoutMobile={indicadorLayoutMobile}
+                caminhoParaLinkMobile='/solicitacoesDeAmizade'
+                indicadorModalAbertoLayoutPc={modalSolicitacoesDeAmizadeAberto}
+                funcaoAbrirModalLayoutPC={clickSolicitacoesDeAmizade}
+            />
+            <OpcaoHeader
+                nomeDoIcone='chat_bubble'
+                indicadorLayoutMobile={indicadorLayoutMobile}
+                caminhoParaLinkMobile='/mensagens'
+                indicadorModalAbertoLayoutPc={modalMensagensAberto}
+                funcaoAbrirModalLayoutPC={clickMensagens}
+            />
+            <OpcaoHeader
+                nomeDoIcone='notifications'
+                indicadorLayoutMobile={indicadorLayoutMobile}
+                caminhoParaLinkMobile='/notificacoes'
+                indicadorModalAbertoLayoutPc={modalNotificacoesAberto}
+                funcaoAbrirModalLayoutPC={clickNotificacoes}
+            />
             <i className='opcoesHeaderIcone' id='opcoesHeaderIcone__perfil'>
                 <img src="imagensDinamicas/perfil.jpg" alt="" />
             </i>

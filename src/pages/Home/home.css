@@ -4,8 +4,4 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    /* Ajustes para compensar a parte do menu */
-    margin-left: 300px;
-    padding-top: 80px;
 }

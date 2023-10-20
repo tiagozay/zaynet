@@ -4,3 +4,10 @@ body{
 .displayNone{
     display: none!important;
 }
+.espacamentosParaCompensarPartesDoHeader{
+    padding-top: 90px;
+}
+.espacamentosParaCompensarPartesDosMenus{
+    margin-left: 300px;
+    padding-top: 80px;
+}

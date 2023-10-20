@@ -1,0 +1,38 @@
+.opcoesHeaderIcone{
+    color: rgb(238, 238, 238);
+    font-size: 21px;
+    background-color: #3A3B3C;
+    padding: 10px;
+    border-radius: 50%;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: 100ms;
+    text-decoration: none;
+}
+.opcoesHeaderIcone:hover{
+    background-color: #4b4a4a;
+}
+.opcoesHeaderIcone__ativo{
+    color: #0866FF;
+    background-color: #0867ff1b;
+}
+.opcoesHeaderIconeLinkMobile__ativo{
+    color: #0866FF!important;
+    border-bottom: 1px #0866FF solid;
+}
+@media(max-width: 600px){
+    .opcoesHeaderIcone{
+        width: 100%;
+        color: rgb(238, 238, 238);
+        font-size: 21px;
+        background-color: transparent;
+        padding: 10px;
+        border-radius: 0;
+        margin-left: 0px;
+        cursor: pointer;
+        transition: 100ms;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }    
+}
