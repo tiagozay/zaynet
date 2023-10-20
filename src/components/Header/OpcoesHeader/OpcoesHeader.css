@@ -14,6 +14,9 @@
     cursor: pointer;
     transition: 100ms;
 }
+.opcoesHeader__iconeApenasParaCelular{
+    display: none;
+}
 .opcoesHeaderIcone:hover{
     background-color: #4b4a4a;
 }
@@ -66,4 +69,37 @@
     font-weight: bold;
     color: rgb(230, 230, 230);
     padding: 9px;
+}
+@media(max-width: 1050px){
+    #opcoesHeader{
+        justify-content: center;
+    }
+}
+@media(max-width: 600px){
+    #opcoesHeader{
+        margin-top: 6px;
+    }
+    .opcoesHeader__iconeApenasParaCelular{
+        display: flex;
+    }
+    .opcoesHeaderIcone{
+        width: 100%;
+        color: rgb(238, 238, 238);
+        font-size: 21px;
+        background-color: transparent;
+        padding: 10px;
+        border-radius: 0;
+        margin-left: 0px;
+        cursor: pointer;
+        transition: 100ms;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #opcoesHeaderIcone__perfil img{
+        width: 33px;
+        height: 32px;
+        margin-right: 5px;
+    }
+    
 }

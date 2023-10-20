@@ -4,11 +4,25 @@
     height: 80px;
     display: grid;
     grid-template-columns: 33.33% 33.33% 33.33%;
-    justify-content: space-between;
     padding: 0 50px;
     font-family: 'Montserrat', sans-serif;
     box-sizing: border-box;
     position: fixed;
     z-index: 20;
     box-shadow: 0 0 0 0.3px #bdbdbd;
+}
+@media(max-width: 1000px){
+    #cabecalhoPrincipal{
+        display: flex;
+        justify-content: space-between;
+    }
+}
+@media(max-width: 600px){
+    #cabecalhoPrincipal{
+        flex-direction: column;
+        width: 100%;
+        padding: 6px 0px;
+        padding-bottom: 0;
+        height: auto;
+    }
 }

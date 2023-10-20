@@ -32,3 +32,26 @@
     color: rgb(191, 191, 191);
     font-size: 14px;
 }
+@media(max-width: 600px){
+    #logoHeader{
+        width: 38px;
+        height: 38px;
+    }
+    #containerLogoEInput{
+        justify-content: space-between;
+        padding: 0 10px;
+    }
+    #inputPesquisarHeader{
+        display: none;
+    }
+    #divInputPesquisarHeader{
+        width: 38px;
+        height: 38px;
+        padding: 0px;
+        border-radius: 50%;
+        font-size: 22px;
+    }
+    #divInputPesquisarHeader i{
+        font-size: 22px;
+    }
+}

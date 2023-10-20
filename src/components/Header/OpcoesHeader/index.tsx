@@ -42,6 +42,18 @@ export default function OpcoesHeader() {
             <i className={`
                 material-symbols-outlined
                 opcoesHeaderIcone 
+                opcoesHeader__iconeApenasParaCelular
+                ${modalSolicitacoesDeAmizadeAberto && "opcoesHeaderIcone__ativo"}
+            `} onClick={clickSolicitacoesDeAmizade}>home</i>
+            <i className={`
+                material-symbols-outlined
+                opcoesHeaderIcone 
+                opcoesHeader__iconeApenasParaCelular
+                ${modalSolicitacoesDeAmizadeAberto && "opcoesHeaderIcone__ativo"}
+            `} onClick={clickSolicitacoesDeAmizade}>group</i>
+            <i className={`
+                material-symbols-outlined
+                opcoesHeaderIcone 
                 ${modalSolicitacoesDeAmizadeAberto && "opcoesHeaderIcone__ativo"}
             `} onClick={clickSolicitacoesDeAmizade}>group_add</i>
             <i className={`

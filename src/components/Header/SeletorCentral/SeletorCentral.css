@@ -18,3 +18,8 @@
     color: #0866FF;
     border-bottom: 1px solid #0866FF;
 }   
+@media(max-width: 1000px){
+    #seletorCentral{
+        display: none;
+    }
+}
