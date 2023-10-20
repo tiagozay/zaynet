@@ -1,10 +1,10 @@
-#notificacoesPage{
+#mensagensPage{
     width: 100%;
     height: 100vh;
     padding: 112px 12px;
     box-sizing: border-box;
 }
-#notificacoesMobile__titulo{
+#mensagensMobile__titulo{
     font-size: 20px;
     font-weight: 600;
     font-family: 'Montserrat', sans-serif;
@@ -12,34 +12,34 @@
     margin-bottom: 20px;
 
 }
-.notificacoesMobile__notificacao{
+.mensagensMobile__mensagem{
     display: flex;
-    padding: 10px 9px;
+    padding: 12px 9px;
     transition: 200ms;
     cursor: pointer;
     border-radius: 10px;
     font-family: 'Montserrat', sans-serif;
     background-color: #242526;
     margin-bottom: 12px;
+    line-height: 15px;
 
 }
-#notificacaoMobile__perfil{
+#mensagemMobile__perfil{
     width: 54px;
     height: 54px;
     border-radius: 50%;
 }
-#notificacaoMobile__acao{
+#mensagemMobile__informacoesPessoa{
     color: rgb(237, 237, 237);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     margin-left: 10px;
-    margin-top: 10px;
-    font-size: 13px;
-    line-height: 18px;
 }
-#notificacaoMobile__acao__autor{
+#mensagemMobile__informacoesPessoa__nome{
     font-weight: 600;
+    font-size: 14px;
 }
-@media(min-width: 600px){
-    #notificacoesPage{
-        margin-left: 300px;
-    }
+#mensagemMobile__informacoesPessoa__ultimaMensagem{
+    font-size: 13px;
 }

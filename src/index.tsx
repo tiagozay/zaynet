@@ -7,7 +7,8 @@ import './styles/style.css';
 import CarrosselDeImagens from './components/CarrosselDeImagens';
 import CarrosselDeImagensProvider from './contexts/CarrosselDeImagens';
 import PaginaBaseComHeader from './pages/PaginaBaseComHeader';
-import Notificacoes from './pages/NotificacoesParaMobile';
+import NotificacoesParaMobile from './pages/NotificacoesParaMobile';
+import MensagensMobile from './pages/MensagensMobile';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 root.render(
@@ -19,7 +20,8 @@ root.render(
         <Routes>
           <Route path='/' element={<PaginaBaseComHeader />}>
             <Route path='/' element={<Home />} />
-            <Route path='/notificacoes' element={<Notificacoes />} />
+            <Route path='/notificacoes' element={<NotificacoesParaMobile />} />
+            <Route path='/mensagens' element={<MensagensMobile />} />
           </Route>
         </Routes>
       </BrowserRouter>
