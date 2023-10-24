@@ -43,3 +43,8 @@
 #mensagemMobile__informacoesPessoa__ultimaMensagem{
     font-size: 13px;
 }
+@media(min-width: 600px){
+    #mensagensPage{
+        margin-left: 300px;
+    }
+}

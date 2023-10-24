@@ -1,0 +1,74 @@
+#solicitacoesDeAmizadePage{
+    width: 100%;
+    height: 100vh;
+    padding: 112px 12px;
+    box-sizing: border-box;
+}
+#solicitacoesDeAmizadeMobile__titulo{
+    font-size: 20px;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    margin-bottom: 20px;
+
+}
+#listaDeSolicitacoesDeAmizadeMobile__solicitacao{
+    display: flex;
+    padding: 12px 9px;
+    transition: 200ms;
+    cursor: pointer;
+    border-radius: 10px;
+}
+#listaDeSolicitacoesDeAmizadeMobile__solicitacao:hover{
+    background-color: #333435;
+}
+#solicitacaoMobile__perfil{
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+}
+#solicitacaoMobile__informacoesPessoa{
+    color: rgb(237, 237, 237);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: 10px;
+    font-family: 'Montserrat', sans-serif;
+}
+#solicitacaoMobile__informacoesPessoa__nome{
+    font-weight: 600;
+    font-size: 14px;
+}
+#solicitacaoMobile__informacoesPessoa__amigosEmComum{
+    font-size: 12px;
+}
+#solicitacaoMobile__opcoes{
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    margin-left: auto;
+}
+#solicitacaoMobile__opcoes button{
+    border: none;
+    outline: none;
+    color: white;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    padding: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-left: 10px;
+    border-radius: 5px;
+}
+#solicitacaoMobile__opcoes__botaoRemover{
+    background-color: #4E4F50;
+}
+#solicitacaoMobile__opcoes__botaoAceitar{
+    background-color: #0866FF;
+}
+@media(min-width: 600px){
+    #solicitacoesDeAmizadePage{
+        margin-left: 300px;
+        box-sizing: border-box;
+    }
+}

@@ -9,6 +9,7 @@ import CarrosselDeImagensProvider from './contexts/CarrosselDeImagens';
 import PaginaBaseComHeader from './pages/PaginaBaseComHeader';
 import NotificacoesParaMobile from './pages/NotificacoesParaMobile';
 import MensagensMobile from './pages/MensagensMobile';
+import SolicitacoesDeAmizadeMobile from './pages/SolicitacoesDeAmizadeMobile';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 root.render(
@@ -22,6 +23,7 @@ root.render(
             <Route path='/' element={<Home />} />
             <Route path='/notificacoes' element={<NotificacoesParaMobile />} />
             <Route path='/mensagens' element={<MensagensMobile />} />
+            <Route path='/solicitacoesDeAmizade' element={<SolicitacoesDeAmizadeMobile />} />
           </Route>
         </Routes>
       </BrowserRouter>
