@@ -18,6 +18,9 @@
     transition: 200ms;
     cursor: pointer;
     border-radius: 10px;
+    background-color: #242526;
+    margin-bottom: 12px;
+
 }
 #listaDeSolicitacoesDeAmizadeMobile__solicitacao:hover{
     background-color: #333435;

@@ -10,6 +10,7 @@ import PaginaBaseComHeader from './pages/PaginaBaseComHeader';
 import NotificacoesParaMobile from './pages/NotificacoesParaMobile';
 import MensagensMobile from './pages/MensagensMobile';
 import SolicitacoesDeAmizadeMobile from './pages/SolicitacoesDeAmizadeMobile';
+import Amigos from './pages/Amigos';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 root.render(
@@ -24,6 +25,7 @@ root.render(
             <Route path='/notificacoes' element={<NotificacoesParaMobile />} />
             <Route path='/mensagens' element={<MensagensMobile />} />
             <Route path='/solicitacoesDeAmizade' element={<SolicitacoesDeAmizadeMobile />} />
+            <Route path='/amigos' element={<Amigos />} />
           </Route>
         </Routes>
       </BrowserRouter>

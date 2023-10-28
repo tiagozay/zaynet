@@ -1,0 +1,90 @@
+#amigosPage{
+    padding-left: 320px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-top: 100px;
+    width: 53%;
+}
+#amigosPage__container{
+    background-color: #242526;
+    border-radius: 10px;
+    width: 100%;
+    height: 500px;
+    padding: 15px;
+}
+#amigosPage__titulo{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 21px;
+    font-weight: bold;
+    color: rgb(236, 236, 236);
+    margin-bottom: 15px;
+}
+#amigosPage__listaAmigos{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 8px;
+}
+#amigosPage__amigo{
+    display: flex;
+    border: 1px rgb(46, 46, 46) solid;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 10px;
+    cursor: pointer;
+}
+#amigo__perfil{
+    width: 77px;
+    border-radius: 10px;
+}
+#amigo__informacoesAmigo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: rgb(236, 236, 236);
+    font-family: 'Montserrat', sans-serif;
+    margin-left: 10px;
+}
+#amigo__informacoesAmigo__nome{
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+#amigo__informacoesAmigo__amigosEmComum{
+    font-size: 12px;
+}
+@media( max-width: 600px ){
+    #amigosPage{
+        box-sizing: border-box;
+        padding-left: 8px;
+        padding-right: 8px;
+        width: 100%; 
+    }
+    #amigosPage__container{
+        background-color: transparent;
+        box-sizing:border-box;
+        padding: 5px;
+    }
+    #amigosPage__titulo{
+        font-size: 20px;
+        font-weight: 600;
+        font-family: 'Montserrat', sans-serif;
+        color: white;
+        margin-bottom: 20px;
+    }
+    #amigosPage__listaAmigos{
+        grid-template-columns: 100%;
+    }
+    #amigosPage__amigo{
+        border: 1px rgb(39, 39, 39) solid;
+        padding: 10px;
+    }
+    #amigo__perfil{
+        width: 70px;
+    }
+    #amigo__informacoesAmigo__nome{
+        font-size: 15px;
+        margin-bottom: 8px;
+    }
+    #amigo__informacoesAmigo__amigosEmComum{
+        font-size: 11px;
+    }
+}
