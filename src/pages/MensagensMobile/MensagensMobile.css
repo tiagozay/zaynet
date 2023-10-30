@@ -7,7 +7,7 @@
 #mensagensMobile__titulo{
     font-size: 20px;
     font-weight: 600;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--fontePadrao);
     color: white;
     margin-bottom: 20px;
 
@@ -18,7 +18,7 @@
     transition: 200ms;
     cursor: pointer;
     border-radius: 10px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--fontePadrao);
     background-color: #242526;
     margin-bottom: 12px;
     line-height: 15px;

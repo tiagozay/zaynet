@@ -22,7 +22,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--fontePadrao);
     margin-right: 20px;
 
 }
@@ -35,7 +35,7 @@
     background-color: #3A3B3C;
     border: none;
     outline: none;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--fontePadrao);
     color: white;
     padding: 6px 10px;
     border-radius: 10px;
@@ -70,7 +70,7 @@
 }
 #contatosChat__nomeContato{
     color: white;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--fontePadrao);
     margin-left: 8px;
     font-size: 13px;
     font-weight: 600;

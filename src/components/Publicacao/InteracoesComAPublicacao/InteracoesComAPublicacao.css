@@ -1,7 +1,7 @@
 #publicacao__quantidadeDeInteracoes{
     display: flex;
     justify-content: space-between;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--fontePadrao);
     margin-bottom: 10px;
 }
 #publicacao__quantidadeDeInteracoes__container{
@@ -47,7 +47,7 @@
     align-items: center;
     color: rgb(194, 194, 194);
     cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--fontePadrao);
     padding: 7px 40px;
     border-radius: 5px;
     transition: 100ms;

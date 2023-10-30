@@ -7,7 +7,7 @@
 #solicitacoesDeAmizadeMobile__titulo{
     font-size: 20px;
     font-weight: 600;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--fontePadrao);
     color: white;
     margin-bottom: 20px;
 
@@ -36,7 +36,7 @@
     flex-direction: column;
     justify-content: space-around;
     margin-left: 10px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--fontePadrao);
 }
 #solicitacaoMobile__informacoesPessoa__nome{
     font-weight: 600;
@@ -56,7 +56,7 @@
     outline: none;
     color: white;
     cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--fontePadrao);
     padding: 10px;
     font-size: 12px;
     font-weight: 500;

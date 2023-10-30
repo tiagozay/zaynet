@@ -9,7 +9,7 @@
 #inputComentario__input{
     background-color: transparent;
     width: 88%;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--fontePadrao);
     color: rgb(218, 218, 218);
     border: none;
     padding: 10px;

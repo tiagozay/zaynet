@@ -18,7 +18,7 @@
     padding: 0 20px;
 }
 #inputPesquisarHeader{
-    font-family: 'Montserrat', sans-serif;  
+    font-family: var(--fontePadrao);  
     outline: none;
     font-size: 15px;
     background-color: #3A3B3C;

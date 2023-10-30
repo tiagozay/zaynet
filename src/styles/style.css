@@ -1,3 +1,6 @@
+:root{
+    --fontePadrao: 'Roboto', sans-serif;
+}
 body{
     background-color: #18191A;
 }

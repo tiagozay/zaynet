@@ -20,18 +20,18 @@
     justify-content: space-around;
 }
 #publicacao__nomeAutor{
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--fontePadrao);
     color: rgb(231, 231, 231);
     font-weight: 600;
     font-size: 15px;
 }
 #publicacao__tempoDePublicacao{
     font-size: 13px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--fontePadrao);
     color: rgb(165, 165, 165);
 }
 #publicacao__texto{
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--fontePadrao);
     color: rgb(215, 215, 215);
     margin-top: 15px;
     margin-bottom: 15px;

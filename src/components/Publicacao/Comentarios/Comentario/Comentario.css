@@ -1,7 +1,7 @@
 .publicacao__areaComentarios__comentario{
     display: flex;
     align-items: center;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--fontePadrao);
     margin-bottom: 20px;
 }
 .areaComentarios__comentario__container{
@@ -43,7 +43,7 @@
     border: none;
     outline: none;
     cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--fontePadrao);
     color: rgb(227, 227, 227);
     font-size: 12px;
     margin-right: 4px;
