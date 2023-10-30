@@ -58,3 +58,23 @@
 #publicacao__opcoesDeInteracao button i{
     margin-right: 5px;
 }
+@media( max-width: 930px ){
+    #publicacao__opcoesDeInteracao button{
+        font-size: 12px;
+        padding: 7px 20px;
+    }
+    #publicacao__opcoesDeInteracao button i{
+        font-size: 20px;
+    }
+}
+@media(max-width: 410px){
+    #publicacao__quantidadeDeInteracoes__container{
+        width: 22%;
+    }
+    #publicacao__opcoesDeInteracao button{
+        padding: 7px 6px;
+    }
+    #publicacao__opcoesDeInteracao button i{
+        font-size: 19px;
+    }
+}

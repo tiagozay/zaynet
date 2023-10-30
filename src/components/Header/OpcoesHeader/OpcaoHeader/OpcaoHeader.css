@@ -20,7 +20,7 @@
     color: #0866FF!important;
     border-bottom: 1px #0866FF solid;
 }
-@media(max-width: 600px){
+@media(max-width: 680px){
     .opcoesHeaderIcone{
         width: 100%;
         color: rgb(238, 238, 238);

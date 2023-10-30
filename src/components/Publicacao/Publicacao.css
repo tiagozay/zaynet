@@ -56,4 +56,8 @@
     background-color: rgb(72, 72, 72);
     height: 0.1em;
 }
-
+@media(max-width: 680px){
+    #publicacao{
+        border-radius: 0px;
+    } 
+}

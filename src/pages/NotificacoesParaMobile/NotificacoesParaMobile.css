@@ -38,7 +38,7 @@
 #notificacaoMobile__acao__autor{
     font-weight: 600;
 }
-@media(min-width: 600px){
+@media(min-width: 680px){
     #notificacoesPage{
         margin-left: 300px;
     }

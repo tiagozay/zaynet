@@ -52,7 +52,7 @@
 #amigo__informacoesAmigo__amigosEmComum{
     font-size: 12px;
 }
-@media( max-width: 600px ){
+@media( max-width: 680px ){
     #amigosPage{
         padding-left: 8px;
         padding-right: 8px;

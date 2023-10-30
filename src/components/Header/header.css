@@ -17,7 +17,7 @@
         justify-content: space-between;
     }
 }
-@media(max-width: 600px){
+@media(max-width: 680px){
     #cabecalhoPrincipal{
         flex-direction: column;
         width: 100%;

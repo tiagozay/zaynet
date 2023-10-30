@@ -37,7 +37,29 @@
     margin-left: 10px;
     font-weight: 600;
 }
-@media(max-width: 600px){
+@media( max-width: 1250px ){
+    #menuEsquerdo{
+        width: 280px;
+    }
+    #menuEsquerdo__opcao__icone{
+        font-size: 18px;
+    }
+    #menuEsquerdo__opcao__nome{
+        font-size: 13px;
+    }
+}
+@media( max-width: 930px ){
+    #menuEsquerdo{
+        width: 240px;
+    }
+    #menuEsquerdo__opcao__icone{
+        font-size: 18px;
+    }
+    #menuEsquerdo__opcao__nome{
+        font-size: 13px;
+    }
+}
+@media(max-width: 680px){
     #menuEsquerdo{
         display: none;
     }

@@ -55,7 +55,7 @@
         justify-content: center;
     }
 }
-@media(max-width: 600px){
+@media(max-width: 680px){
     #opcoesHeader{
         margin-top: 6px;
     }

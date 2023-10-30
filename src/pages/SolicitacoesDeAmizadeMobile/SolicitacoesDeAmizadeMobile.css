@@ -69,7 +69,7 @@
 #solicitacaoMobile__opcoes__botaoAceitar{
     background-color: #0866FF;
 }
-@media(min-width: 600px){
+@media(min-width: 680px){
     #solicitacoesDeAmizadePage{
         margin-left: 300px;
         box-sizing: border-box;

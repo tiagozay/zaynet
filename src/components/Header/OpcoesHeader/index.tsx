@@ -22,7 +22,7 @@ export default function OpcoesHeader() {
     }, []);
 
     function verificaTamanhoDaTelaEMudaState() {
-        if (window.innerWidth <= 600) {
+        if (window.innerWidth <= 680) {
             setIndicadorLayoutMobile(true);
         } else {
             setIndicadorLayoutMobile(false);
