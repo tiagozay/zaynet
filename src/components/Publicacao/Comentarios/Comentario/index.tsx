@@ -62,7 +62,7 @@ export default function Comentario({ perfilUsuario, nomeUsuario, comentario }: C
                         <div id='comentario__divInputEditarComentario'>
                             <InputComentario ref={inputRef} value={comentario} />
                             <p id="editarComentario__textoCancelar">
-                                Precione Esc para 
+                                Pressione Esc para 
                                 <button onClick={fecharEdicao}>cancelar</button>
                             </p>
                         </div> :

@@ -7,11 +7,10 @@ import './home.css';
 export default function Home() {
   return (
     <>
-      {/* <section id='feed'>
+      <section id='feed'>
         <Publicacao></Publicacao>
         <Publicacao></Publicacao>
-      </section> */}
-
+      </section>
     </>
   )
 }

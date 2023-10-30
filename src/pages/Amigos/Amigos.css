@@ -1,9 +1,10 @@
 #amigosPage{
+    box-sizing: border-box;
     padding-left: 320px;
-    padding-right: 20px;
+    padding-right: 350px;
     padding-bottom: 20px;
     padding-top: 100px;
-    width: 53%;
+    width: 100%;
 }
 #amigosPage__container{
     background-color: #242526;
@@ -53,7 +54,6 @@
 }
 @media( max-width: 600px ){
     #amigosPage{
-        box-sizing: border-box;
         padding-left: 8px;
         padding-right: 8px;
         width: 100%; 

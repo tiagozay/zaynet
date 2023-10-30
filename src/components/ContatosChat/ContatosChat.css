@@ -1,0 +1,78 @@
+#contatosChat{
+    width: 300px;
+    height: 100vh;
+    position: fixed;
+    top: 80px;
+    right: 0;
+    box-sizing: border-box;
+    padding-top: 20px;
+    margin-right: 5px;
+    overflow-y: scroll;
+}  
+#contatosChat::-webkit-scrollbar {
+    background-color: transparent;
+    width: 8px;
+}
+#contatosChat::-webkit-scrollbar-thumb {
+    background-color: #666668; 
+    border-radius: 5px;
+}
+  
+#contatosChat__divTituloEInput{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    margin-right: 20px;
+
+}
+#contatosChatTitulo{
+    color: #9A9CA1;
+    font-weight: 600;
+    font-size: 14px;
+}
+#contatosChat__inputBuscar{
+    background-color: #3A3B3C;
+    border: none;
+    outline: none;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 10px;
+    width: 70%;
+}
+#contatosChat__lupaBuscar{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #9A9CA1;
+    cursor: pointer;
+    padding: 0;
+    font-size: 22px;
+}
+#contatosChat__listaDeContatos{
+    margin-top: 20px;
+}
+.contatosChat__listaDeContatos__contato{
+    display: flex;
+    align-items: center;
+    padding: 8px 4px;
+    cursor: pointer;
+    margin-right: 5px;
+    border-radius: 8px;
+}
+.contatosChat__listaDeContatos__contato:hover{
+    background-color: #303031;
+}
+#contatosChat__perfilContato{
+    width: 34px;
+    border-radius: 50%;
+}
+#contatosChat__nomeContato{
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    margin-left: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgb(235, 235, 235);
+}
