@@ -10,6 +10,10 @@ export default function MenuEsquerdo() {
                 <p id="menuEsquerdo__opcao__nome">Tiago zay</p>
             </li>
             <li id='menuEsquerdo__opcao'>
+                <i className='material-symbols-outlined' id='menuEsquerdo__opcao__icone'>feed</i>
+                <p id="menuEsquerdo__opcao__nome">Home</p>
+            </li>
+            <li id='menuEsquerdo__opcao'>
                 <i className='material-symbols-outlined' id='menuEsquerdo__opcao__icone'>group</i>
                 <p id="menuEsquerdo__opcao__nome">Amigos</p>
             </li>
