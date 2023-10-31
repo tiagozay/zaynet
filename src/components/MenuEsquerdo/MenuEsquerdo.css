@@ -16,6 +16,11 @@
     cursor: pointer;
     transition: 100ms;
 }
+#menuEsquerdo__opcao a{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
 #menuEsquerdo__opcao:hover{
     background-color: #3A3B3C;
 }
