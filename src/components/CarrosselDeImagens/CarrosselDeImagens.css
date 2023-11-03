@@ -3,12 +3,7 @@
     height: 100vh;
     /* background-color: rgba(0, 0, 0, 0.76); */
     background-color: black;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 21;
+    /* position: fixed; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -33,14 +28,22 @@
     0% { left: -100%; }
     100% { left: 100%; }
   }
+#carrosselImagens__imagens__container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
 #carrosselImagens__imagens{
     display: flex;
+    flex-direction: column;
+    width: 100%;
     align-items: center;
     justify-content: center;
 }
 #carrosselImagens__imagem{
     max-width: 85%;
-    max-height: 100vh;
+    max-height: 80vh;
     display: none;
 }
 .imagemExibida{
@@ -56,6 +59,44 @@
     margin-left: 30px;
     margin-right: 30px;
 }
+#divIconeFecharCarrossel{
+    color: white;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    margin-bottom: 20px;
+    margin-top: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+#divIconeFecharCarrossel__icone{
+    color: white;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    margin-right: 15px;
+    cursor: pointer;
+}
+#listaPreviasDasImagens{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+#listaPreviasDasImagens__imagem{
+    width: 48px;
+    height: 48px;
+    background-attachment: fixed;
+    margin: 10px 5px;
+    cursor: pointer;
+    object-fit: cover;
+}
+.listaPreviasDasImagens__imagemSelecionada{
+    width: 55px!important;
+    height: 55px!important;
+}
 @media( max-width: 590px ){
     #carrosselImagens__overlay{
         background-color: black;
@@ -66,5 +107,23 @@
     #carrosselImagens__imagem{
         max-width: 100%;
         display: none;
+    }
+    #listaPreviasDasImagens__imagem{
+        width: 45px;
+        height: 45px;
+    }
+    .listaPreviasDasImagens__imagemSelecionada{
+        width: 50px!important;
+        height: 50px!important;
+    }
+}
+@media( max-width: 380px ){
+    #listaPreviasDasImagens__imagem{
+        width: 40px;
+        height: 40px;
+    }
+    .listaPreviasDasImagens__imagemSelecionada{
+        width: 45px!important;
+        height: 45px!important;
     }
 }

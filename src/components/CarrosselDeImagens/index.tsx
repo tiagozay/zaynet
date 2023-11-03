@@ -43,6 +43,18 @@ export default function CarrosselDeImagens() {
 
   }, []);
 
+  function clickNaImagem(e: React.MouseEvent<HTMLImageElement, MouseEvent>) {
+    const larguraImagem = Number(getComputedStyle(e.target as Element).width.replace("px", ''));
+    const posicaoDoClique = e.nativeEvent.offsetX;
+
+    if (posicaoDoClique > larguraImagem / 2) {
+      avancarImagem();
+    } else {
+      voltarImagem();
+    }
+
+  }
+
   let touchStartX: null | number = null;
 
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
@@ -72,6 +84,11 @@ export default function CarrosselDeImagens() {
     navigate(-1);
   }
 
+  function selecionarImagemEspecifica(indiceImagem: number)
+  {
+    setIndiceImagemAtual(indiceImagem);
+  }
+
   function avancarImagem() {
     if (indiceImagemAtual === imagensDoCarrossel.length - 1) {
       setIndiceImagemAtual(0);
@@ -97,7 +114,11 @@ export default function CarrosselDeImagens() {
   let contador = 0;
   function imagemCarregada() {
     contador++;
-    if (contador === imagensDoCarrossel.length) {
+
+    //Valor multiplicado por 2 pois somente será totalmente carregado quando tanto as imagens normais quanto as previas forem carregadas
+    const quantidadeDeImagensParaRenderizar = imagensDoCarrossel.length * 2;
+
+    if (contador === quantidadeDeImagensParaRenderizar) {
       setIndicadorImagensCarregadas(true);
     }
   }
@@ -112,20 +133,42 @@ export default function CarrosselDeImagens() {
       </div>
 
       <div id='carrosselImagens__imagens' className={`${!indicadorImagensCarregadas ? 'displayNone' : ""}`}>
-        <button onClick={voltarImagem} className='material-symbols-outlined carrosselImagens__btnAvancarEVoltar '>arrow_back_ios</button>
-        {
-          imagensDoCarrossel.map((imagem: string, index: number) => {
-            return <img
-              key={index}
-              src={imagem}
-              alt="Imagem publicação"
-              id="carrosselImagens__imagem"
-              className={`${(index === indiceImagemAtual) && 'imagemExibida'}`}
-              onLoad={imagemCarregada}
-            />
-          })
-        }
-        <button onClick={avancarImagem} className='material-symbols-outlined carrosselImagens__btnAvancarEVoltar'>arrow_forward_ios</button>
+        <div id='divIconeFecharCarrossel'>
+          <button className='material-symbols-outlined' id='divIconeFecharCarrossel__icone' onClick={fechar}>close</button>
+        </div>
+        <div id='carrosselImagens__imagens__container'>
+          <button onClick={voltarImagem} className='material-symbols-outlined carrosselImagens__btnAvancarEVoltar '>arrow_back_ios</button>
+          {
+            imagensDoCarrossel.map((imagem: string, index: number) => {
+              return <img
+                key={index}
+                src={imagem}
+                alt="Imagem publicação"
+                id="carrosselImagens__imagem"
+                className={`${(index === indiceImagemAtual) && 'imagemExibida'}`}
+                onLoad={imagemCarregada}
+                onClick={clickNaImagem}
+              />
+            })
+          }
+          <button onClick={avancarImagem} className='material-symbols-outlined carrosselImagens__btnAvancarEVoltar'>arrow_forward_ios</button>
+        </div>
+        <div id='listaPreviasDasImagens'>
+          {
+            imagensDoCarrossel.map((imagem: string, index: number) => {
+              return <img
+                key={index}
+                src={imagem}
+                alt="Imagem publicação"
+                id="listaPreviasDasImagens__imagem"
+                className={`${(index === indiceImagemAtual) && 'listaPreviasDasImagens__imagemSelecionada'}`}
+                onLoad={imagemCarregada}
+                onClick={ () => selecionarImagemEspecifica(index)}
+              />
+            })
+          }
+        </div>
+
       </div>
     </div>
 
