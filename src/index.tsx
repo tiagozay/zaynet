@@ -5,7 +5,6 @@ import Home from './pages/Home';
 import './styles/reset.css';
 import './styles/style.css';
 import CarrosselDeImagens from './components/CarrosselDeImagens';
-import CarrosselDeImagensProvider from './contexts/CarrosselDeImagens';
 import PaginaBaseComHeader from './pages/PaginaBaseComHeader';
 import NotificacoesParaMobile from './pages/NotificacoesParaMobile';
 import MensagensMobile from './pages/MensagensMobile';
@@ -15,9 +14,6 @@ import Amigos from './pages/Amigos';
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 root.render(
   <React.StrictMode>
-
-    <CarrosselDeImagensProvider>
-      <CarrosselDeImagens />
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<PaginaBaseComHeader />}>
@@ -27,9 +23,8 @@ root.render(
             <Route path='/solicitacoesDeAmizade' element={<SolicitacoesDeAmizadeMobile />} />
             <Route path='/amigos' element={<Amigos />} />
           </Route>
+          <Route path='/image/:objInfoCarrosel' element={<CarrosselDeImagens />}/>
         </Routes>
       </BrowserRouter>
-    </CarrosselDeImagensProvider>
-
   </React.StrictMode>
 );

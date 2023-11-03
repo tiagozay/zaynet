@@ -1,13 +1,13 @@
 import React from 'react';
 import './Publicacao.css';
 import UltimaImagemComSobreposicao from './UltimaImagemComSobreposicao';
-import CarrosselDeImagens from '../CarrosselDeImagens';
-import { CarrosselDeImagensContext } from '../../contexts/CarrosselDeImagens';
-import { useContext } from 'react';
 import Comentarios from './Comentarios';
 import InteracoesComAPublicacao from './InteracoesComAPublicacao';
+import { useNavigate } from 'react-router-dom';
 
 export default function Publicacao() {
+
+  const navigate = useNavigate();
 
   const publicacao = {
     nomeAutor: "Tiago zay",
@@ -15,25 +15,29 @@ export default function Publicacao() {
     tempoDePublicacao: "10 h",
     texto: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero, distinctio autem? Magnam autem quisquam voluptates eius cupiditate. Sapiente blanditiis obcaecati natus, similique, repellendus ipsum ipsam dicta eos consequatur, distinctio soluta?",
     imagens: [
-      './imagensDinamicas/publicacoes/pub1.jpg',
-      './imagensDinamicas/publicacoes/pub2.jpg',
-      './imagensDinamicas/publicacoes/pub3.jpg',
-      './imagensDinamicas/publicacoes/pub4.jpg',
-      './imagensDinamicas/publicacoes/pub5.jpg',
-      './imagensDinamicas/publicacoes/pub6.jpg',
+      '/imagensDinamicas/publicacoes/pub1.jpg',
+      '/imagensDinamicas/publicacoes/pub2.jpg',
+      '/imagensDinamicas/publicacoes/pub3.jpg',
+      '/imagensDinamicas/publicacoes/pub4.jpg',
+      '/imagensDinamicas/publicacoes/pub5.jpg',
+      '/imagensDinamicas/publicacoes/pub6.jpg',
     ]
   }
 
   const classeDeCadaImagem = publicacao.imagens.length === 1 ? "imagemOcupandoTodoTamanho" : "imagemOcupandoMetade";
 
-  const { abrir } = useContext(CarrosselDeImagensContext);
-
   function aoClicarEmUmaImagem(indice: number) {
-    abrir(publicacao.imagens, indice);
+    const info = JSON.stringify(
+      {imagensDoCarrossel: publicacao.imagens, indiceImagemInicial: indice}
+    );
+    navigate(`/image/${ encodeURIComponent(info) }`);
   }
 
   function aoClicarEmVerMaisImagens() {
-    abrir(publicacao.imagens, 3);
+    const info = JSON.stringify(
+      {imagensDoCarrossel: publicacao.imagens, indiceImagemInicial: 3}
+    );
+    navigate(`/image/${ encodeURIComponent(info) }`);
   }
 
   return (

@@ -1,27 +1,76 @@
 import React, { useRef } from 'react';
 import './CarrosselDeImagens.css';
-import { useCarrosselContext } from '../../contexts/CarrosselDeImagens';
 import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function CarrosselDeImagens() {
+  const [indiceImagemAtual, setIndiceImagemAtual] = useState(0);
+  const [imagensDoCarrossel, setImagensDoCarrossel] = useState<string[]>([]);
+  const [indicadorImagensCarregadas, setIndicadorImagensCarregadas] = useState(false);
+
+  const navigate = useNavigate();
 
   const overlay = useRef(null);
 
-  const [indicadorImagensCarregadas, setIndicadorImagensCarregadas] = useState(false);
-
-  const {
-    carrosselAberto,
-    imagensDoCarrossel,
-    indiceImagemAtual,
-    setIndiceImagemAtual,
-    fechar
-  } = useCarrosselContext();
-
-
   useEffect(() => {
-    document.addEventListener('keydown', (event: KeyboardEvent) => event.key === 'Escape' && fechar());
+
+    let handleEscKey = (event: KeyboardEvent) => {
+      event.key === 'Escape' && fechar();
+    }
+
+    document.addEventListener('keydown', handleEscKey);
+
+    return () => {
+      document.removeEventListener('keydown', handleEscKey);
+    };
   }, []);
 
+  let paramsInfo;
+
+  const params = useParams();
+
+  useEffect(() => {
+    if (params.objInfoCarrosel) {
+      paramsInfo = JSON.parse(
+        params.objInfoCarrosel
+      ) as { imagensDoCarrossel: string[], indiceImagemInicial: number };
+    } else {
+      return;
+    }
+
+    setIndiceImagemAtual(paramsInfo.indiceImagemInicial);
+    setImagensDoCarrossel(paramsInfo.imagensDoCarrossel);
+
+  }, []);
+
+  let touchStartX: null | number = null;
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    touchStartX = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (touchStartX === null) return;
+
+    const touchCurrentX = e.touches[0].clientX;
+    const deltaX = touchCurrentX - touchStartX;
+
+    if (deltaX > 10) {
+      voltarImagem();
+    } else if (deltaX < -10) {
+      avancarImagem();
+    }
+
+    touchStartX = null;
+  };
+
+  const handleTouchEnd = () => {
+    touchStartX = null;
+  };
+
+  function fechar() {
+    navigate(-1);
+  }
 
   function avancarImagem() {
     if (indiceImagemAtual === imagensDoCarrossel.length - 1) {
@@ -54,21 +103,18 @@ export default function CarrosselDeImagens() {
   }
 
   return (
+    <div id='carrosselImagens__overlay' onClick={clickOverlay} ref={overlay} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
 
-    carrosselAberto &&
-
-    <div id='carrosselImagens__overlay' onClick={clickOverlay} ref={overlay} >
-
-      <div id='carrosselImagens__loader' className={`${indicadorImagensCarregadas && 'displayNone'}`}>
+      <div id='carrosselImagens__loader' className={`${indicadorImagensCarregadas ? 'displayNone' : ""}`}>
         <div id='laoder'>
 
         </div>
       </div>
 
-      <div id='carrosselImagens__imagens' className={`${!indicadorImagensCarregadas && 'displayNone'}`}>
+      <div id='carrosselImagens__imagens' className={`${!indicadorImagensCarregadas ? 'displayNone' : ""}`}>
         <button onClick={voltarImagem} className='material-symbols-outlined carrosselImagens__btnAvancarEVoltar '>arrow_back_ios</button>
         {
-          imagensDoCarrossel.map((imagem, index) => {
+          imagensDoCarrossel.map((imagem: string, index: number) => {
             return <img
               key={index}
               src={imagem}
@@ -81,8 +127,6 @@ export default function CarrosselDeImagens() {
         }
         <button onClick={avancarImagem} className='material-symbols-outlined carrosselImagens__btnAvancarEVoltar'>arrow_forward_ios</button>
       </div>
-
-
     </div>
 
   )
