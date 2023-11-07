@@ -17,6 +17,10 @@
     color: rgb(191, 191, 191);
     padding: 0 20px;
 }
+#divInputPesquisarHeader a{
+    text-decoration: none;
+    color: rgb(191, 191, 191);
+}
 #inputPesquisarHeader{
     font-family: var(--fontePadrao);  
     outline: none;
