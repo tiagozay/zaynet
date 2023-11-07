@@ -1,0 +1,1 @@
+export const tamanhoDeTelaMobile = 680;

@@ -5,6 +5,7 @@ import ModalSolicitacoesDeAmizade from './ModalSolicitacoesDeAmizade';
 import ModalMensagens from './ModalMensagens';
 import ModalNotificacoes from './ModalNotificacoes';
 import OpcaoHeader from './OpcaoHeader';
+import { tamanhoDeTelaMobile } from '../../../config';
 
 export default function OpcoesHeader() {
 
@@ -22,7 +23,7 @@ export default function OpcoesHeader() {
     }, []);
 
     function verificaTamanhoDaTelaEMudaState() {
-        if (window.innerWidth <= 680) {
+        if (window.innerWidth <= tamanhoDeTelaMobile) {
             setIndicadorLayoutMobile(true);
         } else {
             setIndicadorLayoutMobile(false);
