@@ -34,7 +34,7 @@
     cursor: pointer;
 }
 #amigo__perfil{
-    width: 77px;
+    width: 72px;
     border-radius: 10px;
 }
 #amigo__informacoesAmigo{
@@ -48,6 +48,7 @@
 #amigo__informacoesAmigo__nome{
     font-weight: bold;
     margin-bottom: 5px;
+    font-size: 14px;
 }
 #amigo__informacoesAmigo__amigosEmComum{
     font-size: 12px;

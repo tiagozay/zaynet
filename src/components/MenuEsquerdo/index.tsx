@@ -19,13 +19,7 @@ export default function MenuEsquerdo() {
                     </Link>
                 </li>
                 <li id='menuEsquerdo__opcao'>
-                    <Link to="/amigos">
-                        <i className='material-symbols-outlined' id='menuEsquerdo__opcao__icone'>group</i>
-                        <p id="menuEsquerdo__opcao__nome">Amigos</p>
-                    </Link>
-                </li>
-                <li id='menuEsquerdo__opcao'>
-                    <Link to="">
+                    <Link to="/adicionarAmigos">
                         <i className='material-symbols-outlined' id='menuEsquerdo__opcao__icone'>group_add</i>
                         <p id="menuEsquerdo__opcao__nome">Adicionar amigos</p>
                     </Link>

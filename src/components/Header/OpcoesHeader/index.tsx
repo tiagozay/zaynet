@@ -68,9 +68,9 @@ export default function OpcoesHeader() {
                     />
 
                     <OpcaoHeader
-                        nomeDoIcone='group'
+                        nomeDoIcone='group_add'
                         indicadorLayoutMobile={true}
-                        caminhoParaLinkMobile='/amigos'
+                        caminhoParaLinkMobile='/adicionarAmigos'
                     />
 
                 </>

@@ -13,11 +13,11 @@ export default function SeletorCentral() {
                     className='material-symbols-outlined seletorCentralIcone'
                 >home</Link>
             </div>
-            <div className={`divLinkSeletorCentarl ${ location.pathname === '/amigos' && 'seletorCentralIconeSelecionado'}`}>
+            <div className={`divLinkSeletorCentarl ${ location.pathname === '/adicionarAmigos' && 'seletorCentralIconeSelecionado'}`}>
                 <Link
-                    to='/amigos'
+                    to='/adicionarAmigos'
                     className='material-symbols-outlined seletorCentralIcone'
-                >group</Link>
+                >group_add</Link>
             </div>
         </div>
     )
