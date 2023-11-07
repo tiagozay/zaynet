@@ -9,8 +9,8 @@ import PaginaBaseComHeader from './pages/PaginaBaseComHeader';
 import NotificacoesParaMobile from './pages/NotificacoesParaMobile';
 import MensagensMobile from './pages/MensagensMobile';
 import SolicitacoesDeAmizadeMobile from './pages/SolicitacoesDeAmizadeMobile';
-import Amigos from './pages/Amigos';
 import AdicionarAmigos from './pages/AdicionarAmigos';
+import PesquisarPorUmaPessoaMobile from './pages/PesquisarPorUmaPessoaMobile';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 root.render(
@@ -25,6 +25,7 @@ root.render(
             <Route path='/adicionarAmigos' element={<AdicionarAmigos />} />
           </Route>
           <Route path='/image/:objInfoCarrosel' element={<CarrosselDeImagens />}/>
+          <Route path='/pesquisar' element={<PesquisarPorUmaPessoaMobile />}/>
         </Routes>
       </BrowserRouter>
   </React.StrictMode>
