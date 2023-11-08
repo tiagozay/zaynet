@@ -1,0 +1,76 @@
+#comentario__container{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.areaComentarios__comentario__conteudo{
+    width: 100%;
+}
+.comentario__perfil{
+    width: 40px;
+    border-radius: 50%;
+}
+.comenario__nomeEComentario{
+    background-color: #3A3B3C;
+    padding: 8px 14px;
+    box-sizing: border-box;
+    margin-left: 5px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.comentario__nome{
+    font-size: 13px;
+    font-weight: 600;
+    color: rgb(224, 224, 224);
+}
+.comentario__conteudo{
+    font-size: 14px;
+    color: rgb(224, 224, 224);
+    margin-top: 4px;
+    line-height: 17px;
+}
+.areaComentarios__comentario__container{
+
+}
+.comentario__opcoes{
+    margin-left: 10px;
+    margin-top: 2px;
+}
+.comentario__opcao{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-family: var(--fontePadrao);
+    color: rgb(227, 227, 227);
+    font-size: 12px;
+    margin-right: 4px;
+}
+.comentario__opcao:hover{
+    text-decoration: underline;
+}
+#comentario__opcaoExcluir{
+    color: rgb(145, 32, 32);
+}
+.btnDeCurtirJaPrecionado{
+    color: #0866FF;
+}
+#editarComentario__textoCancelar{
+    font-size: 12px;
+    color: rgb(223, 223, 223);
+    margin-left: 15px;
+    margin-top: 3px;
+}
+#editarComentario__textoCancelar button{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #0866FF;
+    cursor: pointer;
+    transition: 100ms;
+    padding: 0 4px;
+}
+#editarComentario__textoCancelar button:hover{
+    text-decoration: underline;
+}

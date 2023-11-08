@@ -4,6 +4,24 @@ import { useState } from 'react';
 import Comentario from './Comentario';
 import InputComentario from './InputComentario';
 
+// class ComentarioOBJ{
+//   public perfilUsuario: string;
+//   public nomeUsuario: string;
+//   public comentario: string;
+
+//   constructor(
+//     perfilUsuario: string,
+//     nomeUsuario: string,
+//     comentario: string,
+//   )
+//   {
+//     this.perfilUsuario = perfilUsuario;
+//     this.nomeUsuario = nomeUsuario;
+//     this.comentario = comentario;
+//   }
+// }
+
+
 export default function Comentarios() {
   return (
     <div id='publicacao__areaComentarios'>
@@ -14,12 +32,31 @@ export default function Comentarios() {
           perfilUsuario='./imagensDinamicas/perfil.jpg'
           nomeUsuario='Tiago zay'
           comentario='Que maravilha!'
+          respostas={[
+            {
+              perfilUsuario: './imagensDinamicas/perfil2.jpg',
+              nomeUsuario: 'Ervino zay',
+              comentario: 'To prawda!',
+            }
+          ]}
         />
 
         <Comentario
           perfilUsuario='./imagensDinamicas/perfil2.jpg'
           nomeUsuario='Ervino zay'
           comentario='Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem voluptatum, nulla voluptatibus numquam vel nam, fuga quas pariatur architecto aperiam, ipsam minus asperiores aspernatur sit. Facere soluta modi libero eaque?'
+          respostas={[
+            {
+              perfilUsuario: './imagensDinamicas/perfil.jpg',
+              nomeUsuario: 'Tiago zay',
+              comentario: 'Ta lokiando cara?',
+            },
+            {
+              perfilUsuario: './imagensDinamicas/perfil2.jpg',
+              nomeUsuario: 'Ervino zay',
+              comentario: 'Não, são apenas palavras.',
+            },
+          ]}
         />
       </ul>
 
