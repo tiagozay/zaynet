@@ -77,7 +77,7 @@ export default function OpcoesHeader() {
                 </>
             }
             <OpcaoHeader
-                nomeDoIcone='group_add'
+                nomeDoIcone='group'
                 indicadorLayoutMobile={indicadorLayoutMobile}
                 caminhoParaLinkMobile='/solicitacoesDeAmizade'
                 indicadorModalAbertoLayoutPc={modalSolicitacoesDeAmizadeAberto}
