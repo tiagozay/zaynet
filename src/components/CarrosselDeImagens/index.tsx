@@ -10,7 +10,7 @@ export default function CarrosselDeImagens() {
 
   const navigate = useNavigate();
 
-  const overlay = useRef(null);
+  const container = useRef(null);
 
   useEffect(() => {
 
@@ -106,7 +106,7 @@ export default function CarrosselDeImagens() {
   }
 
   function clickOverlay(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    if (event.target === overlay.current) {
+    if (event.target === container.current) {
       fechar();
     }
   }
@@ -124,7 +124,7 @@ export default function CarrosselDeImagens() {
   }
 
   return (
-    <div id='carrosselImagens__overlay' onClick={clickOverlay} ref={overlay} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
+    <div id='carrosselImagens__overlay' onClick={clickOverlay} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
 
       <div id='carrosselImagens__loader' className={`${indicadorImagensCarregadas ? 'displayNone' : ""}`}>
         <div id='laoder'>
@@ -136,7 +136,7 @@ export default function CarrosselDeImagens() {
         <div id='divIconeFecharCarrossel'>
           <button className='material-symbols-outlined' id='divIconeFecharCarrossel__icone' onClick={fechar}>close</button>
         </div>
-        <div id='carrosselImagens__imagens__container'>
+        <div id='carrosselImagens__imagens__container'  ref={container} >
           <button onClick={voltarImagem} className='material-symbols-outlined carrosselImagens__btnAvancarEVoltar '>arrow_back_ios</button>
           {
             imagensDoCarrossel.map((imagem: string, index: number) => {

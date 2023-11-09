@@ -25,8 +25,9 @@ export default function Comentario({ perfilUsuario, nomeUsuario, comentario, res
             <ul id="comentario__listaDeRespostas">
                 {
 
-                    respostas?.map(resposta => (
+                    respostas?.map((resposta, index) => (
                         <EstruturaDoComentario
+                            key={index}
                             comentario={resposta.comentario}
                             nomeUsuario={resposta.nomeUsuario}
                             perfilUsuario={resposta.perfilUsuario}

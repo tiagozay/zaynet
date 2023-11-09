@@ -33,7 +33,7 @@
     display: flex;
     align-items: center;
     font-family: var(--fontePadrao);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 #pesquisarPorUmaPessoaMobile__listaDeResultados__resultado__perfil{
     width: 32px;
