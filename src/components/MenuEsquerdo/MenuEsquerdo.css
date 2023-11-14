@@ -16,10 +16,15 @@
     cursor: pointer;
     transition: 100ms;
 }
-#menuEsquerdo__opcao a{
+#menuEsquerdo__opcao__botao{
     display: flex;
     align-items: center;
     text-decoration: none;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
 }
 #menuEsquerdo__opcao:hover{
     background-color: #3A3B3C;
