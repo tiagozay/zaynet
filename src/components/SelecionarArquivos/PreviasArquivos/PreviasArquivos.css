@@ -1,0 +1,40 @@
+#inputArquivos__previas{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+#inputArquivos__previas__listaDasPrevias{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 8px;
+    padding: 0 2px;
+    padding-right: 10px!important;
+    box-sizing: border-box;
+    margin-top: 8px;
+}
+#inputArquivos__previa{
+    height: 100px!important;
+    width: 100%;
+    border: 1px rgb(89, 89, 89) solid;
+    border-radius: 10px;
+}
+#inputArquivos__previas__divBtnFechar{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+}
+#inputArquivos__arrasteESolteImagensEVideos__fecharPrevias{
+    background-color: #434445;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    color: rgb(166, 166, 166);
+    cursor: pointer;
+    font-size: 20px;
+}

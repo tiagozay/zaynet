@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './ModalPublicar.css';
+import SelecionarArquivos from '../SelecionarArquivos';
 
 interface ModalPublicarProps {
     modalAberto: boolean,
@@ -8,20 +9,49 @@ interface ModalPublicarProps {
 
 export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublicarProps) {
 
+    const [indicadorInputImagensEVideosAberto, setIndicadorInputImagensEVideosAberto] = useState(false);
     const [permisaoParaPublicar, setPermisaoParaPublicar] = useState(false);
     const [indicadorAlgumTextoDigitado, setIndicadorAlgumTextoDigitado] = useState(false);
-    const [indicadorAlgumaImagemSelecionada, setIndicadorAlgumaImagemSelecionada] = useState(false);
-    const [indicadorAlgumVideoSelecionado, setIndicadorAlgumVideoSelecionado] = useState(false);
+    const [indicadorAlgumaMidiaSelecionada, setIndicadorAlgumaMidiaSelecionada] = useState(false);
+
+    const [textoDigitado, setTextoDigitado] = useState<string | null>(null);
+    const [arquivosSelecionados, setArquivosSelecionados] = useState<FileList | null>(null);
 
     const container = useRef(null);
 
+    //Este useEffect é responsável por resetar os estados toda vez que o modal for re-aberto.
     useEffect(() => {
-        if(indicadorAlgumTextoDigitado || indicadorAlgumaImagemSelecionada || indicadorAlgumVideoSelecionado){
+        setIndicadorInputImagensEVideosAberto(false);
+        setPermisaoParaPublicar(false);
+        setIndicadorAlgumTextoDigitado(false);
+        setIndicadorAlgumaMidiaSelecionada(false);
+        setTextoDigitado(null);
+        setArquivosSelecionados(null);
+    }, [modalAberto]);
+
+    useEffect(() => {
+        if (textoDigitado && textoDigitado.length > 0) {
+            setIndicadorAlgumTextoDigitado(true);
+        } else {
+            setIndicadorAlgumTextoDigitado(false);
+        }
+    }, [textoDigitado]);
+
+    useEffect(() => {
+        if (arquivosSelecionados) {
+            setIndicadorAlgumaMidiaSelecionada(true);
+        } else {
+            setIndicadorAlgumaMidiaSelecionada(false);
+        }
+    }, [arquivosSelecionados]);
+
+    useEffect(() => {
+        if (indicadorAlgumTextoDigitado || indicadorAlgumaMidiaSelecionada) {
             setPermisaoParaPublicar(true);
-        }else{
+        } else {
             setPermisaoParaPublicar(false);
         }
-    }, [indicadorAlgumTextoDigitado, indicadorAlgumaImagemSelecionada, indicadorAlgumVideoSelecionado]);
+    }, [indicadorAlgumTextoDigitado, indicadorAlgumaMidiaSelecionada]);
 
     useEffect(() => {
 
@@ -36,26 +66,29 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
         };
     }, []);
 
-    function clickOverlay(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-        if (event.target === container.current) {
-            fecharModal();
-        }
-    }
-
     if (!modalAberto) {
         document.body.style.overflowY = 'scroll';
         return null;
     }
 
     document.body.style.overflowY = 'hidden';
-    
-    function aoDigitarTexto(e: React.ChangeEvent<HTMLTextAreaElement>)
-    {
-        if(e.target.value.trim().length != 0){
-            setIndicadorAlgumTextoDigitado(true);
-        }else{
-            setIndicadorAlgumTextoDigitado(false);
+
+    function clickOverlay(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+        if (event.target === container.current) {
+            fecharModal();
         }
+    }
+
+    function aoDigitarTexto(e: React.ChangeEvent<HTMLTextAreaElement>) {
+        setTextoDigitado(e.target.value.trim());
+    }
+
+    function abrirInputImagensEVideos() {
+        setIndicadorInputImagensEVideosAberto(true);
+    }
+
+    function fecharInputImagensEVideos() {
+        setIndicadorInputImagensEVideosAberto(false);
     }
 
     return (
@@ -78,23 +111,35 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
                         />
                         <p id="modalPublicar__nomeUsuario">Tiago zay</p>
                     </div>
-                    <textarea 
-                        id='modalPublicar__campoTexto' 
-                        placeholder='No que você está pensando, Tiago?' 
-                        onChange={aoDigitarTexto}
-                    ></textarea>
+
+                    <div id='modalPublicar__containerInputs'>
+                        <textarea
+                            id='modalPublicar__campoTexto'
+                            placeholder='No que você está pensando, Tiago?'
+                            onChange={aoDigitarTexto}
+                        ></textarea>
+
+                        {
+                            indicadorInputImagensEVideosAberto &&
+
+                            <SelecionarArquivos
+                                fecharInput={fecharInputImagensEVideos}
+                                setArquivosSelecionados={setArquivosSelecionados}
+                            />
+                        }
+                    </div>
                     <div id='modalPublicar__divAdicionarFotosEVideos'>
                         <p>Adicionar à publicação</p>
                         <div id='modalPublicar__divAdicionarFotosEVideos__icones'>
-                            <button>
+                            <button onClick={abrirInputImagensEVideos}>
                                 <img src="./icones/imagemIcone.png" alt="" />
                             </button>
-                            <button>
+                            <button onClick={abrirInputImagensEVideos}>
                                 <img src="./icones/videoIcone.png" alt="" />
                             </button>
                         </div>
                     </div>
-                    <button 
+                    <button
                         id='modalPublicar__btnPublicar'
                         disabled={!permisaoParaPublicar}
                         className={!permisaoParaPublicar ? "modalPublicar__btnPublicarInativo" : ""}

@@ -1,0 +1,95 @@
+#inputArquivos__mensagemSoltarArquivos{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.663);
+    top: 0;
+    left: 0;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--fontePadrao);
+    color: white;
+    font-size: 18px;
+}
+#inputArquivos__arrasteESolteImagensEVideos{
+    box-shadow: 0 0 0 0.2px white;  
+    border-radius: 8px;
+    padding: 6px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+}
+#inputArquivos__arrasteESolteImagensEVideos__input{
+    position: relative;
+    background-color: #323436;
+    font-family: var(--fontePadrao);
+    color: white;
+    width: 100%;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    cursor: pointer;
+}
+#inputArquivos__arrasteESolteImagensEVideos__input:hover{
+    background-color: #47494A;
+}
+.usuarioArastandoArquivo{
+    background-color: #47494A!important;
+}
+#inputArquivos__arrasteESolteImagensEVideos__fechar{
+    position: absolute;
+    right: 2%;
+    top: 3%;
+    background-color: #434445;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    color: rgb(166, 166, 166);
+    cursor: pointer;
+    font-size: 20px;
+}
+#inputArquivos__arrasteESolteImagensEVideos__input i{
+    background-color: #47494A;
+    border-radius: 50%;
+    padding: 10px;
+    font-size: 18px;
+}
+#inputArquivos__arrasteESolteImagensEVideos__input__texto{
+    margin: 5px;
+    font-weight: 600;
+    color: rgb(219, 219, 219);
+    font-size: 15px;
+}
+#inputArquivos__arrasteESolteImagensEVideos__input__texto2{
+    font-size: 11px;
+    color: rgb(219, 219, 219);
+    
+}
+.loader-container {
+    height: 100px;
+    color: rgb(219, 219, 219);
+    font-family: var(--fontePadrao);
+    font-size: 12px;
+}
+
+.loader {
+    margin: 0 auto;
+    border: 3px solid #5e5e5e;
+    border-top: 3px solid #303030;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 6px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
