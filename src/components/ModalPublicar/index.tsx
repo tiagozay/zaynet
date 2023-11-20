@@ -115,6 +115,9 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
                     <div id='modalPublicar__containerInputs'>
                         <textarea
                             id='modalPublicar__campoTexto'
+                            className={ 
+                                indicadorInputImagensEVideosAberto ? "modalPublicar__campoTextoMaisBaixo" : ""
+                            }
                             placeholder='No que você está pensando, Tiago?'
                             onChange={aoDigitarTexto}
                         ></textarea>
