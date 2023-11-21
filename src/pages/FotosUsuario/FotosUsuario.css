@@ -1,0 +1,37 @@
+#fotosUsuarioPage{
+    box-sizing: border-box;
+    padding-left: 320px;
+    padding-right: 350px;
+    padding-bottom: 20px;
+    padding-top: 100px;
+    width: 100%;
+}
+#fotosUsuarioPage__container{
+    background-color: #242526;
+    border-radius: 10px;
+    width: 100%;
+    padding: 15px;
+}
+#fotosUsuarioPage__titulo{
+    font-family: var(--fontePadrao);
+    font-size: 21px;
+    font-weight: bold;
+    color: rgb(236, 236, 236);
+    margin-bottom: 15px;
+}
+#fotosUsuarioPage__listaDeFotos{
+    width: 96%;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 10px;
+}
+#fotosUsuarioPage__foto{
+    width: 100%;
+}
+#fotosUsuarioPage__foto img{
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer; 
+}
