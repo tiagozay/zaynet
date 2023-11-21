@@ -21,6 +21,7 @@
     width: 100%;
     border: 1px rgb(89, 89, 89) solid;
     border-radius: 10px;
+    object-fit: cover;
 }
 #inputArquivos__previas__divBtnFechar{
     display: flex;
