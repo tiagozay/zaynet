@@ -43,7 +43,7 @@ export default function MenuEsquerdo() {
                         </Link>
                     </li>
                     <li id='menuEsquerdo__opcao'>
-                        <Link id='menuEsquerdo__opcao__botao' to="">
+                        <Link id='menuEsquerdo__opcao__botao' to="/fotos">
                             <i className='material-symbols-outlined' id='menuEsquerdo__opcao__icone'>image</i>
                             <p id="menuEsquerdo__opcao__nome">Fotos</p>
                         </Link>
