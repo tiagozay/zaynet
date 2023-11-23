@@ -21,6 +21,94 @@ export class ArquivosPublicacaoService {
         return imageType.split('/')[1];
     }
 
+    public static obtemExtensaoArquivoAPartirDoNome(nome: string): string | undefined {
+        return nome.split('.').pop()?.toLowerCase();
+    }
+
+    public static identificaSeArquivoEImagemOuVideoPeloNome(nome: string): 'Imagem' | 'Vídeo' | undefined {
+
+        const extensao = ArquivosPublicacaoService.obtemExtensaoArquivoAPartirDoNome(nome);
+
+        // Lista de extensões comuns para imagens
+        const extensoesImagem = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg'];
+
+        // Lista de extensões comuns para vídeos
+        const extensoesVideo = ['mp4', 'webm', 'ogg', 'avi', 'mov', 'mkv'];
+
+        if (extensao) {
+            if (extensoesImagem.includes(extensao)) {
+                return "Imagem";
+            } else if (extensoesVideo.includes(extensao)) {
+                return "Vídeo"
+            }
+        }
+
+        return undefined;
+    }
+
+    public static identificaSeArquivoEImagemOuVideo(arquivo: File): 'Imagem' | 'Vídeo' | undefined {
+        const tipoMedia = arquivo.type.split('/')[0];
+
+        switch (tipoMedia) {
+            case 'image':
+                return 'Imagem';
+            case 'video':
+                return 'Vídeo';
+            default:
+                return undefined;
+        }
+    }
+
+    public static geraMiniaturasDeImagens(imagens: File[]) {
+        const diminuirTamanhoDasImagensPromises = Array.from(imagens)
+            .map(arquivo => {
+                return ArquivosPublicacaoService.diminuiTamanhoDeImagem(200, arquivo);
+            });
+
+        return Promise.all(diminuirTamanhoDasImagensPromises)
+    }
+
+    public static geraMiniaturasDeVideos(videos: File[]) {
+        const obterImagemDoPrimeiroFrameDoVideoPromises = Array.from(videos)
+            .map(arquivo => {
+                return ArquivosPublicacaoService.obtemImagemDoPrimeiroFrameDoVideo(200, arquivo);
+            });
+
+        return Promise.all(obterImagemDoPrimeiroFrameDoVideoPromises)
+    }
+
+    static async obtemImagemDoPrimeiroFrameDoVideo(width: number, file: File): Promise<File> {
+        return new Promise((resolve, reject) => {
+            const videoUrl = URL.createObjectURL(file);
+
+            const video = document.createElement('video');
+            video.muted = true;
+            video.currentTime = 0.1;
+            video.src = videoUrl;
+
+            video.onloadedmetadata = function () {
+
+                const razaoAltura = (width * video.videoHeight) / video.videoWidth;
+
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = razaoAltura;
+
+                video.addEventListener('loadeddata', function () {
+                    video.play();
+                    video.pause();
+                    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    const thumbnailUrl = canvas.toDataURL('image/jpeg');
+
+                    const file = ArquivosPublicacaoService.urlToFile(thumbnailUrl);
+
+                    resolve(file);
+                });
+            };
+        });
+    }
+
     public static diminuiTamanhoDeImagem(width: number, image_file: File): Promise<File> {
         return new Promise((resolve) => {
             let reader = new FileReader();
@@ -77,5 +165,17 @@ export class ArquivosPublicacaoService {
         let file = new File([dataArr], 'File.jpg', { type: mime });
 
         return file;
+    }
+
+    public static geraStringUnica(): string {
+        const data = new Date();
+
+        const ano = data.getFullYear();
+        const mes = data.getMonth() + 1;
+        const dia = data.getDate();
+        const hora = data.getHours();
+        const aleatorio = Math.floor(Math.random() * 10000);
+
+        return `${ano}${mes}${dia}${hora}${aleatorio}`;
     }
 }

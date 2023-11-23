@@ -1,6 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './ModalPublicar.css';
 import SelecionarArquivos from '../SelecionarArquivos';
+import { ArquivosPublicacaoService } from '../../services/ArquivosPublicacaoService';
+
+class ArquivoSelecionadoComSuaMiniatura {
+    public arquivoSelecionado: File;
+    public miniaturaDoArquivo: File;
+
+    public constructor(arquivoSelecionado: File, miniaturaDoArquivo: File) {
+        this.arquivoSelecionado = arquivoSelecionado;
+        this.miniaturaDoArquivo = miniaturaDoArquivo;
+    }
+}
+
 
 interface ModalPublicarProps {
     modalAberto: boolean,
@@ -73,6 +85,82 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
 
     document.body.style.overflowY = 'hidden';
 
+    function publicar() {
+
+        //Publicação de arquivos provisória, apenas um protótipo
+
+        if (arquivosSelecionados) {
+            const listaDeArquivosComSuasMiniaturasPromises = Array.from(arquivosSelecionados).map(arquivo => {
+
+                const tipoArquivo = ArquivosPublicacaoService.identificaSeArquivoEImagemOuVideo(arquivo) as "Imagem" | "Vídeo";
+
+                if (tipoArquivo === "Imagem") {
+
+                    return ArquivosPublicacaoService.diminuiTamanhoDeImagem(200, arquivo)
+                        .then(miniatura => {
+                            return new ArquivoSelecionadoComSuaMiniatura(
+                                arquivo,
+                                miniatura
+                            );
+                        });
+
+
+                } else {
+                    return ArquivosPublicacaoService.obtemImagemDoPrimeiroFrameDoVideo(200, arquivo)
+                        .then(miniatura => {
+                            return new ArquivoSelecionadoComSuaMiniatura(
+                                arquivo,
+                                miniatura
+                            );
+                        });
+                }
+
+            });
+
+            Promise.all(listaDeArquivosComSuasMiniaturasPromises)
+                .then(res => {
+
+                    const formData = new FormData();
+
+                    res.forEach( imagem => {
+
+                        const novoNomeImagem = ArquivosPublicacaoService.geraStringUnica();
+
+                        const extensaoImagem = ArquivosPublicacaoService.obtemExtensaoArquivoAPartirDoNome(
+                            imagem.arquivoSelecionado.name
+                        );
+                        const extensaoMiniatura = ArquivosPublicacaoService.obtemExtensaoArquivoAPartirDoNome(
+                            imagem.miniaturaDoArquivo.name
+                        );
+
+                        formData.append(
+                            'arquivos[]', 
+                            imagem.arquivoSelecionado, 
+                            `${novoNomeImagem}.${extensaoImagem}`
+                        );
+
+                        formData.append(
+                            'arquivos[]', 
+                            imagem.miniaturaDoArquivo, 
+                            `${novoNomeImagem}_miniatura.${extensaoMiniatura}`
+                        );
+
+                    });
+
+                    console.log("Foi");
+
+
+                    fetch('http://localhost:8080/cadastrarPublicacao.php', {
+                        method: 'post',
+                        body: formData
+                    })
+                        .then( res => res.text() )
+                        .then( res => console.log(res) );
+
+                });
+        }
+    }
+
     function clickOverlay(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
         if (event.target === container.current) {
             fecharModal();
@@ -115,7 +203,7 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
                     <div id='modalPublicar__containerInputs'>
                         <textarea
                             id='modalPublicar__campoTexto'
-                            className={ 
+                            className={
                                 indicadorInputImagensEVideosAberto ? "modalPublicar__campoTextoMaisBaixo" : ""
                             }
                             placeholder='No que você está pensando, Tiago?'
@@ -146,6 +234,7 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
                         id='modalPublicar__btnPublicar'
                         disabled={!permisaoParaPublicar}
                         className={!permisaoParaPublicar ? "modalPublicar__btnPublicarInativo" : ""}
+                        onClick={publicar}
                     >Publicar</button>
                 </div>
             </div>
