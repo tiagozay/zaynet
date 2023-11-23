@@ -4,6 +4,7 @@ import UltimaImagemComSobreposicao from './UltimaImagemComSobreposicao';
 import Comentarios from './Comentarios';
 import InteracoesComAPublicacao from './InteracoesComAPublicacao';
 import { useNavigate } from 'react-router-dom';
+import { MidiaPublicacaoModel } from '../../models/MidiaPublicacaoModel';
 
 export default function Publicacao() {
 
@@ -15,12 +16,38 @@ export default function Publicacao() {
     tempoDePublicacao: "10 h",
     texto: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero, distinctio autem? Magnam autem quisquam voluptates eius cupiditate. Sapiente blanditiis obcaecati natus, similique, repellendus ipsum ipsam dicta eos consequatur, distinctio soluta?",
     imagens: [
-      '/imagensDinamicas/publicacoes/pub1.jpg',
-      '/imagensDinamicas/publicacoes/pub2.jpg',
-      '/imagensDinamicas/publicacoes/pub3.jpg',
-      '/imagensDinamicas/publicacoes/pub4.jpg',
-      '/imagensDinamicas/publicacoes/pub5.jpg',
-      '/imagensDinamicas/publicacoes/pub6.jpg',
+      new MidiaPublicacaoModel(
+        '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub1.jpg',
+        '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub1.jpg',
+      ),
+      new MidiaPublicacaoModel(
+        '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub2.jpg',
+        '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub2.jpg',
+      ),
+      new MidiaPublicacaoModel(
+        '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub3.jpg',
+        '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub3.jpg',
+      ),
+      new MidiaPublicacaoModel(
+        '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub4.jpg',
+        '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub4.jpg',
+      ),
+      new MidiaPublicacaoModel(
+        '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub5.jpg',
+        '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub5.jpg',
+      ),
+      new MidiaPublicacaoModel(
+        '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub6.jpg',
+        '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub6.jpg',
+      ),
+      new MidiaPublicacaoModel(
+        '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub7.mp4',
+        '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub7.jpg',
+      ),
+      new MidiaPublicacaoModel(
+        '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub8.mp4',
+        '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub8.jpg'
+      )
     ]
   }
 
@@ -28,16 +55,16 @@ export default function Publicacao() {
 
   function aoClicarEmUmaImagem(indice: number) {
     const info = JSON.stringify(
-      {imagensDoCarrossel: publicacao.imagens, indiceImagemInicial: indice}
+      { imagensDoCarrossel: publicacao.imagens, indiceImagemInicial: indice }
     );
-    navigate(`/image/${ encodeURIComponent(info) }`);
+    navigate(`/image/${encodeURIComponent(info)}`);
   }
 
   function aoClicarEmVerMaisImagens() {
     const info = JSON.stringify(
-      {imagensDoCarrossel: publicacao.imagens, indiceImagemInicial: 3}
+      { imagensDoCarrossel: publicacao.imagens, indiceImagemInicial: 3 }
     );
-    navigate(`/image/${ encodeURIComponent(info) }`);
+    navigate(`/image/${encodeURIComponent(info)}`);
   }
 
   return (
@@ -59,8 +86,8 @@ export default function Publicacao() {
             if (index === 3) {
 
               return <UltimaImagemComSobreposicao
-                urlImagem={imagem}
-                key={imagem}
+                urlImagem={imagem.caminhoMidiaNormal}
+                key={imagem.caminhoMidiaNormal}
                 classeDeCadaImagem={classeDeCadaImagem}
                 quantidadeDeImagensRestantes={publicacao.imagens.slice(4).length}
                 aoClicarEmVerTodasImagens={aoClicarEmVerMaisImagens}
@@ -68,8 +95,8 @@ export default function Publicacao() {
 
             } else {
               return < img
-                key={imagem}
-                src={imagem}
+                key={imagem.caminhoMidiaNormal}
+                src={imagem.caminhoMidiaNormal}
                 alt="Imagem publicação"
                 id='publicacao_imagem'
                 className={classeDeCadaImagem}
@@ -83,7 +110,7 @@ export default function Publicacao() {
       </div>
 
       <InteracoesComAPublicacao />
-        
+
       <div id='publicacao__linhaDivisoria'></div>
       <Comentarios />
     </div>

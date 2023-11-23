@@ -2,11 +2,13 @@ import React, { useRef } from 'react';
 import './CarrosselDeImagens.css';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { MidiaPublicacaoModel } from '../../models/MidiaPublicacaoModel';
+import { ArquivosPublicacaoService } from '../../services/ArquivosPublicacaoService';
 
 export default function CarrosselDeImagens() {
   const [indiceImagemAtual, setIndiceImagemAtual] = useState(0);
-  const [imagensDoCarrossel, setImagensDoCarrossel] = useState<string[]>([]);
-  const [indicadorImagensCarregadas, setIndicadorImagensCarregadas] = useState(false);
+  const [imagensDoCarrossel, setImagensDoCarrossel] = useState<MidiaPublicacaoModel[]>([]);
+  const [indicadorImagensCarregadas, setIndicadorImagensCarregadas] = useState(true);
 
   const navigate = useNavigate();
 
@@ -33,7 +35,7 @@ export default function CarrosselDeImagens() {
     if (params.objInfoCarrosel) {
       paramsInfo = JSON.parse(
         params.objInfoCarrosel
-      ) as { imagensDoCarrossel: string[], indiceImagemInicial: number };
+      ) as { imagensDoCarrossel: MidiaPublicacaoModel[], indiceImagemInicial: number };
     } else {
       return;
     }
@@ -84,8 +86,7 @@ export default function CarrosselDeImagens() {
     navigate(-1);
   }
 
-  function selecionarImagemEspecifica(indiceImagem: number)
-  {
+  function selecionarImagemEspecifica(indiceImagem: number) {
     setIndiceImagemAtual(indiceImagem);
   }
 
@@ -115,7 +116,7 @@ export default function CarrosselDeImagens() {
   function imagemCarregada() {
     contador++;
 
-    //Valor multiplicado por 2 pois somente será totalmente carregado quando tanto as imagens normais quanto as previas forem carregadas
+    //Valor multiplicado por 2 pois somente será totalmente carregado quando tanto as imagens normais quanto as Miniaturas forem carregadas
     const quantidadeDeImagensParaRenderizar = imagensDoCarrossel.length * 2;
 
     if (contador === quantidadeDeImagensParaRenderizar) {
@@ -136,41 +137,87 @@ export default function CarrosselDeImagens() {
         <div id='divIconeFecharCarrossel'>
           <button className='material-symbols-outlined' id='divIconeFecharCarrossel__icone' onClick={fechar}>close</button>
         </div>
-        <div id='carrosselImagens__imagens__container'  ref={container} >
+        <div id='carrosselImagens__imagens__container' ref={container} >
           <button onClick={voltarImagem} className='material-symbols-outlined carrosselImagens__btnAvancarEVoltar '>arrow_back_ios</button>
           {
-            imagensDoCarrossel.map((imagem: string, index: number) => {
-              return <img
-                key={index}
-                src={imagem}
-                alt="Imagem publicação"
-                id="carrosselImagens__imagem"
-                className={`${(index === indiceImagemAtual) && 'imagemExibida'}`}
-                onLoad={imagemCarregada}
-                onClick={clickNaImagem}
-              />
+            imagensDoCarrossel.map((midia: MidiaPublicacaoModel, index: number) => {
+
+              const tipoMidia = ArquivosPublicacaoService.identificaSeArquivoEImagemOuVideoPeloNome(midia.caminhoMidiaNormal);
+
+              if (tipoMidia === "Imagem") {
+                return (
+                  <img
+                    key={index}
+                    src={midia.caminhoMidiaNormal}
+                    alt="Imagem publicação"
+                    id="carrosselImagens__imagem"
+                    className={`${(index === indiceImagemAtual) && 'imagemExibida'}`}
+                    onLoad={imagemCarregada}
+                    onClick={clickNaImagem}
+                  />
+                )
+              } else if (tipoMidia === "Vídeo") {
+                return (
+                  <video
+                    onLoad={imagemCarregada}
+                    src={midia.caminhoMidiaNormal}
+                    id="carrosselImagens__imagem"
+                    className={`${(index === indiceImagemAtual) && 'imagemExibida'}`
+                    }
+                    key={index}
+                    controls
+                  >
+                  </video>
+                )
+              }
             })
           }
           <button onClick={avancarImagem} className='material-symbols-outlined carrosselImagens__btnAvancarEVoltar'>arrow_forward_ios</button>
         </div>
-        <div id='listaPreviasDasImagens'>
+        <div id='listaMiniaturasDasImagens'>
           {
-            imagensDoCarrossel.map((imagem: string, index: number) => {
-              return <img
-                key={index}
-                src={imagem}
-                alt="Imagem publicação"
-                id="listaPreviasDasImagens__imagem"
-                className={`${(index === indiceImagemAtual) && 'listaPreviasDasImagens__imagemSelecionada'}`}
-                onLoad={imagemCarregada}
-                onClick={ () => selecionarImagemEspecifica(index)}
-              />
+            imagensDoCarrossel.map((imagem: MidiaPublicacaoModel, index: number) => {
+
+              const tipoMidia = ArquivosPublicacaoService.identificaSeArquivoEImagemOuVideoPeloNome(imagem.caminhoMidiaNormal);
+
+              if (tipoMidia === "Imagem") {
+                return (
+                  <img
+                    key={index}
+                    src={imagem.caminhoMidiaMiniatura ? imagem.caminhoMidiaMiniatura : ""}
+                    alt="Imagem publicação"
+                    id="listaMiniaturasDasImagens__imagem"
+                    className={`${(index === indiceImagemAtual) && 'listaMiniaturasDasImagens__imagemSelecionada'}`}
+                    onLoad={imagemCarregada}
+                    onClick={() => selecionarImagemEspecifica(index)}
+                  />
+                )
+              } else if (tipoMidia === "Vídeo") {
+                return (
+                  <div
+                    id="listaMiniaturasDasImagens__divImagemVideo"
+                    onClick={() => selecionarImagemEspecifica(index)}
+                    className={`${(index === indiceImagemAtual) && 'listaMiniaturasDasImagens__imagemSelecionada'}`}
+                  >
+                    <div id="listaMiniaturasDasImagens__divImagemVideoOverlay">
+                      {/* <i className='material-symbols-outlined'>play_arrow</i> */}
+                    </div>
+                    <img
+                      key={index}
+                      src={imagem.caminhoMidiaMiniatura ? imagem.caminhoMidiaMiniatura : ""}
+                      alt="Imagem publicação"
+                      id="listaMiniaturasDasImagens__imagem"
+                      onLoad={imagemCarregada}
+                    />
+                  </div>
+                )
+              }
             })
           }
         </div>
 
       </div>
-    </div>
+    </div >
 
   )
 }

@@ -78,14 +78,14 @@
     margin-right: 15px;
     cursor: pointer;
 }
-#listaPreviasDasImagens{
+#listaMiniaturasDasImagens{
     display: flex;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
     margin-bottom: 10px;
 }
-#listaPreviasDasImagens__imagem{
+#listaMiniaturasDasImagens__imagem{
     width: 48px;
     height: 48px;
     background-attachment: fixed;
@@ -93,9 +93,38 @@
     cursor: pointer;
     object-fit: cover;
 }
-.listaPreviasDasImagens__imagemSelecionada{
+.listaMiniaturasDasImagens__imagemSelecionada{
     width: 55px!important;
     height: 55px!important;
+}
+#listaMiniaturasDasImagens__divImagemVideo{
+    width: 48px;
+    height: 48px;
+    background-attachment: fixed;
+    margin: 10px 5px;
+    cursor: pointer;
+    object-fit: cover;
+    position: relative;
+}
+#listaMiniaturasDasImagens__divImagemVideo img{
+    margin: 0px!important;
+    width: 100%;
+    height: 100%;
+}
+#listaMiniaturasDasImagens__divImagemVideoOverlay{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0px!important;
+}
+#listaMiniaturasDasImagens__divImagemVideoOverlay i{
+    background-color: rgba(188, 188, 188, 0.309);
+    border: 3px white solid;
+    border-radius: 50%;
+    color: white;
 }
 @media( max-width: 590px ){
     #carrosselImagens__overlay{
@@ -108,21 +137,21 @@
         max-width: 100%;
         display: none;
     }
-    #listaPreviasDasImagens__imagem{
+    #listaMiniaturasDasImagens__imagem{
         width: 45px;
         height: 45px;
     }
-    .listaPreviasDasImagens__imagemSelecionada{
+    .listaMiniaturasDasImagens__imagemSelecionada{
         width: 50px!important;
         height: 50px!important;
     }
 }
 @media( max-width: 380px ){
-    #listaPreviasDasImagens__imagem{
+    #listaMiniaturasDasImagens__imagem{
         width: 40px;
         height: 40px;
     }
-    .listaPreviasDasImagens__imagemSelecionada{
+    .listaMiniaturasDasImagens__imagemSelecionada{
         width: 45px!important;
         height: 45px!important;
     }
