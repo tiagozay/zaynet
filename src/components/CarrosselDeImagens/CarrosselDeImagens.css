@@ -1,3 +1,9 @@
+:root {
+    --larguraPrevia: 48px;
+    --alturaPrevia: 48px;
+    --larguraPreviaSelecionada: 55px;
+    --alturaPreviaSelecionada: 55px;
+}
 #carrosselImagens__overlay{
     width: 100%;
     height: 100vh;
@@ -86,20 +92,20 @@
     margin-bottom: 10px;
 }
 #listaMiniaturasDasImagens__imagem{
-    width: 48px;
-    height: 48px;
+    width: var(--larguraPrevia);
+    height: var(--alturaPrevia);
     background-attachment: fixed;
     margin: 10px 5px;
     cursor: pointer;
     object-fit: cover;
 }
 .listaMiniaturasDasImagens__imagemSelecionada{
-    width: 55px!important;
-    height: 55px!important;
+    width: var(--larguraPreviaSelecionada)!important;
+    height: var(--alturaPreviaSelecionada)!important;
 }
 #listaMiniaturasDasImagens__divImagemVideo{
-    width: 48px;
-    height: 48px;
+    width: var(--larguraPrevia);
+    height: var(--alturaPrevia);
     background-attachment: fixed;
     margin: 10px 5px;
     cursor: pointer;
@@ -126,6 +132,18 @@
     border-radius: 50%;
     color: white;
 }
+@media(max-width: 700px){
+    :root {
+        --larguraPrevia: 30px;
+        --alturaPrevia: 30px;
+        --larguraPreviaSelecionada: 36px;
+        --alturaPreviaSelecionada: 36px;
+    }
+    #listaMiniaturasDasImagens__divImagemVideoOverlay i{
+        font-size: 15px;
+        border: 2px white solid;
+    }
+}
 @media( max-width: 590px ){
     #carrosselImagens__overlay{
         background-color: black;
@@ -137,22 +155,16 @@
         max-width: 100%;
         display: none;
     }
-    #listaMiniaturasDasImagens__imagem{
-        width: 45px;
-        height: 45px;
-    }
-    .listaMiniaturasDasImagens__imagemSelecionada{
-        width: 50px!important;
-        height: 50px!important;
-    }
 }
 @media( max-width: 380px ){
-    #listaMiniaturasDasImagens__imagem{
-        width: 40px;
-        height: 40px;
+    :root {
+        --larguraPrevia: 25px;
+        --alturaPrevia: 25px;
+        --larguraPreviaSelecionada: 30px;
+        --alturaPreviaSelecionada: 30px;
     }
-    .listaMiniaturasDasImagens__imagemSelecionada{
-        width: 45px!important;
-        height: 45px!important;
+    #listaMiniaturasDasImagens__divImagemVideoOverlay i{
+        font-size: 15px;
+        border: 2px white solid;
     }
 }
