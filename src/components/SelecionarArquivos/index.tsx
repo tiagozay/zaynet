@@ -28,7 +28,7 @@ export default function SelecionarArquivos({
 
         if (!novosArquivosSelecionados) return;
 
-        ArquivosPublicacaoService.transformaFileListEmBase65(novosArquivosSelecionados)
+        ArquivosPublicacaoService.transformaFileListEmBase64(novosArquivosSelecionados)
             .then(arquivosBase64 => {
                 setSRC_dosArquivosSelecionados(arquivosBase64);
             });
@@ -95,7 +95,7 @@ export default function SelecionarArquivos({
                         aoCarregarTodasAsMidiasNasPrevias={aoCarregarTodasAsMidias}
                     /> :
                     <>
-                        <input type="file" className='displayNone' ref={inputRef} onChange={aoSelecionarNoInput} multiple />
+                        <input type="file" hidden={true} ref={inputRef} onChange={aoSelecionarNoInput} multiple />
                         <div
                             id='inputArquivos__arrasteESolteImagensEVideos__input'
                             className={indicadorArquivoSendoArrastado ? "usuarioArastandoArquivo" : ""}
