@@ -4,3 +4,8 @@
 #comentario__listaDeRespostas{
     padding-left: 50px;
 }
+@media( max-width: 680px ){
+    #comentario__listaDeRespostas{
+        padding-left: 20px;
+    }
+}
