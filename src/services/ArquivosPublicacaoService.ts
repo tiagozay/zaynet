@@ -1,3 +1,5 @@
+import { ArquivoSelecionadoComSuaMiniatura } from "../models/ArquivoSelecionadoComSuaMiniatura";
+
 export class ArquivosPublicacaoService {
     private static readAsDataURL(arquivo: File): Promise<string> {
         return new Promise((resolve) => {
@@ -7,7 +9,7 @@ export class ArquivosPublicacaoService {
         })
     }
 
-    public static transformaFileListEmBase65(arquivos: FileList) {
+    public static transformaFileListEmBase64(arquivos: FileList) {
         const base64Promises = Array.from(arquivos).map(arquivo => this.readAsDataURL(arquivo));
 
         return Promise.all(base64Promises);
@@ -58,6 +60,69 @@ export class ArquivosPublicacaoService {
                 return undefined;
         }
     }
+
+
+    public static processaImagensEVideosRecebidosDoUsuario(arquivosSelecionados: FileList): Promise<ArquivoSelecionadoComSuaMiniatura[]> {
+        const listaDeArquivosComSuasMiniaturasPromises = Array.from(arquivosSelecionados).map(arquivo => {
+            const tipoArquivo = ArquivosPublicacaoService.identificaSeArquivoEImagemOuVideo(arquivo) as "Imagem" | "Vídeo";
+
+            if (tipoArquivo === "Imagem") {
+
+                return ArquivosPublicacaoService.diminuiTamanhoDeImagem(200, arquivo)
+                    .then(miniatura => {
+                        return new ArquivoSelecionadoComSuaMiniatura(
+                            arquivo,
+                            miniatura
+                        );
+                    });
+
+
+            } else {
+                return ArquivosPublicacaoService.obtemImagemDoPrimeiroFrameDoVideo(200, arquivo)
+                    .then(miniatura => {
+                        return new ArquivoSelecionadoComSuaMiniatura(
+                            arquivo,
+                            miniatura
+                        );
+                    });
+            }
+
+        });
+
+        return Promise.all(listaDeArquivosComSuasMiniaturasPromises)
+    }
+
+    public static geraFormDataParaEnvioDeArquivosParaOServidor(arquivosProcessados: ArquivoSelecionadoComSuaMiniatura[]): FormData {
+        const formData = new FormData();
+
+        arquivosProcessados.forEach(arquivo => {
+
+            const novoNomeArquivo = ArquivosPublicacaoService.geraStringUnica();
+
+            const extensaoArquivo = ArquivosPublicacaoService.obtemExtensaoArquivoAPartirDoNome(
+                arquivo.arquivoSelecionado.name
+            );
+            const extensaoMiniatura = ArquivosPublicacaoService.obtemExtensaoArquivoAPartirDoNome(
+                arquivo.miniaturaDoArquivo.name
+            );
+
+            formData.append(
+                'arquivos[]',
+                arquivo.arquivoSelecionado,
+                `${novoNomeArquivo}.${extensaoArquivo}`
+            );
+
+            formData.append(
+                'arquivos[]',
+                arquivo.miniaturaDoArquivo,
+                `${novoNomeArquivo}_miniatura.${extensaoMiniatura}`
+            );
+
+        });
+
+        return formData;
+    }
+
 
     public static geraMiniaturasDeImagens(imagens: File[]) {
         const diminuirTamanhoDasImagensPromises = Array.from(imagens)
