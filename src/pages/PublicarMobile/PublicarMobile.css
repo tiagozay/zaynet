@@ -1,0 +1,99 @@
+#publicarMobile__page{
+
+}
+#publicarMobile__cabecalho{
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    border-bottom: 1px rgb(70, 70, 70) solid;
+}
+#publicarMobile__cabecalho__container{
+    display: flex;
+    align-items: center;
+    width: 60%;
+}
+#publicarMobile__btnVoltar{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: rgb(201, 201, 201);
+    font-size: 28px;
+    font-weight: 600;
+    text-decoration: none;
+}
+#publicarMobile__titulo{
+    font-family: var(--fontePadrao);
+    color: rgb(201, 201, 201);
+    margin-left: 7px;
+    font-size: 16px;
+    font-weight: 600;
+}
+#publicarMobile__btnPublicar{
+    background-color: #2176FF;
+    color: white;
+    font-family: var(--fontePadrao);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: 100ms;
+}
+.publicarMobile__btnPublicarInativo{
+    background-color: #444546!important;
+    color: rgb(155, 155, 155)!important;
+}
+#publicarMobile__container{
+    padding: 15px;
+}
+#publicarMobile__divPerfilENomeUsuario{
+    display: flex;
+    align-items: center;
+}
+#publicarMobile__divPerfilENomeUsuario__perfil{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+#publicarMobile__divPerfilENomeUsuario__nome{
+    font-family: var(--fontePadrao);    
+    color: rgb(206, 206, 206);
+    font-weight: 600;
+    margin-left: 5px;
+}
+#publicarMobile__campoTexto{
+    width: 100%;
+    height: 270px;
+    resize: none;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-family: var(--fontePadrao);
+    font-size: 18px;
+    color: rgb(217, 217, 217);  
+    margin-top: 20px;
+}
+#publicarMobile__campoTexto::placeholder{
+    color: rgb(156, 156, 156);  
+    font-size: 20px;
+}
+#publicarMobile__divIconeFotoOuVideo{ 
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    padding: 2px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    border-top: 1px rgb(70, 70, 70) solid;
+}
+#publicarMobile__divIconeFotoOuVideo button{ 
+    width: 100%;
+    background-color: transparent;
+    padding: 10px;
+    box-sizing: border-box;
+    border: none;
+}
+#publicarMobile__divIconeFotoOuVideo button img{ 
+    width: 27px;
+}
+

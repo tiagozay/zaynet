@@ -4,19 +4,27 @@ import MenuEsquerdo from '../../components/MenuEsquerdo';
 import Publicacao from '../../components/Publicacao';
 import './home.css';
 import ModalPublicar from '../../components/ModalPublicar';
+import { useNavigate } from 'react-router-dom';
+import { tamanhoDeTelaMobile } from '../../config';
 
 export default function Home() {
 
   const [modalPublicarAberto, setModalPublicarAberto] = useState(false);
 
-  function fecharModalPublicar()
-  {
+  const navigate = useNavigate();
+
+  function fecharModalPublicar() {
     setModalPublicarAberto(false);
   }
 
-  function abrirModalPublicar()
-  {
-    setModalPublicarAberto(true);
+  function abrirModalPublicar() {
+    const larguraDaTela = window.innerWidth;
+    if (larguraDaTela <= tamanhoDeTelaMobile) {
+      navigate('/publicar');
+    } else {
+      setModalPublicarAberto(true);
+    }
+
   }
 
   return (
@@ -38,7 +46,7 @@ export default function Home() {
               id='feed_adicionarUmaNovaPublicacao__input'
               placeholder='No que você está pensando, Tiago?'
               onClick={abrirModalPublicar}
-              disabled={ modalPublicarAberto ? true : false}
+              disabled={modalPublicarAberto ? true : false}
             />
           </div>
           <button id='feed_adicionarUmaNovaPublicacao__btnFotoEVideo' onClick={abrirModalPublicar}>

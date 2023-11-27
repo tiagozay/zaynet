@@ -12,6 +12,7 @@ import SolicitacoesDeAmizadeMobile from './pages/SolicitacoesDeAmizadeMobile';
 import AdicionarAmigos from './pages/AdicionarAmigos';
 import PesquisarPorUmaPessoaMobile from './pages/PesquisarPorUmaPessoaMobile';
 import FotosUsuario from './pages/FotosUsuario';
+import PublicarMobile from './pages/PublicarMobile';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 root.render(
@@ -28,6 +29,7 @@ root.render(
           </Route>
           <Route path='/image/:objInfoCarrosel' element={<CarrosselDeImagens />}/>
           <Route path='/pesquisar' element={<PesquisarPorUmaPessoaMobile />}/>
+          <Route path='/publicar' element={<PublicarMobile />}/>
         </Routes>
       </BrowserRouter>
   </React.StrictMode>
