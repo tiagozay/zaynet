@@ -3,17 +3,7 @@ import './ModalPublicar.css';
 import SelecionarArquivos from '../SelecionarArquivos';
 import { ArquivosPublicacaoService } from '../../services/ArquivosPublicacaoService';
 import { tamanhoDeTelaMobile } from '../../config';
-
-class ArquivoSelecionadoComSuaMiniatura {
-    public arquivoSelecionado: File;
-    public miniaturaDoArquivo: File;
-
-    public constructor(arquivoSelecionado: File, miniaturaDoArquivo: File) {
-        this.arquivoSelecionado = arquivoSelecionado;
-        this.miniaturaDoArquivo = miniaturaDoArquivo;
-    }
-}
-
+import { ArquivoSelecionadoComSuaMiniatura } from '../../models/ArquivoSelecionadoComSuaMiniatura';
 
 interface ModalPublicarProps {
     modalAberto: boolean,
@@ -100,65 +90,12 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
         //Publicação de arquivos provisória, apenas um protótipo
 
         if (arquivosSelecionados) {
-            const listaDeArquivosComSuasMiniaturasPromises = Array.from(arquivosSelecionados).map(arquivo => {
+                ArquivosPublicacaoService.processaImagensEVideosRecebidosDoUsuario(arquivosSelecionados)
+                .then(arquivosProcessados => {
 
-                const tipoArquivo = ArquivosPublicacaoService.identificaSeArquivoEImagemOuVideo(arquivo) as "Imagem" | "Vídeo";
-
-                if (tipoArquivo === "Imagem") {
-
-                    return ArquivosPublicacaoService.diminuiTamanhoDeImagem(200, arquivo)
-                        .then(miniatura => {
-                            return new ArquivoSelecionadoComSuaMiniatura(
-                                arquivo,
-                                miniatura
-                            );
-                        });
-
-
-                } else {
-                    return ArquivosPublicacaoService.obtemImagemDoPrimeiroFrameDoVideo(200, arquivo)
-                        .then(miniatura => {
-                            return new ArquivoSelecionadoComSuaMiniatura(
-                                arquivo,
-                                miniatura
-                            );
-                        });
-                }
-
-            });
-
-            Promise.all(listaDeArquivosComSuasMiniaturasPromises)
-                .then(res => {
-
-                    const formData = new FormData();
-
-                    res.forEach(imagem => {
-
-                        const novoNomeImagem = ArquivosPublicacaoService.geraStringUnica();
-
-                        const extensaoImagem = ArquivosPublicacaoService.obtemExtensaoArquivoAPartirDoNome(
-                            imagem.arquivoSelecionado.name
-                        );
-                        const extensaoMiniatura = ArquivosPublicacaoService.obtemExtensaoArquivoAPartirDoNome(
-                            imagem.miniaturaDoArquivo.name
-                        );
-
-                        formData.append(
-                            'arquivos[]',
-                            imagem.arquivoSelecionado,
-                            `${novoNomeImagem}.${extensaoImagem}`
-                        );
-
-                        formData.append(
-                            'arquivos[]',
-                            imagem.miniaturaDoArquivo,
-                            `${novoNomeImagem}_miniatura.${extensaoMiniatura}`
-                        );
-
-                    });
-
-                    console.log("Foi");
-
+                    const formData = ArquivosPublicacaoService.geraFormDataParaEnvioDeArquivosParaOServidor(
+                        arquivosProcessados
+                    )
 
                     fetch('http://localhost:8080/cadastrarPublicacao.php', {
                         method: 'post',
