@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import './ModalPublicar.css';
 import SelecionarArquivos from '../SelecionarArquivos';
 import { ArquivosPublicacaoService } from '../../services/ArquivosPublicacaoService';
+import { tamanhoDeTelaMobile } from '../../config';
 
 class ArquivoSelecionadoComSuaMiniatura {
     public arquivoSelecionado: File;
@@ -78,6 +79,15 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
         };
     }, []);
 
+    useEffect(() => {
+        window.addEventListener("resize", () => {
+            if(window.innerWidth <= tamanhoDeTelaMobile){
+                fecharModal();
+            }
+        })
+    }, []);
+
+
     if (!modalAberto) {
         document.body.style.overflowY = 'scroll';
         return null;
@@ -122,7 +132,7 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
 
                     const formData = new FormData();
 
-                    res.forEach( imagem => {
+                    res.forEach(imagem => {
 
                         const novoNomeImagem = ArquivosPublicacaoService.geraStringUnica();
 
@@ -134,14 +144,14 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
                         );
 
                         formData.append(
-                            'arquivos[]', 
-                            imagem.arquivoSelecionado, 
+                            'arquivos[]',
+                            imagem.arquivoSelecionado,
                             `${novoNomeImagem}.${extensaoImagem}`
                         );
 
                         formData.append(
-                            'arquivos[]', 
-                            imagem.miniaturaDoArquivo, 
+                            'arquivos[]',
+                            imagem.miniaturaDoArquivo,
                             `${novoNomeImagem}_miniatura.${extensaoMiniatura}`
                         );
 
@@ -154,8 +164,8 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
                         method: 'post',
                         body: formData
                     })
-                        .then( res => res.text() )
-                        .then( res => console.log(res) );
+                        .then(res => res.text())
+                        .then(res => console.log(res));
 
                 });
         }
