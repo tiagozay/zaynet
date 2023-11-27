@@ -200,7 +200,7 @@ export default function CarrosselDeImagens() {
                     className={`${(index === indiceImagemAtual) && 'listaMiniaturasDasImagens__imagemSelecionada'}`}
                   >
                     <div id="listaMiniaturasDasImagens__divImagemVideoOverlay">
-                      {/* <i className='material-symbols-outlined'>play_arrow</i> */}
+                      <i className='material-symbols-outlined'>play_arrow</i>
                     </div>
                     <img
                       key={index}
