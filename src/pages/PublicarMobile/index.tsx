@@ -11,7 +11,7 @@ export default function PublicarMobile() {
     const [indicadorAlgumTextoDigitado, setIndicadorAlgumTextoDigitado] = useState(false);
     const [indicadorAlgumaMidiaSelecionada, setIndicadorAlgumaMidiaSelecionada] = useState(false);
 
-    const [indicadorInputImagensEVideosAberto, setIndicadorInputImagensEVideosAberto] = useState(true);
+    const [indicadorInputImagensEVideosAberto, setIndicadorInputImagensEVideosAberto] = useState(false);
 
     const [textoDigitado, setTextoDigitado] = useState<string | null>(null);
     const [arquivosSelecionados, setArquivosSelecionados] = useState<FileList | null>(null);
