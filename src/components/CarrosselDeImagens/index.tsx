@@ -10,6 +10,8 @@ export default function CarrosselDeImagens() {
   const [imagensDoCarrossel, setImagensDoCarrossel] = useState<MidiaPublicacaoModel[]>([]);
   const [indicadorImagensCarregadas, setIndicadorImagensCarregadas] = useState(true);
 
+  const videoRefs = useRef<HTMLVideoElement[]>([]);
+
   const navigate = useNavigate();
 
   const container = useRef(null);
@@ -44,6 +46,17 @@ export default function CarrosselDeImagens() {
     setImagensDoCarrossel(paramsInfo.imagensDoCarrossel);
 
   }, []);
+
+  useEffect(() => {
+    videoRefs.current.forEach((video, index) => {
+      if (index === indiceImagemAtual) {
+        video.play();
+      } else {
+        video.pause();
+        video.currentTime = 0;
+      }
+    });
+  }, [indiceImagemAtual]);
 
   function clickNaImagem(e: React.MouseEvent<HTMLImageElement, MouseEvent>) {
     const larguraImagem = Number(getComputedStyle(e.target as Element).width.replace("px", ''));
@@ -159,6 +172,7 @@ export default function CarrosselDeImagens() {
               } else if (tipoMidia === "Vídeo") {
                 return (
                   <video
+                    ref={(video: HTMLVideoElement) => (videoRefs.current[index] = video)}
                     onLoad={imagemCarregada}
                     src={midia.caminhoMidiaNormal}
                     id="carrosselImagens__imagem"
@@ -195,6 +209,7 @@ export default function CarrosselDeImagens() {
               } else if (tipoMidia === "Vídeo") {
                 return (
                   <div
+                    key={index}
                     id="listaMiniaturasDasImagens__divImagemVideo"
                     onClick={() => selecionarImagemEspecifica(index)}
                     className={`${(index === indiceImagemAtual) && 'listaMiniaturasDasImagens__imagemSelecionada'}`}
@@ -203,7 +218,6 @@ export default function CarrosselDeImagens() {
                       <i className='material-symbols-outlined'>play_arrow</i>
                     </div>
                     <img
-                      key={index}
                       src={imagem.caminhoMidiaMiniatura ? imagem.caminhoMidiaMiniatura : ""}
                       alt="Imagem publicação"
                       id="listaMiniaturasDasImagens__imagem"
