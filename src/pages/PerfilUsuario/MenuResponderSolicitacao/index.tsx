@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './MenuResponderSolicitacao.css';
-import { tamanhoDeTelaMobile } from '../../../config';
+import { TAMANHO_DE_TELA_MOBILE } from '../../../config';
 
 interface MenuResponderSolicitacaoProps {
     indicadorMenuResponderSolicitacaoAberto: boolean,
@@ -34,14 +34,14 @@ export default function MenuResponderSolicitacao({
 
     useEffect(() => {
 
-        if (window.innerWidth <= tamanhoDeTelaMobile) {
+        if (window.innerWidth <= TAMANHO_DE_TELA_MOBILE) {
             setIndicadorTelaMobile(true);
         } else {
             setIndicadorTelaMobile(false);
         }
 
         const handleReajustarTela = () => {
-            if (window.innerWidth <= tamanhoDeTelaMobile) {
+            if (window.innerWidth <= TAMANHO_DE_TELA_MOBILE) {
                 setIndicadorTelaMobile(true);
             } else {
                 setIndicadorTelaMobile(false);

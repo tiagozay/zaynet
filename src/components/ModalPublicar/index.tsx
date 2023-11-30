@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import './ModalPublicar.css';
 import SelecionarArquivos from '../SelecionarArquivos';
 import { ArquivosPublicacaoService } from '../../services/ArquivosPublicacaoService';
-import { tamanhoDeTelaMobile } from '../../config';
+import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import { ArquivoSelecionadoComSuaMiniatura } from '../../models/ArquivoSelecionadoComSuaMiniatura';
 
 interface ModalPublicarProps {
@@ -71,7 +71,7 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
 
     useEffect(() => {
         window.addEventListener("resize", () => {
-            if(window.innerWidth <= tamanhoDeTelaMobile){
+            if(window.innerWidth <= TAMANHO_DE_TELA_MOBILE){
                 fecharModal();
             }
         })

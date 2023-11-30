@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './PerfilUsuario.css';
 import Header from '../../components/Header';
 import MenuResponderSolicitacao from './MenuResponderSolicitacao';
-import { tamanhoDeTelaMobile } from '../../config';
+import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import OpcoesAcoesUsuario from './OpcoesAcoesUsuario';
 import { Usuario } from '../../models/Usuario';
 

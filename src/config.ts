@@ -1,1 +1,1 @@
-export const tamanhoDeTelaMobile = 680;
+export const TAMANHO_DE_TELA_MOBILE = 680;

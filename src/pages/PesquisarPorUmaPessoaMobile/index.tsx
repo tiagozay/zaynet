@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import './PesquisarPorUmaPessoaMobile.css';
 import { useNavigate } from 'react-router-dom';
-import { tamanhoDeTelaMobile } from '../../config';
+import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 
 export default function PesquisarPorUmaPessoaMobile() {
 
@@ -16,7 +16,7 @@ export default function PesquisarPorUmaPessoaMobile() {
     useEffect(() => {
         inputRef.current?.focus();
 
-        if(window.innerWidth > tamanhoDeTelaMobile){
+        if(window.innerWidth > TAMANHO_DE_TELA_MOBILE){
             navigate('/');
         }
     }, []);

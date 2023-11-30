@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import logo from './logo.jpg';
 import './LogoEInputPesquisa.css';
 import { Link } from 'react-router-dom';
-import { tamanhoDeTelaMobile } from '../../../config';
+import { TAMANHO_DE_TELA_MOBILE } from '../../../config';
 
 export default function LogoEInputPesquisa() {
 
@@ -16,7 +16,7 @@ export default function LogoEInputPesquisa() {
     }, []);
 
     function verificaTamanhoDaTelaEMudaState() {
-        if (window.innerWidth <= tamanhoDeTelaMobile) {
+        if (window.innerWidth <= TAMANHO_DE_TELA_MOBILE) {
             setIndicadorLayoutMobile(true);
         } else {
             setIndicadorLayoutMobile(false);

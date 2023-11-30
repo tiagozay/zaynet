@@ -5,7 +5,7 @@ import ModalSolicitacoesDeAmizade from './ModalSolicitacoesDeAmizade';
 import ModalMensagens from './ModalMensagens';
 import ModalNotificacoes from './ModalNotificacoes';
 import OpcaoHeader from './OpcaoHeader';
-import { tamanhoDeTelaMobile } from '../../../config';
+import { TAMANHO_DE_TELA_MOBILE } from '../../../config';
 import { Link } from 'react-router-dom';
 
 export default function OpcoesHeader() {
@@ -24,7 +24,7 @@ export default function OpcoesHeader() {
     }, []);
 
     function verificaTamanhoDaTelaEMudaState() {
-        if (window.innerWidth <= tamanhoDeTelaMobile) {
+        if (window.innerWidth <= TAMANHO_DE_TELA_MOBILE) {
             setIndicadorLayoutMobile(true);
         } else {
             setIndicadorLayoutMobile(false);

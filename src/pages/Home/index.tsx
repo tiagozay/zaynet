@@ -5,7 +5,7 @@ import Publicacao from '../../components/Publicacao';
 import './home.css';
 import ModalPublicar from '../../components/ModalPublicar';
 import { useNavigate } from 'react-router-dom';
-import { tamanhoDeTelaMobile } from '../../config';
+import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 
 export default function Home() {
 
@@ -19,7 +19,7 @@ export default function Home() {
 
   function abrirModalPublicar() {
     const larguraDaTela = window.innerWidth;
-    if (larguraDaTela <= tamanhoDeTelaMobile) {
+    if (larguraDaTela <= TAMANHO_DE_TELA_MOBILE) {
       navigate('/publicar');
     } else {
       setModalPublicarAberto(true);
