@@ -1,0 +1,55 @@
+#perfilDoUsuario__menuResponderSolicitacao{
+    width: 200px;
+    position: absolute;
+    top: -80px;
+    right: 10px;
+
+}
+#perfilDoUsuario__menuResponderSolicitacao__container{
+    width: 100%;
+    height: 90%;
+    background-color: rgb(27, 27, 27);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+#perfilDoUsuario__menuResponderSolicitacao__container button{
+    background-color: transparent;
+    border: none;
+    font-family: var(--fontePadrao);    
+    padding: 10px 0;
+    color: rgb(219, 219, 219);
+    font-weight: 600;
+    cursor: pointer;
+    transition: 100ms;
+    border-radius: 5px;
+}
+#perfilDoUsuario__menuResponderSolicitacao__container button:hover{
+    background-color: rgb(43, 43, 43);
+}
+#perfilDoUsuario__menuResponderSolicitacao__triangulo{
+    width: 0;
+    height: 0;
+    border-right: 20px solid transparent; /* Altura do triângulo */
+    border-top: 20px solid rgb(27, 27, 27); /* Base do triângulo e cor desejada */
+}
+
+
+#perfilDoUsuario__menuInferiorResponderSolicitacao{
+    background-color: #18191A;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    padding: 5px;
+}
+#perfilDoUsuario__menuInferiorResponderSolicitacao button{
+    background-color: transparent;
+    font-family: var(--fontePadrao);    
+    border: none;
+    padding: 14px 0;
+    color: white;
+    margin: 0px;
+    font-size: 16px;
+    font-weight: 600;
+}
