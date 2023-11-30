@@ -1,7 +1,7 @@
 #cabecalhoPrincipal{
     background-color: #242526;
     width: 100%;
-    height: 80px;
+    height: 65px;
     display: grid;
     grid-template-columns: 33.33% 33.33% 33.33%;
     padding: 0 50px;

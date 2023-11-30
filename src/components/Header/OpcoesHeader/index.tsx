@@ -6,6 +6,7 @@ import ModalMensagens from './ModalMensagens';
 import ModalNotificacoes from './ModalNotificacoes';
 import OpcaoHeader from './OpcaoHeader';
 import { tamanhoDeTelaMobile } from '../../../config';
+import { Link } from 'react-router-dom';
 
 export default function OpcoesHeader() {
 
@@ -97,9 +98,9 @@ export default function OpcoesHeader() {
                 indicadorModalAbertoLayoutPc={modalNotificacoesAberto}
                 funcaoAbrirModalLayoutPC={clickNotificacoes}
             />
-            <i className='opcoesHeaderIcone' id='opcoesHeaderIcone__perfil'>
+            <Link to='/perfil' className='opcoesHeaderIcone' id='opcoesHeaderIcone__perfil'>
                 <img src="imagensDinamicas/perfil.jpg" alt="" />
-            </i>
+            </Link>
             <ModalSolicitacoesDeAmizade aberto={modalSolicitacoesDeAmizadeAberto} clickFora={fecharModais} />
             <ModalMensagens aberto={modalMensagensAberto} clickFora={fecharModais} />
             <ModalNotificacoes aberto={modalNotificacoesAberto} clickFora={fecharModais} />

@@ -1,0 +1,110 @@
+#perfilDoUsuario__opcoesParaPefil{
+    width: 62%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+#perfilDoUsuario__btnEditarPerfil{
+    background-color: #4E4F50;
+    border: none;
+    display: flex;
+    align-items: center;
+    font-family: var(--fontePadrao);
+    color: rgb(226, 226, 226);
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#perfilDoUsuario__btnEditarPerfil i{
+    margin-right: 4px;
+}
+#perfilDoUsuario__btnAmizadeConfirmada{
+    background-color: #4E4F50;
+    border: none;
+    display: flex;
+    align-items: center;
+    font-family: var(--fontePadrao);
+    color: rgb(226, 226, 226);
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#perfilDoUsuario__btnAmizadeConfirmada i{
+    margin-right: 2px;
+}
+#perfilDoUsuario__btnAdicionarAmigo{
+    background-color: #2176FF;
+    border: none;
+    display: flex;
+    align-items: center;
+    font-family: var(--fontePadrao);
+    font-weight: 600;
+    color: rgb(244, 244, 244);
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#perfilDoUsuario__btnAdicionarAmigo i{
+    margin-right: 4px;
+}
+#perfilDoUsuario__btnEnviarMensagem{
+    background-color: #4E4F50;
+    border: none;
+    display: flex;
+    align-items: center;
+    font-family: var(--fontePadrao);
+    font-weight: 600;
+    color: rgb(244, 244, 244);
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+#perfilDoUsuario__btnEnviarMensagem i{
+    margin-right: 4px;
+}
+#perfilDoUsuario__btnEnviarMensagemAzul{
+    background-color: #2176FF;
+    border: none;
+    display: flex;
+    align-items: center;
+    font-family: var(--fontePadrao);
+    font-weight: 600;
+    color: rgb(244, 244, 244);
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+#perfilDoUsuario__btnEnviarMensagemAzul i{
+    margin-right: 4px;
+    font-size: 23px;
+}
+@media( max-width: 720px ){
+    #perfilDoUsuario__perfilNomeEOpcoesDoUsuario{
+        width: 98%; 
+    }
+}
+@media( max-width: 680px ){
+    #perfilDoUsuario__opcoesParaPefil{
+        width: 100%;
+        flex-direction: column;
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+    #perfilDoUsuario__opcoesParaPefil button{ 
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 12px;
+        padding: 8px 12px;
+    }
+    #perfilDoUsuario__btnEnviarMensagem{
+        margin-left: 0px;
+    }
+    #perfilDoUsuario__btnEnviarMensagemAzul{
+        margin-left: 0px;
+    }
+}
