@@ -8,6 +8,8 @@
     padding: 0px;
 }
 #opcoesHeaderIcone__perfil img{
+    object-fit: cover;
+    object-position: center center;
     width: 39px;
     height: 37px;
     border-radius: 50%;

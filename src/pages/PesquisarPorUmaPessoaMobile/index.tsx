@@ -45,7 +45,7 @@ export default function PesquisarPorUmaPessoaMobile() {
                         id='pesquisarPorUmaPessoaMobile__listaDeResultados__resultado__perfil'
                     />
                     <p id='pesquisarPorUmaPessoaMobile__listaDeResultados__resultado__nome'>
-                        Tiago zay
+                        Pedro souza
                     </p>
                 </li>   
                 <li id='pesquisarPorUmaPessoaMobile__listaDeResultados__resultado'>
@@ -55,7 +55,7 @@ export default function PesquisarPorUmaPessoaMobile() {
                         id='pesquisarPorUmaPessoaMobile__listaDeResultados__resultado__perfil'
                     />
                     <p id='pesquisarPorUmaPessoaMobile__listaDeResultados__resultado__nome'>
-                        Ervino zay
+                        Maria almeida
                     </p>
                 </li>   
                 <li id='pesquisarPorUmaPessoaMobile__listaDeResultados__resultado'>
@@ -65,7 +65,7 @@ export default function PesquisarPorUmaPessoaMobile() {
                         id='pesquisarPorUmaPessoaMobile__listaDeResultados__resultado__perfil'
                     />
                     <p id='pesquisarPorUmaPessoaMobile__listaDeResultados__resultado__nome'>
-                        Tiago zay
+                        Pedro souza
                     </p>
                 </li>   
                 <li id='pesquisarPorUmaPessoaMobile__listaDeResultados__resultado'>
@@ -75,7 +75,7 @@ export default function PesquisarPorUmaPessoaMobile() {
                         id='pesquisarPorUmaPessoaMobile__listaDeResultados__resultado__perfil'
                     />
                     <p id='pesquisarPorUmaPessoaMobile__listaDeResultados__resultado__nome'>
-                        Tiago zay
+                        Pedro souza
                     </p>
                 </li>   
                 <li id='pesquisarPorUmaPessoaMobile__listaDeResultados__resultado'>
@@ -85,7 +85,7 @@ export default function PesquisarPorUmaPessoaMobile() {
                         id='pesquisarPorUmaPessoaMobile__listaDeResultados__resultado__perfil'
                     />
                     <p id='pesquisarPorUmaPessoaMobile__listaDeResultados__resultado__nome'>
-                        Ervino zay
+                        Maria almeida
                     </p>
                 </li>  
             </ul>

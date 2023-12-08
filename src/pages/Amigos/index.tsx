@@ -10,28 +10,28 @@ export default function Amigos() {
                     <li id='amigosPage__amigo'>
                         <img src="./imagensDinamicas/perfil.jpg" alt="Perfil do usuário" id='amigo__perfil'/>
                         <div id='amigo__informacoesAmigo'>
-                            <p id='amigo__informacoesAmigo__nome'>Tiago zay</p>
+                            <p id='amigo__informacoesAmigo__nome'>Pedro souza</p>
                             <p id='amigo__informacoesAmigo__amigosEmComum'>105 amigos em comum</p>
                         </div>
                     </li>
                     <li id='amigosPage__amigo'>
                         <img src="./imagensDinamicas/perfil2.jpg" alt="Perfil do usuário" id='amigo__perfil'/>
                         <div id='amigo__informacoesAmigo'>
-                            <p id='amigo__informacoesAmigo__nome'>Ervino zay</p>
+                            <p id='amigo__informacoesAmigo__nome'>Maria almeida</p>
                             <p id='amigo__informacoesAmigo__amigosEmComum'>89 amigos em comum</p>
                         </div>
                     </li>
                     <li id='amigosPage__amigo'>
                         <img src="./imagensDinamicas/perfil2.jpg" alt="Perfil do usuário" id='amigo__perfil'/>
                         <div id='amigo__informacoesAmigo'>
-                            <p id='amigo__informacoesAmigo__nome'>Ervino zay</p>
+                            <p id='amigo__informacoesAmigo__nome'>Maria almeida</p>
                             <p id='amigo__informacoesAmigo__amigosEmComum'>89 amigos em comum</p>
                         </div>
                     </li>
                     <li id='amigosPage__amigo'>
                         <img src="./imagensDinamicas/perfil.jpg" alt="Perfil do usuário" id='amigo__perfil'/>
                         <div id='amigo__informacoesAmigo'>
-                            <p id='amigo__informacoesAmigo__nome'>Tiago zay</p>
+                            <p id='amigo__informacoesAmigo__nome'>Pedro souza</p>
                             <p id='amigo__informacoesAmigo__amigosEmComum'>105 amigos em comum</p>
                         </div>
                     </li>

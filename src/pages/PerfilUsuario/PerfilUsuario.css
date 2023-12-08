@@ -24,6 +24,8 @@
     align-items: end;
 }
 #perfilDoUsuario__perfilNomeEOpcoesDoUsuario img{
+    object-fit: cover;
+    object-position: center center;
     height: 180px;
     width: 180px;
     position: absolute;

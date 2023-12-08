@@ -27,7 +27,7 @@ export default function MenuEsquerdo() {
                     <li id='menuEsquerdo__opcao'>
                         <Link id='menuEsquerdo__opcao__botao' to="/perfil">
                             <img src="./imagensDinamicas/perfil.jpg" alt="Foto do perfil" id='menuEsquerdo__opcao__perfil' />
-                            <p id="menuEsquerdo__opcao__nome">Tiago zay</p>
+                            <p id="menuEsquerdo__opcao__nome">Pedro souza</p>
                         </Link>
                     </li>
                     <li id='menuEsquerdo__opcao'>

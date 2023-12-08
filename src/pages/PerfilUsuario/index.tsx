@@ -10,7 +10,7 @@ export default function PerfilUsuario() {
 
     const usuario = new Usuario(
         2,
-        "Tiago zay",
+        "Pedro souza",
         852,
         false,
         true,
@@ -37,7 +37,7 @@ export default function PerfilUsuario() {
                     {
                         usuario.indicadorSolicitacaoDeAmizadeRecebida ?
                             <div id='perfilDoUsuario__avisoDeSolicitacaoRecebida'>
-                                <p>Tiago enviou uma solicitação de amizade para você</p>
+                                <p>Pedro enviou uma solicitação de amizade para você</p>
                                 <div id='perfilDoUsuario__avisoDeSolicitacaoRecebida__opcoes'>
                                     <button id='perfilDoUsuario__avisoDeSolicitacaoRecebida__confirmar'>
                                         Confirmar solicitação

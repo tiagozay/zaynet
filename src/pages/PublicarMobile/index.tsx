@@ -86,12 +86,12 @@ export default function PublicarMobile() {
                     />
                     <p
                         id="publicarMobile__divPerfilENomeUsuario__nome"
-                    >Tiago zay</p>
+                    >Pedro souza</p>
                 </div>
 
                 <textarea
                     id="publicarMobile__campoTexto"
-                    placeholder='No que você está pensando, Tiago?'
+                    placeholder='No que você está pensando, Pedro?'
                     onChange={aoDigitarTexto}
                 >
 

@@ -20,7 +20,7 @@ export default function ModalSolicitacoesDeAmizade({ aberto, clickFora }: ModalS
                         <li id='listaDeSolicitacoesDeAmizade__solicitacao'>
                             <img src="/imagensDinamicas/perfil.jpg" alt="Foto de perfil" id="solicitacao__perfil" />
                             <div id='solicitacao__informacoesPessoa'>
-                                <p id='solicitacao__informacoesPessoa__nome'>Tiago zay</p>
+                                <p id='solicitacao__informacoesPessoa__nome'>Pedro souza</p>
                                 <p id='solicitacao__informacoesPessoa__amigosEmComum'>25 amigos em comum</p>
                             </div>
                             <div id='solicitacao__opcoes'>
@@ -31,7 +31,7 @@ export default function ModalSolicitacoesDeAmizade({ aberto, clickFora }: ModalS
                         <li id='listaDeSolicitacoesDeAmizade__solicitacao'>
                             <img src="/imagensDinamicas/perfil2.jpg" alt="Foto de perfil" id="solicitacao__perfil" />
                             <div id='solicitacao__informacoesPessoa'>
-                                <p id='solicitacao__informacoesPessoa__nome'>Ervino zay</p>
+                                <p id='solicitacao__informacoesPessoa__nome'>Maria almeida</p>
                                 <p id='solicitacao__informacoesPessoa__amigosEmComum'>102 amigos em comum</p>
                             </div>
                             <div id='solicitacao__opcoes'>
@@ -42,7 +42,7 @@ export default function ModalSolicitacoesDeAmizade({ aberto, clickFora }: ModalS
                         <li id='listaDeSolicitacoesDeAmizade__solicitacao'>
                             <img src="/imagensDinamicas/perfil.jpg" alt="Foto de perfil" id="solicitacao__perfil" />
                             <div id='solicitacao__informacoesPessoa'>
-                                <p id='solicitacao__informacoesPessoa__nome'>Tiago zay</p>
+                                <p id='solicitacao__informacoesPessoa__nome'>Pedro souza</p>
                                 <p id='solicitacao__informacoesPessoa__amigosEmComum'>25 amigos em comum</p>
                             </div>
                             <div id='solicitacao__opcoes'>
@@ -53,7 +53,7 @@ export default function ModalSolicitacoesDeAmizade({ aberto, clickFora }: ModalS
                         <li id='listaDeSolicitacoesDeAmizade__solicitacao'>
                             <img src="/imagensDinamicas/perfil.jpg" alt="Foto de perfil" id="solicitacao__perfil" />
                             <div id='solicitacao__informacoesPessoa'>
-                                <p id='solicitacao__informacoesPessoa__nome'>Tiago zay</p>
+                                <p id='solicitacao__informacoesPessoa__nome'>Pedro souza</p>
                                 <p id='solicitacao__informacoesPessoa__amigosEmComum'>25 amigos em comum</p>
                             </div>
                             <div id='solicitacao__opcoes'>
@@ -64,7 +64,7 @@ export default function ModalSolicitacoesDeAmizade({ aberto, clickFora }: ModalS
                         <li id='listaDeSolicitacoesDeAmizade__solicitacao'>
                             <img src="/imagensDinamicas/perfil2.jpg" alt="Foto de perfil" id="solicitacao__perfil" />
                             <div id='solicitacao__informacoesPessoa'>
-                                <p id='solicitacao__informacoesPessoa__nome'>Ervino zay</p>
+                                <p id='solicitacao__informacoesPessoa__nome'>Maria almeida</p>
                                 <p id='solicitacao__informacoesPessoa__amigosEmComum'>102 amigos em comum</p>
                             </div>
                             <div id='solicitacao__opcoes'>
@@ -75,7 +75,7 @@ export default function ModalSolicitacoesDeAmizade({ aberto, clickFora }: ModalS
                         <li id='listaDeSolicitacoesDeAmizade__solicitacao'>
                             <img src="/imagensDinamicas/perfil.jpg" alt="Foto de perfil" id="solicitacao__perfil" />
                             <div id='solicitacao__informacoesPessoa'>
-                                <p id='solicitacao__informacoesPessoa__nome'>Tiago zay</p>
+                                <p id='solicitacao__informacoesPessoa__nome'>Pedro souza</p>
                                 <p id='solicitacao__informacoesPessoa__amigosEmComum'>25 amigos em comum</p>
                             </div>
                             <div id='solicitacao__opcoes'>

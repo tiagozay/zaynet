@@ -9,14 +9,14 @@ export default function MensagensMobile() {
                 <li className='mensagensMobile__mensagem'>
                     <img src="/imagensDinamicas/perfil.jpg" alt="Foto de perfil" id="mensagemMobile__perfil" />
                     <div id='mensagemMobile__informacoesPessoa'>
-                        <p id='mensagemMobile__informacoesPessoa__nome'>Tiago zay</p>
+                        <p id='mensagemMobile__informacoesPessoa__nome'>Pedro souza</p>
                         <p id='mensagemMobile__informacoesPessoa__ultimaMensagem'>Vou ir lá de tarde</p>
                     </div>
                 </li>
                 <li className='mensagensMobile__mensagem'>
                     <img src="/imagensDinamicas/perfil2.jpg" alt="Foto de perfil" id="mensagemMobile__perfil" />
                     <div id='mensagemMobile__informacoesPessoa'>
-                        <p id='mensagemMobile__informacoesPessoa__nome'>Ervino zay</p>
+                        <p id='mensagemMobile__informacoesPessoa__nome'>Maria almeida</p>
                         <p id='mensagemMobile__informacoesPessoa__ultimaMensagem'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae unde qui reiciendis lorem</p>
                     </div>
                 </li>

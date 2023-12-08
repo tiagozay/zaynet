@@ -65,7 +65,10 @@
     background-color: #303031;
 }
 #contatosChat__perfilContato{
+    object-fit: cover;
+    object-position: center center;
     width: 34px;
+    height: 34px;
     border-radius: 50%;
 }
 #contatosChat__nomeContato{

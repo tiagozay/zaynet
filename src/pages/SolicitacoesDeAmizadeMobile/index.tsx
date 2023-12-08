@@ -9,7 +9,7 @@ export default function SolicitacoesDeAmizadeMobile() {
                 <li id='listaDeSolicitacoesDeAmizadeMobile__solicitacao'>
                     <img src="/imagensDinamicas/perfil.jpg" alt="Foto de perfil" id="solicitacaoMobile__perfil" />
                     <div id='solicitacaoMobile__informacoesPessoa'>
-                        <p id='solicitacaoMobile__informacoesPessoa__nome'>Tiago zay</p>
+                        <p id='solicitacaoMobile__informacoesPessoa__nome'>Pedro souza</p>
                         <p id='solicitacaoMobile__informacoesPessoa__amigosEmComum'>25 amigos em comum</p>
                     </div>
                     <div id='solicitacaoMobile__opcoes'>
@@ -20,7 +20,7 @@ export default function SolicitacoesDeAmizadeMobile() {
                 <li id='listaDeSolicitacoesDeAmizadeMobile__solicitacao'>
                     <img src="/imagensDinamicas/perfil2.jpg" alt="Foto de perfil" id="solicitacaoMobile__perfil" />
                     <div id='solicitacaoMobile__informacoesPessoa'>
-                        <p id='solicitacaoMobile__informacoesPessoa__nome'>Ervino zay</p>
+                        <p id='solicitacaoMobile__informacoesPessoa__nome'>Maria almeida</p>
                         <p id='solicitacaoMobile__informacoesPessoa__amigosEmComum'>102 amigos em comum</p>
                     </div>
                     <div id='solicitacaoMobile__opcoes'>
@@ -31,7 +31,7 @@ export default function SolicitacoesDeAmizadeMobile() {
                 <li id='listaDeSolicitacoesDeAmizadeMobile__solicitacao'>
                     <img src="/imagensDinamicas/perfil.jpg" alt="Foto de perfil" id="solicitacaoMobile__perfil" />
                     <div id='solicitacaoMobile__informacoesPessoa'>
-                        <p id='solicitacaoMobile__informacoesPessoa__nome'>Tiago zay</p>
+                        <p id='solicitacaoMobile__informacoesPessoa__nome'>Pedro souza</p>
                         <p id='solicitacaoMobile__informacoesPessoa__amigosEmComum'>25 amigos em comum</p>
                     </div>
                     <div id='solicitacaoMobile__opcoes'>
@@ -42,7 +42,7 @@ export default function SolicitacoesDeAmizadeMobile() {
                 <li id='listaDeSolicitacoesDeAmizadeMobile__solicitacao'>
                     <img src="/imagensDinamicas/perfil.jpg" alt="Foto de perfil" id="solicitacaoMobile__perfil" />
                     <div id='solicitacaoMobile__informacoesPessoa'>
-                        <p id='solicitacaoMobile__informacoesPessoa__nome'>Tiago zay</p>
+                        <p id='solicitacaoMobile__informacoesPessoa__nome'>Pedro souza</p>
                         <p id='solicitacaoMobile__informacoesPessoa__amigosEmComum'>25 amigos em comum</p>
                     </div>
                     <div id='solicitacaoMobile__opcoes'>
@@ -53,7 +53,7 @@ export default function SolicitacoesDeAmizadeMobile() {
                 <li id='listaDeSolicitacoesDeAmizadeMobile__solicitacao'>
                     <img src="/imagensDinamicas/perfil2.jpg" alt="Foto de perfil" id="solicitacaoMobile__perfil" />
                     <div id='solicitacaoMobile__informacoesPessoa'>
-                        <p id='solicitacaoMobile__informacoesPessoa__nome'>Ervino zay</p>
+                        <p id='solicitacaoMobile__informacoesPessoa__nome'>Maria almeida</p>
                         <p id='solicitacaoMobile__informacoesPessoa__amigosEmComum'>102 amigos em comum</p>
                     </div>
                     <div id='solicitacaoMobile__opcoes'>
@@ -64,7 +64,7 @@ export default function SolicitacoesDeAmizadeMobile() {
                 <li id='listaDeSolicitacoesDeAmizadeMobile__solicitacao'>
                     <img src="/imagensDinamicas/perfil.jpg" alt="Foto de perfil" id="solicitacaoMobile__perfil" />
                     <div id='solicitacaoMobile__informacoesPessoa'>
-                        <p id='solicitacaoMobile__informacoesPessoa__nome'>Tiago zay</p>
+                        <p id='solicitacaoMobile__informacoesPessoa__nome'>Pedro souza</p>
                         <p id='solicitacaoMobile__informacoesPessoa__amigosEmComum'>25 amigos em comum</p>
                     </div>
                     <div id='solicitacaoMobile__opcoes'>

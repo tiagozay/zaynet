@@ -10,62 +10,62 @@ export default function AdicionarAmigos() {
         <ul id='adicionarAmigosPage__listaPessoas'>
           <PessoaParaAdicionar
             perfil='./imagensDinamicas/perfil2.jpg'
-            nome='Ervino zay'
+            nome='Maria almeida'
             amigosEmComum={89}
           />
           <PessoaParaAdicionar
             perfil='./imagensDinamicas/perfil.jpg'
-            nome='Tiago zay'
+            nome='Pedro souza'
             amigosEmComum={105}
           />
           <PessoaParaAdicionar
             perfil='./imagensDinamicas/perfil2.jpg'
-            nome='Ervino zay'
+            nome='Maria almeida'
             amigosEmComum={89}
           />
           <PessoaParaAdicionar
             perfil='./imagensDinamicas/perfil.jpg'
-            nome='Tiago zay'
+            nome='Pedro souza'
             amigosEmComum={105}
           />
               <PessoaParaAdicionar
             perfil='./imagensDinamicas/perfil.jpg'
-            nome='Tiago zay'
+            nome='Pedro souza'
             amigosEmComum={105}
           />
           <PessoaParaAdicionar
             perfil='./imagensDinamicas/perfil2.jpg'
-            nome='Ervino zay'
+            nome='Maria almeida'
             amigosEmComum={89}
           />
           <PessoaParaAdicionar
             perfil='./imagensDinamicas/perfil2.jpg'
-            nome='Ervino zay'
+            nome='Maria almeida'
             amigosEmComum={89}
           />
           <PessoaParaAdicionar
             perfil='./imagensDinamicas/perfil.jpg'
-            nome='Tiago zay'
+            nome='Pedro souza'
             amigosEmComum={105}
           />
           <PessoaParaAdicionar
             perfil='./imagensDinamicas/perfil2.jpg'
-            nome='Ervino zay'
+            nome='Maria almeida'
             amigosEmComum={89}
           />
           <PessoaParaAdicionar
             perfil='./imagensDinamicas/perfil.jpg'
-            nome='Tiago zay'
+            nome='Pedro souza'
             amigosEmComum={105}
           />
               <PessoaParaAdicionar
             perfil='./imagensDinamicas/perfil.jpg'
-            nome='Tiago zay'
+            nome='Pedro souza'
             amigosEmComum={105}
           />
           <PessoaParaAdicionar
             perfil='./imagensDinamicas/perfil2.jpg'
-            nome='Ervino zay'
+            nome='Maria almeida'
             amigosEmComum={89}
           />
         </ul>

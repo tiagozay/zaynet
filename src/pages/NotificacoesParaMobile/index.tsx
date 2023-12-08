@@ -11,7 +11,7 @@ export default function NotificacoesParaMobile() {
           <img src="/imagensDinamicas/perfil.jpg" alt="Foto de perfil" id="notificacaoMobile__perfil" />
           <div id='notificacaoMobile__acao'>
             <p>
-              <span id='notificacaoMobile__acao__autor'>Tiago zay </span>
+              <span id='notificacaoMobile__acao__autor'>Pedro souza </span>
               Adicionou uma nova foto.
             </p>
           </div>
@@ -20,7 +20,7 @@ export default function NotificacoesParaMobile() {
           <img src="/imagensDinamicas/perfil2.jpg" alt="Foto de perfil" id="notificacaoMobile__perfil" />
           <div id='notificacaoMobile__acao'>
             <p>
-              <span id='notificacaoMobile__acao__autor'>Ervino zay </span>
+              <span id='notificacaoMobile__acao__autor'>Maria almeida </span>
               Comentou 'Suka' em sua publicação.
             </p>
           </div>
@@ -29,7 +29,7 @@ export default function NotificacoesParaMobile() {
           <img src="/imagensDinamicas/perfil.jpg" alt="Foto de perfil" id="notificacaoMobile__perfil" />
           <div id='notificacaoMobile__acao'>
             <p>
-              <span id='notificacaoMobile__acao__autor'>Tiago zay </span>
+              <span id='notificacaoMobile__acao__autor'>Pedro souza </span>
               Adicionou uma nova foto.
             </p>
           </div>

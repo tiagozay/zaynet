@@ -30,7 +30,7 @@ export default function FotosUsuario() {
       '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub5.jpg',
     ),
     new MidiaPublicacaoModel(
-      '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub6.jpg',
+      '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub6.mp4',
       '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub6.jpg',
     )
   ];

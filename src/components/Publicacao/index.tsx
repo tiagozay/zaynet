@@ -11,7 +11,7 @@ export default function Publicacao() {
   const navigate = useNavigate();
 
   const publicacao = {
-    nomeAutor: "Tiago zay",
+    nomeAutor: "Pedro souza",
     perfil: "./imagensDinamicas/perfil.jpg",
     tempoDePublicacao: "10 h",
     texto: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero, distinctio autem? Magnam autem quisquam voluptates eius cupiditate. Sapiente blanditiis obcaecati natus, similique, repellendus ipsum ipsam dicta eos consequatur, distinctio soluta?",
@@ -37,17 +37,9 @@ export default function Publicacao() {
         '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub5.jpg',
       ),
       new MidiaPublicacaoModel(
-        '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub6.jpg',
+        '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub6.mp4',
         '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub6.jpg',
       ),
-      new MidiaPublicacaoModel(
-        '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub7.mp4',
-        '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub7.jpg',
-      ),
-      new MidiaPublicacaoModel(
-        '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub8.mp4',
-        '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub8.jpg'
-      )
     ]
   }
 
@@ -72,7 +64,7 @@ export default function Publicacao() {
       <div id='publicacao__infoUsuario'>
         <img src={publicacao.perfil} alt="Perfil usuário" id='publicacao__perfil' />
         <div>
-          <p id='publicacao__nomeAutor'>Tiago zay</p>
+          <p id='publicacao__nomeAutor'>Pedro souza</p>
           <p id='publicacao__tempoDePublicacao'>Há 10 h</p>
         </div>
       </div>

@@ -30,12 +30,12 @@ export default function Comentarios() {
 
         <Comentario
           perfilUsuario='./imagensDinamicas/perfil.jpg'
-          nomeUsuario='Tiago zay'
+          nomeUsuario='Pedro souza'
           comentario='Que maravilha!'
           respostas={[
             {
               perfilUsuario: './imagensDinamicas/perfil2.jpg',
-              nomeUsuario: 'Ervino zay',
+              nomeUsuario: 'Maria almeida',
               comentario: 'É verdade!',
             }
           ]}
@@ -43,18 +43,18 @@ export default function Comentarios() {
 
         <Comentario
           perfilUsuario='./imagensDinamicas/perfil2.jpg'
-          nomeUsuario='Ervino zay'
+          nomeUsuario='Maria almeida'
           comentario='Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem voluptatum, nulla voluptatibus numquam vel nam, fuga quas pariatur architecto aperiam, ipsam minus asperiores aspernatur sit. Facere soluta modi libero eaque?'
           respostas={[
             {
               perfilUsuario: './imagensDinamicas/perfil.jpg',
-              nomeUsuario: 'Tiago zay',
-              comentario: 'Ta lokiando cara?',
+              nomeUsuario: 'Pedro souza',
+              comentario: 'Que lagal!',
             },
             {
               perfilUsuario: './imagensDinamicas/perfil2.jpg',
-              nomeUsuario: 'Ervino zay',
-              comentario: 'Não, são apenas palavras.',
+              nomeUsuario: 'Maria almeida',
+              comentario: 'Sim, muito!',
             },
           ]}
         />

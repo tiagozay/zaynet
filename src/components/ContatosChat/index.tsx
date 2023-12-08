@@ -58,67 +58,67 @@ export default function ContatosChat() {
             <ul id='contatosChat__listaDeContatos'>
                 <li className='contatosChat__listaDeContatos__contato'>
                     <img src="./imagensDinamicas/perfil.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
-                    <p id='contatosChat__nomeContato'>Tiago zay</p>
+                    <p id='contatosChat__nomeContato'>Pedro souza</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato'>
                     <img src="./imagensDinamicas/perfil2.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
-                    <p id='contatosChat__nomeContato'>Ervino zay</p>
+                    <p id='contatosChat__nomeContato'>Maria almeida</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato'>
                     <img src="./imagensDinamicas/perfil.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
-                    <p id='contatosChat__nomeContato'>Tiago zay</p>
+                    <p id='contatosChat__nomeContato'>Pedro souza</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato'>
                     <img src="./imagensDinamicas/perfil2.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
-                    <p id='contatosChat__nomeContato'>Ervino zay</p>
+                    <p id='contatosChat__nomeContato'>Maria almeida</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato'>
                     <img src="./imagensDinamicas/perfil.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
-                    <p id='contatosChat__nomeContato'>Tiago zay</p>
+                    <p id='contatosChat__nomeContato'>Pedro souza</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato'>
                     <img src="./imagensDinamicas/perfil2.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
-                    <p id='contatosChat__nomeContato'>Ervino zay</p>
+                    <p id='contatosChat__nomeContato'>Maria almeida</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato'>
                     <img src="./imagensDinamicas/perfil.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
-                    <p id='contatosChat__nomeContato'>Tiago zay</p>
+                    <p id='contatosChat__nomeContato'>Pedro souza</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato'>
                     <img src="./imagensDinamicas/perfil2.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
-                    <p id='contatosChat__nomeContato'>Ervino zay</p>
+                    <p id='contatosChat__nomeContato'>Maria almeida</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato'>
                     <img src="./imagensDinamicas/perfil.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
-                    <p id='contatosChat__nomeContato'>Tiago zay</p>
+                    <p id='contatosChat__nomeContato'>Pedro souza</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato'>
                     <img src="./imagensDinamicas/perfil2.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
-                    <p id='contatosChat__nomeContato'>Ervino zay</p>
+                    <p id='contatosChat__nomeContato'>Maria almeida</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato'>
                     <img src="./imagensDinamicas/perfil.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
-                    <p id='contatosChat__nomeContato'>Tiago zay</p>
+                    <p id='contatosChat__nomeContato'>Pedro souza</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato'>
                     <img src="./imagensDinamicas/perfil2.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
-                    <p id='contatosChat__nomeContato'>Ervino zay</p>
+                    <p id='contatosChat__nomeContato'>Maria almeida</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato'>
                     <img src="./imagensDinamicas/perfil.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
-                    <p id='contatosChat__nomeContato'>Tiago zay</p>
+                    <p id='contatosChat__nomeContato'>Pedro souza</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato'>
                     <img src="./imagensDinamicas/perfil2.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
-                    <p id='contatosChat__nomeContato'>Ervino zay</p>
+                    <p id='contatosChat__nomeContato'>Maria almeida</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato'>
                     <img src="./imagensDinamicas/perfil.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
-                    <p id='contatosChat__nomeContato'>Tiago zay</p>
+                    <p id='contatosChat__nomeContato'>Pedro souza</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato'>
                     <img src="./imagensDinamicas/perfil2.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
-                    <p id='contatosChat__nomeContato'>Ervino zay</p>
+                    <p id='contatosChat__nomeContato'>Maria almeida</p>
                 </li>
             </ul>
 

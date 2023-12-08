@@ -44,7 +44,7 @@ export default function Home() {
             <input
               type="text"
               id='feed_adicionarUmaNovaPublicacao__input'
-              placeholder='No que você está pensando, Tiago?'
+              placeholder='No que você está pensando, Pedro?'
               onClick={abrirModalPublicar}
               disabled={modalPublicarAberto ? true : false}
             />

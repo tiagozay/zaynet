@@ -21,7 +21,7 @@ export default function ModalNotificacoes({ aberto, clickFora }: ModalNotificaco
                             <img src="/imagensDinamicas/perfil.jpg" alt="Foto de perfil" id="notificacao__perfil" />
                             <div id='notificacao__acao'>
                                 <p>
-                                    <span id='notificacao__acao__autor'>Tiago zay </span>
+                                    <span id='notificacao__acao__autor'>Pedro souza </span>
                                     Adicionou uma nova foto.
                                 </p>
                             </div>
@@ -30,7 +30,7 @@ export default function ModalNotificacoes({ aberto, clickFora }: ModalNotificaco
                             <img src="/imagensDinamicas/perfil2.jpg" alt="Foto de perfil" id="notificacao__perfil" />
                             <div id='notificacao__acao'>
                                 <p>
-                                    <span id='notificacao__acao__autor'>Ervino zay </span>
+                                    <span id='notificacao__acao__autor'>Maria almeida </span>
                                     Comentou na sua publicação.
                                 </p>
                             </div>

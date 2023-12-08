@@ -144,7 +144,7 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
                             alt="Perfil usuário"
                             id="modalPublicar__perfilUsuario"
                         />
-                        <p id="modalPublicar__nomeUsuario">Tiago zay</p>
+                        <p id="modalPublicar__nomeUsuario">Pedro souza</p>
                     </div>
 
                     <div id='modalPublicar__containerInputs'>
@@ -153,7 +153,7 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
                             className={
                                 indicadorInputImagensEVideosAberto ? "modalPublicar__campoTextoMaisBaixo" : ""
                             }
-                            placeholder='No que você está pensando, Tiago?'
+                            placeholder='No que você está pensando, Pedro?'
                             onChange={aoDigitarTexto}
                         ></textarea>
 
