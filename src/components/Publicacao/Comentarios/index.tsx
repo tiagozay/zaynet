@@ -36,7 +36,7 @@ export default function Comentarios() {
             {
               perfilUsuario: './imagensDinamicas/perfil2.jpg',
               nomeUsuario: 'Ervino zay',
-              comentario: 'To prawda!',
+              comentario: 'É verdade!',
             }
           ]}
         />
