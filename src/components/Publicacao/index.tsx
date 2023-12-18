@@ -5,6 +5,7 @@ import Comentarios from './Comentarios';
 import InteracoesComAPublicacao from './InteracoesComAPublicacao';
 import { useNavigate } from 'react-router-dom';
 import { MidiaPublicacaoModel } from '../../models/MidiaPublicacaoModel';
+import { ArquivosPublicacaoService } from '../../services/ArquivosPublicacaoService';
 
 export default function Publicacao() {
 
@@ -15,7 +16,11 @@ export default function Publicacao() {
     perfil: "./imagensDinamicas/perfil.jpg",
     tempoDePublicacao: "10 h",
     texto: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero, distinctio autem? Magnam autem quisquam voluptates eius cupiditate. Sapiente blanditiis obcaecati natus, similique, repellendus ipsum ipsam dicta eos consequatur, distinctio soluta?",
-    imagens: [
+    midias: [
+      new MidiaPublicacaoModel(
+        '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub8.mp4',
+        '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub8.jpg'
+      ),
       new MidiaPublicacaoModel(
         '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub1.jpg',
         '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub1.jpg',
@@ -43,18 +48,18 @@ export default function Publicacao() {
     ]
   }
 
-  const classeDeCadaImagem = publicacao.imagens.length === 1 ? "imagemOcupandoTodoTamanho" : "imagemOcupandoMetade";
+  const classeDeCadaImagem = publicacao.midias.length === 1 ? "imagemOcupandoTodoTamanho" : "imagemOcupandoMetade";
 
   function aoClicarEmUmaImagem(indice: number) {
     const info = JSON.stringify(
-      { imagensDoCarrossel: publicacao.imagens, indiceImagemInicial: indice }
+      { imagensDoCarrossel: publicacao.midias, indiceImagemInicial: indice }
     );
     navigate(`/image/${encodeURIComponent(info)}`);
   }
 
   function aoClicarEmVerMaisImagens() {
     const info = JSON.stringify(
-      { imagensDoCarrossel: publicacao.imagens, indiceImagemInicial: 3 }
+      { imagensDoCarrossel: publicacao.midias, indiceImagemInicial: 3 }
     );
     navigate(`/image/${encodeURIComponent(info)}`);
   }
@@ -73,27 +78,42 @@ export default function Publicacao() {
 
       <div id='publicacao__imagens'>
         {
-          publicacao.imagens.slice(0, 4).map((imagem, index) => {
+          publicacao.midias.slice(0, 4).map((midia, index) => {
+
+            const imagemOuVideo = ArquivosPublicacaoService.identificaSeArquivoEImagemOuVideoPeloNome(midia.caminhoMidiaNormal)
 
             if (index === 3) {
 
               return <UltimaImagemComSobreposicao
-                urlImagem={imagem.caminhoMidiaNormal}
-                key={imagem.caminhoMidiaNormal}
+                urlImagem={midia.caminhoMidiaNormal}
+                key={midia.caminhoMidiaNormal}
                 classeDeCadaImagem={classeDeCadaImagem}
-                quantidadeDeImagensRestantes={publicacao.imagens.slice(4).length}
+                quantidadeDeImagensRestantes={publicacao.midias.slice(4).length}
                 aoClicarEmVerTodasImagens={aoClicarEmVerMaisImagens}
               />
 
             } else {
-              return < img
-                key={imagem.caminhoMidiaNormal}
-                src={imagem.caminhoMidiaNormal}
-                alt="Imagem publicação"
-                id='publicacao_imagem'
-                className={classeDeCadaImagem}
-                onClick={() => aoClicarEmUmaImagem(index)}
-              />
+
+              if (imagemOuVideo === 'Imagem') {
+                return < img
+                  key={midia.caminhoMidiaNormal}
+                  src={midia.caminhoMidiaNormal}
+                  alt="Imagem publicação"
+                  id='publicacao_imagem'
+                  className={classeDeCadaImagem}
+                  onClick={() => aoClicarEmUmaImagem(index)}
+                />
+              }else{
+                return <video
+                  key={midia.caminhoMidiaNormal}
+                  src={midia.caminhoMidiaNormal}
+                  id='publicacao_imagem'
+                  className={classeDeCadaImagem}
+                  onClick={() => aoClicarEmUmaImagem(index)}
+                ></video>
+              }
+
+
             }
 
           }

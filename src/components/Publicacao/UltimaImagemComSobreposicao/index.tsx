@@ -13,9 +13,10 @@ export default function UltimaImagemComSobreposicao(
 ) {
     const style = {
         backgroundImage: `url(${urlImagem})`,
+        backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
-        backgroundSize: '100%'
-    }
+        backgroundSize: 'cover',
+      };
 
     return <div
         id='publicacao__imagens__sobreposicaoDaUltimaImagem'
