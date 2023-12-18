@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './SolicitacoesDeAmizadeMobile.css';
+import { useNavigate } from 'react-router-dom';
+import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 
 export default function SolicitacoesDeAmizadeMobile() {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        verificaTamanhoDaTelaESaiDaRotaSeForMobile();
+
+        const handleResize = () => verificaTamanhoDaTelaESaiDaRotaSeForMobile();
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    function verificaTamanhoDaTelaESaiDaRotaSeForMobile() {
+        if (window.innerWidth > TAMANHO_DE_TELA_MOBILE) {
+            navigate('/');
+        }
+    }
+
     return (
         <section id='solicitacoesDeAmizadePage' className='espacamentosParaCompensarPartesDoHeader'>
             <h3 id='solicitacoesDeAmizadeMobile__titulo'>Solicitações de amizade</h3>

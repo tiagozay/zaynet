@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './MensagensMobile.css';
+import { useNavigate } from 'react-router-dom';
+import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 
 export default function MensagensMobile() {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        verificaTamanhoDaTelaESaiDaRotaSeForMobile();
+
+        const handleResize = () => verificaTamanhoDaTelaESaiDaRotaSeForMobile();
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    function verificaTamanhoDaTelaESaiDaRotaSeForMobile() {
+        if (window.innerWidth > TAMANHO_DE_TELA_MOBILE) {
+            navigate('/');
+        }
+    }
+
     return (
         <section id='mensagensPage' className='espacamentosParaCompensarPartesDoHeader'>
             <h3 id='mensagensMobile__titulo'>Mensagens</h3>

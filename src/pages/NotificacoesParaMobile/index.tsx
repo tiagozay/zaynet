@@ -1,8 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './NotificacoesParaMobile.css';
+import { TAMANHO_DE_TELA_MOBILE } from '../../config';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function NotificacoesParaMobile() {
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    verificaTamanhoDaTelaESaiDaRotaSeForMobile();
+
+    const handleResize = () => verificaTamanhoDaTelaESaiDaRotaSeForMobile();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  function verificaTamanhoDaTelaESaiDaRotaSeForMobile() {
+    if (window.innerWidth > TAMANHO_DE_TELA_MOBILE) {
+      navigate('/');
+    }
+  }
+
   return (
     <section id='notificacoesPage' className='espacamentosParaCompensarPartesDoHeader'>
       <h3 id='notificacoesMobile__titulo'>Notificações</h3>

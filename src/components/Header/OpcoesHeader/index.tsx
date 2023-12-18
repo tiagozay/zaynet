@@ -18,10 +18,21 @@ export default function OpcoesHeader() {
 
     useEffect(() => {
         verificaTamanhoDaTelaEMudaState();
-        window.addEventListener('resize', () => {
-            verificaTamanhoDaTelaEMudaState();
-        })
+
+        const handleResize = () => verificaTamanhoDaTelaEMudaState();
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
     }, []);
+
+    useEffect(() => {
+        if (indicadorLayoutMobile) {
+            fecharModais();
+        }
+    }, [indicadorLayoutMobile])
 
     function verificaTamanhoDaTelaEMudaState() {
         if (window.innerWidth <= TAMANHO_DE_TELA_MOBILE) {
