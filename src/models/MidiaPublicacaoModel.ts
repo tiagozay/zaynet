@@ -1,8 +1,8 @@
 export class MidiaPublicacaoModel {
     public caminhoMidiaNormal: string;
-    public caminhoMidiaMiniatura: string | null;
+    public caminhoMidiaMiniatura: string;
   
-    constructor(caminhoMidiaNormal: string, caminhoMidiaMiniatura: string | null) {
+    constructor(caminhoMidiaNormal: string, caminhoMidiaMiniatura: string) {
       this.caminhoMidiaNormal = caminhoMidiaNormal;
       this.caminhoMidiaMiniatura = caminhoMidiaMiniatura;
     }

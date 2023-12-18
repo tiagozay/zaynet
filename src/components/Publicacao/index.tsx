@@ -18,10 +18,6 @@ export default function Publicacao() {
     texto: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero, distinctio autem? Magnam autem quisquam voluptates eius cupiditate. Sapiente blanditiis obcaecati natus, similique, repellendus ipsum ipsam dicta eos consequatur, distinctio soluta?",
     midias: [
       new MidiaPublicacaoModel(
-        '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub8.mp4',
-        '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub8.jpg'
-      ),
-      new MidiaPublicacaoModel(
         '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub1.jpg',
         '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub1.jpg',
       ),
@@ -85,7 +81,7 @@ export default function Publicacao() {
             if (index === 3) {
 
               return <UltimaImagemComSobreposicao
-                urlImagem={midia.caminhoMidiaNormal}
+                urlImagem={ imagemOuVideo === "Imagem" ? midia.caminhoMidiaNormal : midia.caminhoMidiaMiniatura}
                 key={midia.caminhoMidiaNormal}
                 classeDeCadaImagem={classeDeCadaImagem}
                 quantidadeDeImagensRestantes={publicacao.midias.slice(4).length}
@@ -99,18 +95,29 @@ export default function Publicacao() {
                   key={midia.caminhoMidiaNormal}
                   src={midia.caminhoMidiaNormal}
                   alt="Imagem publicação"
-                  id='publicacao_imagem'
-                  className={classeDeCadaImagem}
+                  className={`publicacao_imagem ${classeDeCadaImagem}`}
                   onClick={() => aoClicarEmUmaImagem(index)}
                 />
-              }else{
-                return <video
-                  key={midia.caminhoMidiaNormal}
-                  src={midia.caminhoMidiaNormal}
-                  id='publicacao_imagem'
-                  className={classeDeCadaImagem}
+              } else {
+                return <div
+                  id='publicacao__divMiniaturaVideo'
+                  className={`publicacao_imagem ${classeDeCadaImagem}`}
                   onClick={() => aoClicarEmUmaImagem(index)}
-                ></video>
+                  key={midia.caminhoMidiaMiniatura}
+                >
+
+                  <div id='publicacao__divMiniaturaVideo__overlay'>
+                    <i className='material-symbols-outlined'>play_arrow</i>
+                  </div>
+
+                  <img
+                    src={midia.caminhoMidiaMiniatura}
+                    className={`publicacao_imagem ${classeDeCadaImagem}`}
+                  />
+                </div>
+
+
+
               }
 
 
