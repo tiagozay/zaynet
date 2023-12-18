@@ -13,7 +13,7 @@ export default function PerfilUsuario() {
         "Pedro souza",
         852,
         false,
-        true,
+        false,
         false
     )
 
@@ -52,6 +52,15 @@ export default function PerfilUsuario() {
 
                 </section>
 
+                <section id='perfilUsuario__menuPerfil'>
+                    <div id='perfilUsuario__linhaDivisoria'></div>
+                    <ul id='perfilUsuario__menuPerfil__listaOpcoes'>
+                        <li className='perfilUsuario__menuPerfil__listaOpcoes__opcao perfilUsuario__menuPerfil__listaOpcoes__opcaoAtiva'>Publicações</li>
+                        <li className='perfilUsuario__menuPerfil__listaOpcoes__opcao'>Fotos</li>
+                        <li className='perfilUsuario__menuPerfil__listaOpcoes__opcao'>Vídeos</li>
+                        <li className='perfilUsuario__menuPerfil__listaOpcoes__opcao'>Amigos</li>
+                    </ul>
+                </section>
             </section>
         </>
 
