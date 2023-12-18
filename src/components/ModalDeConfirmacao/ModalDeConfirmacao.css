@@ -1,0 +1,131 @@
+#modalDeConfirmacao__overlay{
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.489);
+    position: fixed;
+    z-index: 21;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#modalDeConfirmacao{
+    width: 530px;
+    background-color: #242526;
+    border-radius: 8px;
+}
+#modalDeConfirmacao__mobile{
+    width: 400px;
+    background-color: #3F4042;
+    border-radius: 2px;
+}
+#modalDeConfirmacao__divTituloEBtnFechar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 20px 0;
+    border-bottom: 1px rgb(136, 136, 136) solid;
+}
+#modalDeConfirmacao__titulo{
+    font-family: var(--fontePadrao);
+    color: rgb(228, 228, 228);
+    font-weight: 600;
+    font-size: 17px;
+}
+#modalDeConfirmacao__btnFechar{
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: #3A3B3C;
+    margin: 10px 15px;
+    border-radius: 50%;
+    height: 36px;
+    width: 37px;
+    padding: 0;
+    border: none;
+    color: rgb(215, 215, 215);
+    cursor: pointer;
+    font-size: 22px;
+}
+#modalDeConfirmacao__btnFechar:hover{
+    background-color: #4E4F50;
+}
+#modalDeConfirmacao__mensagem{
+    color: rgb(215, 215, 215);
+    font-family: var(--fontePadrao);
+    font-size: 14px;
+    padding: 12px 15px;
+}
+#modalDeConfirmacao__mensagem__mobile{
+    color: rgb(215, 215, 215);
+    font-family: var(--fontePadrao);
+    font-size: 15px;
+    padding: 25px 20px;
+}
+#modalDeConfirmacao__divBtnsInteracao{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    margin-top: 25px;
+    padding: 15px;
+    box-sizing: border-box;
+}
+#modalDeConfirmacao__divBtnsInteracao__mobile{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    margin-top: 2px;
+    padding: 15px;
+    box-sizing: border-box;
+}
+#modalDeConfirmacao__btnCancelar{
+    background-color: transparent;
+    color: #82BCFC;
+    border: none;
+    font-family: var(--fontePadrao);
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 10px;
+}
+#modalDeConfirmacao__btnConfirmar{
+    background-color: #0866FF;
+    border: none;
+    font-family: var(--fontePadrao);
+    color: rgb(247, 247, 247);
+    font-weight: 600;
+    padding: 10px 32px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+#modalDeConfirmacao__btnCancelar__mobile{
+    background-color: transparent;
+    color: rgb(205, 205, 205);
+    border: none;
+    font-family: var(--fontePadrao);
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 10px;
+    text-transform: uppercase;
+}
+#modalDeConfirmacao__btnConfirmar__mobile{
+    background-color: transparent;
+    border: none;
+    font-family: var(--fontePadrao);
+    color: #0866FF;
+    font-weight: 600;
+    padding: 10px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+
+}
+@media( max-width: 430px ){
+    #modalDeConfirmacao__mobile{
+        width: 340px;
+    }
+}
+@media( max-width: 350px ){
+    #modalDeConfirmacao__mobile{
+        width: 290px;
+    }
+}
