@@ -37,6 +37,9 @@
 }
 #pesquisarPorUmaPessoaMobile__listaDeResultados__resultado__perfil{
     width: 32px;
+    height: 32px;
+    object-fit: cover;
+    object-position: center center;
     border-radius: 50%;
 }
 #pesquisarPorUmaPessoaMobile__listaDeResultados__resultado__nome{
