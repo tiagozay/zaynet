@@ -5,6 +5,7 @@ import MenuResponderSolicitacao from './MenuResponderSolicitacao';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import OpcoesAcoesUsuario from './OpcoesAcoesUsuario';
 import { Usuario } from '../../models/Usuario';
+import Publicacao from '../../components/Publicacao';
 
 export default function PerfilUsuario() {
 
@@ -155,6 +156,19 @@ export default function PerfilUsuario() {
                             </ul>
                         </div>
                     </div>
+
+
+                    <div id='perfilUsuario__feed'>
+                        <h3 id='perfilUsuario__feed__titulo'>
+                            Publicações
+                        </h3>
+
+                        <Publicacao></Publicacao>
+                        <Publicacao></Publicacao>
+
+                    </div>
+
+
                 </section>
 
             </section>
