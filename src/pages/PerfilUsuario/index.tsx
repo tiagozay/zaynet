@@ -106,6 +106,54 @@ export default function PerfilUsuario() {
                                 </li>
                             </ul>
                         </div>
+
+                        <div id='perfilUsuario__amigosLateral'>
+                            <h3 id='perfilUsuario__informacoesLaterais__titulo'>Amigos</h3>
+                            <ul id='perfilUsuario__amigosLateral__listaDeAmigos'>
+                                <li className='perfilUsuario__amigosLateral__listaDeAmigos__amigo'>
+                                    <img
+                                        className='perfilUsuario__listaDeAmigos__perfilAmigo'
+                                        src="./imagensDinamicas/perfil.jpg" alt="Perfil usuário"
+                                    />
+                                    <p className='perfilUsuario__listaAmigos__nomeAmigo'>José Andrade</p>
+                                </li>
+                                <li className='perfilUsuario__amigosLateral__listaDeAmigos__amigo'>
+                                    <img
+                                        className='perfilUsuario__listaDeAmigos__perfilAmigo'
+                                        src="./imagensDinamicas/perfil2.jpg" alt="Perfil usuário"
+                                    />
+                                    <p className='perfilUsuario__listaAmigos__nomeAmigo'>José Andrade</p>
+                                </li>
+                                <li className='perfilUsuario__amigosLateral__listaDeAmigos__amigo'>
+                                    <img
+                                        className='perfilUsuario__listaDeAmigos__perfilAmigo'
+                                        src="./imagensDinamicas/perfil.jpg" alt="Perfil usuário"
+                                    />
+                                    <p className='perfilUsuario__listaAmigos__nomeAmigo'>José Andrade</p>
+                                </li>
+                                <li className='perfilUsuario__amigosLateral__listaDeAmigos__amigo'>
+                                    <img
+                                        className='perfilUsuario__listaDeAmigos__perfilAmigo'
+                                        src="./imagensDinamicas/perfil2.jpg" alt="Perfil usuário"
+                                    />
+                                    <p className='perfilUsuario__listaAmigos__nomeAmigo'>Maria de souza da luz</p>
+                                </li>
+                                <li className='perfilUsuario__amigosLateral__listaDeAmigos__amigo'>
+                                    <img
+                                        className='perfilUsuario__listaDeAmigos__perfilAmigo'
+                                        src="./imagensDinamicas/perfil.jpg" alt="Perfil usuário"
+                                    />
+                                    <p className='perfilUsuario__listaAmigos__nomeAmigo'>José Andrade</p>
+                                </li>
+                                <li className='perfilUsuario__amigosLateral__listaDeAmigos__amigo'>
+                                    <img
+                                        className='perfilUsuario__listaDeAmigos__perfilAmigo'
+                                        src="./imagensDinamicas/perfil2.jpg" alt="Perfil usuário"
+                                    />
+                                    <p className='perfilUsuario__listaAmigos__nomeAmigo'>José Andrade</p>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </section>
 
