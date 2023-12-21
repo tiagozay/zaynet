@@ -11,27 +11,27 @@ export default function FotosUsuario() {
   const fotosUsuario = [
     new MidiaPublicacaoModel(
       '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub1.jpg',
-      '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub1.jpg',
+      '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub1.jpg',
     ),
     new MidiaPublicacaoModel(
       '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub2.jpg',
-      '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub2.jpg',
+      '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub2.jpg',
     ),
     new MidiaPublicacaoModel(
       '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub3.jpg',
-      '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub3.jpg',
+      '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub3.jpg',
     ),
     new MidiaPublicacaoModel(
       '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub4.jpg',
-      '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub4.jpg',
+      '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub4.jpg',
     ),
     new MidiaPublicacaoModel(
       '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub5.jpg',
-      '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub5.jpg',
+      '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub5.jpg',
     ),
     new MidiaPublicacaoModel(
       '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub6.mp4',
-      '/imagensDinamicas/publicacoes/miniaturasDasIamagens/pub6.jpg',
+      '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub6.jpg',
     )
   ];
 
