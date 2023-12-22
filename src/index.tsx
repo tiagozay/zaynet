@@ -14,6 +14,10 @@ import PesquisarPorUmaPessoaMobile from './pages/PesquisarPorUmaPessoaMobile';
 import FotosUsuario from './pages/FotosUsuario';
 import PublicarMobile from './pages/PublicarMobile';
 import PerfilUsuario from './pages/PerfilUsuario';
+import FeedPublicacoesUsuario from './pages/FeedPublicacoesUsuario';
+import FotosPerfilUsuario from './pages/FotosPerfilUsuario';
+import VideosPerfilUsuario from './pages/VideosPerfilUsuario';
+import AmigosPerfilUsuario from './pages/AmigosPerfilUsuario';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 root.render(
@@ -31,7 +35,12 @@ root.render(
           <Route path='/image/:objInfoCarrosel' element={<CarrosselDeImagens />}/>
           <Route path='/pesquisar' element={<PesquisarPorUmaPessoaMobile />}/>
           <Route path='/publicar' element={<PublicarMobile />}/>
-          <Route path='/perfil' element={<PerfilUsuario />}/>
+          <Route path='/perfil' element={<PerfilUsuario />}>
+            <Route path='/perfil' element={<FeedPublicacoesUsuario />} />
+            <Route path='fotos' element={<FotosPerfilUsuario />} />
+            <Route path='videos' element={<VideosPerfilUsuario />} />
+            <Route path='amigos' element={<AmigosPerfilUsuario />} />
+          </Route>
         </Routes>
       </BrowserRouter>
   </React.StrictMode>
