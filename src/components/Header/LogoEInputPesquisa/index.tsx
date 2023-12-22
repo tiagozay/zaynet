@@ -30,7 +30,7 @@ export default function LogoEInputPesquisa() {
 
                 {
                     indicadorLayoutMobile ?
-                        <Link to="pesquisar" className='material-symbols-outlined'>
+                        <Link to="/pesquisar" className='material-symbols-outlined'>
                             search
                         </Link> :
                         <i className='material-symbols-outlined'>search</i>
