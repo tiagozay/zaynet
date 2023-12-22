@@ -101,11 +101,13 @@
 #perfilUsuario__menuPerfil{
     width: 100%;
     background-color: #242526;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 #perfilUsuario__menuPerfil__listaOpcoes{
     display: flex;
     width: 65%;
-    margin: 0 auto;
     font-family: var(--fontePadrao);
 }
 .perfilUsuario__menuPerfil__listaOpcoes__opcao{
@@ -131,7 +133,6 @@
 
 #perfilUsuario__containerPrincipal{
     width: 65%;
-    height: 500px;
     display: flex;
     align-items: start;
     margin: 0 auto;
@@ -254,7 +255,6 @@
     font-size: 17px;
     border-radius: 8px;
     box-sizing: border-box;
-
 }
 
 @media( max-width: 1120px ){
@@ -267,6 +267,17 @@
     #perfilDoUsuario__avisoDeSolicitacaoRecebida{
         width: 85%;
     }
+
+    #perfilUsuario__containerPrincipal{
+        width: 85%;
+    }
+    #perfilUsuario__linhaDivisoria{
+        width: 85%;
+    }
+    #perfilUsuario__menuPerfil__listaOpcoes{
+        width: 85%;
+    }
+
 }
 @media( max-width: 850px ){
     #perfilDoUsuario__perfilNomeEOpcoesDoUsuario img{
@@ -292,10 +303,37 @@
     #perfilDoUsuario__nomeEQuantidadeDeAmigos__nome{
         font-size: 24px;
     }
+
+
+    #perfilUsuario__containerPrincipal{
+        width: 93%;
+    }
+    #perfilUsuario__linhaDivisoria{
+        width: 93%;
+    }
+    #perfilUsuario__menuPerfil__listaOpcoes{
+        width: 93%;
+    }
+    .perfilUsuario__fotosLateral__listaDeFotos__foto{
+        height: 85px;
+    }
+    .perfilUsuario__listaDeAmigos__perfilAmigo{
+        height: 75px;
+    }
+
 }
-@media( max-width: 720px ){
+@media( max-width: 740px ){
     #perfilDoUsuario__perfilNomeEOpcoesDoUsuario{
         width: 98%; 
+    }
+    #perfilUsuario__containerPrincipal{
+        width: 98%;
+    }
+    #perfilUsuario__linhaDivisoria{
+        width: 98%;
+    }
+    #perfilUsuario__menuPerfil__listaOpcoes{
+        width: 98%;
     }
 }
 @media( max-width: 680px ){
@@ -314,4 +352,37 @@
         width: 100%;
         box-sizing: border-box;
     }
+
+    #perfilUsuario__containerPrincipal{
+        flex-direction: column;
+        padding: 20px 10px;
+        box-sizing: border-box;
+    }
+    #perfilUsuario__containerInformacoesLaterais{
+        width: 100%;
+    }
+    #perfilUsuario__feed{
+        width: 100%;
+    }
+    #perfilUsuario__menuPerfil__listaOpcoes{
+        width: 95%;
+        justify-content: center;
+    }
+    .perfilUsuario__menuPerfil__listaOpcoes__opcao{
+        font-size: 14px;
+        padding: 20px 0;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+    #perfilUsuario__fotosLateral{
+        display: none;
+    }
+    #perfilUsuario__feed{
+        padding: 0;
+    }
+    #perfilUsuario__feed__titulo{
+        margin-top: 15px;
+    }
+
 }
