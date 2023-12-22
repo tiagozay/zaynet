@@ -23,6 +23,10 @@ export default function PerfilUsuario() {
 
     const paginaAberta = useLocation().pathname;
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <>
             <Header></Header>
@@ -31,7 +35,7 @@ export default function PerfilUsuario() {
                     <div id='perfilDoUsuario__fotoDaCapa'>
                     </div>
                     <div id='perfilDoUsuario__perfilNomeEOpcoesDoUsuario'>
-                        <img src="./imagensDinamicas/perfil.jpg" alt="" />
+                        <img src="./../imagensDinamicas/perfil.jpg" alt="" />
                         <div id='perfilDoUsuario__nomeEQuantidadeDeAmigos'>
                             <p id='perfilDoUsuario__nomeEQuantidadeDeAmigos__nome'>{usuario.nome}</p>
                             <p id='perfilDoUsuario__nomeEQuantidadeDeAmigos__amigos'>{usuario.quantidadeDeAmigos} amigos</p>
