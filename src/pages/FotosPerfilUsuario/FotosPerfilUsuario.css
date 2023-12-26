@@ -19,9 +19,6 @@
     padding: 10px;
     margin-top: 20px;
 }
-#fotosPerfilDoUsuario__listaDeFotos__foto{
-    width: 100%;
-}
 .fotosPerfilDoUsuario__listaDeFotos__foto img{
     width: 100%;
     height: 150px;
