@@ -110,7 +110,7 @@ export default function OpcoesHeader() {
                 funcaoAbrirModalLayoutPC={clickNotificacoes}
             />
             <Link to='/perfil' className='opcoesHeaderIcone' id='opcoesHeaderIcone__perfil'>
-                <img src="imagensDinamicas/perfil.jpg" alt="" />
+                <img src="./../imagensDinamicas/perfil.jpg" alt="" />
             </Link>
             <ModalSolicitacoesDeAmizade aberto={modalSolicitacoesDeAmizadeAberto} clickFora={fecharModais} />
             <ModalMensagens aberto={modalMensagensAberto} clickFora={fecharModais} />
