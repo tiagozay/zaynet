@@ -1,0 +1,88 @@
+#videosPerfilDoUsuario__page{
+    width: 65%;
+    background-color: #242526;
+    margin: 15px auto;
+    border-radius: 10px;
+    padding: 15px;
+    box-sizing: border-box;
+}
+#videosPerfilDoUsuario__titulo{
+    font-family: var(--fontePadrao);
+    color: rgb(237, 237, 237);
+    font-size: 19px;
+    font-weight: 600;
+}
+#videosPerfilDoUsuario__listaDeVideos{
+    display: grid;
+    grid-template-columns: 19% 19% 19% 19% 19%;
+    grid-gap: 10px;
+    padding: 10px;
+    margin-top: 20px;
+}
+.videosPerfilDoUsuario__listaDeVideos__video{
+    width: 100%;
+    position: relative;
+}
+.videosPerfilDoUsuario__listaDeVideos__videoOverlay{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.286);
+    position: absolute;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+.videosPerfilDoUsuario__listaDeVideos__videoOverlay button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 31px;
+    color: rgb(222, 222, 222);
+}
+.videosPerfilDoUsuario__listaDeVideos__videoOverlay button:hover{
+    color: rgb(254, 254, 254);
+}
+.videosPerfilDoUsuario__listaDeVideos__video img{
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    object-position: center center;
+    border-radius: 10px;
+}
+@media( max-width: 1120px ){
+    #videosPerfilDoUsuario__page{
+        width: 85%;
+    }
+}
+@media( max-width: 850px ){
+    #videosPerfilDoUsuario__page{
+        width: 93%;
+    }
+    #videosPerfilDoUsuario__listaDeVideos{
+        grid-template-columns: 24% 24% 24% 24%;
+    }
+    .videosPerfilDoUsuario__listaDeVideos__video img{
+        height: 130px;
+    }
+}
+@media( max-width: 740px ){
+    #videosPerfilDoUsuario__page{
+        width: 98%;
+    }
+}
+@media( max-width: 520px ){
+    #videosPerfilDoUsuario__page{
+        width: 98%;
+    }
+    #videosPerfilDoUsuario__listaDeVideos{
+        grid-template-columns: 32.32% 32.32% 32.32%;
+        padding: 5px 2px;
+    }   
+}
+@media( max-width: 400px ){
+    .videosPerfilDoUsuario__listaDeVideos__video img{
+        height: 110px;
+    }  
+}
