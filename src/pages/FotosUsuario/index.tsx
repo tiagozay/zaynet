@@ -53,7 +53,7 @@ export default function FotosUsuario() {
               return (
                 <li id='fotosUsuarioPage__foto'>
                   <img
-                    src={fotoUsuario.caminhoMidiaMiniatura ? fotoUsuario.caminhoMidiaMiniatura : ""}
+                    src={fotoUsuario.caminhoMidiaMiniatura}
                     alt="Foto"
                     key={index}
                     onClick={() => aoClicarEmUmaImagem(index)}
