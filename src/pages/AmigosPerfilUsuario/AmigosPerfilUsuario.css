@@ -1,0 +1,85 @@
+#amigosPerfilDoUsuario__page{
+    width: 65%;
+    background-color: #242526;
+    margin: 15px auto;
+    border-radius: 10px;
+    padding: 15px;
+    box-sizing: border-box;
+}
+#amigosPerfilDoUsuario__titulo{
+    font-family: var(--fontePadrao);
+    color: rgb(237, 237, 237);
+    font-size: 19px;
+    font-weight: 600;
+}
+#amigosPerfilDoUsuario__listaDeAmigos{
+    display: grid;
+    grid-template-columns: 49% 49%;
+    grid-gap: 10px;
+    padding: 10px;
+    margin-top: 20px;
+}
+.amigosPerfilDoUsuario__listaDeAmigos__amigo{
+    display: flex;
+    align-items: center;
+    border: 1px rgb(49, 49, 49) solid;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 100ms;
+}
+.amigosPerfilDoUsuario__listaDeAmigos__amigo:hover{
+    border: 1px rgb(67, 67, 67) solid;
+}
+.amigosPerfilDoUsuario__listaDeAmigos__amigo__perfil{
+    object-fit: cover;
+    object-position: center center;
+    width: 80px;
+    height: 80px;
+    margin-right: 15px;
+    border-radius: 10px;
+}
+.amigosPerfilDoUsuario__listaDeAmigos__amigo__nome{
+    font-family: var(--fontePadrao);
+    color: rgb(237, 237, 237);
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.amigosPerfilDoUsuario__listaDeAmigos__amigo__amigosEmComum{
+    font-family: var(--fontePadrao);
+    font-size: 14px;
+    color: rgb(236, 236, 236);
+    font-weight: 300;
+    font-size: 12px;
+}
+@media( max-width: 1120px ){
+    #amigosPerfilDoUsuario__page{
+        width: 85%;
+    }
+}
+@media( max-width: 850px ){
+    #amigosPerfilDoUsuario__page{
+        width: 93%;
+    }
+}
+@media( max-width: 740px ){
+    #amigosPerfilDoUsuario__page{
+        width: 98%;
+    }
+    #amigosPerfilDoUsuario__listaDeAmigos{
+        padding: 0px;
+    }
+}
+@media( max-width: 520px ){
+    #amigosPerfilDoUsuario__page{
+        width: 98%;
+    }
+}
+@media( max-width:  680px ){
+    #amigosPerfilDoUsuario__listaDeAmigos{
+        display: grid;
+        grid-template-columns: 100%;
+        grid-gap: 10px;
+        margin-top: 20px;
+    }
+}
