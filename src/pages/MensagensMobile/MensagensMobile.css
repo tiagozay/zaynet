@@ -25,6 +25,8 @@
 
 }
 #mensagemMobile__perfil{
+    object-fit: cover;
+    object-position: center center;
     width: 54px;
     height: 54px;
     border-radius: 50%;
