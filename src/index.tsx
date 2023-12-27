@@ -18,12 +18,14 @@ import FeedPublicacoesUsuario from './pages/FeedPublicacoesUsuario';
 import FotosPerfilUsuario from './pages/FotosPerfilUsuario';
 import VideosPerfilUsuario from './pages/VideosPerfilUsuario';
 import AmigosPerfilUsuario from './pages/AmigosPerfilUsuario';
+import LoginOuCadastro from './pages/LoginOuCadastro';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 root.render(
   <React.StrictMode>
       <BrowserRouter>
         <Routes>
+          <Route path='login' element={<LoginOuCadastro />}/>
           <Route path='/' element={<PaginaBaseComHeader />}>
             <Route path='/' element={<Home />} />
             <Route path='/notificacoes' element={<NotificacoesParaMobile />} />

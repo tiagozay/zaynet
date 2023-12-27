@@ -1,0 +1,127 @@
+body{
+    background-color: #F0F2F5;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#formularioDeLogin{
+    width: 400px;
+    background-color: white;
+    box-shadow: 0 0 10px 4px rgb(222, 222, 222);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px 35px 20px;
+}
+#formularioDeLogin input{
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px rgb(205, 205, 205) solid;
+    padding: 14px;
+    margin-bottom: 15px;
+    font-family: var(--fontePadrao);
+    font-size: 16px;
+    outline: none;
+    border-radius: 5px;
+    color: rgb(27, 27, 27);
+}
+#formularioDeLogin input::placeholder{
+    color: rgb(146, 146, 146);
+    font-size: 15px;
+}
+#formularioDeLogin input:focus{
+    border: 1px #1877F2 solid;
+}
+#divInputSenha{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    border: 1px rgb(205, 205, 205) solid;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+#divInputSenha button{
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    color: gray;
+}
+#divInputSenha input{
+    margin-bottom: 0;
+    border: none;
+    box-sizing: border-box;
+    
+}
+#divInputSenha input:focus{
+    border: none;
+}
+#divInputSenha:focus-within{
+    border: 1px #1877F2 solid;
+}
+#btnLogin{
+    width: 100%;
+    background-color: #1877F2;
+    font-family: var(--fontePadrao);
+    border: none;
+    padding: 12px;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#btnEsqueceuASenha{
+    border: none;
+    background-color: transparent;
+    font-family: var(--fontePadrao);
+    margin-top: 20px;
+    color: #1877F4;
+    font-weight: 500;
+}
+#btnEsqueceuASenha:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+#linhaDivisoria{
+    border: 1px rgb(193, 193, 193) solid;
+    width: 100%;
+    margin-top: 25px;
+}
+#btnCriarNovaConta{
+    font-family: var(--fontePadrao);
+    border: none;
+    background-color: #42B72A;
+    color: white;
+    font-weight: 600;
+    padding: 15px;
+    width: 40%;
+    margin: 0 auto;
+    margin-top: 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+}
+#btnCriarNovaConta:hover{
+    background-color: #36A420;
+}
+@media( max-width: 460px ){
+    #formularioDeLogin{
+        width: 350px;
+    }
+    #btnCriarNovaConta{
+        width: 50%;
+    }
+}
+@media( max-width: 400px ){
+    #formularioDeLogin{
+        width: 310px;
+    }
+    #btnCriarNovaConta{
+        width: 60%;
+    }
+}
