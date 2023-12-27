@@ -28,7 +28,7 @@ export default function PesquisarPorUmaPessoaMobile() {
                     className='material-symbols-outlined'
                     id='pesquisarPorUmaPessoaMobile__btnVoltar'
                     onClick={voltar}
-                >arrow_back</button>
+                >arrow_back_ios</button>
                 <input
                     type="search"
                     id='pesquisarPorUmaPessoaMobile__inputPesquisar'
