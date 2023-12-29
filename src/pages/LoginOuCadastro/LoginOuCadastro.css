@@ -1,4 +1,4 @@
-body{
+#sectionLoginOuCadastroPage{
     background-color: #F0F2F5;
     height: 100vh;
     width: 100%;
@@ -43,6 +43,9 @@ body{
     border-radius: 5px;
     box-sizing: border-box;
 }
+.divInputSenhaLogin{
+    background-color: transparent!important;
+}
 #divInputSenha button{
     height: 100%;
     background-color: transparent;
@@ -55,6 +58,7 @@ body{
     margin-bottom: 0;
     border: none;
     box-sizing: border-box;
+    width: 100%;
     
 }
 #divInputSenha input:focus{

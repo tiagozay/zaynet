@@ -1,0 +1,125 @@
+#cadastrarUsuarioMobilePage{
+    width: 100%;
+    height: 100vh;
+    background-color: #F0F2F5;
+
+}
+#cadastrarUsuarioMobile__divTituloEBtnVoltar{
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#cadastrarUsuarioMobile__btnVoltar{
+    background-color: transparent;
+    border: none;
+    color: rgb(113, 113, 113);
+    font-weight: 600;
+}
+#cadastrarUsuarioMobile__titulo{
+    font-family: var(--fontePadrao);
+    font-size: 18px;
+    font-weight: 600;
+    color: rgb(113, 113, 113);
+
+}
+#cadastrarUsuarioMobile__formulario{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+#cadastrarUsuarioMobile__formulario input{
+    font-family: var(--fontePadrao);
+    background-color: #F5F6F7;
+    border: 1px rgb(205, 205, 205) solid;
+    padding: 14px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+#cadastrarUsuarioMobile__formulario input:focus{
+    border: 1px #1877F2 solid;
+}
+.cadastrarUsuarioMobile__formulario__divLinhasDeInputs{
+    width: 100%;
+    display: flex;
+}
+.cadastrarUsuarioMobile__formulario__divLinhasDeInputs input{
+    width: 100%;
+}
+#cadastrarUsuarioMobile__inputNome{
+    margin-right: 10px;
+}
+#cadastrarUsuarioMobile__divInputSenha{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    background-color: #F5F6F7;
+    border: 1px rgb(205, 205, 205) solid;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+#cadastrarUsuarioMobile__divInputSenha button{
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    color: gray;
+}
+#cadastrarUsuarioMobile__divInputSenha input{
+    margin-bottom: 0;
+    border: none;
+    box-sizing: border-box;
+}
+#cadastrarUsuarioMobile__divInputSenha input:focus{
+    border: none;
+}
+#cadastrarUsuarioMobile__divInputSenha:focus-within{
+    border: 1px #1877F2 solid;
+}
+#cadastrarUsuarioMobile__formulario label{
+    font-family: var(--fontePadrao);
+    display: flex;
+    flex-direction: column;
+    font-size: 11px;
+    font-weight: 500;
+    color: rgb(88, 88, 88);
+}
+#cadastrarUsuarioMobile__formulario label input{
+    margin-top: 5px;
+}
+#cadastrarUsuarioMobile__labelOpcoesGenero div{
+    display: flex;
+    justify-content: space-between;
+}
+.cadastrarUsuarioMobile__labelOpcaoGenero{
+    display: flex;
+    flex-direction: row!important;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px rgb(191, 191, 191) solid;
+    border-radius: 5px;
+    width: 40%;
+    font-size: 13px!important;
+}
+.cadastrarUsuarioMobile__labelOpcaoGenero input{
+    margin: 0!important;
+}
+#cadastrarUsuarioMobile__btnCadastrar{
+    background-color: #42B72A!important;
+    font-family: var(--fontePadrao);
+    border: none;
+    padding: 15px;
+    font-size: 16px;
+    color: white;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 20px;
+}

@@ -19,6 +19,7 @@ import FotosPerfilUsuario from './pages/FotosPerfilUsuario';
 import VideosPerfilUsuario from './pages/VideosPerfilUsuario';
 import AmigosPerfilUsuario from './pages/AmigosPerfilUsuario';
 import LoginOuCadastro from './pages/LoginOuCadastro';
+import CadastrarUsuarioMobile from './pages/CadastrarUsuarioMobile';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 root.render(
@@ -26,6 +27,7 @@ root.render(
       <BrowserRouter>
         <Routes>
           <Route path='login' element={<LoginOuCadastro />}/>
+          <Route path='cadastrarUsuarioMobile' element={<CadastrarUsuarioMobile />}/>
           <Route path='/' element={<PaginaBaseComHeader />}>
             <Route path='/' element={<Home />} />
             <Route path='/notificacoes' element={<NotificacoesParaMobile />} />
