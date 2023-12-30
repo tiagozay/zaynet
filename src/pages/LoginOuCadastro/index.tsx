@@ -1,64 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './LoginOuCadastro.css';
-import ModalCadastrarUsuario from '../../components/ModalCadastrarUsuario';
-import { TAMANHO_DE_TELA_MOBILE } from '../../config';
-import { useNavigate } from 'react-router-dom';
+import { CadastroUsuarioContext } from '../../contexts/CadastroUsuarioContext';
+import CadastrarUsuario from '../../components/CadastrarUsuario';
 
 export default function LoginOuCadastro() {
+    const {
+        indicadorCadastroUsuarioAberto,
+        setIndicadorCadastroUsuarioAberto,
+    } = useContext(CadastroUsuarioContext);
 
-    const [indicadorModalCadastrarAberto, setIndicadorModalCadastrarAberto] = useState(false);
     const [exibirSenha, setExibirSenha] = useState(false);
-
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        verificaTamanhoDaTelaESaiDaRotaSeForMobile();
-
-        const handleResize = () => verificaTamanhoDaTelaESaiDaRotaSeForMobile();
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, [indicadorModalCadastrarAberto]);
-
-    function verificaTamanhoDaTelaESaiDaRotaSeForMobile() {
-        console.log(indicadorModalCadastrarAberto);
-        if (window.innerWidth <= TAMANHO_DE_TELA_MOBILE && indicadorModalCadastrarAberto) {
-            console.log("Caiu!");
-            navigate('/cadastrarUsuarioMobile');
-            // setIndicadorModalCadastrarAberto(false);
-        }
-    }
-
 
     function handleExibirSenha() {
         setExibirSenha(state => !state);
     }
 
-    function abrirModalCadastrarUsuario()
-    {
-        if(window.innerWidth < TAMANHO_DE_TELA_MOBILE){
-            navigate('/cadastrarUsuarioMobile');
-        }else{
-            setIndicadorModalCadastrarAberto(true);
-        }
+    function abrirModalCadastrarUsuario() {
+        setIndicadorCadastroUsuarioAberto(true);
     }
 
-    function fecharModalCadastrarUsuario()
-    {
-        setIndicadorModalCadastrarAberto(false);
+    function fecharCadastroUsuario() {
+        setIndicadorCadastroUsuarioAberto(false);
     }
 
     return (
         <>
 
             {
-                indicadorModalCadastrarAberto ?
-                <ModalCadastrarUsuario fecharModal={fecharModalCadastrarUsuario}/> :
-                ""  
+                indicadorCadastroUsuarioAberto ?
+                    <CadastrarUsuario
+                        fecharCadastro={fecharCadastroUsuario}
+                        modalAberto={indicadorCadastroUsuarioAberto}
+                    />
+                    : ""
             }
-           
 
             <section id='sectionLoginOuCadastroPage'>
                 <form id='formularioDeLogin'>

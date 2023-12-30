@@ -1,0 +1,71 @@
+.primeiraFaseCadastro__divLinhasDeInputs{
+    width: 100%;
+    display: flex;
+}
+.primeiraFaseCadastro__divLinhasDeInputs input{
+    width: 100%;
+}
+#primeiraFaseCadastro__inputNome{
+    margin-right: 10px;
+}
+#primeiraFaseCadastro__divInputSenha{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    background-color: #F5F6F7;
+    border: 1px rgb(205, 205, 205) solid;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+#primeiraFaseCadastro__divInputSenha button{
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    color: gray;
+}
+#primeiraFaseCadastro__divInputSenha input{
+    margin-bottom: 0;
+    border: none;
+    box-sizing: border-box;
+}
+#primeiraFaseCadastro__divInputSenha input:focus{
+    border: none;
+}
+#primeiraFaseCadastro__divInputSenha:focus-within{
+    border: 1px #1877F2 solid;
+}
+#primeiraFaseCadastro__labelOpcoesGenero div{
+    display: flex;
+    justify-content: space-between;
+}
+.primeiraFaseCadastro__labelOpcaoGenero{
+    display: flex;
+    flex-direction: row!important;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px rgb(191, 191, 191) solid;
+    border-radius: 5px;
+    width: 40%;
+    font-size: 13px!important;
+}
+.primeiraFaseCadastro__labelOpcaoGenero input{
+    margin: 0!important;
+    width: 13px!important;
+}
+#primeiraFaseCadastro__btnCadastrar{
+    background-color: #42B72A!important;
+    font-family: var(--fontePadrao);
+    border: none;
+    padding: 15px;
+    font-size: 16px;
+    color: white;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 20px;
+}

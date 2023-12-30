@@ -1,0 +1,28 @@
+#segundaFaseCadastro__selectStatusDeRelacionamento{
+    font-family: var(--fontePadrao);
+    background-color: #F5F6F7;
+    border: 1px rgb(205, 205, 205) solid;
+    padding: 14px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    outline: none;
+    margin-top: 5px!important;
+}
+#segundaFaseCadastro__selectStatusDeRelacionamento:focus{
+    border: 1px #1877F2 solid;
+}
+#segundaFaseCadastro__labelStatusRelacionamento{
+    margin-bottom: 15px;
+}
+#segundaFaseCadastro__btnCadastrar{
+    background-color: #42B72A!important;
+    font-family: var(--fontePadrao);
+    border: none;
+    padding: 15px;
+    font-size: 16px;
+    color: white;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 20px;
+}
