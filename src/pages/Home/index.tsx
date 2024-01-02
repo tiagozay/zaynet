@@ -27,7 +27,6 @@ export default function Home() {
 
   }
 
-  
   return (
     <>
 
@@ -56,8 +55,8 @@ export default function Home() {
           </button>
         </div>
 
-        <Publicacao></Publicacao>
-        <Publicacao></Publicacao>
+        <Publicacao />
+        <Publicacao />
       </section>
     </>
   )

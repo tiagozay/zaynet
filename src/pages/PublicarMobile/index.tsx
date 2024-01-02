@@ -27,7 +27,7 @@ export default function PublicarMobile() {
     }, [indicadorAlgumTextoDigitado, indicadorAlgumaMidiaSelecionada]);
 
     useEffect(() => {
-        if (textoDigitado && textoDigitado.length > 0) {
+        if (textoDigitado && textoDigitado.trim().length > 0) {
             setIndicadorAlgumTextoDigitado(true);
         } else {
             setIndicadorAlgumTextoDigitado(false);
@@ -44,7 +44,7 @@ export default function PublicarMobile() {
     }, [arquivosSelecionados]);
 
     function aoDigitarTexto(e: React.ChangeEvent<HTMLTextAreaElement>) {
-        setTextoDigitado(e.target.value.trim());
+        setTextoDigitado(e.target.value);
     }
 
     function aoClicarEmVoltar() {

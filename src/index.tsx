@@ -22,6 +22,7 @@ import LoginOuCadastro from './pages/LoginOuCadastro';
 import CadastrarUsuarioMobilePrimeiraFase from './pages/CadastrarUsuarioMobilePrimeiraFase';
 import CadastrarUsuarioMobileSegundaFase from './pages/CadastrarUsuarioMobileSegundaFase';
 import CadastroUsuarioProvider from './contexts/CadastroUsuarioContext';
+import EditarPublicacaoMobile from './pages/EditarPublicacaoMobile';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 root.render(
@@ -57,6 +58,7 @@ root.render(
       <Route path='/image/:objInfoCarrosel' element={<CarrosselDeImagens />} />
       <Route path='/pesquisar' element={<PesquisarPorUmaPessoaMobile />} />
       <Route path='/publicar' element={<PublicarMobile />} />
+      <Route path='/editarPublicacao' element={<EditarPublicacaoMobile />} />
       <Route path='/perfil' element={<PerfilUsuario />}>
         <Route path='/perfil' element={<FeedPublicacoesUsuario />} />
         <Route path='fotos' element={<FotosPerfilUsuario />} />
