@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './CadastroInformacoesSobreOUsuarioMobile.css';
 import { useNavigate } from 'react-router-dom';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
@@ -23,6 +23,20 @@ export default function CadastrarUsuarioMobileSegundaFase() {
         fotoDaCapa,
         setFotoDaCapa
     } = useContext(CadastroUsuarioContext);
+
+    const [indicadorPermicaoEnviarFormulario, setIndicadorPermicaoEnviarFormulario] = useState(false);
+
+    useEffect(() => {
+        if(
+            cidadeNatal.length > 0 &&
+            cidadeAtual.length > 0 &&
+            statusDeRelacionamento.length > 0
+        ){  
+            setIndicadorPermicaoEnviarFormulario(true);
+        }else{
+            setIndicadorPermicaoEnviarFormulario(false);
+        }
+    }, [cidadeNatal, cidadeAtual, statusDeRelacionamento, fotoDoPerfil, fotoDaCapa]);
 
     useEffect(() => {
         if(!isMobile){
@@ -101,8 +115,14 @@ export default function CadastrarUsuarioMobileSegundaFase() {
 
                 <button
                     type='button'
-                    id='cadastrarUsuarioMobile__btnCadastrar'
+                    id='cadastrarUsuarioMobileSegundaFase__btnCadastrar'
+                    className={
+                        !indicadorPermicaoEnviarFormulario ?
+                        'cadastrarUsuarioMobileSegundaFase__btnCadastrarDesativado' : 
+                        ''
+                    }
                     onClick={clickCadastrar}
+                    disabled={!indicadorPermicaoEnviarFormulario}
                 >Finalizar cadastro</button>
             </form>
         </section>

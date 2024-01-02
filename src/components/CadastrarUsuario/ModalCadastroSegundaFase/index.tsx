@@ -1,9 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './ModalCadastroSegundaFase.css';
 import { CadastroUsuarioContext } from '../../../contexts/CadastroUsuarioContext';
 
-interface ModalCadastroPrimeiraFaseProps
-{
+interface ModalCadastroPrimeiraFaseProps {
     fecharCadastro: () => void,
     clickCadastrar: () => void,
 }
@@ -26,29 +25,38 @@ export default function ModalCadastroSegundaFase({
         setFotoDaCapa
     } = useContext(CadastroUsuarioContext);
 
-    function handleChangeCidadeNatal(e: React.ChangeEvent<HTMLInputElement>)
-    {
-        setCidadeNatal(e.target.value);
+    const [indicadorPermicaoEnviarFormulario, setIndicadorPermicaoEnviarFormulario] = useState(false);
+
+    useEffect(() => {
+        if(
+            cidadeNatal.length > 0 &&
+            cidadeAtual.length > 0 &&
+            statusDeRelacionamento.length > 0
+        ){  
+            setIndicadorPermicaoEnviarFormulario(true);
+        }else{
+            setIndicadorPermicaoEnviarFormulario(false);
+        }
+    }, [cidadeNatal, cidadeAtual, statusDeRelacionamento, fotoDoPerfil, fotoDaCapa]);
+
+    function handleChangeCidadeNatal(e: React.ChangeEvent<HTMLInputElement>) {
+        setCidadeNatal(e.target.value.trim());
     }
 
-    function handleChangeCidadeAtual(e: React.ChangeEvent<HTMLInputElement>)
-    {
-        setCidadeAtual(e.target.value);
+    function handleChangeCidadeAtual(e: React.ChangeEvent<HTMLInputElement>) {
+        setCidadeAtual(e.target.value.trim());
     }
 
-    function handleStatusDeRelacionamento(e: React.ChangeEvent<HTMLSelectElement>)
-    {
-        setStatusDeRelacionamento(e.target.value);
+    function handleStatusDeRelacionamento(e: React.ChangeEvent<HTMLSelectElement>) {
+        setStatusDeRelacionamento(e.target.value.trim());
     }
 
-    function handleChangeFotoDoPerfil(e: React.ChangeEvent<HTMLInputElement>)
-    {
+    function handleChangeFotoDoPerfil(e: React.ChangeEvent<HTMLInputElement>) {
         const arquivosSelecionados = e.target.files as FileList;
         setFotoDoPerfil(arquivosSelecionados[0]);
     }
 
-    function handleChangeFotoDeCapa(e: React.ChangeEvent<HTMLInputElement>)
-    {
+    function handleChangeFotoDeCapa(e: React.ChangeEvent<HTMLInputElement>) {
         const arquivosSelecionados = e.target.files as FileList;
         setFotoDaCapa(arquivosSelecionados[0]);
     }
@@ -64,8 +72,8 @@ export default function ModalCadastroSegundaFase({
             <hr id='linhaDivisoriaTitulo' />
             <form id='modalCadastro__formulario'>
 
-                <input type="text" placeholder='Cidade natal' value={cidadeNatal} onChange={handleChangeCidadeNatal}/>
-                <input type="text" placeholder='Cidade atual' value={cidadeAtual} onChange={handleChangeCidadeAtual}/>
+                <input type="text" placeholder='Cidade natal' value={cidadeNatal} onChange={handleChangeCidadeNatal} />
+                <input type="text" placeholder='Cidade atual' value={cidadeAtual} onChange={handleChangeCidadeAtual} />
 
                 <label id='segundaFaseCadastro__labelStatusRelacionamento'>
                     Status de relacionamento
@@ -86,13 +94,19 @@ export default function ModalCadastroSegundaFase({
 
                 <label>
                     Foto da capa (opcional)
-                    <input type="file" onChange={handleChangeFotoDeCapa}/>
+                    <input type="file" onChange={handleChangeFotoDeCapa} />
                 </label>
 
                 <button
                     type='button'
                     id='segundaFaseCadastro__btnCadastrar'
+                    className={
+                        !indicadorPermicaoEnviarFormulario ?
+                            'segundaFaseCadastro__btnCadastrarDesativado' :
+                            ''
+                    }
                     onClick={clickCadastrar}
+                    disabled={!indicadorPermicaoEnviarFormulario}
                 >Finalizar cadastro</button>
             </form>
         </div>

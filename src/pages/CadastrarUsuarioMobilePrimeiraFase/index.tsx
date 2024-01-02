@@ -27,10 +27,37 @@ export default function CadastrarUsuarioMobilePrimeiraFase() {
         setGenero
     } = useContext(CadastroUsuarioContext);
 
+    const [indicadorAvisoSenhaAberto, setIndicadorAvisoSenhaAberto] = useState(false);
+    const [indicadorPermicaoEnviarFormulario, setIndicadorPermicaoEnviarFormulario] = useState(false);
+
     const [exibirSenha, setExibirSenha] = useState(false);
 
     useEffect(() => {
-        if(!isMobile){
+        if (
+            nome.length > 0 &&
+            sobrenome.length > 0 &&
+            email.length > 0 &&
+            senha.length > 0 &&
+            senha.length >= 8 &&
+            dataDeNascimento.length > 0 &&
+            genero.length > 0
+        ) {
+            setIndicadorPermicaoEnviarFormulario(true);
+        } else {
+            setIndicadorPermicaoEnviarFormulario(false);
+        }
+    }, [nome, sobrenome, email, senha, dataDeNascimento, genero]);
+
+    useEffect(() => {
+        if (senha.length > 0 && senha.length < 8) {
+            setIndicadorAvisoSenhaAberto(true);
+        } else {
+            setIndicadorAvisoSenhaAberto(false);
+        }
+    }, [senha])
+
+    useEffect(() => {
+        if (!isMobile) {
             navigate('/login');
         }
     }, [isMobile]);
@@ -39,45 +66,37 @@ export default function CadastrarUsuarioMobilePrimeiraFase() {
         setExibirSenha(state => !state);
     }
 
-    function clickVoltar()
-    {
+    function clickVoltar() {
         setIndicadorCadastroUsuarioAberto(false);
         navigate('/login');
     }
 
-    function clickCadastrar()
-    {
+    function clickCadastrar() {
         setFasesDoCadastroConcluidas(1);
         navigate('/login');
     }
 
-    function handleChangeNome(e: React.ChangeEvent<HTMLInputElement>)
-    {
+    function handleChangeNome(e: React.ChangeEvent<HTMLInputElement>) {
         setNome(e.target.value);
     }
 
-    function handleChangeSobrenome(e: React.ChangeEvent<HTMLInputElement>)
-    {
+    function handleChangeSobrenome(e: React.ChangeEvent<HTMLInputElement>) {
         setSobrenome(e.target.value);
     }
 
-    function handleChangeEmail(e: React.ChangeEvent<HTMLInputElement>)
-    {
+    function handleChangeEmail(e: React.ChangeEvent<HTMLInputElement>) {
         setEmail(e.target.value);
     }
 
-    function handleChangeSenha(e: React.ChangeEvent<HTMLInputElement>)
-    {
+    function handleChangeSenha(e: React.ChangeEvent<HTMLInputElement>) {
         setSenha(e.target.value);
     }
 
-    function handleChangeDataDeNascimento(e: React.ChangeEvent<HTMLInputElement>)
-    {
+    function handleChangeDataDeNascimento(e: React.ChangeEvent<HTMLInputElement>) {
         setDataDeNascimento(e.target.value);
     }
 
-    function handleChangeGenero(e: React.ChangeEvent<HTMLInputElement>)
-    {
+    function handleChangeGenero(e: React.ChangeEvent<HTMLInputElement>) {
         setGenero(e.target.value as "Feminino" | "Masculino");
     }
 
@@ -93,21 +112,31 @@ export default function CadastrarUsuarioMobilePrimeiraFase() {
             </div>
             <form id='cadastrarUsuarioMobile__formulario'>
                 <div className='cadastrarUsuarioMobile__formulario__divLinhasDeInputs'>
-                    <input type="text" id='cadastrarUsuarioMobile__inputNome' placeholder='Nome' value={nome} onChange={handleChangeNome}/>
-                    <input type="text" placeholder='Sobrenome' value={sobrenome} onChange={handleChangeSobrenome}/>
+                    <input type="text" id='cadastrarUsuarioMobile__inputNome' placeholder='Nome' value={nome} onChange={handleChangeNome} />
+                    <input type="text" placeholder='Sobrenome' value={sobrenome} onChange={handleChangeSobrenome} />
                 </div>
-                <input type="email" placeholder='E-mail' value={email} onChange={handleChangeEmail}/>
+                <input type="email" placeholder='E-mail' value={email} onChange={handleChangeEmail} />
 
-                <div id='cadastrarUsuarioMobile__divInputSenha'>
-                    <input type={exibirSenha ? "text" : "password"} placeholder='Senha' value={senha} onChange={handleChangeSenha}/>
-                    <button type='button' className='material-symbols-outlined' onClick={handleExibirSenha}>
-                        {exibirSenha ? 'visibility_off' : 'visibility'}
-                    </button>
+                <div id='cadastrarUsuarioMobile__divInputSenhaContainer'>
+                    <div id='cadastrarUsuarioMobile__divInputSenha'>
+                        <input type={exibirSenha ? "text" : "password"} placeholder='Senha' value={senha} onChange={handleChangeSenha} />
+                        <button type='button' className='material-symbols-outlined' onClick={handleExibirSenha}>
+                            {exibirSenha ? 'visibility_off' : 'visibility'}
+                        </button>
+                    </div>
+                    {
+                        indicadorAvisoSenhaAberto ?
+                            <p id='cadastrarUsuarioMobile__mensagemAvisoInputSenha'>
+                                Sua senha deve ter no mínimo 8 caracteres
+                            </p> :
+                            ""
+                    }
                 </div>
+
 
                 <label>
                     Data de nascimento
-                    <input type="date" placeholder='Data de nascimento' value={dataDeNascimento} onChange={handleChangeDataDeNascimento}/>
+                    <input type="date" placeholder='Data de nascimento' value={dataDeNascimento} onChange={handleChangeDataDeNascimento} />
                 </label>
 
                 <label id='cadastrarUsuarioMobile__labelOpcoesGenero'>
@@ -115,20 +144,26 @@ export default function CadastrarUsuarioMobilePrimeiraFase() {
                     <div>
                         <label className='cadastrarUsuarioMobile__labelOpcaoGenero'>
                             Feminino
-                            <input type="radio" name="genero" value="Feminino" onChange={handleChangeGenero} checked={genero === "Feminino"}/>
+                            <input type="radio" name="genero" value="Feminino" onChange={handleChangeGenero} checked={genero === "Feminino"} />
                         </label>
                         <label className='cadastrarUsuarioMobile__labelOpcaoGenero'>
                             Masculino
-                            <input type="radio" name="genero" value="Masculino" onChange={handleChangeGenero} checked={genero === "Masculino"}/>
+                            <input type="radio" name="genero" value="Masculino" onChange={handleChangeGenero} checked={genero === "Masculino"} />
                         </label>
                     </div>
 
                 </label>
 
-                <button 
-                    type='button' 
-                    id='cadastrarUsuarioMobile__btnCadastrar' 
+                <button
+                    type='button'
+                    id='cadastrarUsuarioMobile__btnCadastrar'
+                    className={
+                        !indicadorPermicaoEnviarFormulario ?
+                            'cadastrarUsuarioMobile__btnCadastrarDesativado' :
+                            ''
+                    }
                     onClick={clickCadastrar}
+                    disabled={!indicadorPermicaoEnviarFormulario}
                 >Cadastre-se</button>
             </form>
         </section>

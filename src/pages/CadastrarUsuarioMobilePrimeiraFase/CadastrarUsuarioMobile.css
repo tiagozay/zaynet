@@ -52,11 +52,15 @@
 #cadastrarUsuarioMobile__inputNome{
     margin-right: 10px;
 }
+#cadastrarUsuarioMobile__divInputSenhaContainer{
+    margin-bottom: 15px;
+    height: 63px;
+}
 #cadastrarUsuarioMobile__divInputSenha{
     width: 100%;
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     background-color: #F5F6F7;
     border: 1px rgb(205, 205, 205) solid;
     border-radius: 5px;
@@ -80,6 +84,11 @@
 }
 #cadastrarUsuarioMobile__divInputSenha:focus-within{
     border: 1px #1877F2 solid;
+}
+#cadastrarUsuarioMobile__mensagemAvisoInputSenha{
+    font-family: var(--fontePadrao);
+    font-size: 11px;
+    font-weight: 500;
 }
 #cadastrarUsuarioMobile__formulario label{
     font-family: var(--fontePadrao);
@@ -112,7 +121,7 @@
     margin: 0!important;
 }
 #cadastrarUsuarioMobile__btnCadastrar{
-    background-color: #42B72A!important;
+    background-color: #42B72A;
     font-family: var(--fontePadrao);
     border: none;
     padding: 15px;
@@ -122,4 +131,8 @@
     font-weight: 500;
     cursor: pointer;
     margin-top: 20px;
+}
+.cadastrarUsuarioMobile__btnCadastrarDesativado{
+    background-color: #a5a5a5!important;
+    cursor: initial;
 }

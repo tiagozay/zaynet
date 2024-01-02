@@ -15,7 +15,7 @@
     margin-bottom: 15px;
 }
 #segundaFaseCadastro__btnCadastrar{
-    background-color: #42B72A!important;
+    background-color: #42B72A;
     font-family: var(--fontePadrao);
     border: none;
     padding: 15px;
@@ -25,4 +25,8 @@
     font-weight: 500;
     cursor: pointer;
     margin-top: 20px;
+}
+.segundaFaseCadastro__btnCadastrarDesativado{
+    background-color: #a5a5a5!important;
+    cursor: initial!important;
 }
