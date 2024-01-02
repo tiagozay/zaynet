@@ -29,9 +29,9 @@ export default function ModalCadastroSegundaFase({
 
     useEffect(() => {
         if(
-            cidadeNatal.length > 0 &&
-            cidadeAtual.length > 0 &&
-            statusDeRelacionamento.length > 0
+            cidadeNatal.trim().length > 0 &&
+            cidadeAtual.trim().length > 0 &&
+            statusDeRelacionamento.trim().length > 0
         ){  
             setIndicadorPermicaoEnviarFormulario(true);
         }else{
@@ -40,15 +40,15 @@ export default function ModalCadastroSegundaFase({
     }, [cidadeNatal, cidadeAtual, statusDeRelacionamento, fotoDoPerfil, fotoDaCapa]);
 
     function handleChangeCidadeNatal(e: React.ChangeEvent<HTMLInputElement>) {
-        setCidadeNatal(e.target.value.trim());
+        setCidadeNatal(e.target.value);
     }
 
     function handleChangeCidadeAtual(e: React.ChangeEvent<HTMLInputElement>) {
-        setCidadeAtual(e.target.value.trim());
+        setCidadeAtual(e.target.value);
     }
 
     function handleStatusDeRelacionamento(e: React.ChangeEvent<HTMLSelectElement>) {
-        setStatusDeRelacionamento(e.target.value.trim());
+        setStatusDeRelacionamento(e.target.value);
     }
 
     function handleChangeFotoDoPerfil(e: React.ChangeEvent<HTMLInputElement>) {

@@ -34,13 +34,13 @@ export default function CadastrarUsuarioMobilePrimeiraFase() {
 
     useEffect(() => {
         if (
-            nome.length > 0 &&
-            sobrenome.length > 0 &&
-            email.length > 0 &&
-            senha.length > 0 &&
-            senha.length >= 8 &&
-            dataDeNascimento.length > 0 &&
-            genero.length > 0
+            nome.trim().length > 0 &&
+            sobrenome.trim().length > 0 &&
+            email.trim().length > 0 &&
+            senha.trim().length > 0 &&
+            senha.trim().length >= 8 &&
+            dataDeNascimento.trim().length > 0 &&
+            genero.trim().length > 0
         ) {
             setIndicadorPermicaoEnviarFormulario(true);
         } else {

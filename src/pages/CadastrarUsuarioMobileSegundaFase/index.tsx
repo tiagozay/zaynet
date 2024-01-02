@@ -28,9 +28,9 @@ export default function CadastrarUsuarioMobileSegundaFase() {
 
     useEffect(() => {
         if(
-            cidadeNatal.length > 0 &&
-            cidadeAtual.length > 0 &&
-            statusDeRelacionamento.length > 0
+            cidadeNatal.trim().length > 0 &&
+            cidadeAtual.trim().length > 0 &&
+            statusDeRelacionamento.trim().length > 0
         ){  
             setIndicadorPermicaoEnviarFormulario(true);
         }else{

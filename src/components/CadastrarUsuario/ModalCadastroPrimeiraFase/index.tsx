@@ -34,13 +34,13 @@ export default function ModalCadastroPrimeiraFase({
 
     useEffect(() => {
         if (
-            nome.length > 0 &&
-            sobrenome.length > 0 &&
-            email.length > 0 &&
-            senha.length > 0 &&
-            senha.length >= 8 &&
-            dataDeNascimento.length > 0 &&
-            genero.length > 0
+            nome.trim().length > 0 &&
+            sobrenome.trim().length > 0 &&
+            email.trim().length > 0 &&
+            senha.trim().length > 0 &&
+            senha.trim().length >= 8 &&
+            dataDeNascimento.trim().length > 0 &&
+            genero.trim().length > 0
         ) {
             setIndicadorPermicaoEnviarFormulario(true);
         } else {
@@ -61,27 +61,27 @@ export default function ModalCadastroPrimeiraFase({
     }
 
     function handleChangeNome(e: React.ChangeEvent<HTMLInputElement>) {
-        setNome(e.target.value.trim());
+        setNome(e.target.value);
     }
 
     function handleChangeSobrenome(e: React.ChangeEvent<HTMLInputElement>) {
-        setSobrenome(e.target.value.trim());
+        setSobrenome(e.target.value);
     }
 
     function handleChangeEmail(e: React.ChangeEvent<HTMLInputElement>) {
-        setEmail(e.target.value.trim());
+        setEmail(e.target.value);
     }
 
     function handleChangeSenha(e: React.ChangeEvent<HTMLInputElement>) {
-        setSenha(e.target.value.trim());
+        setSenha(e.target.value);
     }
 
     function handleChangeDataDeNascimento(e: React.ChangeEvent<HTMLInputElement>) {
-        setDataDeNascimento(e.target.value.trim());
+        setDataDeNascimento(e.target.value);
     }
 
     function handleChangeGenero(e: React.ChangeEvent<HTMLInputElement>) {
-        setGenero(e.target.value.trim() as "Feminino" | "Masculino");
+        setGenero(e.target.value as "Feminino" | "Masculino");
     }
 
     return (
