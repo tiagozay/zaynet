@@ -20,7 +20,7 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
     const [textoDigitado, setTextoDigitado] = useState<string | null>(null);
     const [arquivosSelecionados, setArquivosSelecionados] = useState<FileList | null>(null);
 
-    const container = useRef(null);
+    const overlay = useRef(null);
 
     //Este useEffect é responsável por resetar os estados toda vez que o modal for re-aberto.
     useEffect(() => {
@@ -109,7 +109,7 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
     }
 
     function clickOverlay(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-        if (event.target === container.current) {
+        if (event.target === overlay.current) {
             fecharModal();
         }
     }
@@ -127,7 +127,7 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
     }
 
     return (
-        <div id="modalPublicar__overlay" ref={container} onClick={clickOverlay}>
+        <div id="modalPublicar__overlay" ref={overlay} onClick={clickOverlay}>
             <div id="modalPublicar">
                 <div id='modalPublicar__tituloEBtnDeFechar'>
                     <h3 id='modalPublicar__tituloModal'>Criar publicação</h3>
