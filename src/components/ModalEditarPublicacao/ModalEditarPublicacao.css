@@ -164,7 +164,7 @@
     cursor: pointer;
     margin-left: 10px;
 }
-#modalEditarPublicacao__btnPublicar{
+#modalEditarPublicacao__btnSalvar{
     width: 100%;
     margin-top: 15px;
     font-family: var(--fontePadrao);
@@ -178,6 +178,6 @@
     border-radius: 8px;
     transition: 120ms;
 }
-.modalEditarPublicacao__btnPublicarInativo{
+.modalEditarPublicacao__btnSalvarInativo{
     background-color: #505151!important;
 }

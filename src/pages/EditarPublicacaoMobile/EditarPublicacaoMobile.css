@@ -28,7 +28,7 @@
     font-size: 16px;
     font-weight: 600;
 }
-#editarPublicacaoMobile__btnPublicar{
+#editarPublicacaoMobile__btnSalvar{
     background-color: #2176FF;
     color: white;
     font-family: var(--fontePadrao);
@@ -38,7 +38,7 @@
     font-weight: 600;
     transition: 100ms;
 }
-.editarPublicacaoMobile__btnPublicarInativo{
+.editarPublicacaoMobile__btnSalvarInativo{
     background-color: #444546!important;
     color: rgb(155, 155, 155)!important;
 }

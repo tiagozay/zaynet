@@ -39,10 +39,12 @@ export default function EditarPublicacaoMobile() {
         ]
     }
 
-    const [permisaoParaSalvarEdicao, setPermisaoParaSalvarEdicao] = useState(false);
     const [indicadorInputImagensEVideosAberto, setIndicadorInputImagensEVideosAberto] = useState(false);
+    const [indicadorAlteracaoRealizada, setIndicadorAlteracaoRealizada] = useState(false);
 
     const [textoDaPublicacao, setTextoDaPublicacao] = useState<string | null>(null);
+    const [midiasDaPublicacao, setMidiasDaPublicacao] = useState<MidiaPublicacaoModel[]>(publicacao.midias);
+
     const [novosArquivosSelecionados, setNovosArquivosSelecionados] = useState<FileList | null>(null);
 
     const isMobile = useMediaQuery({maxWidth: TAMANHO_DE_TELA_MOBILE});
@@ -51,8 +53,9 @@ export default function EditarPublicacaoMobile() {
 
     useEffect(() => {
         setIndicadorInputImagensEVideosAberto(false);
-        setPermisaoParaSalvarEdicao(false);
+        setIndicadorAlteracaoRealizada(false);
         setTextoDaPublicacao(publicacao.texto);
+        setMidiasDaPublicacao(publicacao.midias);
         setNovosArquivosSelecionados(null);
     }, []);
 
@@ -60,10 +63,30 @@ export default function EditarPublicacaoMobile() {
         if(!isMobile){
             navigate(-1);
         }
-    }, [isMobile])
+    }, [isMobile]);
+
+    useEffect(() => {
+        if(
+            textoDaPublicacao?.trim() !== publicacao.texto ||
+            midiasDaPublicacao.length !== publicacao.midias.length ||
+            novosArquivosSelecionados?.length
+        ){
+            setIndicadorAlteracaoRealizada(true);
+        }else{
+            setIndicadorAlteracaoRealizada(false);
+        }
+    }, [textoDaPublicacao, midiasDaPublicacao, novosArquivosSelecionados]);
 
     function aoDigitarTexto(e: React.ChangeEvent<HTMLTextAreaElement>) {
         setTextoDaPublicacao(e.target.value);
+    }
+
+    //Função provísória que serve para excluir imagens do array. Quando esta parte for integrada com o back-end a implementação dela pode mudar. Esta serve apenas para modificar o estado e identificar a mudança.
+    function excluirImagem(indice: number)
+    {
+        setMidiasDaPublicacao( state => {
+            return state.filter( (midia, index) => indice !== index );
+        } );
     }
 
     function aoClicarEmVoltar() {
@@ -90,9 +113,9 @@ export default function EditarPublicacaoMobile() {
                     <h3 id="editarPublicacaoMobile__titulo">Editar publicação</h3>
                 </div>
                 <button
-                    id="editarPublicacaoMobile__btnPublicar"
-                    disabled={!permisaoParaSalvarEdicao}
-                    className={!permisaoParaSalvarEdicao ? "editarPublicacaoMobile__btnPublicarInativo" : ""}
+                    id="editarPublicacaoMobile__btnSalvar"
+                    disabled={!indicadorAlteracaoRealizada}
+                    className={!indicadorAlteracaoRealizada ? "editarPublicacaoMobile__btnSalvarInativo" : ""}
                 >SALVAR</button>
             </div>
 
@@ -121,13 +144,14 @@ export default function EditarPublicacaoMobile() {
                     <ul id='editarPublicacaoMobile__midiasDaPublicacao__listaMidias'>
 
                         {
-                            publicacao.midias.map( (midia, index) => {
+                            midiasDaPublicacao.map( (midia, index) => {
                                 return (
                                     <li id='editarPublicacaoMobile__midiasDaPublicacao__midia' key={index}>
                                         <div id='editarPublicacaoMobile__midiasDaPublicacao__midiaOvelay'>
                                             <button
                                                 className='material-symbols-outlined'
                                                 id='editarPublicacaoMobile__btnExcluirMidia'
+                                                onClick={ () => excluirImagem(index)}
                                             >close</button>
                                         </div>
                                         <img

@@ -44,10 +44,12 @@ export default function ModalEditarPublicacao({ modalAberto, fecharModal }: Moda
     }
 
     const [indicadorInputImagensEVideosAberto, setIndicadorInputImagensEVideosAberto] = useState(false);
-    const [permisaoParaSalvarEdicao, setPermisaoParaSalvarEdicao] = useState(false);
+    const [indicadorAlteracaoRealizada, setIndicadorAlteracaoRealizada] = useState(false);
 
 
     const [textoDaPublicacao, setTextoDaPublicacao] = useState<string | null>(null);
+    const [midiasDaPublicacao, setMidiasDaPublicacao] = useState<MidiaPublicacaoModel[]>(publicacao.midias);
+
     const [novosArquivosSelecionados, setNovosArquivosSelecionados] = useState<FileList | null>(null);
 
     const isMobile = useMediaQuery({maxWidth: TAMANHO_DE_TELA_MOBILE});
@@ -57,14 +59,28 @@ export default function ModalEditarPublicacao({ modalAberto, fecharModal }: Moda
     //Este useEffect é responsável por resetar os estados toda vez que o modal for re-aberto.
     useEffect(() => {
         setIndicadorInputImagensEVideosAberto(false);
-        setPermisaoParaSalvarEdicao(false);
+        setIndicadorAlteracaoRealizada(false);
         setTextoDaPublicacao(publicacao.texto);
+        setMidiasDaPublicacao(publicacao.midias);
         setNovosArquivosSelecionados(null);
     }, [modalAberto]);
 
     useEffect(() => {
         fecharModal();
-    }, [isMobile])
+    }, [isMobile]);
+
+    useEffect(() => {
+        if(
+            textoDaPublicacao?.trim() !== publicacao.texto ||
+            midiasDaPublicacao.length !== publicacao.midias.length ||
+            novosArquivosSelecionados?.length
+        ){
+            setIndicadorAlteracaoRealizada(true);
+        }else{
+            setIndicadorAlteracaoRealizada(false);
+        }
+    }, [textoDaPublicacao, midiasDaPublicacao, novosArquivosSelecionados]);
+
 
 
     if (!modalAberto) {
@@ -86,6 +102,14 @@ export default function ModalEditarPublicacao({ modalAberto, fecharModal }: Moda
 
     function aoDigitarTexto(e: React.ChangeEvent<HTMLTextAreaElement>) {
         setTextoDaPublicacao(e.target.value);
+    }
+
+    //Função provísória que serve para excluir imagens do array. Quando esta parte for integrada com o back-end a implementação dela pode mudar. Esta serve apenas para modificar o estado e identificar a mudança.
+    function excluirImagem(indice: number)
+    {
+        setMidiasDaPublicacao( state => {
+            return state.filter( (midia, index) => indice !== index );
+        } );
     }
 
     function abrirInputImagensEVideos() {
@@ -133,13 +157,14 @@ export default function ModalEditarPublicacao({ modalAberto, fecharModal }: Moda
                             <ul id='modalEditarPublicacao__midiasDaPublicacao__listaMidias'>
 
                                 {
-                                    publicacao.midias.map((midia, index) => {
+                                    midiasDaPublicacao.map((midia, index) => {
                                         return (
-                                            <li id='modalEditarPublicacao__midiasDaPublicacao__midia' key={index}>
+                                            <li id='modalEditarPublicacao__midiasDaPublicacao__midia' key={midia.caminhoMidiaNormal}>
                                                 <div id='modalEditarPublicacao__midiasDaPublicacao__midiaOvelay'>
                                                     <button 
                                                         className='material-symbols-outlined'
                                                         id='modalEditarPublicacao__btnExcluirMidia'
+                                                        onClick={ () => excluirImagem(index)}
                                                     >close</button>
                                                 </div>
                                                 <img
@@ -174,11 +199,11 @@ export default function ModalEditarPublicacao({ modalAberto, fecharModal }: Moda
                         </div>
                     </div>
                     <button
-                        id='modalEditarPublicacao__btnPublicar'
-                        disabled={!permisaoParaSalvarEdicao}
-                        className={!permisaoParaSalvarEdicao ? "modalEditarPublicacao__btnPublicarInativo" : ""}
+                        id='modalEditarPublicacao__btnSalvar'
+                        disabled={!indicadorAlteracaoRealizada}
+                        className={!indicadorAlteracaoRealizada ? "modalEditarPublicacao__btnSalvarInativo" : ""}
                         onClick={publicar}
-                    >Publicar</button>
+                    >Salvar</button>
                 </div>
             </div>
         </div>
