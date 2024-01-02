@@ -4,6 +4,7 @@ import SelecionarArquivos from '../SelecionarArquivos';
 import { MidiaPublicacaoModel } from '../../models/MidiaPublicacaoModel';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
+import ModalDeConfirmacao from '../ModalDeConfirmacao';
 
 interface ModalEditarPublicacaoProps {
     modalAberto: boolean,
@@ -44,22 +45,21 @@ export default function ModalEditarPublicacao({ modalAberto, fecharModal }: Moda
     }
 
     const [indicadorInputImagensEVideosAberto, setIndicadorInputImagensEVideosAberto] = useState(false);
-    const [indicadorAlteracaoRealizada, setIndicadorAlteracaoRealizada] = useState(false);
-
+    const [indicadorAlgumaAlteracaoRealizada, setIndicadorAlgumaAlteracaoRealizada] = useState(false);
 
     const [textoDaPublicacao, setTextoDaPublicacao] = useState<string | null>(null);
     const [midiasDaPublicacao, setMidiasDaPublicacao] = useState<MidiaPublicacaoModel[]>(publicacao.midias);
 
     const [novosArquivosSelecionados, setNovosArquivosSelecionados] = useState<FileList | null>(null);
 
-    const isMobile = useMediaQuery({maxWidth: TAMANHO_DE_TELA_MOBILE});
+    const [indicadorModalConfirmacaoDescartarAberto, setIndicadorModalConfirmacaoDescartarAberto] = useState(false);
 
-    const overlay = useRef(null);
+    const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
 
     //Este useEffect é responsável por resetar os estados toda vez que o modal for re-aberto.
     useEffect(() => {
         setIndicadorInputImagensEVideosAberto(false);
-        setIndicadorAlteracaoRealizada(false);
+        setIndicadorAlgumaAlteracaoRealizada(false);
         setTextoDaPublicacao(publicacao.texto);
         setMidiasDaPublicacao(publicacao.midias);
         setNovosArquivosSelecionados(null);
@@ -70,14 +70,14 @@ export default function ModalEditarPublicacao({ modalAberto, fecharModal }: Moda
     }, [isMobile]);
 
     useEffect(() => {
-        if(
+        if (
             textoDaPublicacao?.trim() !== publicacao.texto ||
             midiasDaPublicacao.length !== publicacao.midias.length ||
             novosArquivosSelecionados?.length
-        ){
-            setIndicadorAlteracaoRealizada(true);
-        }else{
-            setIndicadorAlteracaoRealizada(false);
+        ) {
+            setIndicadorAlgumaAlteracaoRealizada(true);
+        } else {
+            setIndicadorAlgumaAlteracaoRealizada(false);
         }
     }, [textoDaPublicacao, midiasDaPublicacao, novosArquivosSelecionados]);
 
@@ -94,22 +94,15 @@ export default function ModalEditarPublicacao({ modalAberto, fecharModal }: Moda
 
     }
 
-    function clickOverlay(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-        if (event.target === overlay.current) {
-            fecharModal();
-        }
-    }
-
     function aoDigitarTexto(e: React.ChangeEvent<HTMLTextAreaElement>) {
         setTextoDaPublicacao(e.target.value);
     }
 
     //Função provísória que serve para excluir imagens do array. Quando esta parte for integrada com o back-end a implementação dela pode mudar. Esta serve apenas para modificar o estado e identificar a mudança.
-    function excluirImagem(indice: number)
-    {
-        setMidiasDaPublicacao( state => {
-            return state.filter( (midia, index) => indice !== index );
-        } );
+    function excluirImagem(indice: number) {
+        setMidiasDaPublicacao(state => {
+            return state.filter((midia, index) => indice !== index);
+        });
     }
 
     function abrirInputImagensEVideos() {
@@ -120,92 +113,121 @@ export default function ModalEditarPublicacao({ modalAberto, fecharModal }: Moda
         setIndicadorInputImagensEVideosAberto(false);
     }
 
+    function clickFechar() {
+
+        if(indicadorAlgumaAlteracaoRealizada){
+            setIndicadorModalConfirmacaoDescartarAberto(true);
+        }else{
+            fecharModal();
+        }
+    }
+
+    function aoConfirmarDescartarAlteracoes()
+    {
+        fecharModal();
+    }
+
+    function fecharModalConfirmacaoDescartar()
+    {
+        setIndicadorModalConfirmacaoDescartarAberto(false);
+    }
+
     return (
-        <div id="modalEditarPublicacao__overlay" ref={overlay} onClick={clickOverlay}>
-            <div id="modalEditarPublicacao">
-                <div id='modalEditarPublicacao__tituloEBtnDeFechar'>
-                    <h3 id='modalEditarPublicacao__tituloModal'>Editar publicação</h3>
-                    <button
-                        id='modalEditarPublicacao__btnFechar'
-                        className='material-symbols-outlined'
-                        onClick={fecharModal}
-                    >close</button>
-                </div>
-                <div id='modalEditarPublicacao__container'>
-                    <div id="modalEditarPublicacao__nomeEPerfilDoUsuario">
-                        <img
-                            src="./imagensDinamicas/perfil.jpg"
-                            alt="Perfil usuário"
-                            id="modalEditarPublicacao__perfilUsuario"
-                        />
-                        <p id="modalEditarPublicacao__nomeUsuario">Pedro souza</p>
+        <>
+            <ModalDeConfirmacao 
+                titulo='Descartar alterações?'
+                mensagem='Deseja realmente descartar as alterações?'
+                modalAberto={indicadorModalConfirmacaoDescartarAberto}
+                fecharModal={fecharModalConfirmacaoDescartar}
+                aoConfirmar={aoConfirmarDescartarAlteracoes}
+            />
+            <div id="modalEditarPublicacao__overlay">
+                <div id="modalEditarPublicacao">
+                    <div id='modalEditarPublicacao__tituloEBtnDeFechar'>
+                        <h3 id='modalEditarPublicacao__tituloModal'>Editar publicação</h3>
+                        <button
+                            id='modalEditarPublicacao__btnFechar'
+                            className='material-symbols-outlined'
+                            onClick={clickFechar}
+                        >close</button>
                     </div>
-
-                    <div id='modalEditarPublicacao__containerInputs'>
-                        <textarea
-                            id='modalEditarPublicacao__campoTexto'
-                            className={
-                                indicadorInputImagensEVideosAberto ? "modalEditarPublicacao__campoTextoMaisBaixo" : ""
-                            }
-                            value={textoDaPublicacao ? textoDaPublicacao : ""}
-                            placeholder='No que você está pensando, Pedro?'
-                            onChange={aoDigitarTexto}
-                            spellCheck={false}
-                        ></textarea>
-
-                        <div id='modalEditarPublicacao__midiasDaPublicacao'>
-                            <ul id='modalEditarPublicacao__midiasDaPublicacao__listaMidias'>
-
-                                {
-                                    midiasDaPublicacao.map((midia, index) => {
-                                        return (
-                                            <li id='modalEditarPublicacao__midiasDaPublicacao__midia' key={midia.caminhoMidiaNormal}>
-                                                <div id='modalEditarPublicacao__midiasDaPublicacao__midiaOvelay'>
-                                                    <button 
-                                                        className='material-symbols-outlined'
-                                                        id='modalEditarPublicacao__btnExcluirMidia'
-                                                        onClick={ () => excluirImagem(index)}
-                                                    >close</button>
-                                                </div>
-                                                <img
-                                                    src={midia.caminhoMidiaMiniatura}
-                                                    alt="Midia publicacao"
-                                                />
-                                            </li>
-                                        );
-                                    })
-                                }
-                            </ul>
-                        </div>
-
-                        {
-                            indicadorInputImagensEVideosAberto &&
-
-                            <SelecionarArquivos
-                                fecharInput={fecharInputImagensEVideos}
-                                setArquivosSelecionados={setNovosArquivosSelecionados}
+                    <div id='modalEditarPublicacao__container'>
+                        <div id="modalEditarPublicacao__nomeEPerfilDoUsuario">
+                            <img
+                                src="./imagensDinamicas/perfil.jpg"
+                                alt="Perfil usuário"
+                                id="modalEditarPublicacao__perfilUsuario"
                             />
-                        }
-                    </div>
-                    <div id='modalEditarPublicacao__divAdicionarFotosEVideos'>
-                        <p>Adicionar à publicação</p>
-                        <div id='modalEditarPublicacao__divAdicionarFotosEVideos__icones'>
-                            <button onClick={abrirInputImagensEVideos}>
-                                <img src="./icones/imagemIcone.png" alt="" />
-                            </button>
-                            <button onClick={abrirInputImagensEVideos}>
-                                <img src="./icones/videoIcone.png" alt="" />
-                            </button>
+                            <p id="modalEditarPublicacao__nomeUsuario">Pedro souza</p>
                         </div>
+
+                        <div id='modalEditarPublicacao__containerInputs'>
+                            <textarea
+                                id='modalEditarPublicacao__campoTexto'
+                                className={
+                                    indicadorInputImagensEVideosAberto ? "modalEditarPublicacao__campoTextoMaisBaixo" : ""
+                                }
+                                value={textoDaPublicacao ? textoDaPublicacao : ""}
+                                placeholder='No que você está pensando, Pedro?'
+                                onChange={aoDigitarTexto}
+                                spellCheck={false}
+                            ></textarea>
+
+                            <div id='modalEditarPublicacao__midiasDaPublicacao'>
+                                <ul id='modalEditarPublicacao__midiasDaPublicacao__listaMidias'>
+
+                                    {
+                                        midiasDaPublicacao.map((midia, index) => {
+                                            return (
+                                                <li id='modalEditarPublicacao__midiasDaPublicacao__midia' key={midia.caminhoMidiaNormal}>
+                                                    <div id='modalEditarPublicacao__midiasDaPublicacao__midiaOvelay'>
+                                                        <button
+                                                            className='material-symbols-outlined'
+                                                            id='modalEditarPublicacao__btnExcluirMidia'
+                                                            onClick={() => excluirImagem(index)}
+                                                        >close</button>
+                                                    </div>
+                                                    <img
+                                                        src={midia.caminhoMidiaMiniatura}
+                                                        alt="Midia publicacao"
+                                                    />
+                                                </li>
+                                            );
+                                        })
+                                    }
+                                </ul>
+                            </div>
+
+                            {
+                                indicadorInputImagensEVideosAberto &&
+
+                                <SelecionarArquivos
+                                    fecharInput={fecharInputImagensEVideos}
+                                    setArquivosSelecionados={setNovosArquivosSelecionados}
+                                />
+                            }
+                        </div>
+                        <div id='modalEditarPublicacao__divAdicionarFotosEVideos'>
+                            <p>Adicionar à publicação</p>
+                            <div id='modalEditarPublicacao__divAdicionarFotosEVideos__icones'>
+                                <button onClick={abrirInputImagensEVideos}>
+                                    <img src="./icones/imagemIcone.png" alt="" />
+                                </button>
+                                <button onClick={abrirInputImagensEVideos}>
+                                    <img src="./icones/videoIcone.png" alt="" />
+                                </button>
+                            </div>
+                        </div>
+                        <button
+                            id='modalEditarPublicacao__btnSalvar'
+                            disabled={!indicadorAlgumaAlteracaoRealizada}
+                            className={!indicadorAlgumaAlteracaoRealizada ? "modalEditarPublicacao__btnSalvarInativo" : ""}
+                            onClick={publicar}
+                        >Salvar</button>
                     </div>
-                    <button
-                        id='modalEditarPublicacao__btnSalvar'
-                        disabled={!indicadorAlteracaoRealizada}
-                        className={!indicadorAlteracaoRealizada ? "modalEditarPublicacao__btnSalvarInativo" : ""}
-                        onClick={publicar}
-                    >Salvar</button>
                 </div>
             </div>
-        </div>
+        </>
+
     )
 }
