@@ -66,7 +66,9 @@ export default function ModalEditarPublicacao({ modalAberto, fecharModal }: Moda
     }, [modalAberto]);
 
     useEffect(() => {
-        fecharModal();
+        if (isMobile) {
+            fecharModal();
+        }
     }, [isMobile]);
 
     useEffect(() => {
@@ -80,15 +82,6 @@ export default function ModalEditarPublicacao({ modalAberto, fecharModal }: Moda
             setIndicadorAlgumaAlteracaoRealizada(false);
         }
     }, [textoDaPublicacao, midiasDaPublicacao, novosArquivosSelecionados]);
-
-
-
-    if (!modalAberto) {
-        document.body.style.overflowY = 'scroll';
-        return null;
-    }
-
-    document.body.style.overflowY = 'hidden';
 
     function publicar() {
 
@@ -115,32 +108,36 @@ export default function ModalEditarPublicacao({ modalAberto, fecharModal }: Moda
 
     function clickFechar() {
 
-        if(indicadorAlgumaAlteracaoRealizada){
+        if (indicadorAlgumaAlteracaoRealizada) {
             setIndicadorModalConfirmacaoDescartarAberto(true);
-        }else{
+        } else {
             fecharModal();
         }
     }
 
-    function aoConfirmarDescartarAlteracoes()
-    {
+    function aoConfirmarDescartarAlteracoes() {
         fecharModal();
     }
 
-    function fecharModalConfirmacaoDescartar()
-    {
+    function fecharModalConfirmacaoDescartar() {
         setIndicadorModalConfirmacaoDescartarAberto(false);
     }
 
     return (
         <>
-            <ModalDeConfirmacao 
-                titulo='Descartar alterações?'
-                mensagem='Deseja realmente descartar as alterações?'
-                modalAberto={indicadorModalConfirmacaoDescartarAberto}
-                fecharModal={fecharModalConfirmacaoDescartar}
-                aoConfirmar={aoConfirmarDescartarAlteracoes}
-            />
+            {
+                indicadorModalConfirmacaoDescartarAberto ?
+                    <ModalDeConfirmacao
+                        titulo='Descartar alterações?'
+                        mensagem='Deseja realmente descartar as alterações?'
+                        modalAberto={indicadorModalConfirmacaoDescartarAberto}
+                        fecharModal={fecharModalConfirmacaoDescartar}
+                        aoConfirmar={aoConfirmarDescartarAlteracoes}
+                    /> :
+                    ""
+            }
+
+
             <div id="modalEditarPublicacao__overlay">
                 <div id="modalEditarPublicacao">
                     <div id='modalEditarPublicacao__tituloEBtnDeFechar'>

@@ -77,14 +77,6 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
         })
     }, []);
 
-
-    if (!modalAberto) {
-        document.body.style.overflowY = 'scroll';
-        return null;
-    }
-
-    document.body.style.overflowY = 'hidden';
-
     function publicar() {
 
         //Publicação de arquivos provisória, apenas um protótipo

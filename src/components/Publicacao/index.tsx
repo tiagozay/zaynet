@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Publicacao.css';
 import UltimaImagemComSobreposicao from './UltimaImagemComSobreposicao';
 import Comentarios from './Comentarios';
@@ -56,6 +56,14 @@ export default function Publicacao() {
 
   const classeDeCadaImagem = publicacao.midias.length === 1 ? "imagemOcupandoTodoTamanho" : "imagemOcupandoMetade";
 
+  useEffect(() => {
+    if (indicadorModalEditarPublicacaoAberto) {
+      document.body.style.overflowY = 'hidden';
+    } else {
+      document.body.style.overflowY = 'scroll';
+    }
+  }, [indicadorModalEditarPublicacaoAberto]);
+
   function aoClicarEmUmaImagem(indice: number) {
     const info = JSON.stringify(
       { imagensDoCarrossel: publicacao.midias, indiceImagemInicial: indice }
@@ -86,12 +94,14 @@ export default function Publicacao() {
 
   return (
     <>
-
-      <ModalEditarPublicacao
-        fecharModal={fehcarModalEditarPublicacao}
-        modalAberto={indicadorModalEditarPublicacaoAberto}
-      />
-
+      {
+        indicadorModalEditarPublicacaoAberto ?
+          <ModalEditarPublicacao
+            fecharModal={fehcarModalEditarPublicacao}
+            modalAberto={indicadorModalEditarPublicacaoAberto}
+          /> :
+          ""
+      }
       <div id='publicacao'>
         <div id='publicacao__infoUsuario'>
           <div id='publicacao__infoUsuarioContainer'>

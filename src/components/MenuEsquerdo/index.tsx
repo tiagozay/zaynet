@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './MenuEsquerdo.css';
 import { Link, useNavigate } from 'react-router-dom';
 import ModalPublicar from '../ModalPublicar';
@@ -8,6 +8,14 @@ export default function MenuEsquerdo() {
     const navigate = useNavigate();
 
     const [modalPublicarAberto, setModalPublicarAberto] = useState(false);
+
+    useEffect(() => {
+        if (modalPublicarAberto) {
+            document.body.style.overflowY = 'hidden';
+        } else {
+            document.body.style.overflowY = 'scroll';
+        }
+    }, [modalPublicarAberto]);
 
     function fecharModalPublicar() {
         setModalPublicarAberto(false);
@@ -21,7 +29,15 @@ export default function MenuEsquerdo() {
 
     return (
         <>
-            <ModalPublicar modalAberto={modalPublicarAberto} fecharModal={fecharModalPublicar} />
+            {
+                modalPublicarAberto ?
+                    <ModalPublicar
+                        modalAberto={modalPublicarAberto}
+                        fecharModal={fecharModalPublicar}
+                    /> :
+                    ""
+            }
+
             <nav id='menuEsquerdo'>
                 <ul id='menuEsquerdo__opcoes'>
                     <li id='menuEsquerdo__opcao'>

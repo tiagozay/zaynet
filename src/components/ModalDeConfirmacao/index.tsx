@@ -46,13 +46,6 @@ export default function ModalDeConfirmacao({
         };
     }, []);
 
-    if (!modalAberto) {
-        document.body.style.overflowY = 'scroll';
-        return null;
-    }
-
-    document.body.style.overflowY = 'hidden';
-
     function verificaTamanhoDaTelaEMudaState()
     {
         if(window.innerWidth <= TAMANHO_DE_TELA_MOBILE){

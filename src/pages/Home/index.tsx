@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import MenuEsquerdo from '../../components/MenuEsquerdo';
 import Publicacao from '../../components/Publicacao';
@@ -12,6 +12,14 @@ export default function Home() {
   const [modalPublicarAberto, setModalPublicarAberto] = useState(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (modalPublicarAberto) {
+      document.body.style.overflowY = 'hidden';
+    } else {
+      document.body.style.overflowY = 'scroll';
+    }
+  }, [modalPublicarAberto]);
 
   function fecharModalPublicar() {
     setModalPublicarAberto(false);
@@ -30,7 +38,15 @@ export default function Home() {
   return (
     <>
 
-      <ModalPublicar modalAberto={modalPublicarAberto} fecharModal={fecharModalPublicar} />
+      {
+        modalPublicarAberto ?
+          <ModalPublicar
+            modalAberto={modalPublicarAberto}
+            fecharModal={fecharModalPublicar}
+          /> :
+          ""
+      }
+
 
       <section id='feed'>
 
