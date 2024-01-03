@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './ModalDeConfirmacao.css';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
+import { useMediaQuery } from 'react-responsive';
 
 interface ModalDeConfirmacaoProps {
     modalAberto: boolean,
@@ -18,7 +19,7 @@ export default function ModalDeConfirmacao({
     aoConfirmar
 }: ModalDeConfirmacaoProps) {
 
-    const [indicadorLayoutMobile, setIndicadorLayoutMobile] = useState(true);
+    const isMobile = useMediaQuery({maxWidth: TAMANHO_DE_TELA_MOBILE});
 
     const overlay = useRef(null);
 
@@ -35,26 +36,6 @@ export default function ModalDeConfirmacao({
         };
     }, []);
 
-    useEffect(() => {
-        verificaTamanhoDaTelaEMudaState();
-
-        const handleResize = () => verificaTamanhoDaTelaEMudaState();
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
-    function verificaTamanhoDaTelaEMudaState()
-    {
-        if(window.innerWidth <= TAMANHO_DE_TELA_MOBILE){
-            setIndicadorLayoutMobile(true);
-        }else{
-            setIndicadorLayoutMobile(false);
-        }
-    }
-
     function clickOverlay(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
         if (event.target === overlay.current) {
             fecharModal();
@@ -63,7 +44,7 @@ export default function ModalDeConfirmacao({
 
     return (
 
-        indicadorLayoutMobile ?
+        isMobile ?
             <div id='modalDeConfirmacao__overlay' ref={overlay} onClick={clickOverlay}>
                 <div id='modalDeConfirmacao__mobile' >
                     <p id="modalDeConfirmacao__mensagem__mobile">{mensagem}</p>

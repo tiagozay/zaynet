@@ -2,26 +2,18 @@ import React, { useEffect } from 'react';
 import './MensagensMobile.css';
 import { useNavigate } from 'react-router-dom';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
+import { useMediaQuery } from 'react-responsive';
 
 export default function MensagensMobile() {
     const navigate = useNavigate();
 
+    const isMobile = useMediaQuery({maxWidth: TAMANHO_DE_TELA_MOBILE});
+
     useEffect(() => {
-        verificaTamanhoDaTelaESaiDaRotaSeForMobile();
-
-        const handleResize = () => verificaTamanhoDaTelaESaiDaRotaSeForMobile();
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
-    function verificaTamanhoDaTelaESaiDaRotaSeForMobile() {
-        if (window.innerWidth > TAMANHO_DE_TELA_MOBILE) {
+        if(!isMobile){
             navigate('/');
         }
-    }
+    }, [isMobile]);
 
     return (
         <section id='mensagensPage' className='espacamentosParaCompensarPartesDoHeader'>

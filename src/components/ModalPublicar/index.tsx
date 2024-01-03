@@ -4,6 +4,7 @@ import SelecionarArquivos from '../SelecionarArquivos';
 import { ArquivosPublicacaoService } from '../../services/ArquivosPublicacaoService';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import { ArquivoSelecionadoComSuaMiniatura } from '../../models/ArquivoSelecionadoComSuaMiniatura';
+import { useMediaQuery } from 'react-responsive';
 
 interface ModalPublicarProps {
     modalAberto: boolean,
@@ -19,6 +20,8 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
 
     const [textoDigitado, setTextoDigitado] = useState<string | null>(null);
     const [arquivosSelecionados, setArquivosSelecionados] = useState<FileList | null>(null);
+
+    const isMobile = useMediaQuery({maxWidth: TAMANHO_DE_TELA_MOBILE});
 
     const overlay = useRef(null);
 
@@ -70,12 +73,10 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
     }, []);
 
     useEffect(() => {
-        window.addEventListener("resize", () => {
-            if(window.innerWidth <= TAMANHO_DE_TELA_MOBILE){
-                fecharModal();
-            }
-        })
-    }, []);
+        if(isMobile){
+            fecharModal();
+        }
+    }, [isMobile]);
 
     function publicar() {
 

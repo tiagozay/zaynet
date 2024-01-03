@@ -7,6 +7,7 @@ import ModalNotificacoes from './ModalNotificacoes';
 import OpcaoHeader from './OpcaoHeader';
 import { TAMANHO_DE_TELA_MOBILE } from '../../../config';
 import { Link } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 
 export default function OpcoesHeader() {
 
@@ -14,33 +15,13 @@ export default function OpcoesHeader() {
     const [modalMensagensAberto, setModalMensagensAberto] = useState<boolean>(false);
     const [modalNotificacoesAberto, setModalNotificacoesAberto] = useState<boolean>(false);
 
-    const [indicadorLayoutMobile, setIndicadorLayoutMobile] = useState(false);
+    const isMobile = useMediaQuery({maxWidth: TAMANHO_DE_TELA_MOBILE});
 
     useEffect(() => {
-        verificaTamanhoDaTelaEMudaState();
-
-        const handleResize = () => verificaTamanhoDaTelaEMudaState();
-
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
-    useEffect(() => {
-        if (indicadorLayoutMobile) {
+        if (isMobile) {
             fecharModais();
         }
-    }, [indicadorLayoutMobile])
-
-    function verificaTamanhoDaTelaEMudaState() {
-        if (window.innerWidth <= TAMANHO_DE_TELA_MOBILE) {
-            setIndicadorLayoutMobile(true);
-        } else {
-            setIndicadorLayoutMobile(false);
-        }
-    }
+    }, [isMobile])
 
     function clickTecla(e: KeyboardEvent) {
         if (e.key === 'Escape') {
@@ -72,7 +53,7 @@ export default function OpcoesHeader() {
         <div id='opcoesHeader'>
 
             {
-                indicadorLayoutMobile &&
+                isMobile &&
                 <>
                     <OpcaoHeader
                         nomeDoIcone='home'
@@ -90,21 +71,21 @@ export default function OpcoesHeader() {
             }
             <OpcaoHeader
                 nomeDoIcone='group'
-                indicadorLayoutMobile={indicadorLayoutMobile}
+                indicadorLayoutMobile={isMobile}
                 caminhoParaLinkMobile='/solicitacoesDeAmizade'
                 indicadorModalAbertoLayoutPc={modalSolicitacoesDeAmizadeAberto}
                 funcaoAbrirModalLayoutPC={clickSolicitacoesDeAmizade}
             />
             <OpcaoHeader
                 nomeDoIcone='chat_bubble'
-                indicadorLayoutMobile={indicadorLayoutMobile}
+                indicadorLayoutMobile={isMobile}
                 caminhoParaLinkMobile='/mensagens'
                 indicadorModalAbertoLayoutPc={modalMensagensAberto}
                 funcaoAbrirModalLayoutPC={clickMensagens}
             />
             <OpcaoHeader
                 nomeDoIcone='notifications'
-                indicadorLayoutMobile={indicadorLayoutMobile}
+                indicadorLayoutMobile={isMobile}
                 caminhoParaLinkMobile='/notificacoes'
                 indicadorModalAbertoLayoutPc={modalNotificacoesAberto}
                 funcaoAbrirModalLayoutPC={clickNotificacoes}

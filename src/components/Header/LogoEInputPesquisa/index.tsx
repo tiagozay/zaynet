@@ -3,25 +3,21 @@ import logo from './logo.jpg';
 import './LogoEInputPesquisa.css';
 import { Link } from 'react-router-dom';
 import { TAMANHO_DE_TELA_MOBILE } from '../../../config';
+import { useMediaQuery } from 'react-responsive';
 
 export default function LogoEInputPesquisa() {
 
     const [indicadorLayoutMobile, setIndicadorLayoutMobile] = useState(false);
 
-    useEffect(() => {
-        verificaTamanhoDaTelaEMudaState();
-        window.addEventListener('resize', () => {
-            verificaTamanhoDaTelaEMudaState();
-        })
-    }, []);
+    const isMobile = useMediaQuery({maxWidth: TAMANHO_DE_TELA_MOBILE});
 
-    function verificaTamanhoDaTelaEMudaState() {
-        if (window.innerWidth <= TAMANHO_DE_TELA_MOBILE) {
+    useEffect(() => {
+        if(isMobile){
             setIndicadorLayoutMobile(true);
-        } else {
+        }else{
             setIndicadorLayoutMobile(false);
         }
-    }
+    }, [isMobile]);
 
     return (
         <div id='containerLogoEInput'>

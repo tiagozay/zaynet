@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './MenuResponderSolicitacao.css';
 import { TAMANHO_DE_TELA_MOBILE } from '../../../config';
+import { useMediaQuery } from 'react-responsive';
 
 interface MenuResponderSolicitacaoProps {
     indicadorMenuResponderSolicitacaoAberto: boolean,
@@ -14,7 +15,7 @@ export default function MenuResponderSolicitacao({
 
     const menuRef = useRef<HTMLDivElement>(null);
 
-    const [indicadorTelaMobile, setIndicadorTelaMobile] = useState(false);
+    const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
 
     useEffect(() => {
 
@@ -32,35 +33,11 @@ export default function MenuResponderSolicitacao({
 
     }, [menuRef]);
 
-    useEffect(() => {
-
-        if (window.innerWidth <= TAMANHO_DE_TELA_MOBILE) {
-            setIndicadorTelaMobile(true);
-        } else {
-            setIndicadorTelaMobile(false);
-        }
-
-        const handleReajustarTela = () => {
-            if (window.innerWidth <= TAMANHO_DE_TELA_MOBILE) {
-                setIndicadorTelaMobile(true);
-            } else {
-                setIndicadorTelaMobile(false);
-            }
-        }
-
-        window.addEventListener('resize', handleReajustarTela);
-
-        return () => {
-            window.removeEventListener('resize', handleReajustarTela);
-        };
-
-    }, []);
-
     return (
 
         indicadorMenuResponderSolicitacaoAberto &&
 
-            indicadorTelaMobile ?
+            isMobile ?
 
             <div id='perfilDoUsuario__menuInferiorResponderSolicitacao' ref={menuRef}>
                 <button>Confirmar</button>
