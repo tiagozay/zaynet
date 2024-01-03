@@ -34,8 +34,8 @@
     margin-left: 0px;
 }
 #publicacao__opcoesDeInteracao{
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 33.33% 33.33% 33.33%;
     margin-top: 8px;
     margin-bottom: 8px;
 }
