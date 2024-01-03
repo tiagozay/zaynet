@@ -5,6 +5,7 @@ import SelecionarArquivos from '../../components/SelecionarArquivos';
 import { MidiaPublicacaoModel } from '../../models/MidiaPublicacaoModel';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
+import MidiaEditarPublicacao from '../../components/MidiaEditarPublicacao';
 
 export default function EditarPublicacaoMobile() {
 
@@ -47,7 +48,7 @@ export default function EditarPublicacaoMobile() {
 
     const [novosArquivosSelecionados, setNovosArquivosSelecionados] = useState<FileList | null>(null);
 
-    const isMobile = useMediaQuery({maxWidth: TAMANHO_DE_TELA_MOBILE});
+    const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
 
     const navigate = useNavigate();
 
@@ -60,19 +61,19 @@ export default function EditarPublicacaoMobile() {
     }, []);
 
     useEffect(() => {
-        if(!isMobile){
+        if (!isMobile) {
             navigate(-1);
         }
     }, [isMobile]);
 
     useEffect(() => {
-        if(
+        if (
             textoDaPublicacao?.trim() !== publicacao.texto ||
             midiasDaPublicacao.length !== publicacao.midias.length ||
             novosArquivosSelecionados?.length
-        ){
+        ) {
             setIndicadorAlteracaoRealizada(true);
-        }else{
+        } else {
             setIndicadorAlteracaoRealizada(false);
         }
     }, [textoDaPublicacao, midiasDaPublicacao, novosArquivosSelecionados]);
@@ -82,11 +83,10 @@ export default function EditarPublicacaoMobile() {
     }
 
     //Função provísória que serve para excluir imagens do array. Quando esta parte for integrada com o back-end a implementação dela pode mudar. Esta serve apenas para modificar o estado e identificar a mudança.
-    function excluirImagem(indice: number)
-    {
-        setMidiasDaPublicacao( state => {
-            return state.filter( (midia, index) => indice !== index );
-        } );
+    function excluirMidia(indice: number) {
+        setMidiasDaPublicacao(state => {
+            return state.filter((midia, index) => indice !== index);
+        });
     }
 
     function aoClicarEmVoltar() {
@@ -144,23 +144,14 @@ export default function EditarPublicacaoMobile() {
                     <ul id='editarPublicacaoMobile__midiasDaPublicacao__listaMidias'>
 
                         {
-                            midiasDaPublicacao.map( (midia, index) => {
-                                return (
-                                    <li id='editarPublicacaoMobile__midiasDaPublicacao__midia' key={index}>
-                                        <div id='editarPublicacaoMobile__midiasDaPublicacao__midiaOvelay'>
-                                            <button
-                                                className='material-symbols-outlined'
-                                                id='editarPublicacaoMobile__btnExcluirMidia'
-                                                onClick={ () => excluirImagem(index)}
-                                            >close</button>
-                                        </div>
-                                        <img
-                                            src={midia.caminhoMidiaMiniatura}
-                                            alt="Midia publicacao"
-                                        />
-                                    </li>
-                                );
-                            })
+                            midiasDaPublicacao.map((midia, index) =>
+                                <MidiaEditarPublicacao
+                                    midiaPublicacao={midia}
+                                    excluirMidia={excluirMidia}
+                                    index={index}
+                                    key={index}
+                                />
+                            )
                         }
                     </ul>
                 </div>

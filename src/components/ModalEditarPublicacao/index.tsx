@@ -5,6 +5,7 @@ import { MidiaPublicacaoModel } from '../../models/MidiaPublicacaoModel';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import ModalDeConfirmacao from '../ModalDeConfirmacao';
+import MidiaEditarPublicacao from '../MidiaEditarPublicacao';
 
 interface ModalEditarPublicacaoProps {
     modalAberto: boolean,
@@ -92,7 +93,7 @@ export default function ModalEditarPublicacao({ modalAberto, fecharModal }: Moda
     }
 
     //Função provísória que serve para excluir imagens do array. Quando esta parte for integrada com o back-end a implementação dela pode mudar. Esta serve apenas para modificar o estado e identificar a mudança.
-    function excluirImagem(indice: number) {
+    function excluirMidia(indice: number) {
         setMidiasDaPublicacao(state => {
             return state.filter((midia, index) => indice !== index);
         });
@@ -172,25 +173,15 @@ export default function ModalEditarPublicacao({ modalAberto, fecharModal }: Moda
 
                             <div id='modalEditarPublicacao__midiasDaPublicacao'>
                                 <ul id='modalEditarPublicacao__midiasDaPublicacao__listaMidias'>
-
                                     {
-                                        midiasDaPublicacao.map((midia, index) => {
-                                            return (
-                                                <li id='modalEditarPublicacao__midiasDaPublicacao__midia' key={midia.caminhoMidiaNormal}>
-                                                    <div id='modalEditarPublicacao__midiasDaPublicacao__midiaOvelay'>
-                                                        <button
-                                                            className='material-symbols-outlined'
-                                                            id='modalEditarPublicacao__btnExcluirMidia'
-                                                            onClick={() => excluirImagem(index)}
-                                                        >close</button>
-                                                    </div>
-                                                    <img
-                                                        src={midia.caminhoMidiaMiniatura}
-                                                        alt="Midia publicacao"
-                                                    />
-                                                </li>
-                                            );
-                                        })
+                                        midiasDaPublicacao.map((midia, index) => 
+                                            <MidiaEditarPublicacao 
+                                                midiaPublicacao={midia}
+                                                excluirMidia={excluirMidia}
+                                                index={index}
+                                                key={index}
+                                            />
+                                        )
                                     }
                                 </ul>
                             </div>
