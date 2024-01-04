@@ -6,6 +6,7 @@ import './home.css';
 import ModalPublicar from '../../components/ModalPublicar';
 import { useNavigate } from 'react-router-dom';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
+import PublicacaoCompartilhada from '../../components/PublicacaoCompartilhada';
 
 export default function Home() {
 
@@ -73,6 +74,7 @@ export default function Home() {
 
         <Publicacao />
         <Publicacao />
+        <PublicacaoCompartilhada />
       </section>
     </>
   )

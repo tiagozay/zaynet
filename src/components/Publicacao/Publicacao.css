@@ -6,6 +6,9 @@
     padding: 15px;
     box-sizing: border-box;
 }
+.publicacaoSemMargem{
+    margin: 0px 0px!important;
+}
 #publicacao__infoUsuario{
     display: flex;
     justify-content: space-between;

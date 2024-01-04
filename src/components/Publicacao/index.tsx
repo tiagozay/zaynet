@@ -10,7 +10,11 @@ import ModalEditarPublicacao from '../ModalEditarPublicacao';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 
-export default function Publicacao() {
+interface PublicacaoProps {
+  publicacaoCompartilhada?: boolean
+}
+
+export default function Publicacao({ publicacaoCompartilhada }: PublicacaoProps) {
 
   //Mock provisório que indica se a publicacao atual é do autor que está logado. Futuramente para obter esse dado deverá ser feita uma verificação com dados vindos do redux ou algo semelhante
   const indicadorPublicacaoDoUsuarioLogado = true;
@@ -102,7 +106,7 @@ export default function Publicacao() {
           /> :
           ""
       }
-      <div id='publicacao'>
+      <div id='publicacao' className={ publicacaoCompartilhada ? 'publicacaoSemMargem' : ''}>
         <div id='publicacao__infoUsuario'>
           <div id='publicacao__infoUsuarioContainer'>
             <img src={publicacao.perfil} alt="Perfil usuário" id='publicacao__perfil' />
@@ -112,7 +116,7 @@ export default function Publicacao() {
             </div>
           </div>
           {
-            indicadorPublicacaoDoUsuarioLogado ?
+            indicadorPublicacaoDoUsuarioLogado && !publicacaoCompartilhada ?
               <button
                 className='material-symbols-outlined'
                 id='publicacao__btnEditarPublicacao'
@@ -175,10 +179,16 @@ export default function Publicacao() {
           }
         </div>
 
-        <InteracoesComAPublicacao />
+        {
+          !publicacaoCompartilhada ?
+            <>
+              <InteracoesComAPublicacao />
 
-        <div id='publicacao__linhaDivisoria'></div>
-        <Comentarios />
+              <div id='publicacao__linhaDivisoria'></div>
+              <Comentarios />
+            </> : 
+            ""
+        }
       </div>
     </>
 

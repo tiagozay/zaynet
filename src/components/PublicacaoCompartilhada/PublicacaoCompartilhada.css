@@ -1,0 +1,82 @@
+#publicacaoCompartilhada{
+    background-color: #242526;
+    width: 100%;
+    margin: 20px 0;
+    border-radius: 10px;
+    padding: 15px;
+    box-sizing: border-box;
+}
+#publicacaoCompartilhada__infoUsuario{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#publicacaoCompartilhada__infoUsuarioContainer{
+    display: flex;
+    width: 100%;
+}
+#publicacaoCompartilhada__btnEditarPublicacao{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    color: rgb(232, 232, 232);
+    margin-right: 10px;
+}
+#publicacaoCompartilhada__perfil{
+    object-fit: cover;
+    object-position: center center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+#publicacaoCompartilhada__infoUsuarioContainer__divInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+#publicacaoCompartilhada__nomeAutor{
+    font-family: var(--fontePadrao);
+    color: rgb(231, 231, 231);
+    font-weight: 600;
+    font-size: 15px;
+}
+#publicacaoCompartilhada__tituloAutor{
+    font-family: var(--fontePadrao);
+    color: rgb(198, 198, 198);
+    font-size: 15px;
+    font-weight: 400;
+}
+#publicacaoCompartilhada__tituloAutor span{
+    font-weight: 600;
+    color: rgb(231, 231, 231);
+}
+#publicacaoCompartilhada__tempoDePublicacao{
+    font-size: 13px;
+    font-family: var(--fontePadrao);
+    color: rgb(165, 165, 165);
+}
+#publicacaoCompartilhada__texto{
+    font-family: var(--fontePadrao);
+    color: rgb(215, 215, 215);
+    margin-top: 15px;
+    margin-bottom: 15px;
+    line-height: 20px;
+    font-size: 14px;
+}
+#publicacaoCompartilhada__containerPublicacao{
+    border: 1px rgb(64, 64, 64) solid;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+#publicacaoCompartilhada__linhaDivisoria{
+    background-color: rgb(72, 72, 72);
+    height: 0.1em;
+}
+@media(max-width: 680px){
+    #publicacaoCompartilhada{
+        padding: 10px;
+    }
+}
