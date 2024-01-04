@@ -1,0 +1,229 @@
+#caixaDeMensagemMinimizada{
+    width: 320px; 
+    position: fixed;
+    bottom: 0;
+    left: 65%;
+    background-color: #242526;
+    z-index: 21;
+    padding: 4px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border: 1px rgb(76, 76, 76) solid;
+    border-bottom: none;
+    cursor: pointer;
+}
+#caixaDeMensagemMinimizada__containerInfo{
+    display: flex;
+    align-items: center;
+}
+#caixaDeMensagemMinimizada__perfil{
+    width: 37px;
+    height: 37px;
+    object-fit: cover;
+    object-position: center center;
+    border-radius: 50%;
+}
+#caixaDeMensagemMinimizada__nome{
+    font-family: var(--fontePadrao);
+    color: rgb(216, 216, 216);
+    font-weight: 500;
+    font-size: 14px;
+    margin-left: 5px;
+}
+#caixaDeMensagemMinimizada__btnFechar{
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+    color:#b8b8b8;
+    margin-right: 5px;
+}
+
+
+#caixaDeMensagem{
+    width: 320px;
+    height: 420px;
+    display: flex;
+    flex-direction: column;
+    background-color: #242526;
+    position: fixed;
+    bottom: 0;
+    left: 65%;
+    z-index: 21;
+    border: 1px rgb(76, 76, 76) solid;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 0 5px;
+    border-bottom: none;
+}
+#caixaDeMensagem__divPerfilENome{
+    padding: 6px 5px;
+    display: flex;
+    border-bottom: 1px rgb(90, 90, 90) solid;
+}
+#caixaDeMensagem__perfil{
+    object-fit: cover;
+    object-position: center center;
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+}
+#caixaDeMensagem__divNomeEVistoPorUltimo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: var(--fontePadrao);
+    color: rgb(228, 228, 228);
+    padding-left: 5px;
+}
+#caixaDeMensagem__divPerfilENome__container{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+#caixaDeMensagem__divBtns{
+    display: flex;
+    align-items: center;
+}
+#caixaDeMensagem__divBtns button{
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+}
+#caixaDeMensagem__divBtns button:hover{
+    background-color: #3A3B3C;
+}
+#caixaDeMensagem__btnFechar{
+    color:#0866FF;
+    margin-left: 5px;
+}
+#caixaDeMensagem__btnMinimizar div{
+    width: 20px;
+    height: 2px;
+    background-color:#0866FF;
+}
+#caixaDeMensagem__divNomeEVistoPorUltimo__nome{
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 3px;
+}
+#caixaDeMensagem__divNomeEVistoPorUltimo__vistoPorUltimo{
+    font-size: 11px;
+    color: rgb(203, 203, 203);
+}
+#caixaDeMensagem__containerConversa{
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+#caixaDeMensagem__containerConversa::-webkit-scrollbar {
+    background-color: transparent;
+    width: 8px;
+}
+#caixaDeMensagem__containerConversa::-webkit-scrollbar-thumb {
+    background-color: #666668; 
+    border-radius: 5px;
+}
+#caixaDeMensagem__containerConversa__conversa{
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#caixaDeMensagem__conversa__mensagemRecebida{
+    display: flex;
+    align-items: center;
+    margin: 16px 0;
+}
+#caixaDeMensagem__mensagemRecebida__perfil{
+    object-fit: cover;
+    object-position: center center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+}
+#caixaDeMensagem__mensagemRecebida__texto{
+    background-color: #3A3B3C;
+    padding: 10px;
+    border-radius: 15px;
+    font-family: var(--fontePadrao);
+    color: rgb(218, 218, 218);
+    font-size: 13px;
+    margin-left: 6px;
+    font-weight: 500;
+    max-width: 190px;
+    line-height: 16px;
+}
+
+#caixaDeMensagem__conversa__mensagemEnviada{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin: 16px 0;
+}
+#caixaDeMensagem__mensagemEnviada__perfil{
+    object-fit: cover;
+    object-position: center center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+}
+#caixaDeMensagem__mensagemEnviada__texto{
+    background-color: #3A3B3C;
+    padding: 10px;
+    max-width: 190px;
+    border-radius: 15px;
+    font-family: var(--fontePadrao);
+    color: rgb(218, 218, 218);
+    font-size: 13px;
+    margin-right: 6px;
+    font-weight: 500;
+}
+#caixaDeMensagem__divInputEnviarMensagem{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+#caixaDeMensagem__inputNovaMensagem{
+    width: 100%;
+    background-color: #4E4F50;
+    color: rgb(233, 233, 233);
+    border: none;
+    font-family: var(--fontePadrao);
+    outline: none;
+    border-radius: 10px;
+    padding: 9px 10px;
+}
+#caixaDeMensagem__inputNovaMensagem::placeholder{
+    color: rgb(203, 203, 203);
+    font-size: 13px;
+}
+#caixaDeMensagem__btnEnviarMensagem{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color:#0866FF;
+
+}
+@media(max-width: 990px){
+    #caixaDeMensagemMinimizada{
+        left: 50%;
+    }
+    #caixaDeMensagem{
+        left: 50%;
+    }
+}
