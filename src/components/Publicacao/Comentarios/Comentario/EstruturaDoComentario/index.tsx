@@ -7,12 +7,16 @@ interface EstruturaDoComentarioProps {
     perfilUsuario: string;
     nomeUsuario: string;
     comentario: string;
+    ehUmaResposta: boolean;
+    clickResponderComentario?: () => void
 }
 
 export default function EstruturaDoComentario({
     perfilUsuario,
     nomeUsuario,
-    comentario
+    comentario,
+    ehUmaResposta,
+    clickResponderComentario
 }: EstruturaDoComentarioProps) {
     //Mock que será removido quando tiver sistema de login
     const usuarioLogado = true;
@@ -85,7 +89,15 @@ export default function EstruturaDoComentario({
                                     Curtir
                                     (<span id='comentario__opcaoLike__quantidade'>{quantidadeDeCurtidas}</span>)
                                 </button>
-                                <button className='comentario__opcao'>Responder</button>
+
+                                {
+                                    !ehUmaResposta ?
+                                    <button className='comentario__opcao' onClick={clickResponderComentario}>
+                                        Responder
+                                    </button> : 
+                                    ""
+                                }
+
                                 {
                                     usuarioLogado &&
                                     <>
