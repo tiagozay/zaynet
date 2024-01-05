@@ -46,12 +46,13 @@
 #publicacaoCompartilhada__tituloAutor{
     font-family: var(--fontePadrao);
     color: rgb(198, 198, 198);
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 400;
 }
 #publicacaoCompartilhada__tituloAutor span{
     font-weight: 600;
     color: rgb(231, 231, 231);
+    font-size: 15px;
 }
 #publicacaoCompartilhada__tempoDePublicacao{
     font-size: 13px;
