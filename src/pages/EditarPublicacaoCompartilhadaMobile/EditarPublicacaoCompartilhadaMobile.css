@@ -1,0 +1,78 @@
+#editarPublicacaoCompartilhadaMobile__page{
+
+}
+#editarPublicacaoCompartilhadaMobile__cabecalho{
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    border-bottom: 1px rgb(70, 70, 70) solid;
+}
+#editarPublicacaoCompartilhadaMobile__cabecalho__container{
+    display: flex;
+    align-items: center;
+    width: 60%;
+}
+#editarPublicacaoCompartilhadaMobile__btnVoltar{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: rgb(201, 201, 201);
+    font-size: 28px;
+    font-weight: 600;
+    text-decoration: none;
+}
+#editarPublicacaoCompartilhadaMobile__titulo{
+    font-family: var(--fontePadrao);
+    color: rgb(201, 201, 201);
+    margin-left: 7px;
+    font-size: 16px;
+    font-weight: 600;
+}
+#editarPublicacaoCompartilhadaMobile__btnSalvar{
+    background-color: #2176FF;
+    color: white;
+    font-family: var(--fontePadrao);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: 100ms;
+}
+.editarPublicacaoCompartilhadaMobile__btnSalvarInativo{
+    background-color: #444546!important;
+    color: rgb(155, 155, 155)!important;
+}
+#editarPublicacaoCompartilhadaMobile__container{
+    padding: 15px;
+}
+#editarPublicacaoCompartilhadaMobile__divPerfilENomeUsuario{
+    display: flex;
+    align-items: center;
+}
+#editarPublicacaoCompartilhadaMobile__divPerfilENomeUsuario__perfil{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+#editarPublicacaoCompartilhadaMobile__divPerfilENomeUsuario__nome{
+    font-family: var(--fontePadrao);    
+    color: rgb(206, 206, 206);
+    font-weight: 600;
+    margin-left: 5px;
+}
+#editarPublicacaoCompartilhadaMobile__campoTexto{
+    width: 100%;
+    height: 250px;
+    resize: none;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-family: var(--fontePadrao);
+    font-size: 18px;
+    color: rgb(217, 217, 217);  
+    margin-top: 20px;
+}
+#editarPublicacaoCompartilhadaMobile__campoTexto::placeholder{
+    color: rgb(156, 156, 156);  
+    font-size: 20px;
+}
