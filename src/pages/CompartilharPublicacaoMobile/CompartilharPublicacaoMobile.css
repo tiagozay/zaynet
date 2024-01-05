@@ -1,18 +1,18 @@
-#editarPublicacaoMobile__page{
+#compartilharPublicacaoMobile__page{
 
 }
-#editarPublicacaoMobile__cabecalho{
+#compartilharPublicacaoMobile__cabecalho{
     display: flex;
     justify-content: space-between;
     padding: 12px;
     border-bottom: 1px rgb(70, 70, 70) solid;
 }
-#editarPublicacaoMobile__cabecalho__container{
+#compartilharPublicacaoMobile__cabecalho__container{
     display: flex;
     align-items: center;
     width: 60%;
 }
-#editarPublicacaoMobile__btnVoltar{
+#compartilharPublicacaoMobile__btnVoltar{
     background-color: transparent;
     border: none;
     outline: none;
@@ -21,14 +21,14 @@
     font-weight: 600;
     text-decoration: none;
 }
-#editarPublicacaoMobile__titulo{
+#compartilharPublicacaoMobile__titulo{
     font-family: var(--fontePadrao);
     color: rgb(201, 201, 201);
     margin-left: 7px;
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 600;
 }
-#editarPublicacaoMobile__btnSalvar{
+#compartilharPublicacaoMobile__btnPublicar{
     background-color: #2176FF;
     color: white;
     font-family: var(--fontePadrao);
@@ -38,33 +38,33 @@
     font-weight: 600;
     transition: 100ms;
 }
-.editarPublicacaoMobile__btnSalvarInativo{
+.compartilharPublicacaoMobile__btnPublicarInativo{
     background-color: #444546!important;
     color: rgb(155, 155, 155)!important;
 }
-#editarPublicacaoMobile__container{
+#compartilharPublicacaoMobile__container{
     padding: 15px;
 }
-#editarPublicacaoMobile__divPerfilENomeUsuario{
+#compartilharPublicacaoMobile__divPerfilENomeUsuario{
     display: flex;
     align-items: center;
 }
-#editarPublicacaoMobile__divPerfilENomeUsuario__perfil{
+#compartilharPublicacaoMobile__divPerfilENomeUsuario__perfil{
     object-fit: cover;
     object-position: center center;
     width: 40px;
     height: 40px;
     border-radius: 50%;
 }
-#editarPublicacaoMobile__divPerfilENomeUsuario__nome{
+#compartilharPublicacaoMobile__divPerfilENomeUsuario__nome{
     font-family: var(--fontePadrao);    
     color: rgb(206, 206, 206);
     font-weight: 600;
     margin-left: 5px;
 }
-#editarPublicacaoMobile__campoTexto{
+#compartilharPublicacaoMobile__campoTexto{
     width: 100%;
-    height: 270px;
+    height: 170px;
     resize: none;
     background-color: transparent;
     border: none;
@@ -73,37 +73,13 @@
     font-size: 18px;
     color: rgb(217, 217, 217);  
     margin-top: 20px;
+    margin-bottom: 10px;
 }
-#editarPublicacaoMobile__midiasDaPublicacao__listaMidias{
-    width: 100%;
-    display: grid;
-    grid-template-columns: 32% 32% 32%;
-    grid-gap: 10px;
-    margin-bottom: 35px;
+#compartilharPublicacaoMobile__containerPublicacao{
+    border: 1px rgb(103, 103, 103) solid;
+    border-radius: 10px;
 }
-#editarPublicacaoMobile__campoTexto::placeholder{
+#compartilharPublicacaoMobile__campoTexto::placeholder{
     color: rgb(156, 156, 156);  
     font-size: 20px;
 }
-#editarPublicacaoMobile__divIconeFotoOuVideo{ 
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-    padding: 2px;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    border-top: 1px rgb(70, 70, 70) solid;
-    background-color: #18191A;
-}
-#editarPublicacaoMobile__divIconeFotoOuVideo button{ 
-    width: 100%;
-    background-color: transparent;
-    padding: 10px;
-    box-sizing: border-box;
-    border: none;
-}
-#editarPublicacaoMobile__divIconeFotoOuVideo button img{ 
-    width: 27px;
-}
-

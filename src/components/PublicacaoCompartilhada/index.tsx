@@ -39,7 +39,7 @@ export default function PublicacaoCompartilhada() {
 
     function abrirModalCompartilharPublicacao() {
         if (isMobile) {
-            navigate('/editarPublicacao');
+            navigate('/compartilharPublicacao');
         } else {
             setIndicadorModalCompartilharPublicacaoAberto(true);
         }

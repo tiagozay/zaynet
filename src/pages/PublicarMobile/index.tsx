@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { ArquivosPublicacaoService } from '../../services/ArquivosPublicacaoService';
 import SelecionarArquivos from '../../components/SelecionarArquivos';
 import PreviasArquivos from '../../components/SelecionarArquivos/PreviasArquivos';
+import { useMediaQuery } from 'react-responsive';
+import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 
 export default function PublicarMobile() {
 
@@ -17,6 +19,15 @@ export default function PublicarMobile() {
     const [arquivosSelecionados, setArquivosSelecionados] = useState<FileList | null>(null);
 
     const navigate = useNavigate();
+
+    const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
+
+    useEffect(() => {
+        if(!isMobile){
+            navigate(-1);
+        }
+    }, [isMobile]);
+
 
     useEffect(() => {
         if (indicadorAlgumTextoDigitado || indicadorAlgumaMidiaSelecionada) {

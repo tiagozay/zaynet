@@ -98,7 +98,7 @@ export default function Publicacao({ publicacaoCompartilhada }: PublicacaoProps)
 
   function abrirModalCompartilharPublicacao() {
     if (isMobile) {
-      navigate('/editarPublicacao');
+      navigate('/compartilharPublicacao');
     } else {
       setIndicadorModalCompartilharPublicacaoAberto(true);
     }
