@@ -9,6 +9,7 @@ import { ArquivosPublicacaoService } from '../../services/ArquivosPublicacaoServ
 import ModalEditarPublicacao from '../ModalEditarPublicacao';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
+import ModalCompartilharPublicacao from '../ModalCompartilharPublicacao';
 
 interface PublicacaoProps {
   publicacaoCompartilhada?: boolean
@@ -57,6 +58,7 @@ export default function Publicacao({ publicacaoCompartilhada }: PublicacaoProps)
   const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
 
   const [indicadorModalEditarPublicacaoAberto, setIndicadorModalEditarPublicacaoAberto] = useState(false);
+  const [indicadorModalCompartilharPublicacaoAberto, setIndicadorModalCompartilharPublicacaoAberto] = useState(false);
 
   const classeDeCadaImagem = publicacao.midias.length === 1 ? "imagemOcupandoTodoTamanho" : "imagemOcupandoMetade";
 
@@ -94,6 +96,17 @@ export default function Publicacao({ publicacaoCompartilhada }: PublicacaoProps)
     setIndicadorModalEditarPublicacaoAberto(false);
   }
 
+  function abrirModalCompartilharPublicacao() {
+    if (isMobile) {
+      navigate('/editarPublicacao');
+    } else {
+      setIndicadorModalCompartilharPublicacaoAberto(true);
+    }
+  }
+
+  function fehcarModalCompartilharPublicacao() {
+    setIndicadorModalCompartilharPublicacaoAberto(false);
+  }
 
 
   return (
@@ -106,7 +119,15 @@ export default function Publicacao({ publicacaoCompartilhada }: PublicacaoProps)
           /> :
           ""
       }
-      <div id='publicacao' className={ publicacaoCompartilhada ? 'publicacaoSemMargem' : ''}>
+      {
+        indicadorModalCompartilharPublicacaoAberto ?
+          <ModalCompartilharPublicacao
+            fecharModal={fehcarModalCompartilharPublicacao}
+            modalAberto={indicadorModalCompartilharPublicacaoAberto}
+          /> :
+          ""
+      }
+      <div id='publicacao' className={publicacaoCompartilhada ? 'publicacaoSemMargem' : ''}>
         <div id='publicacao__infoUsuario'>
           <div id='publicacao__infoUsuarioContainer'>
             <img src={publicacao.perfil} alt="Perfil usuário" id='publicacao__perfil' />
@@ -182,11 +203,11 @@ export default function Publicacao({ publicacaoCompartilhada }: PublicacaoProps)
         {
           !publicacaoCompartilhada ?
             <>
-              <InteracoesComAPublicacao />
+              <InteracoesComAPublicacao compartilharPublicacao={abrirModalCompartilharPublicacao}/>
 
               <div id='publicacao__linhaDivisoria'></div>
               <Comentarios />
-            </> : 
+            </> :
             ""
         }
       </div>

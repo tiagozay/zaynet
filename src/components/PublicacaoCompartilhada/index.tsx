@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './PublicacaoCompartilhada.css';
 import InteracoesComAPublicacao from '../Publicacao/InteracoesComAPublicacao';
 import Comentarios from '../Publicacao/Comentarios';
@@ -8,6 +8,7 @@ import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import { useNavigate } from 'react-router-dom';
 import ModalEditarPublicacao from '../ModalEditarPublicacao';
 import ModalEditarPublicacaoCompartilhada from '../ModalEditarPublicacaoCompartilhada';
+import ModalCompartilharPublicacao from '../ModalCompartilharPublicacao';
 
 export default function PublicacaoCompartilhada() {
 
@@ -21,11 +22,32 @@ export default function PublicacaoCompartilhada() {
         texto: "Isto é uma verdadeira obra de arte!",
     }
 
+    const [indicadorModalEditarPublicacaoAberto, setIndicadorModalEditarPublicacaoAberto] = useState(false);
+    const [indicadorModalCompartilharPublicacaoAberto, setIndicadorModalCompartilharPublicacaoAberto] = useState(false);
+
     const navigate = useNavigate();
 
     const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
 
-    const [indicadorModalEditarPublicacaoAberto, setIndicadorModalEditarPublicacaoAberto] = useState(false);
+    useEffect(() => {
+        if (indicadorModalEditarPublicacaoAberto) {
+            document.body.style.overflowY = 'hidden';
+        } else {
+            document.body.style.overflowY = 'scroll';
+        }
+    }, [indicadorModalEditarPublicacaoAberto]);
+
+    function abrirModalCompartilharPublicacao() {
+        if (isMobile) {
+            navigate('/editarPublicacao');
+        } else {
+            setIndicadorModalCompartilharPublicacaoAberto(true);
+        }
+    }
+
+    function fehcarModalCompartilharPublicacao() {
+        setIndicadorModalCompartilharPublicacaoAberto(false);
+    }
 
     function abrirModalEditarPublicacao() {
         if (isMobile) {
@@ -46,6 +68,14 @@ export default function PublicacaoCompartilhada() {
                     <ModalEditarPublicacaoCompartilhada
                         fecharModal={fehcarModalEditarPublicacao}
                         modalAberto={indicadorModalEditarPublicacaoAberto}
+                    /> :
+                    ""
+            }
+            {
+                indicadorModalCompartilharPublicacaoAberto ?
+                    <ModalCompartilharPublicacao
+                        fecharModal={fehcarModalCompartilharPublicacao}
+                        modalAberto={indicadorModalCompartilharPublicacaoAberto}
                     /> :
                     ""
             }
@@ -81,7 +111,7 @@ export default function PublicacaoCompartilhada() {
                 </div>
 
 
-                <InteracoesComAPublicacao />
+                <InteracoesComAPublicacao compartilharPublicacao={abrirModalCompartilharPublicacao}/>
 
                 <div id='publicacaoCompartilhada__linhaDivisoria'></div>
                 <Comentarios />

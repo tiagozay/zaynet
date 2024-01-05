@@ -1,7 +1,12 @@
 import React from 'react';
 import './InteracoesComAPublicacao.css';
 
-export default function InteracoesComAPublicacao() {
+interface InteracoesComAPublicacaoProps
+{
+    compartilharPublicacao: () => void
+}
+
+export default function InteracoesComAPublicacao({compartilharPublicacao} : InteracoesComAPublicacaoProps) {
     return (
         <>
             <div id='publicacao__quantidadeDeInteracoes'>
@@ -32,7 +37,7 @@ export default function InteracoesComAPublicacao() {
                     <i className='material-symbols-outlined'>chat_bubble</i>
                     Comentar
                 </button>
-                <button>
+                <button onClick={compartilharPublicacao}>
                     <i className='material-symbols-outlined'>share</i>
                     Compartilhar
                 </button>
