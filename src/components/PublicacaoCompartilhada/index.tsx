@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import ModalEditarPublicacao from '../ModalEditarPublicacao';
 import ModalEditarPublicacaoCompartilhada from '../ModalEditarPublicacaoCompartilhada';
 import ModalCompartilharPublicacao from '../ModalCompartilharPublicacao';
+import MenuOpcoesPublicacao from '../MenuOpcoesPublicacao';
 
 export default function PublicacaoCompartilhada() {
 
@@ -49,7 +50,7 @@ export default function PublicacaoCompartilhada() {
         setIndicadorModalCompartilharPublicacaoAberto(false);
     }
 
-    function abrirModalEditarPublicacao() {
+    function editarPublicacao() {
         if (isMobile) {
             navigate('/editarPublicacaoCompartilhada');
         } else {
@@ -93,16 +94,14 @@ export default function PublicacaoCompartilhada() {
                     </div>
                     {
                         indicadorPublicacaoDoUsuarioLogado ?
-                            <button
-                                className='material-symbols-outlined'
-                                id='publicacao__btnEditarPublicacao'
-                                onClick={abrirModalEditarPublicacao}
-                            >edit</button> :
+                            <MenuOpcoesPublicacao
+                                clickEditarPublicacao={editarPublicacao}
+                                clickExluirPublicacao={() => { }}
+                            />
+                            :
                             ""
                     }
                 </div>
-
-
 
                 <p id='publicacaoCompartilhada__texto'>{publicacao.texto}</p>
 
@@ -111,7 +110,7 @@ export default function PublicacaoCompartilhada() {
                 </div>
 
 
-                <InteracoesComAPublicacao compartilharPublicacao={abrirModalCompartilharPublicacao}/>
+                <InteracoesComAPublicacao compartilharPublicacao={abrirModalCompartilharPublicacao} />
 
                 <div id='publicacaoCompartilhada__linhaDivisoria'></div>
                 <Comentarios />

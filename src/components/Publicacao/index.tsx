@@ -10,6 +10,7 @@ import ModalEditarPublicacao from '../ModalEditarPublicacao';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import ModalCompartilharPublicacao from '../ModalCompartilharPublicacao';
+import MenuOpcoesPublicacao from '../MenuOpcoesPublicacao';
 
 interface PublicacaoProps {
   publicacaoCompartilhada?: boolean
@@ -84,7 +85,7 @@ export default function Publicacao({ publicacaoCompartilhada }: PublicacaoProps)
     navigate(`/image/${encodeURIComponent(info)}`);
   }
 
-  function abrirModalEditarPublicacao() {
+  function editarPublicacao() {
     if (isMobile) {
       navigate('/editarPublicacao');
     } else {
@@ -138,14 +139,13 @@ export default function Publicacao({ publicacaoCompartilhada }: PublicacaoProps)
           </div>
           {
             indicadorPublicacaoDoUsuarioLogado && !publicacaoCompartilhada ?
-              <button
-                className='material-symbols-outlined'
-                id='publicacao__btnEditarPublicacao'
-                onClick={abrirModalEditarPublicacao}
-              >edit</button> :
+              <MenuOpcoesPublicacao 
+                clickEditarPublicacao={editarPublicacao}
+                clickExluirPublicacao={() => {}}
+              />
+              :
               ""
           }
-
         </div>
 
         <p id='publicacao__texto'>{publicacao.texto}</p>
@@ -203,7 +203,7 @@ export default function Publicacao({ publicacaoCompartilhada }: PublicacaoProps)
         {
           !publicacaoCompartilhada ?
             <>
-              <InteracoesComAPublicacao compartilharPublicacao={abrirModalCompartilharPublicacao}/>
+              <InteracoesComAPublicacao compartilharPublicacao={abrirModalCompartilharPublicacao} />
 
               <div id='publicacao__linhaDivisoria'></div>
               <Comentarios />
