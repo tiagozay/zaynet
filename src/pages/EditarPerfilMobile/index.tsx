@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { ArquivosPublicacaoService } from '../../services/ArquivosPublicacaoService';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
+import ModalDeConfirmacao from '../../components/ModalDeConfirmacao';
 
 export default function EditarPerfilMobile() {
 
@@ -37,6 +38,7 @@ export default function EditarPerfilMobile() {
     const [novaFotoCapaPrevia64, setNovaFotoCapaPrevia64] = useState<string | null>(null);
 
     const [indicadorModificacaoRealizada, setIndicadorModificacaoRealizada] = useState(false);
+    const [modalDeConfirmacaoDeDescarteAberto, setmodalDeConfirmacaoDeDescarteAberto] = useState(false);
 
     const inputPerfilRef = useRef<HTMLInputElement | null>(null);
     const inputCapaRef = useRef<HTMLInputElement | null>(null);
@@ -109,6 +111,23 @@ export default function EditarPerfilMobile() {
 
 
     function aoClicarEmVoltar() {
+        if (indicadorModificacaoRealizada) {
+            abrirModalDeConfirmacaoDeDescarte();
+        } else {
+            navigate(-1);
+        }
+
+    }
+
+    function abrirModalDeConfirmacaoDeDescarte() {
+        setmodalDeConfirmacaoDeDescarteAberto(true);
+    }
+
+    function fecharModalDeConfirmacaoDeDescarte() {
+        setmodalDeConfirmacaoDeDescarteAberto(false);
+    }
+
+    function aoConfirmarDescarte() {
         navigate(-1);
     }
 
@@ -159,143 +178,157 @@ export default function EditarPerfilMobile() {
     }
 
     return (
-        <div id="editarPerfilMobile__page">
-            <div id="editarPerfilMobile__cabecalho">
-                <div id="editarPerfilMobile__cabecalho__container">
+        <>
+            {
+                modalDeConfirmacaoDeDescarteAberto ?
+                    <ModalDeConfirmacao
+                        aoConfirmar={aoConfirmarDescarte}
+                        fecharModal={fecharModalDeConfirmacaoDeDescarte}
+                        mensagem='Deseja realmente descartar as alterações?'
+                        titulo='Descartar alterações?'
+                        modalAberto={modalDeConfirmacaoDeDescarteAberto}
+                    /> : ""
+            }
+
+            <div id="editarPerfilMobile__page">
+                <div id="editarPerfilMobile__cabecalho">
+                    <div id="editarPerfilMobile__cabecalho__container">
+                        <button
+                            onClick={aoClicarEmVoltar}
+                            className='material-symbols-outlined'
+                            id='editarPerfilMobile__btnVoltar'
+                        >arrow_back</button>
+                        <h3 id="editarPerfilMobile__titulo">Editar perfil</h3>
+                    </div>
                     <button
-                        onClick={aoClicarEmVoltar}
-                        className='material-symbols-outlined'
-                        id='editarPerfilMobile__btnVoltar'
-                    >arrow_back</button>
-                    <h3 id="editarPerfilMobile__titulo">Editar perfil</h3>
+                        id="editarPerfilMobile__btnSalvar"
+                        disabled={!indicadorModificacaoRealizada}
+                        className={!indicadorModificacaoRealizada ? "editarPerfilMobile__btnSalvarInativo" : ""}
+                    >SALVAR</button>
                 </div>
-                <button
-                    id="editarPerfilMobile__btnSalvar"
-                    disabled={!indicadorModificacaoRealizada}
-                    className={!indicadorModificacaoRealizada ? "editarPerfilMobile__btnSalvarInativo" : ""}
-                >SALVAR</button>
-            </div>
 
-            <div id='editarPerfilMobile__container'>
+                <div id='editarPerfilMobile__container'>
 
-                <div id='editarPerfilMobile__container__inputs'>
-                    <div id='editarPerfilMobile__divCampoImagem'>
-                        <div id='editarPerfilMobile__divCampoImagem__tituloEBtnDeEditar'>
-                            <h3 id='editarPerfilMobile__tituloEBtnDeEditar__titulo'>Foto do perfil</h3>
-                            <button id='editarPerfilMobile__tituloEBtnDeEditar__btnEditar' onClick={clickEditarPerfil}>
-                                Editar
-                            </button>
+                    <div id='editarPerfilMobile__container__inputs'>
+                        <div id='editarPerfilMobile__divCampoImagem'>
+                            <div id='editarPerfilMobile__divCampoImagem__tituloEBtnDeEditar'>
+                                <h3 id='editarPerfilMobile__tituloEBtnDeEditar__titulo'>Foto do perfil</h3>
+                                <button id='editarPerfilMobile__tituloEBtnDeEditar__btnEditar' onClick={clickEditarPerfil}>
+                                    Editar
+                                </button>
+                            </div>
+                            <input type="file" hidden ref={inputPerfilRef} onChange={aoSelecionarNovoPerfil} />
+                            {
+                                indicadorExisteFotoDoPerfil ?
+                                    <img
+                                        src={novaFotoPerfilPrevia64 ? novaFotoPerfilPrevia64 : informacoesUsuario.fotoPerfil}
+                                        alt="Imagem perfil"
+                                        id='editarPerfilMobile__divCampoImagem__perfil'
+                                    /> :
+                                    <div id='editarPerfilMobile__divCampoImagem__perfil'>
+
+                                    </div>
+                            }
                         </div>
-                        <input type="file" hidden ref={inputPerfilRef} onChange={aoSelecionarNovoPerfil} />
-                        {
-                            indicadorExisteFotoDoPerfil ?
-                                <img
-                                    src={novaFotoPerfilPrevia64 ? novaFotoPerfilPrevia64 : informacoesUsuario.fotoPerfil}
-                                    alt="Imagem perfil"
-                                    id='editarPerfilMobile__divCampoImagem__perfil'
-                                /> :
-                                <div id='editarPerfilMobile__divCampoImagem__perfil'>
 
-                                </div>
-                        }
-                    </div>
+                        <div id='editarPerfilMobile__divCampoImagem'>
+                            <div id='editarPerfilMobile__divCampoImagem__tituloEBtnDeEditar'>
+                                <h3 id='editarPerfilMobile__tituloEBtnDeEditar__titulo'>Foto da capa</h3>
+                                <button id='editarPerfilMobile__tituloEBtnDeEditar__btnEditar' onClick={clickEditarCapa}>
+                                    Editar
+                                </button>
+                            </div>
+                            <input type="file" hidden ref={inputCapaRef} onChange={aoSelecionarNovaCapa} />
+                            {
+                                indicadorExisteFotoDaCapa ?
+                                    <img
+                                        src={novaFotoCapaPrevia64 ? novaFotoCapaPrevia64 : informacoesUsuario.fotoCapa}
+                                        alt="Imagem capa"
+                                        id='editarPerfilMobile__divCampoImagem__capa'
+                                    /> :
+                                    <div id='editarPerfilMobile__divCampoImagem__capa'>
 
-                    <div id='editarPerfilMobile__divCampoImagem'>
-                        <div id='editarPerfilMobile__divCampoImagem__tituloEBtnDeEditar'>
-                            <h3 id='editarPerfilMobile__tituloEBtnDeEditar__titulo'>Foto da capa</h3>
-                            <button id='editarPerfilMobile__tituloEBtnDeEditar__btnEditar' onClick={clickEditarCapa}>
-                                Editar
-                            </button>
+                                    </div>
+                            }
                         </div>
-                        <input type="file" hidden ref={inputCapaRef} onChange={aoSelecionarNovaCapa} />
-                        {
-                            indicadorExisteFotoDaCapa ?
-                                <img
-                                    src={novaFotoCapaPrevia64 ? novaFotoCapaPrevia64 : informacoesUsuario.fotoCapa}
-                                    alt="Imagem capa"
-                                    id='editarPerfilMobile__divCampoImagem__capa'
-                                /> :
-                                <div id='editarPerfilMobile__divCampoImagem__capa'>
 
-                                </div>
-                        }
-                    </div>
-
-                    <div id='editarPerfilMobile__divCampoTexto'>
-                        <label
-                            id='editarPerfilMobile__divCampoTextoLabel'
-                            htmlFor='editarPerfilMobile__divCampoTextoInput'
-                        >Nome</label>
-                        <input type="text" id='editarPerfilMobile__divCampoTextoInput' onChange={aoDigitarNome} value={nome} />
-                    </div>
-
-                    <div id='editarPerfilMobile__divCampoTexto'>
-                        <label
-                            id='editarPerfilMobile__divCampoTextoLabel'
-                            htmlFor='editarPerfilMobile__divCampoTextoInput'
-                        >Sobrenome</label>
-                        <input type="text" id='editarPerfilMobile__divCampoTextoInput' onChange={aoDigitarSobrenome} value={sobrenome} />
-                    </div>
-
-                    <div id='editarPerfilMobile__divCampoTexto'>
-                        <label
-                            id='editarPerfilMobile__divCampoTextoLabel'
-                            htmlFor='editarPerfilMobile__divCampoTextoInput'
-                        >Data de nascimento</label>
-                        <input type="date" id='editarPerfilMobile__divCampoTextoInput' onChange={aoDigitarDataDeNascimento} value={dataDeNascimento} />
-                    </div>
-
-                    <div id='editarPerfilMobile__divCampoTexto'>
-                        <label
-                            id='editarPerfilMobile__divCampoTextoLabel'
-                            htmlFor='editarPerfilMobile__divCampoTextoInput'
-                        >Gênero</label>
-
-                        <div id='editarPerfilMobile__divInputsRadio'>
-                            <label id='editarPerfilMobile__labelInputRadioGenero'>
-                                Feminino
-                                <input type="radio" name='editarPerfil__genero' value="Feminino" checked={genero === "Feminino"} onChange={aoSelecionarGenero} />
-                            </label>
-
-                            <label id='editarPerfilMobile__labelInputRadioGenero'>
-                                Masculino
-                                <input type="radio" name='editarPerfil__genero' value="Masculino" checked={genero === "Masculino"} onChange={aoSelecionarGenero} />
-                            </label>
+                        <div id='editarPerfilMobile__divCampoTexto'>
+                            <label
+                                id='editarPerfilMobile__divCampoTextoLabel'
+                                htmlFor='editarPerfilMobile__divCampoTextoInput'
+                            >Nome</label>
+                            <input type="text" id='editarPerfilMobile__divCampoTextoInput' onChange={aoDigitarNome} value={nome} />
                         </div>
-                    </div>
-                    <div id='editarPerfilMobile__divCampoTexto'>
-                        <label
-                            id='editarPerfilMobile__divCampoTextoLabel'
-                            htmlFor='editarPerfilMobile__divCampoTextoInput'
-                        >Cidade natal</label>
-                        <input type="text" id='editarPerfilMobile__divCampoTextoInput' value={cidadeNatal} onChange={aoDigitarCidadeNatal} />
-                    </div>
 
-                    <div id='editarPerfilMobile__divCampoTexto'>
-                        <label
-                            id='editarPerfilMobile__divCampoTextoLabel'
-                            htmlFor='editarPerfilMobile__divCampoTextoInput'
-                        >Cidade atual</label>
-                        <input type="text" id='editarPerfilMobile__divCampoTextoInput' value={cidadeAtual} onChange={aoDigitarCidadeAtual} />
-                    </div>
+                        <div id='editarPerfilMobile__divCampoTexto'>
+                            <label
+                                id='editarPerfilMobile__divCampoTextoLabel'
+                                htmlFor='editarPerfilMobile__divCampoTextoInput'
+                            >Sobrenome</label>
+                            <input type="text" id='editarPerfilMobile__divCampoTextoInput' onChange={aoDigitarSobrenome} value={sobrenome} />
+                        </div>
 
-                    <div id='editarPerfilMobile__divCampoTexto'>
-                        <label
-                            id='editarPerfilMobile__divCampoTextoLabel'
-                            htmlFor='editarPerfilMobile__divCampoTextoInput'
-                        >Status de relacionamento</label>
-                        <select id='editarPerfilMobile__divCampoTextoSelect' value={statusDeRelacionamento} onChange={aoSelecionarStatusDeRelacionamento} >
-                            <option value="Solteiro">Solteiro</option>
-                            <option value="Namorando">Namorando</option>
-                            <option value="Noivo">Noivo</option>
-                            <option value="Casado">Casado</option>
-                            <option value="Separado">Separado</option>
-                            <option value="Viúvo">Viúvo</option>
-                        </select>
+                        <div id='editarPerfilMobile__divCampoTexto'>
+                            <label
+                                id='editarPerfilMobile__divCampoTextoLabel'
+                                htmlFor='editarPerfilMobile__divCampoTextoInput'
+                            >Data de nascimento</label>
+                            <input type="date" id='editarPerfilMobile__divCampoTextoInput' onChange={aoDigitarDataDeNascimento} value={dataDeNascimento} />
+                        </div>
+
+                        <div id='editarPerfilMobile__divCampoTexto'>
+                            <label
+                                id='editarPerfilMobile__divCampoTextoLabel'
+                                htmlFor='editarPerfilMobile__divCampoTextoInput'
+                            >Gênero</label>
+
+                            <div id='editarPerfilMobile__divInputsRadio'>
+                                <label id='editarPerfilMobile__labelInputRadioGenero'>
+                                    Feminino
+                                    <input type="radio" name='editarPerfil__genero' value="Feminino" checked={genero === "Feminino"} onChange={aoSelecionarGenero} />
+                                </label>
+
+                                <label id='editarPerfilMobile__labelInputRadioGenero'>
+                                    Masculino
+                                    <input type="radio" name='editarPerfil__genero' value="Masculino" checked={genero === "Masculino"} onChange={aoSelecionarGenero} />
+                                </label>
+                            </div>
+                        </div>
+                        <div id='editarPerfilMobile__divCampoTexto'>
+                            <label
+                                id='editarPerfilMobile__divCampoTextoLabel'
+                                htmlFor='editarPerfilMobile__divCampoTextoInput'
+                            >Cidade natal</label>
+                            <input type="text" id='editarPerfilMobile__divCampoTextoInput' value={cidadeNatal} onChange={aoDigitarCidadeNatal} />
+                        </div>
+
+                        <div id='editarPerfilMobile__divCampoTexto'>
+                            <label
+                                id='editarPerfilMobile__divCampoTextoLabel'
+                                htmlFor='editarPerfilMobile__divCampoTextoInput'
+                            >Cidade atual</label>
+                            <input type="text" id='editarPerfilMobile__divCampoTextoInput' value={cidadeAtual} onChange={aoDigitarCidadeAtual} />
+                        </div>
+
+                        <div id='editarPerfilMobile__divCampoTexto'>
+                            <label
+                                id='editarPerfilMobile__divCampoTextoLabel'
+                                htmlFor='editarPerfilMobile__divCampoTextoInput'
+                            >Status de relacionamento</label>
+                            <select id='editarPerfilMobile__divCampoTextoSelect' value={statusDeRelacionamento} onChange={aoSelecionarStatusDeRelacionamento} >
+                                <option value="Solteiro">Solteiro</option>
+                                <option value="Namorando">Namorando</option>
+                                <option value="Noivo">Noivo</option>
+                                <option value="Casado">Casado</option>
+                                <option value="Separado">Separado</option>
+                                <option value="Viúvo">Viúvo</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        </div>
+            </div>
+        </>
+
     )
 }

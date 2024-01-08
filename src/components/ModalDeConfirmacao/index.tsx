@@ -50,7 +50,7 @@ export default function ModalDeConfirmacao({
                     <p id="modalDeConfirmacao__mensagem__mobile">{mensagem}</p>
                     <div id='modalDeConfirmacao__divBtnsInteracao__mobile'>
                         <button id='modalDeConfirmacao__btnCancelar__mobile' onClick={fecharModal}>Cancelar</button>
-                        <button id='modalDeConfirmacao__btnConfirmar__mobile'>Confirmar</button>
+                        <button id='modalDeConfirmacao__btnConfirmar__mobile' onClick={aoConfirmar}>Confirmar</button>
                     </div>
                 </div >
             </div> :
