@@ -10,9 +10,14 @@ export class ArquivosPublicacaoService {
     }
 
     public static transformaFileListEmBase64(arquivos: FileList) {
-        const base64Promises = Array.from(arquivos).map(arquivo => this.readAsDataURL(arquivo));
+        const base64Promises = Array.from(arquivos).map(arquivo => this.transformaFileEmBase64(arquivo));
 
         return Promise.all(base64Promises);
+    }
+
+    public static transformaFileEmBase64(arquivo: File)
+    {
+        return this.readAsDataURL(arquivo);
     }
 
     public static obtemExtensaoArquivoBase64(arquivoBase64: string): string {

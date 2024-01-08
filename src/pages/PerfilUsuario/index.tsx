@@ -7,11 +7,12 @@ import OpcoesAcoesUsuario from './OpcoesAcoesUsuario';
 import { Usuario } from '../../models/Usuario';
 import Publicacao from '../../components/Publicacao';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import ModalEditarInformacoesDoPerfil from '../../components/ModalEditarInformacoesDoPerfil';
 
 export default function PerfilUsuario() {
 
     const usuario = new Usuario(
-        2,
+        1,
         "Pedro souza",
         852,
         false,
@@ -19,16 +20,43 @@ export default function PerfilUsuario() {
         false
     );
 
+    const [indicadorModalEditarPefilAberto, setIndicadorModalEditarPefilAberto] = useState(true);
+
     const navigate = useNavigate();
 
     const paginaAberta = useLocation().pathname;
 
     useEffect(() => {
+        if (indicadorModalEditarPefilAberto) {
+            document.body.style.overflowY = 'hidden';
+        } else {
+            document.body.style.overflowY = 'scroll';
+        }
+    }, [indicadorModalEditarPefilAberto]);
+
+    useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
+    function abrirModalEditarPerfil() {
+        setIndicadorModalEditarPefilAberto(true);
+    }
+
+    function fecharModalEditarPerfil() {
+        setIndicadorModalEditarPefilAberto(false);
+    }
+
     return (
         <>
+            {
+                indicadorModalEditarPefilAberto ?
+                    <ModalEditarInformacoesDoPerfil
+                        modalAberto={indicadorModalEditarPefilAberto}
+                        fecharModal={fecharModalEditarPerfil}
+                    /> : ""
+            }
+
+
             <Header></Header>
             <section id='perfilDoUsuario__page'>
                 <section id='perfilDoUsuario__secaoInformacoesDoUsuario'>
@@ -41,7 +69,10 @@ export default function PerfilUsuario() {
                             <p id='perfilDoUsuario__nomeEQuantidadeDeAmigos__amigos'>{usuario.quantidadeDeAmigos} amigos</p>
                         </div>
 
-                        <OpcoesAcoesUsuario usuario={usuario} />
+                        <OpcoesAcoesUsuario
+                            usuario={usuario}
+                            editarPerfil={abrirModalEditarPerfil}
+                        />
                     </div>
 
                     {

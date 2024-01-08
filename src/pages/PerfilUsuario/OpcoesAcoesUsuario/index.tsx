@@ -8,7 +8,13 @@ import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../../config';
 import { useNavigate } from 'react-router-dom';
 
-export default function OpcoesAcoesUsuario({ usuario }: { usuario: Usuario }) {
+interface OpcoesAcoesUsuarioProps
+{
+    usuario: Usuario,
+    editarPerfil: () => void
+}
+
+export default function OpcoesAcoesUsuario({usuario, editarPerfil} : OpcoesAcoesUsuarioProps) {
 
     const conversa = new ConversaModel(
         'Pedro souza',
@@ -65,7 +71,7 @@ export default function OpcoesAcoesUsuario({ usuario }: { usuario: Usuario }) {
 
     if (idUsuarioLogado === usuario.id) {
         btnsOpcoesDoUsuario = (
-            <button id='perfilDoUsuario__btnEditarPerfil'>
+            <button id='perfilDoUsuario__btnEditarPerfil' onClick={editarPerfil}>
                 <i className='material-symbols-outlined'>edit</i>
                 Editar perfil
             </button>
