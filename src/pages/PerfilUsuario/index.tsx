@@ -8,6 +8,7 @@ import { Usuario } from '../../models/Usuario';
 import Publicacao from '../../components/Publicacao';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import ModalEditarInformacoesDoPerfil from '../../components/ModalEditarInformacoesDoPerfil';
+import { useMediaQuery } from 'react-responsive';
 
 export default function PerfilUsuario() {
 
@@ -20,7 +21,9 @@ export default function PerfilUsuario() {
         false
     );
 
-    const [indicadorModalEditarPefilAberto, setIndicadorModalEditarPefilAberto] = useState(true);
+    const isMobile = useMediaQuery({maxWidth: TAMANHO_DE_TELA_MOBILE});
+
+    const [indicadorModalEditarPefilAberto, setIndicadorModalEditarPefilAberto] = useState(false);
 
     const navigate = useNavigate();
 
@@ -39,7 +42,11 @@ export default function PerfilUsuario() {
     }, []);
 
     function abrirModalEditarPerfil() {
-        setIndicadorModalEditarPefilAberto(true);
+        if(isMobile){
+            navigate("/editarPerfil");
+        }else{
+            setIndicadorModalEditarPefilAberto(true);
+        }
     }
 
     function fecharModalEditarPerfil() {

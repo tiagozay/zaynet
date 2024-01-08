@@ -1,0 +1,219 @@
+#editarPerfilMobile__page{
+
+}
+#editarPerfilMobile__cabecalho{
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    border-bottom: 1px rgb(70, 70, 70) solid;
+}
+#editarPerfilMobile__cabecalho__container{
+    display: flex;
+    align-items: center;
+    width: 60%;
+}
+#editarPerfilMobile__btnVoltar{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: rgb(201, 201, 201);
+    font-size: 28px;
+    font-weight: 600;
+    text-decoration: none;
+}
+#editarPerfilMobile__titulo{
+    font-family: var(--fontePadrao);
+    color: rgb(201, 201, 201);
+    margin-left: 7px;
+    font-size: 16px;
+    font-weight: 600;
+}
+#editarPerfilMobile__btnSalvar{
+    background-color: #2176FF;
+    color: white;
+    font-family: var(--fontePadrao);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: 100ms;
+}
+.editarPerfilMobile__btnSalvarInativo{
+    background-color: #444546!important;
+    color: rgb(155, 155, 155)!important;
+}
+#editarPerfilMobile__overlay{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.549);
+}
+#editarPerfilMobile{
+    width: 500px;
+    background-color: #242526;
+    position: fixed;
+    border-radius: 10px;
+    border: 1px rgb(88, 88, 88) solid;
+}
+#editarPerfilMobile__tituloEBtnDeFechar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px rgb(109, 109, 109) solid;
+}
+#editarPerfilMobile__tituloModal{
+    text-align: center;
+    width: 100%;
+    color: rgb(236, 236, 236);
+    font-family: var(--fontePadrao);
+    font-size: 18px;
+    font-weight: 600;
+    margin: 20px;
+}
+#editarPerfilMobile__btnFechar{
+    position: absolute;
+    right: 3%;
+    top: 3%;
+    background-color: #434445;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    color: rgb(166, 166, 166);
+    cursor: pointer;
+}
+#editarPerfilMobile__container{
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 5px;
+}
+#editarPerfilMobile__container__inputs{
+    padding: 15px;
+    overflow-y: scroll;
+}
+#editarPerfilMobile__container__inputs::-webkit-scrollbar {
+    background-color: transparent;
+    width: 8px;
+}
+#editarPerfilMobile__container__inputs::-webkit-scrollbar-thumb {
+    background-color: #666668; 
+    border-radius: 5px;
+}
+#editarPerfilMobile__divCampoImagem{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#editarPerfilMobile__divCampoImagem__tituloEBtnDeEditar{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+#editarPerfilMobile__tituloEBtnDeEditar__titulo{
+    font-family: var(--fontePadrao);
+    color: rgb(218, 218, 218);
+    font-weight: 600;
+    font-size: 17px;
+}
+#editarPerfilMobile__divCampoImagem__perfil{
+    object-fit: cover;
+    object-position: center center;
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    background-color:#18191A;
+}
+#editarPerfilMobile__divCampoImagem__capa{
+    object-fit: cover;
+    object-position: center center;
+    width: 320px;
+    height: 180px;
+    background-color:#18191A;
+    border-radius: 10px;
+}
+#editarPerfilMobile__tituloEBtnDeEditar__btnEditar{
+    color: #2176FF;
+    font-weight: 600;
+    font-family: var(--fontePadrao);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px 10px;
+    border-radius: 5px;
+
+    
+}
+#editarPerfilMobile__tituloEBtnDeEditar__btnEditar:hover{
+    background-color: #3A3B3C;
+
+}
+#editarPerfilMobile__divCampoTexto{
+    margin: 25px 0;
+}
+#editarPerfilMobile__divCampoTextoLabel{
+    font-family: var(--fontePadrao);
+    color: rgb(218, 218, 218);
+    font-weight: 500;
+    font-size: 14px;
+}
+#editarPerfilMobile__divCampoTextoInput{
+    width: 100%;
+    border: none;
+    outline: none;
+    font-family: var(--fontePadrao);
+    font-weight: 400;
+    background-color: #3A3B3C;
+    color: rgb(233, 233, 233);
+    padding: 12px 8px;
+    box-sizing: border-box;
+    margin-top: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+#editarPerfilMobile__divCampoTextoSelect{
+    width: 100%;
+    border: none;
+    outline: none;
+    font-family: var(--fontePadrao);
+    font-weight: 500;
+    background-color: #3A3B3C;
+    color: rgb(233, 233, 233);
+    padding: 12px 8px;
+    box-sizing: border-box;
+    margin-top: 7px!important;
+    border-radius: 5px;
+    font-size: 14px;
+}
+#editarPerfilMobile__divInputsRadio{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 8px;
+}
+#editarPerfilMobile__labelInputRadioGenero{
+    font-family: var(--fontePadrao);
+    color: rgb(233, 233, 233);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 25px;
+    border: 1px rgb(73, 73, 73) solid;
+    width: 48%;
+    box-sizing: border-box;
+    cursor: pointer;
+    
+}
+#editarPerfilMobile__labelInputRadioGenero input{
+    outline: none;
+}
+
+
