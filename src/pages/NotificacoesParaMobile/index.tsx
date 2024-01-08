@@ -35,7 +35,7 @@ export default function NotificacoesParaMobile() {
           <div id='notificacaoMobile__acao'>
             <p>
               <span id='notificacaoMobile__acao__autor'>Maria almeida </span>
-              Comentou 'Suka' em sua publicação.
+              Comentou em sua publicação.
             </p>
           </div>
         </li>
