@@ -32,7 +32,7 @@ export default function ModalEditarInformacoesDoPerfil({ modalAberto, fecharModa
   const inputPerfilRef = useRef<HTMLInputElement | null>(null);
   const inputCapaRef = useRef<HTMLInputElement | null>(null);
 
-  const isMobile = useMediaQuery({maxWidth: TAMANHO_DE_TELA_MOBILE});
+  const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
 
   const [indicadorModificacaoRealizada, setIndicadorModificacaoRealizada] = useState(false);
   const [indicadorModalConfirmacaoDescarteAberto, setIndicadorModalConfirmacaoDescarteAberto] = useState(false);
@@ -107,10 +107,10 @@ export default function ModalEditarInformacoesDoPerfil({ modalAberto, fecharModa
   }, [novaFotoCapa]);
 
   useEffect(() => {
-    if(isMobile){
-        fecharModal();
+    if (isMobile) {
+      fecharModal();
     }
-}, [isMobile]);
+  }, [isMobile]);
 
   function salvarAlteracoes() {
 

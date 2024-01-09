@@ -1,20 +1,40 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './ModalOpcoesConta.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import ModalConfiguracoesDaConta from '../../../ModalConfiguracoesDaConta';
+import { useMediaQuery } from 'react-responsive';
+import { TAMANHO_DE_TELA_MOBILE } from '../../../../config';
 
 export default function ModalOpcoesConta() {
 
     const btnAbrirModalRef = useRef<HTMLImageElement | null>(null);
     const menuOpcoesDaPublicacaoRef = useRef<HTMLDivElement | null>(null);
 
-    const [indicadorModalAberto, setIndicadorModalAberto] = useState(false);
+    const [indicadorMenuAberto, setIndicadorMenuAberto] = useState(false);
+    const [indicadorModalConfiguracoesContaAberto, setIndicadorModalConfiguracoesContaAberto] = useState(false);
+
+    const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
+
+    const navigate = useNavigate();
 
     function abrirModal() {
-        setIndicadorModalAberto(true);
+        setIndicadorMenuAberto(true);
     }
 
     function fecharModal() {
-        setIndicadorModalAberto(false);
+        setIndicadorMenuAberto(false);
+    }
+
+    function abrirModalConfiguracoesConta() {
+        if(isMobile){
+            navigate('/configuracoesConta');
+        }else{
+            setIndicadorModalConfiguracoesContaAberto(true);
+        }
+    }
+
+    function fecharModalConfiguracoesConta() {
+        setIndicadorModalConfiguracoesContaAberto(false);
     }
 
     useEffect(() => {
@@ -36,7 +56,7 @@ export default function ModalOpcoesConta() {
         return () => {
             document.removeEventListener('click', handleClickNoDocumento);
         };
-    }, [indicadorModalAberto]);
+    }, [indicadorMenuAberto]);
 
     function handleClickNoDocumento(event: MouseEvent) {
         if (
@@ -44,47 +64,58 @@ export default function ModalOpcoesConta() {
             !menuOpcoesDaPublicacaoRef.current.contains(event.target as Node) &&
             event.target !== btnAbrirModalRef.current
         ) {
-            if (indicadorModalAberto) {
+            if (indicadorMenuAberto) {
                 fecharModal();
             }
         }
     }
 
     return (
-        <div id="divModalOpcoesConta">
-            <img
-                src="./imagensDinamicas/perfil.jpg"
-                alt="Perfil usuário"
-                onClick={abrirModal}
-                ref={btnAbrirModalRef}
-                id="divModalOpcoesConta__btnAbrirModal"
-            />
-
+        <>
             {
-                indicadorModalAberto ?
-                    <div id="divModalOpcoesConta__modal" ref={menuOpcoesDaPublicacaoRef}>
-                        <Link to='/perfil' id="divModalOpcoesConta__modal__linkConta">
-                            <img
-                                src="./imagensDinamicas/perfil.jpg"
-                                alt="Perfil usuário"
-                                id='divModalOpcoesConta__linkConta__perfil'
-                            />
-                            <p id='divModalOpcoesConta__linkConta__nomeUsuario'>Pedro souza</p>
-                        </Link>
-
-                        <button className='modalOpcoesConta__btnOpcao'>
-                            <i className='material-symbols-outlined'>settings</i>
-                            Configurações
-                        </button>
-
-                        <button className='modalOpcoesConta__btnOpcao'>
-                            <i className='material-symbols-outlined'>logout</i>
-                            Sair
-                        </button>
-
-                    </div> :
+                indicadorModalConfiguracoesContaAberto ?
+                    <ModalConfiguracoesDaConta
+                        fecharModal={fecharModalConfiguracoesConta}
+                        modalAberto={indicadorModalConfiguracoesContaAberto}
+                    /> :
                     ""
             }
-        </div>
+            <div id="divModalOpcoesConta">
+                <img
+                    src="./imagensDinamicas/perfil.jpg"
+                    alt="Perfil usuário"
+                    onClick={abrirModal}
+                    ref={btnAbrirModalRef}
+                    id="divModalOpcoesConta__btnAbrirModal"
+                />
+
+                {
+                    indicadorMenuAberto ?
+                        <div id="divModalOpcoesConta__modal" ref={menuOpcoesDaPublicacaoRef}>
+                            <Link to='/perfil' id="divModalOpcoesConta__modal__linkConta">
+                                <img
+                                    src="./imagensDinamicas/perfil.jpg"
+                                    alt="Perfil usuário"
+                                    id='divModalOpcoesConta__linkConta__perfil'
+                                />
+                                <p id='divModalOpcoesConta__linkConta__nomeUsuario'>Pedro souza</p>
+                            </Link>
+
+                            <button className='modalOpcoesConta__btnOpcao' onClick={abrirModalConfiguracoesConta}>
+                                <i className='material-symbols-outlined'>settings</i>
+                                Configurações
+                            </button>
+
+                            <button className='modalOpcoesConta__btnOpcao'>
+                                <i className='material-symbols-outlined'>logout</i>
+                                Sair
+                            </button>
+
+                        </div> :
+                        ""
+                }
+            </div>
+        </>
+
     )
 }
