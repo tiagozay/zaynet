@@ -1,0 +1,92 @@
+#editarContaMobile__page{
+
+}
+#editarContaMobile__cabecalho{
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    border-bottom: 1px rgb(70, 70, 70) solid;
+}
+#editarContaMobile__cabecalho__container{
+    display: flex;
+    align-items: center;
+    width: 60%;
+}
+#editarContaMobile__btnVoltar{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: rgb(201, 201, 201);
+    font-size: 28px;
+    font-weight: 600;
+    text-decoration: none;
+}
+#editarContaMobile__titulo{
+    font-family: var(--fontePadrao);
+    color: rgb(201, 201, 201);
+    margin-left: 7px;
+    font-size: 16px;
+    font-weight: 600;
+}
+#editarContaMobile__btnSalvar{
+    background-color: #2176FF;
+    color: white;
+    font-family: var(--fontePadrao);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: 100ms;
+}
+.editarContaMobile__btnSalvarInativo{
+    background-color: #444546!important;
+    color: rgb(155, 155, 155)!important;
+}
+#editarContaMobile__container{
+    padding: 15px;
+}
+
+#modalEditarContaMobile__divCampoTexto{
+    margin: 25px 0;
+}
+#modalEditarContaMobile__divCampoTextoLabel{
+    font-family: var(--fontePadrao);
+    color: rgb(218, 218, 218);
+    font-weight: 500;
+    font-size: 14px;
+}
+#modalEditarContaMobile__divCampoTextoInput{
+    width: 100%;
+    border: none;
+    outline: none;
+    font-family: var(--fontePadrao);
+    font-weight: 400;
+    background-color: #3A3B3C;
+    color: rgb(233, 233, 233);
+    padding: 12px 8px;
+    box-sizing: border-box;
+    margin-top: 4px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+#modalEditarContaMobile__divCampoTexto__divInputSenha{
+    display: flex;
+    align-items: center;
+    background-color: #3A3B3C;
+    margin-top: 4px;
+    border-radius: 5px;
+}
+#modalEditarContaMobile__divCampoTexto__divInputSenha input{
+    margin-top: 0;
+}
+#modalEditarContaMobile__divCampoTexto__divInputSenha button{
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    color: rgb(215, 215, 215);
+    margin-right: 8px;
+}

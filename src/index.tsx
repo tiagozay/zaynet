@@ -29,6 +29,7 @@ import CaixaDeMensagensMobile from './pages/CaixaDeMensagensMobile';
 import EditarPublicacaoCompartilhadaMobile from './pages/EditarPublicacaoCompartilhadaMobile';
 import CompartilharPublicacaoMobile from './pages/CompartilharPublicacaoMobile';
 import EditarPerfilMobile from './pages/EditarPerfilMobile';
+import ConfiguracoesContaMobile from './pages/ConfiguracoesContaMobile';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 root.render(
@@ -73,6 +74,7 @@ root.render(
           <Route path='/editarPublicacao' element={<EditarPublicacaoMobile />} />
           <Route path='/editarPublicacaoCompartilhada' element={<EditarPublicacaoCompartilhadaMobile />} />
           <Route path='/editarPerfil' element={<EditarPerfilMobile />} />
+          <Route path='/configuracoesConta' element={<ConfiguracoesContaMobile />} />
           <Route path='/perfil' element={<PerfilUsuario />}>
             <Route path='/perfil' element={<FeedPublicacoesUsuario />} />
             <Route path='fotos' element={<FotosPerfilUsuario />} />
