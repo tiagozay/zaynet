@@ -38,6 +38,14 @@ export default function ModalOpcoesConta() {
     }
 
     useEffect(() => {
+        if (indicadorModalConfiguracoesContaAberto) {
+          document.body.style.overflowY = 'hidden';
+        } else {
+          document.body.style.overflowY = 'scroll';
+        }
+      }, [indicadorModalConfiguracoesContaAberto]);
+
+    useEffect(() => {
 
         let handleEscKey = (event: KeyboardEvent) => {
             event.key === 'Escape' && fecharModal();
