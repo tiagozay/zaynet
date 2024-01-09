@@ -19,7 +19,6 @@
     box-shadow: 0 0 5px 1px rgb(26, 26, 26);
     margin-top: 8px;
     border-radius: 5px;
-
 }
 #divModalOpcoesConta__modal__linkConta{
     display: flex;
@@ -67,4 +66,14 @@
     background-color: #4E4F50;
     padding: 6px;
     font-size: 18px;
+}
+@media(max-width: 680px){
+    #divModalOpcoesConta__btnAbrirModal{
+        width: 34px;
+        height: 35px;
+        margin-left: 0px;
+    }
+    #divModalOpcoesConta__modal{
+        right: 10px;
+    }
 }
