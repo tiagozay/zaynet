@@ -5,12 +5,12 @@ import ModalDeConfirmacao from '../ModalDeConfirmacao';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 
-interface ModalPublicarProps {
+interface ModalEditarPerfilProps {
   modalAberto: boolean,
   fecharModal: () => void
 }
 
-export default function ModalEditarInformacoesDoPerfil({ modalAberto, fecharModal }: ModalPublicarProps) {
+export default function ModalEditarInformacoesDoPerfil({ modalAberto, fecharModal }: ModalEditarPerfilProps) {
 
   //Mocks provisórios que indicam se existe foto de capa ou perfil, já que elas não são obrigatórias. Futuramente estes dados virão do back-end
   const indicadorExisteFotoDaCapa = true;
