@@ -8,6 +8,7 @@ import OpcaoHeader from './OpcaoHeader';
 import { TAMANHO_DE_TELA_MOBILE } from '../../../config';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
+import ModalOpcoesConta from './ModalOpcoesConta';
 
 export default function OpcoesHeader() {
 
@@ -90,9 +91,12 @@ export default function OpcoesHeader() {
                 indicadorModalAbertoLayoutPc={modalNotificacoesAberto}
                 funcaoAbrirModalLayoutPC={clickNotificacoes}
             />
-            <Link to='/perfil' className='opcoesHeaderIcone' id='opcoesHeaderIcone__perfil'>
+
+            <ModalOpcoesConta />
+
+            {/* <Link to='/perfil' className='opcoesHeaderIcone' id='opcoesHeaderIcone__perfil'>
                 <img src="./../imagensDinamicas/perfil.jpg" alt="" />
-            </Link>
+            </Link> */}
             <ModalSolicitacoesDeAmizade aberto={modalSolicitacoesDeAmizadeAberto} clickFora={fecharModais} />
             <ModalMensagens aberto={modalMensagensAberto} clickFora={fecharModais} />
             <ModalNotificacoes aberto={modalNotificacoesAberto} clickFora={fecharModais} />
