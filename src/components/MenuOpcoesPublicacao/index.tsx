@@ -10,8 +10,8 @@ export default function MenuOpcoesPublicacao({
     clickEditarPublicacao, clickExluirPublicacao
 }: MenuOpcoesPublicacaoProps) {
 
-    const btnAbrirMenuDeOpcoes = useRef<HTMLButtonElement | null>(null);
-    const menuOpcoesDaPublicacaoRef = useRef<HTMLInputElement | null>(null);
+    const btnAbrirMenuDeOpcoesRef = useRef<HTMLButtonElement | null>(null);
+    const menuOpcoesDaPublicacaoRef = useRef<HTMLDivElement | null>(null);
 
     const [indicadorMenuOpcoesPublicacaoAberto, setIndicadorMenuOpcoesPublicacaoAberto] = useState(false);
 
@@ -40,7 +40,7 @@ export default function MenuOpcoesPublicacao({
         if (
             menuOpcoesDaPublicacaoRef.current &&
             !menuOpcoesDaPublicacaoRef.current.contains(event.target as Node) &&
-            event.target !== btnAbrirMenuDeOpcoes.current
+            event.target !== btnAbrirMenuDeOpcoesRef.current
         ) {
             if (indicadorMenuOpcoesPublicacaoAberto) {
                 fecharMenuOpcoesDaPublicacao();
@@ -64,7 +64,7 @@ export default function MenuOpcoesPublicacao({
                 className='material-symbols-outlined'
                 id='publicacao__btnOpcoesPublicacao'
                 onClick={abrirMenuOpcoesDaPublicacao}
-                ref={btnAbrirMenuDeOpcoes}
+                ref={btnAbrirMenuDeOpcoesRef}
             >
                 more_vert
             </button>
@@ -93,9 +93,6 @@ export default function MenuOpcoesPublicacao({
                         </div>
                     </div> : ""
             }
-
-
-
         </div>
 
     )
