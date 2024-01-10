@@ -24,3 +24,4 @@ yarn-error.log*
 
 back-end/vendor
 back-end/imagensDinamicas
+back-end/.env
