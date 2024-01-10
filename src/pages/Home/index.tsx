@@ -36,6 +36,13 @@ export default function Home() {
 
   }
 
+  fetch(
+    'http://localhost/zaynet/back-end/api/usuarios',
+    {method: "post"}
+  )
+    .then(res => res.text())
+    .then( res => console.log(res) );
+
   return (
     <>
 
