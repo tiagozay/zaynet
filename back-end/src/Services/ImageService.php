@@ -4,13 +4,13 @@ namespace Tiagozay\BackEnd\Services;
 
 use Tiagozay\BackEnd\Utils\ArquivoUpado;
 
-class ImagemService
+class ImageService
 {   
     static public function persisteImagemEGeraNome(ArquivoUpado $imagem, string $diretorio): string
     {
         $diretorio = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $diretorio);
 
-        $novoNome = ImagemService::geraNomeParaImagem($imagem);
+        $novoNome = ImageService::geraNomeParaImagem($imagem);
 
         move_uploaded_file(
             $imagem->tmp_name,
@@ -25,7 +25,7 @@ class ImagemService
         $nomeSeparadoPorPontos = explode('.', $imagem->name);
         $extencao = end($nomeSeparadoPorPontos);
 
-        $textoAleatorio = date('dmYHis' . uniqid());
+        $textoAleatorio = bin2hex(random_bytes(8));
 
         return $textoAleatorio . "." . $extencao;
     }

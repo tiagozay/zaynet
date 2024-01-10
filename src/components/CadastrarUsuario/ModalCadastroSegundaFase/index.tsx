@@ -78,6 +78,7 @@ export default function ModalCadastroSegundaFase({
                 <label id='segundaFaseCadastro__labelStatusRelacionamento'>
                     Status de relacionamento
                     <select id="segundaFaseCadastro__selectStatusDeRelacionamento" value={statusDeRelacionamento} onChange={handleStatusDeRelacionamento}>
+                        <option value="" disabled>SELECIONE</option>
                         <option value="Solteiro">Solteiro</option>
                         <option value="Namorando">Namorando</option>
                         <option value="Noivo">Noivo</option>

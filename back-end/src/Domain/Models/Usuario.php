@@ -1,8 +1,10 @@
 <?php
-
 namespace Tiagozay\BackEnd\Domain\Models;
 
-use Tiagozay\BackEnd\Services\ImagemService;
+require_once '../vendor/autoload.php';
+
+use DomainException;
+use Tiagozay\BackEnd\Services\ImageService;
 use Tiagozay\BackEnd\Utils\ArquivoUpado;
 
 class Usuario
@@ -20,6 +22,7 @@ class Usuario
     private ?string $caminhoFotoPerfil;
     private ?string $caminhoFotoCapa;
 
+    /** @throws DomainException */
     public function __construct(
         string $nome,
         string $sobrenome,
@@ -46,21 +49,22 @@ class Usuario
         $this->statusDeRelacionamento = $statusDeRelacionamento;
 
         if ($fotoPerfil) {
-            $this->caminhoFotoPerfil = ImagemService::persisteImagemEGeraNome(
+            $this->caminhoFotoPerfil = ImageService::persisteImagemEGeraNome(
                 $fotoPerfil,
-                __DIR__ . "\..\..\imagensDinamicas\PerfisUsuarios\\"
+                __DIR__ . "\..\..\..\imagensDinamicas\PerfisUsuarios\\"
             );
         }
 
         if ($fotoCapa) {
-            $this->caminhoFotoCapa = ImagemService::persisteImagemEGeraNome(
+            $this->caminhoFotoCapa = ImageService::persisteImagemEGeraNome(
                 $fotoCapa,
-                __DIR__ . "\..\..\imagensDinamicas\CapasUsuarios\\"
+                __DIR__ . "\..\..\..\imagensDinamicas\CapasUsuarios\\"
             );
         }
 
     }
 
+    /** @throws DomainException */
     private function validaRegrasDeNegocio(
         string $nome,
         string $sobrenome,

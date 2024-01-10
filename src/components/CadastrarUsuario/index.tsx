@@ -27,16 +27,27 @@ export default function CadastrarUsuario({ fecharCadastro, modalAberto }: Cadast
         setIndicadorCadastroUsuarioAberto,
         fasesDoCadastroConcluidas, 
         setFasesDoCadastroConcluidas,
+        nome,
         setNome,
+        sobrenome,
         setSobrenome,
+        email,
         setEmail,
+        senha,
         setSenha,
+        dataDeNascimento,
         setDataDeNascimento,
+        genero,
         setGenero,
+        cidadeNatal,
         setCidadeNatal,
+        cidadeAtual,
         setCidadeAtual,
+        statusDeRelacionamento,
         setStatusDeRelacionamento,
+        fotoDoPerfil,
         setFotoDoPerfil,
+        fotoDaCapa,
         setFotoDaCapa
     } = useContext(CadastroUsuarioContext);
 
@@ -45,6 +56,37 @@ export default function CadastrarUsuario({ fecharCadastro, modalAberto }: Cadast
         //Verfiicação que indica que todas as fases do cadastro já foram concluídas
         if(fasesDoCadastroConcluidas === 2){
             zerarIndicadoresDeCadastro();
+
+            const formData = new FormData();
+
+            formData.append('nome', nome);
+            formData.append('sobrenome', sobrenome);
+            formData.append('email', email);
+            formData.append('senha', senha);
+            formData.append('dataDeNascimento', dataDeNascimento);
+            formData.append('genero', genero);
+            formData.append('cidadeNatal', cidadeNatal);
+            formData.append('cidadeAtual', cidadeAtual);
+            formData.append('statusDeRelacionamento', statusDeRelacionamento);
+
+            if(fotoDoPerfil){
+                formData.append('fotoDoPerfil', fotoDoPerfil);
+            }
+
+            if(fotoDaCapa){
+                formData.append('fotoDaCapa', fotoDaCapa);
+            }
+
+            fetch(
+                'http://localhost/zaynet/back-end/api/usuarios',
+                {
+                    method: 'post',
+                    body: formData
+                }
+            )
+            .then( res => res.text() )
+            .then( res => console.log(res) );
+
         }
 
         if (!isMobile && fasesDoCadastroConcluidas === 0) {
