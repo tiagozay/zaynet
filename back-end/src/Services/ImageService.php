@@ -1,4 +1,9 @@
 <?php
+
+namespace Tiagozay\BackEnd\Services;
+
+use Tiagozay\BackEnd\Utils\ArquivoUpado;
+
 class ImagemService
 {   
     static public function persisteImagemEGeraNome(ArquivoUpado $imagem, string $diretorio): string

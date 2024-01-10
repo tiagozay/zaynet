@@ -12,7 +12,7 @@ switch ($method) {
 
         switch ($caminho) {
             case 'usuarios':
-                require_once '../controlers/cadastrarUsuario.php';
+                require_once '../src/Controlers/cadastrarUsuario.php';
                 break;
             default:
                 http_response_code(404);
