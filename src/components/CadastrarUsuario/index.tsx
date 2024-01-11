@@ -6,6 +6,7 @@ import ModalCadastroPrimeiraFase from './ModalCadastroPrimeiraFase';
 import ModalCadastroSegundaFase from './ModalCadastroSegundaFase';
 import { useNavigate } from 'react-router-dom';
 import { CadastroUsuarioContext } from '../../contexts/CadastroUsuarioContext';
+import { APIService } from '../../services/APIService';
 
 interface CadastrarUsuarioProps {
     fecharCadastro: () => void,
@@ -59,33 +60,31 @@ export default function CadastrarUsuario({ fecharCadastro, modalAberto }: Cadast
 
             const formData = new FormData();
 
-            formData.append('nome', nome);
-            formData.append('sobrenome', sobrenome);
-            formData.append('email', email);
-            formData.append('senha', senha);
-            formData.append('dataDeNascimento', dataDeNascimento);
-            formData.append('genero', genero);
-            formData.append('cidadeNatal', cidadeNatal);
-            formData.append('cidadeAtual', cidadeAtual);
-            formData.append('statusDeRelacionamento', statusDeRelacionamento);
+            // if(fotoDoPerfil){
+            //     formData.append('fotoDoPerfil', fotoDoPerfil);
+            // }
 
-            if(fotoDoPerfil){
-                formData.append('fotoDoPerfil', fotoDoPerfil);
-            }
+            // if(fotoDaCapa){
+            //     formData.append('fotoDaCapa', fotoDaCapa);
+            // }
 
-            if(fotoDaCapa){
-                formData.append('fotoDaCapa', fotoDaCapa);
-            }
-
-            fetch(
-                'http://localhost:8080/api/usuarios',
+            APIService.post(
+                'usuarios', 
                 {
-                    method: 'post',
-                    body: formData
-                }
+                    nome,
+                    sobrenome,
+                    email,
+                    senha,
+                    dataDeNascimento,
+                    genero,
+                    cidadeNatal,
+                    cidadeAtual,
+                    statusDeRelacionamento,
+                } 
             )
-            .then( res => res.text() )
-            .then( res => console.log(res) );
+            .then(res => console.log(res))
+            .catch(res => console.log(res))
+
 
         }
 

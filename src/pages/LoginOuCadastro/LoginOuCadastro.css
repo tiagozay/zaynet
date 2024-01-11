@@ -15,6 +15,18 @@
     flex-direction: column;
     padding: 30px 20px 35px 20px;
 }
+#formularioDeLogin__mensagemDeErro{
+    font-family: var(--fontePadrao);
+    padding: 12px 10px;
+    font-size: 13px;
+    background-color: rgba(255, 54, 54, 0.649);
+    border: 1px rgb(215, 34, 34) solid;
+    margin-bottom: 12px;
+    color: white;
+    font-weight: 500;
+    border-radius: 5px;
+    
+}
 #formularioDeLogin input{
     width: 100%;
     box-sizing: border-box;
