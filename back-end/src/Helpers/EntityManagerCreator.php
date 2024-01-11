@@ -1,5 +1,6 @@
 <?php
-// bootstrap.php
+namespace Tiagozay\BackEnd\Helpers;
+
 use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMSetup;
