@@ -1,7 +1,7 @@
 <?php
 namespace Tiagozay\BackEnd\Domain\Models;
 
-require_once 'vendor/autoload.php';
+require_once __DIR__.'/../../../vendor/autoload.php';
 
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
@@ -46,10 +46,10 @@ class Usuario
     #[Column(length: 20)]
     private string $statusDeRelacionamento;
 
-    #[Column(length: 240)]
+    #[Column(length: 240, nullable: true)]
     private ?string $caminhoFotoPerfil;
 
-    #[Column(length: 240)]
+    #[Column(length: 240, nullable: true)]
     private ?string $caminhoFotoCapa;
 
     /** @throws DomainException */

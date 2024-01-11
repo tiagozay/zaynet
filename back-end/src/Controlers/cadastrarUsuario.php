@@ -1,6 +1,7 @@
 <?php
 
 use Tiagozay\BackEnd\Domain\Models\Usuario;
+use Tiagozay\BackEnd\Helpers\EntityManagerCreator;
 use Tiagozay\BackEnd\Utils\ArquivoUpado;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
@@ -54,6 +55,12 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "POST") 
             $fotoDoPerfil,
             $fotoDaCapa
         );
+
+        $entityManager = EntityManagerCreator::create();
+
+        $entityManager->persist($usuario);
+
+        $entityManager->flush();
 
         http_response_code(200);
         $resposnse = [
