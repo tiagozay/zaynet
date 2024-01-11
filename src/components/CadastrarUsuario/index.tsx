@@ -78,7 +78,7 @@ export default function CadastrarUsuario({ fecharCadastro, modalAberto }: Cadast
             }
 
             fetch(
-                'http://localhost/zaynet/back-end/api/usuarios',
+                'http://localhost:8080/api/usuarios',
                 {
                     method: 'post',
                     body: formData
