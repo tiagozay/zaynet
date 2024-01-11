@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use DomainException;
 use Tiagozay\BackEnd\Services\ImageService;
+use Tiagozay\BackEnd\Services\PasswordService;
 use Tiagozay\BackEnd\Utils\ArquivoUpado;
 
 #[Entity()]
@@ -71,7 +72,7 @@ class Usuario
         $this->nome = $nome;
         $this->sobrenome = $sobrenome;
         $this->email = $email;
-        $this->senha = $senha;
+        $this->senha = PasswordService::geraHashParaSenha($senha);
         $this->dataDeNascimento = $dataDeNascimento;
         $this->genero = $genero;
         $this->cidadeNatal = $cidadeNatal;
