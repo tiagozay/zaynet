@@ -1,25 +1,55 @@
 <?php
 namespace Tiagozay\BackEnd\Domain\Models;
 
-require_once '../vendor/autoload.php';
+require_once 'vendor/autoload.php';
 
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Id;
 use DomainException;
 use Tiagozay\BackEnd\Services\ImageService;
 use Tiagozay\BackEnd\Utils\ArquivoUpado;
 
+#[Entity()]
 class Usuario
 {
+    #[Id]
+    #[GeneratedValue()]
+    #[Column()]
     private ?int $id;
+
+    #[Column(length: 80)]
     private string $nome;
+
+    #[Column(length: 80)]
     private string $sobrenome;
+
+    #[Column(length: 240)]
     private string $email;
+
+    #[Column(length: 240)]
     private string $senha;
+
+    #[Column(type: 'date')]
     private \DateTime $dataDeNascimento;
+
+    #[Column(length: 20)]
     private string $genero;
+
+    #[Column(length: 240)]
     private string $cidadeNatal;
+
+    #[Column(length: 240)]
     private string $cidadeAtual;
+
+    #[Column(length: 20)]
     private string $statusDeRelacionamento;
+
+    #[Column(length: 240)]
     private ?string $caminhoFotoPerfil;
+
+    #[Column(length: 240)]
     private ?string $caminhoFotoCapa;
 
     /** @throws DomainException */
