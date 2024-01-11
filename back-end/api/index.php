@@ -3,7 +3,9 @@ header("Access-Control-Allow-Origin: *");
 
 $method = $_SERVER['REQUEST_METHOD'];
 
-$caminho = $_GET['url'];
+$caminho = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+$caminho = ltrim($caminho, '/');
 
 switch ($method) {
     case 'GET':
@@ -11,7 +13,7 @@ switch ($method) {
     case 'POST':
 
         switch ($caminho) {
-            case 'usuarios':
+            case 'api/usuarios':
                 require_once '../src/Controlers/cadastrarUsuario.php';
                 break;
             default:
