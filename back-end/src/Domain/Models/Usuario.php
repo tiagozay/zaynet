@@ -163,4 +163,14 @@ class Usuario
             }
         }
     }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getSenha(): string
+    {
+        return $this->senha;
+    }
 }
