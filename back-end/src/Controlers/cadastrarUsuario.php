@@ -2,6 +2,7 @@
 
 use Tiagozay\BackEnd\Domain\Models\Usuario;
 use Tiagozay\BackEnd\Helpers\EntityManagerCreator;
+use Tiagozay\BackEnd\Utils\APIResponse;
 use Tiagozay\BackEnd\Utils\ArquivoUpado;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
@@ -63,18 +64,31 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "POST") 
         $entityManager->flush();
 
         http_response_code(200);
-        $resposnse = [
-            'success' => true,
-            'message' => "Usuário cadastrado com sucesso!"
-        ];
-        echo json_encode($resposnse);
-    } catch (Throwable $e) {
+
+        $response =  new APIResponse(
+            true,
+            false,
+            "Usuário cadastrado com sucesso!",
+        );
+        echo json_encode($response);
+    }catch( DomainException $e ){
+        http_response_code(500);
+
+        $response =  new APIResponse(
+            false,
+            true,
+            $e->getMessage(),
+        );
+        echo json_encode($response);
+    }catch (Throwable $e) {
 
         http_response_code(500);
-        $resposnse = [
-            'success' => false,
-            'message' => "Erro ao cadastrar usuário: "
-        ];
-        echo json_encode($resposnse);
+
+        $response =  new APIResponse(
+            false,
+            false,
+            "Erro inesperado ao cadastrar usuário: ",
+        );
+        echo json_encode($response);
     }
 }
