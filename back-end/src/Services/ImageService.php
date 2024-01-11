@@ -4,7 +4,7 @@ namespace Tiagozay\BackEnd\Services;
 
 use Tiagozay\BackEnd\Utils\ArquivoUpado;
 
-class ImageService
+abstract class ImageService
 {   
     static public function persisteImagemEGeraNome(ArquivoUpado $imagem, string $diretorio): string
     {
