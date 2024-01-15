@@ -8,12 +8,13 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use DomainException;
+use JsonSerializable;
 use Tiagozay\BackEnd\Services\ImageService;
 use Tiagozay\BackEnd\Services\PasswordService;
 use Tiagozay\BackEnd\Utils\ArquivoUpado;
 
 #[Entity()]
-class Usuario
+class Usuario implements JsonSerializable
 {
     #[Id]
     #[GeneratedValue()]
@@ -172,5 +173,22 @@ class Usuario
     public function getSenha(): string
     {
         return $this->senha;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'id' => $this->id,
+            'nome' => $this->nome,
+            'sobrenome' => $this->sobrenome,
+            'email' => $this->email,
+            'dataDeNascimento' => $this->dataDeNascimento,
+            'genero' => $this->genero,
+            'cidadeNatal' => $this->cidadeNatal,
+            'cidadeAtual' => $this->cidadeAtual,
+            'statusDeRelacionamento' => $this->statusDeRelacionamento,
+            'caminhoFotoPerfil' => $this->caminhoFotoPerfil,
+            'caminhoFotoCapa' => $this->caminhoFotoCapa
+        ];
     }
 }
