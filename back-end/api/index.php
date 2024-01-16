@@ -1,5 +1,15 @@
 <?php
-header("Access-Control-Allow-Origin: *");
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+    header('Access-Control-Allow-Headers: Content-Type, Authorization');
+    exit();
+}
+
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
+header('Access-Control-Allow-Credentials: true');
 
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -18,6 +28,9 @@ switch ($method) {
                 break;
             case 'api/login':
                 require_once '../src/Controlers/login.php';
+                break;
+            case 'api/verificaLogin':
+                require_once '../src/Controlers/verificaLogin.php';
                 break;
             default:
                 http_response_code(404);
