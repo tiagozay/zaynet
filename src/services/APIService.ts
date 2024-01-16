@@ -1,4 +1,5 @@
 import APIResponse from "../Utils/APIResponse";
+import { LoginService } from "./LoginService";
 
 export abstract class APIService 
 {
@@ -15,15 +16,21 @@ export abstract class APIService
             }
         }
 
+        const headers = {
+            'Authorization': `Bearer ${LoginService.buscaTokenArmazenado()}`
+        };
+
         return fetch(
             `${this.url}${rota}`,
             {
                 method: 'post',
-                body: formData
+                body: formData,
+                headers: headers
             }
         )
         // .then( res => res.text() )
         // .then( res => console.log(res) )
+        .then( res => res.ok ? res : Promise.reject(res))
         .then( res => res.json() )
         .then( res => {
 
@@ -35,8 +42,5 @@ export abstract class APIService
                 return Promise.reject(resObj);
             }
         });
-        // .then( res => res.json() )
-        // .then( res => console.log(res) )
-        // .catch( res => console.log(res) ) 
     }
 }
