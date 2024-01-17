@@ -5,11 +5,13 @@ import { CadastroUsuarioContext } from '../../../contexts/CadastroUsuarioContext
 interface ModalCadastroPrimeiraFaseProps {
     fecharCadastro: () => void,
     clickCadastrar: () => void,
+    indicadorEnvioSendoRealizado: boolean
 }
 
 export default function ModalCadastroSegundaFase({
     fecharCadastro,
-    clickCadastrar
+    clickCadastrar,
+    indicadorEnvioSendoRealizado
 }: ModalCadastroPrimeiraFaseProps) {
 
     const {
@@ -28,13 +30,13 @@ export default function ModalCadastroSegundaFase({
     const [indicadorPermicaoEnviarFormulario, setIndicadorPermicaoEnviarFormulario] = useState(false);
 
     useEffect(() => {
-        if(
+        if (
             cidadeNatal.trim().length > 0 &&
             cidadeAtual.trim().length > 0 &&
             statusDeRelacionamento.trim().length > 0
-        ){  
+        ) {
             setIndicadorPermicaoEnviarFormulario(true);
-        }else{
+        } else {
             setIndicadorPermicaoEnviarFormulario(false);
         }
     }, [cidadeNatal, cidadeAtual, statusDeRelacionamento, fotoDoPerfil, fotoDaCapa]);
@@ -102,14 +104,21 @@ export default function ModalCadastroSegundaFase({
                     type='button'
                     id='segundaFaseCadastro__btnCadastrar'
                     className={
-                        !indicadorPermicaoEnviarFormulario ?
+                        `
+                            ${!indicadorPermicaoEnviarFormulario ?
                             'segundaFaseCadastro__btnCadastrarDesativado' :
-                            ''
+                            ''}
+
+                            ${indicadorEnvioSendoRealizado ?
+                            'segundaFaseCadastro__btnCadastrarCarregando' :
+                            ''}
+                        `
                     }
+
                     onClick={clickCadastrar}
                     disabled={!indicadorPermicaoEnviarFormulario}
                 >Finalizar cadastro</button>
             </form>
-        </div>
+        </div >
     )
 }

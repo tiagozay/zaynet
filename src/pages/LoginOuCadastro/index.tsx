@@ -6,6 +6,7 @@ import { APIService } from '../../services/APIService';
 import { LoginService } from '../../services/LoginService';
 import APIResponse from '../../Utils/APIResponse';
 import { useNavigate } from 'react-router-dom';
+import Toast from '../../components/Toast';
 
 export default function LoginOuCadastro() {
     const {
@@ -15,6 +16,9 @@ export default function LoginOuCadastro() {
 
     const [mensagemDeErro, setMensagemDeErro] = useState<string | null>(null);
     const [indicadorLoginSendoEnviado, setIndicadorLoginSendoEnviado] = useState(false);
+    const [indicadorToastAberto, setIndicadorToastAberto] = useState(false);
+    const [tituloToast, setTituloToast] = useState("");
+    const [textoToast, setTextoToast] = useState("");
 
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
@@ -89,17 +93,39 @@ export default function LoginOuCadastro() {
             });
     }
 
+    function abrirToast(titulo: string, texto: string)
+    {
+        setIndicadorToastAberto(true);
+        setTituloToast(titulo);
+        setTextoToast(texto);
+    }
+
+    function fecharToast()
+    {
+        setIndicadorToastAberto(false);
+        setTituloToast("");
+        setTextoToast("");
+    }
+
     return (
         <>
-
+            {
+                indicadorToastAberto ?
+                    <Toast
+                        titulo={tituloToast}
+                        texto={textoToast}
+                        fechaToast={fecharToast}
+                    /> : ""
+            }
             {
                 indicadorCadastroUsuarioAberto ?
                     <CadastrarUsuario
                         fecharCadastro={fecharCadastroUsuario}
                         modalAberto={indicadorCadastroUsuarioAberto}
+                        abrirToast={abrirToast}
                     />
                     : ""
-            }
+                }
 
             <section id='sectionLoginOuCadastroPage'>
                 <form id='formularioDeLogin'>

@@ -7,13 +7,15 @@ import ModalCadastroSegundaFase from './ModalCadastroSegundaFase';
 import { useNavigate } from 'react-router-dom';
 import { CadastroUsuarioContext } from '../../contexts/CadastroUsuarioContext';
 import { APIService } from '../../services/APIService';
+import APIResponse from '../../Utils/APIResponse';
 
 interface CadastrarUsuarioProps {
     fecharCadastro: () => void,
     modalAberto: boolean,
+    abrirToast: (titulo: string, texto: string) => void
 }
 
-export default function CadastrarUsuario({ fecharCadastro, modalAberto }: CadastrarUsuarioProps) {
+export default function CadastrarUsuario({ fecharCadastro, modalAberto, abrirToast }: CadastrarUsuarioProps) {
 
     const navigate = useNavigate();
 
@@ -24,9 +26,11 @@ export default function CadastrarUsuario({ fecharCadastro, modalAberto }: Cadast
     const [modalPrimeiraFaseCadastroAberto, setModalPrimeiraFaseCadastroAberto] = useState(false);
     const [modalSegundaFaseCadastroAberto, setModalSegundaFaseCadastroAberto] = useState(false);
 
-    const { 
+    const [indicadorEnvioSendoRealizado, setIndicadorEnvioSendoRealizado] = useState(false);
+
+    const {
         setIndicadorCadastroUsuarioAberto,
-        fasesDoCadastroConcluidas, 
+        fasesDoCadastroConcluidas,
         setFasesDoCadastroConcluidas,
         nome,
         setNome,
@@ -53,23 +57,12 @@ export default function CadastrarUsuario({ fecharCadastro, modalAberto }: Cadast
     } = useContext(CadastroUsuarioContext);
 
     useEffect(() => {
-
         //Verfiicação que indica que todas as fases do cadastro já foram concluídas
-        if(fasesDoCadastroConcluidas === 2){
-            zerarIndicadoresDeCadastro();
-
-            const formData = new FormData();
-
-            // if(fotoDoPerfil){
-            //     formData.append('fotoDoPerfil', fotoDoPerfil);
-            // }
-
-            // if(fotoDaCapa){
-            //     formData.append('fotoDaCapa', fotoDaCapa);
-            // }
+        if (fasesDoCadastroConcluidas === 2) {
+            setIndicadorEnvioSendoRealizado(true);
 
             APIService.post(
-                'usuarios', 
+                'usuarios',
                 {
                     nome,
                     sobrenome,
@@ -80,12 +73,28 @@ export default function CadastrarUsuario({ fecharCadastro, modalAberto }: Cadast
                     cidadeNatal,
                     cidadeAtual,
                     statusDeRelacionamento,
-                } 
+                    fotoDoPerfil,
+                    fotoDaCapa
+                }
             )
-            .then(res => console.log(res))
-            .catch(res => console.log(res))
+                .then(res => {
+                    console.log(res);
+                    setIndicadorEnvioSendoRealizado(false);
+                })
+                .catch((res) => {
+                    res.json()
+                        .then((res: APIResponse) => {
 
+                            setIndicadorEnvioSendoRealizado(false);
 
+                            abrirToast(
+                                "Erro ao cadastrar usuário",
+                                res.message
+                            );
+
+                            zerarIndicadoresDeCadastro();
+                        })
+                })
         }
 
         if (!isMobile && fasesDoCadastroConcluidas === 0) {
@@ -119,8 +128,7 @@ export default function CadastrarUsuario({ fecharCadastro, modalAberto }: Cadast
         }
     }
 
-    function zerarIndicadoresDeCadastro()
-    {
+    function zerarIndicadoresDeCadastro() {
         setIndicadorCadastroUsuarioAberto(false);
         setFasesDoCadastroConcluidas(0);
         setModalPrimeiraFaseCadastroAberto(false);
@@ -147,8 +155,7 @@ export default function CadastrarUsuario({ fecharCadastro, modalAberto }: Cadast
         setFasesDoCadastroConcluidas(2);
     }
 
-    function handleFecharCadastro()
-    {
+    function handleFecharCadastro() {
         zerarIndicadoresDeCadastro();
         fecharCadastro();
     }
@@ -166,6 +173,7 @@ export default function CadastrarUsuario({ fecharCadastro, modalAberto }: Cadast
             <ModalCadastroSegundaFase
                 fecharCadastro={handleFecharCadastro}
                 clickCadastrar={clickCadastrarSegundaFasePeloModal}
+                indicadorEnvioSendoRealizado={indicadorEnvioSendoRealizado}
             />
         );
     }
