@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import ModalConfiguracoesDaConta from '../../../ModalConfiguracoesDaConta';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../../../config';
+import { LoginService } from '../../../../services/LoginService';
 
 export default function ModalOpcoesConta() {
 
@@ -78,6 +79,11 @@ export default function ModalOpcoesConta() {
         }
     }
 
+    function clickLogout()
+    {
+        LoginService.logout(navigate);
+    }
+
     return (
         <>
             {
@@ -114,7 +120,7 @@ export default function ModalOpcoesConta() {
                                 Configurações
                             </button>
 
-                            <button className='modalOpcoesConta__btnOpcao'>
+                            <button className='modalOpcoesConta__btnOpcao' onClick={clickLogout}>
                                 <i className='material-symbols-outlined'>logout</i>
                                 Sair
                             </button>
