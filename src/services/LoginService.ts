@@ -1,5 +1,6 @@
 import secureLocalStorage from "react-secure-storage";
 import { APIService } from "./APIService";
+import { NavigateFunction } from "react-router-dom";
 
 interface InforUsuarioLogado {
     id: string;
@@ -20,6 +21,11 @@ export abstract class LoginService {
         secureLocalStorage.clear();
         secureLocalStorage.setItem('token', token);
         secureLocalStorage.setItem('usuario', usuario);
+    }
+
+    public static logout(navigate: NavigateFunction) {
+        secureLocalStorage.clear();
+        navigate('/login');
     }
 
     //Função utliizada por toda a aplicação para verificar se existe um login valido no sistema

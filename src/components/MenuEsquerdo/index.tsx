@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react'
 import './MenuEsquerdo.css';
 import { Link, useNavigate } from 'react-router-dom';
 import ModalPublicar from '../ModalPublicar';
+import secureLocalStorage from 'react-secure-storage';
+import { LoginService } from '../../services/LoginService';
 
 export default function MenuEsquerdo() {
 
     const navigate = useNavigate();
 
     const [modalPublicarAberto, setModalPublicarAberto] = useState(false);
+
+    const usuarioLogado = LoginService.buscaUsuarioLogado();
 
     useEffect(() => {
         if (modalPublicarAberto) {
@@ -43,7 +47,7 @@ export default function MenuEsquerdo() {
                     <li id='menuEsquerdo__opcao'>
                         <Link id='menuEsquerdo__opcao__botao' to="/perfil">
                             <img src="./imagensDinamicas/perfil.jpg" alt="Foto do perfil" id='menuEsquerdo__opcao__perfil' />
-                            <p id="menuEsquerdo__opcao__nome">Pedro souza</p>
+                            <p id="menuEsquerdo__opcao__nome"></p>
                         </Link>
                     </li>
                     <li id='menuEsquerdo__opcao'>
