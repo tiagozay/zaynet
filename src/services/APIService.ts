@@ -20,6 +20,8 @@ export abstract class APIService
             'Authorization': `Bearer ${LoginService.buscaTokenArmazenado()}`
         };
 
+        let resSemConverter: Response | null = null;
+
         return fetch(
             `${this.url}${rota}`,
             {
@@ -31,7 +33,10 @@ export abstract class APIService
         // .then( res => res.text() )
         // .then( res => console.log(res) )
         .then( res => res.ok ? res : Promise.reject(res))
-        .then( res => res.json() )
+        .then( res => {
+            resSemConverter = res;
+            return res.json() 
+        })
         .then( res => {
 
             const resObj = res as APIResponse;
@@ -39,7 +44,7 @@ export abstract class APIService
             if(resObj.success){
                 return resObj;
             }else{
-                return Promise.reject(resObj);
+                return Promise.reject(resSemConverter);
             }
         });
     }

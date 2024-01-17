@@ -54,7 +54,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "POST") 
         $response =  new APIResponse(
             false,
             false,
-            "Erro inesparado ao realizar login: "
+            "Erro inesparado ao realizar login "
         );
         echo json_encode($response);
         

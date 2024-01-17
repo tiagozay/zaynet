@@ -91,6 +91,23 @@
     border-radius: 5px;
     cursor: pointer;
 }
+.btnLoginCaregando{
+    background: linear-gradient(90deg, #1877F2, #599fe5, #1877F2);
+    background-size: 200% 100%;
+    animation: loading 2s linear infinite;
+    cursor: progress!important;
+}
+@keyframes loading {
+    0% {
+      background-position: 100% 0;
+    }
+    100% {
+      background-position: -100% 0;
+    }
+  }
+
+
+
 #btnEsqueceuASenha{
     border: none;
     background-color: transparent;

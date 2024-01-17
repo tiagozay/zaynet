@@ -23,8 +23,7 @@ export abstract class LoginService {
     }
 
     //Função utliizada por toda a aplicação para verificar se existe um login valido no sistema
-    public static verificaSeHaLoginValido() : Promise<boolean>
-    {
+    public static verificaSeHaLoginValido(): Promise<boolean> {
         return new Promise((resolve) => {
             const token = secureLocalStorage.getItem("token");
 

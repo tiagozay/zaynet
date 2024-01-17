@@ -3,6 +3,9 @@ import './LoginOuCadastro.css';
 import { CadastroUsuarioContext } from '../../contexts/CadastroUsuarioContext';
 import CadastrarUsuario from '../../components/CadastrarUsuario';
 import { APIService } from '../../services/APIService';
+import { LoginService } from '../../services/LoginService';
+import APIResponse from '../../Utils/APIResponse';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginOuCadastro() {
     const {
@@ -11,11 +14,23 @@ export default function LoginOuCadastro() {
     } = useContext(CadastroUsuarioContext);
 
     const [mensagemDeErro, setMensagemDeErro] = useState<string | null>(null);
+    const [indicadorLoginSendoEnviado, setIndicadorLoginSendoEnviado] = useState(false);
 
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
     const [exibirSenha, setExibirSenha] = useState(false);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        LoginService.verificaSeHaLoginValido()
+            .then(loginValido => {
+                if (loginValido) {
+                    navigate('/');
+                }
+            });
+    }, []);
 
     function handleExibirSenha() {
         setExibirSenha(state => !state);
@@ -38,13 +53,40 @@ export default function LoginOuCadastro() {
     }
 
     function aoEnviarLogin() {
-        APIService.post('login', {email, senha})
-        .then( res => console.log(res) )
-        .catch( res => {
-            if(res.domainError){
-                setMensagemDeErro(res.message);
-            }
-        } )
+
+        if (email.trim().length === 0 || senha.trim().length === 0) {
+            setMensagemDeErro("E-mail ou senha inválidos!");
+            return;
+        }
+
+        setIndicadorLoginSendoEnviado(true);
+
+        APIService.post('login', { email, senha })
+            .then(res => {
+                setIndicadorLoginSendoEnviado(false);
+
+                if (res.data && 'dataLogin' in res.data) {
+
+                    const token = res.data.dataLogin.token;
+
+                    const usuario = res.data.dataLogin.usuario;
+
+                    LoginService.armazenaInfoLogin(token, usuario);
+
+                    navigate('/');
+
+                }
+            })
+            .catch(res => {
+                setIndicadorLoginSendoEnviado(false);
+
+                res.json()
+                    .then((res: APIResponse) => {
+                        if (res.domainError) {
+                            setMensagemDeErro(res.message);
+                        }
+                    });
+            });
     }
 
     return (
@@ -76,7 +118,12 @@ export default function LoginOuCadastro() {
                             {exibirSenha ? 'visibility_off' : 'visibility'}
                         </button>
                     </div>
-                    <button type='button' id='btnLogin' onClick={aoEnviarLogin}>Entrar</button>
+                    <button
+                        type='button'
+                        id='btnLogin'
+                        className={indicadorLoginSendoEnviado ? 'btnLoginCaregando' : ""}
+                        onClick={aoEnviarLogin}
+                    >Entrar</button>
                     <button type='button' id='btnEsqueceuASenha'>Esqueceu a senha?</button>
                     <hr id='linhaDivisoria' />
                     <button type='button' id='btnCriarNovaConta' onClick={abrirModalCadastrarUsuario}>
