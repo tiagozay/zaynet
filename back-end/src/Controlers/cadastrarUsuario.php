@@ -60,6 +60,15 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "POST") 
 
         $entityManager = EntityManagerCreator::create();
 
+        //Antes de realizar a persistência do novo usuário, faz a busca pelo e-email na base para verificar se já esta cadatrado. (Relizamos a busca antes para que o e-mail recebido seja coerente com as regras de negócio)
+        $usuarioRepository = $entityManager->getRepository(Usuario::class);
+
+        $usuarioComEmail = $usuarioRepository->findOneBy(['email' => $email]);
+
+        if($usuarioComEmail){
+            throw new DomainException("Este e-mail já foi cadastrado");
+        }    
+        
         $entityManager->persist($usuario);
 
         $entityManager->flush();

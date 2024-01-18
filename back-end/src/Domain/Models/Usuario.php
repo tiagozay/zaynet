@@ -27,7 +27,7 @@ class Usuario implements JsonSerializable
     #[Column(length: 80)]
     private string $sobrenome;
 
-    #[Column(length: 240)]
+    #[Column(length: 240, unique: true)]
     private string $email;
 
     #[Column(length: 240)]

@@ -100,13 +100,19 @@ export default function CadastrarUsuario({ fecharCadastro, modalAberto, abrirToa
 
                             console.log(res);
 
+                            if(res.domainError){
+                                abrirToast(
+                                    "Erro ao criar conta",
+                                    res.message
+                                );
+                            }else{
+                                abrirToast(
+                                    "Erro ao criar conta",
+                                    "Erro inesperado ao criar conta"
+                                );
+                            }
+                            
                             setIndicadorEnvioSendoRealizado(false);
-
-                            abrirToast(
-                                "Erro ao cadastrar usuário",
-                                res.message
-                            );
-
                             zerarIndicadoresDeCadastro();
                         })
                 })
