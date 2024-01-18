@@ -2,6 +2,7 @@
 
 use Tiagozay\BackEnd\Domain\Models\Usuario;
 use Tiagozay\BackEnd\Helpers\EntityManagerCreator;
+use Tiagozay\BackEnd\Services\LoginService;
 use Tiagozay\BackEnd\Utils\APIResponse;
 use Tiagozay\BackEnd\Utils\ArquivoUpado;
 
@@ -63,12 +64,16 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "POST") 
 
         $entityManager->flush();
 
+        //Após o cadastro ser realizado, realiza o login do usuário.
+        $dataLogin = LoginService::login($usuario, $senha);
+
         http_response_code(200);
 
         $response =  new APIResponse(
             true,
             false,
             "Usuário cadastrado com sucesso!",
+            ['dataLogin' => $dataLogin]
         );
         echo json_encode($response);
     }catch( DomainException $e ){
@@ -87,7 +92,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "POST") 
         $response =  new APIResponse(
             false,
             false,
-            "Erro inesperado ao cadastrar usuário: ",
+            "Erro inesperado ao cadastrar usuário: ".$e->getMessage() ,
         );
         echo json_encode($response);
     }

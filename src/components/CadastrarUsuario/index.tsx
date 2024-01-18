@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { CadastroUsuarioContext } from '../../contexts/CadastroUsuarioContext';
 import { APIService } from '../../services/APIService';
 import APIResponse from '../../Utils/APIResponse';
+import { LoginService } from '../../services/LoginService';
 
 interface CadastrarUsuarioProps {
     fecharCadastro: () => void,
@@ -78,12 +79,26 @@ export default function CadastrarUsuario({ fecharCadastro, modalAberto, abrirToa
                 }
             )
                 .then(res => {
-                    console.log(res);
+
+                    if (res.data && 'dataLogin' in res.data) {
+
+                        const token = res.data.dataLogin.token;
+    
+                        const usuario = res.data.dataLogin.usuario;
+    
+                        LoginService.armazenaInfoLogin(token, usuario);
+    
+                        navigate('/');
+    
+                    }
+
                     setIndicadorEnvioSendoRealizado(false);
                 })
                 .catch((res) => {
                     res.json()
                         .then((res: APIResponse) => {
+
+                            console.log(res);
 
                             setIndicadorEnvioSendoRealizado(false);
 
