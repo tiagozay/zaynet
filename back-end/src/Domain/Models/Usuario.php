@@ -85,6 +85,8 @@ class Usuario implements JsonSerializable
                 $fotoPerfil,
                 __DIR__ . "\..\..\..\imagensDinamicas\PerfisUsuarios\\"
             );
+        }else {
+            $this->caminhoFotoPerfil = null;
         }
 
         if ($fotoCapa) {
@@ -92,6 +94,8 @@ class Usuario implements JsonSerializable
                 $fotoCapa,
                 __DIR__ . "\..\..\..\imagensDinamicas\CapasUsuarios\\"
             );
+        }else {
+            $this->caminhoFotoCapa = null;
         }
 
     }
