@@ -7,6 +7,7 @@ import { LoginService } from '../../services/LoginService';
 import APIResponse from '../../Utils/APIResponse';
 import { useNavigate } from 'react-router-dom';
 import Toast from '../../components/Toast';
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function LoginOuCadastro() {
     const {
@@ -25,7 +26,9 @@ export default function LoginOuCadastro() {
 
     const [exibirSenha, setExibirSenha] = useState(false);
 
-    const {mensagemDeErroCadastro} = useContext(CadastroUsuarioContext);
+    const [captcha, setCaptcha] = useState<string | null>(null);
+
+    const { mensagemDeErroCadastro } = useContext(CadastroUsuarioContext);
 
     const navigate = useNavigate();
 
@@ -39,7 +42,7 @@ export default function LoginOuCadastro() {
     }, []);
 
     useEffect(() => {
-        if(mensagemDeErroCadastro){
+        if (mensagemDeErroCadastro) {
             abrirToast(
                 "Erro ao cadastrar usuário!",
                 mensagemDeErroCadastro
@@ -67,16 +70,23 @@ export default function LoginOuCadastro() {
         setSenha(e.target.value);
     }
 
+    function aoClicarNoCaptcha(token: string | null) {
+        setCaptcha(token);
+    }
+
     function aoEnviarLogin() {
 
         if (email.trim().length === 0 || senha.trim().length === 0) {
             setMensagemDeErro("E-mail ou senha inválidos!");
             return;
+        } else if (!captcha) {
+            setMensagemDeErro("Por favor, complete o reCAPTCHA");
+            return;
         }
 
         setIndicadorLoginSendoEnviado(true);
 
-        APIService.post('login', { email, senha })
+        APIService.post('login', { email, senha, captcha })
             .then(res => {
                 setIndicadorLoginSendoEnviado(false);
 
@@ -104,15 +114,13 @@ export default function LoginOuCadastro() {
             });
     }
 
-    function abrirToast(titulo: string, texto: string)
-    {
+    function abrirToast(titulo: string, texto: string) {
         setIndicadorToastAberto(true);
         setTituloToast(titulo);
         setTextoToast(texto);
     }
 
-    function fecharToast()
-    {
+    function fecharToast() {
         setIndicadorToastAberto(false);
         setTituloToast("");
         setTextoToast("");
@@ -135,7 +143,7 @@ export default function LoginOuCadastro() {
                         modalAberto={indicadorCadastroUsuarioAberto}
                     />
                     : ""
-                }
+            }
 
             <section id='sectionLoginOuCadastroPage'>
                 <form id='formularioDeLogin'>
@@ -154,6 +162,14 @@ export default function LoginOuCadastro() {
                             {exibirSenha ? 'visibility_off' : 'visibility'}
                         </button>
                     </div>
+
+                    <div id="formularioDeLogin__containerReCaptcha">
+                        <ReCAPTCHA
+                            sitekey={process.env.REACT_APP_SITE_RECAPTCHA_KEY as string}
+                            onChange={aoClicarNoCaptcha}
+                        />
+                    </div>
+
                     <button
                         type='button'
                         id='btnLogin'

@@ -80,6 +80,11 @@
 #divInputSenha:focus-within{
     border: 1px #1877F2 solid;
 }
+#formularioDeLogin__containerReCaptcha{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
 #btnLogin{
     width: 100%;
     background-color: #1877F2;
