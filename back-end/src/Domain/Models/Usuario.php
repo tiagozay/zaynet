@@ -52,6 +52,9 @@ class Usuario implements JsonSerializable
     private ?string $caminhoFotoPerfil;
 
     #[Column(length: 240, nullable: true)]
+    private ?string $caminhoMiniaturaFotoPerfil;
+
+    #[Column(length: 240, nullable: true)]
     private ?string $caminhoFotoCapa;
 
     /** @throws DomainException */
@@ -66,9 +69,10 @@ class Usuario implements JsonSerializable
         string $cidadeAtual,
         string $statusDeRelacionamento,
         ?ArquivoUpado $fotoPerfil,
+        ?ArquivoUpado $miniaturafotoPerfil,
         ?ArquivoUpado $fotoCapa,
     ) {
-        $this->validaRegrasDeNegocio($nome, $sobrenome, $email, $senha, $dataDeNascimento, $genero, $cidadeNatal, $cidadeAtual, $statusDeRelacionamento, $fotoPerfil, $fotoCapa);
+        $this->validaRegrasDeNegocio($nome, $sobrenome, $email, $senha, $dataDeNascimento, $genero, $cidadeNatal, $cidadeAtual, $statusDeRelacionamento, $fotoPerfil, $miniaturafotoPerfil, $fotoCapa);
 
         $this->nome = $nome;
         $this->sobrenome = $sobrenome;
@@ -83,10 +87,19 @@ class Usuario implements JsonSerializable
         if ($fotoPerfil) {
             $this->caminhoFotoPerfil = ImageService::persisteImagemEGeraNome(
                 $fotoPerfil,
-                __DIR__ . "\..\..\..\imagensDinamicas\PerfisUsuarios\\"
+                __DIR__ . "\..\..\..\imagensDinamicas\PerfisUsuarios\TamanhoOriginal\\"
             );
         }else {
             $this->caminhoFotoPerfil = null;
+        }
+
+        if ($miniaturafotoPerfil) {
+            $this->caminhoMiniaturaFotoPerfil = ImageService::persisteImagemEGeraNome(
+                $miniaturafotoPerfil,
+                __DIR__ . "\..\..\..\imagensDinamicas\PerfisUsuarios\Miniatura\\"
+            );
+        }else {
+            $this->caminhoMiniaturaFotoPerfil = null;
         }
 
         if ($fotoCapa) {
@@ -112,6 +125,7 @@ class Usuario implements JsonSerializable
         string $cidadeAtual,
         string $statusDeRelacionamento,
         ?ArquivoUpado $fotoPerfil,
+        ?ArquivoUpado $miniaturaFotoPerfil,
         ?ArquivoUpado $fotoCapa,
     ) {
         if (strlen(trim($nome)) < 3 || strlen($nome) > 80) {
@@ -162,6 +176,12 @@ class Usuario implements JsonSerializable
             }
         }
 
+        if ($miniaturaFotoPerfil) {
+            if (!in_array($miniaturaFotoPerfil->type, $tiposDeImagensPermitidos) || $miniaturaFotoPerfil->size > $tamanhoLimiteDeImagem) {
+                throw new \DomainException("Imagem de perfil inválida");
+            }
+        }
+
         if ($fotoCapa) {
             if (!in_array($fotoCapa->type, $tiposDeImagensPermitidos) || $fotoCapa->size > $tamanhoLimiteDeImagem) {
                 throw new \DomainException("Imagem de capa inválida");
@@ -192,7 +212,8 @@ class Usuario implements JsonSerializable
             'cidadeAtual' => $this->cidadeAtual,
             'statusDeRelacionamento' => $this->statusDeRelacionamento,
             'caminhoFotoPerfil' => $this->caminhoFotoPerfil,
-            'caminhoFotoCapa' => $this->caminhoFotoCapa
+            'caminhoMiniaturaFotoPerfil' => $this->caminhoMiniaturaFotoPerfil,
+            'caminhoFotoCapa' => $this->caminhoFotoCapa,
         ];
     }
 }

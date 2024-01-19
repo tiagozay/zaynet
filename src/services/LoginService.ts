@@ -13,6 +13,7 @@ interface InforUsuarioLogado {
     cidadeAtual: string;
     statusDeRelacionamento: string;
     caminhoFotoPerfil?: string;
+    caminhoMiniaturaFotoPerfil?: string;
     caminhoFotoCapa?: string;
 }
 

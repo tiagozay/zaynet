@@ -20,6 +20,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "POST") 
     $cidadeAtual = $_POST['cidadeAtual'];
     $statusDeRelacionamento = $_POST['statusDeRelacionamento'];
     $fotoDoPerfil = isset($_FILES['fotoDoPerfil']) ? $_FILES['fotoDoPerfil'] : null;
+    $miniaturaFotoDoPerfil = isset($_FILES['miniaturaFotoDoPerfil']) ? $_FILES['miniaturaFotoDoPerfil'] : null;
     $fotoDaCapa = isset($_FILES['fotoDaCapa']) ? $_FILES['fotoDaCapa'] : null;
 
     try {
@@ -32,6 +33,15 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "POST") 
                 $fotoDoPerfil['type'],
                 $fotoDoPerfil['size'],
                 $fotoDoPerfil['tmp_name'],
+            );
+        }
+
+        if ($miniaturaFotoDoPerfil) {
+            $miniaturaFotoDoPerfil = new ArquivoUpado(
+                $miniaturaFotoDoPerfil['name'],
+                $miniaturaFotoDoPerfil['type'],
+                $miniaturaFotoDoPerfil['size'],
+                $miniaturaFotoDoPerfil['tmp_name'],
             );
         }
 
@@ -55,6 +65,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "POST") 
             $cidadeAtual,
             $statusDeRelacionamento,
             $fotoDoPerfil,
+            $miniaturaFotoDoPerfil,
             $fotoDaCapa
         );
 
