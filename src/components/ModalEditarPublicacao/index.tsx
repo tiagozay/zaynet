@@ -157,7 +157,7 @@ export default function ModalEditarPublicacao({ modalAberto, fecharModal }: Moda
                                 alt="Perfil usuário"
                                 id="modalEditarPublicacao__perfilUsuario"
                             />
-                            <p id="modalEditarPublicacao__nomeUsuario">Pedro souza</p>
+                            <p id="modalEditarPublicacao__nomeUsuario">{UsuarioService.obtemNomeCompletoDoUsuarioLogado()}</p>
                         </div>
 
                         <div id='modalEditarPublicacao__containerInputs'>

@@ -138,7 +138,7 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
                             alt="Perfil usuário"
                             id="modalPublicar__perfilUsuario"
                         />
-                        <p id="modalPublicar__nomeUsuario">Pedro souza</p>
+                        <p id="modalPublicar__nomeUsuario">{UsuarioService.obtemNomeCompletoDoUsuarioLogado()}</p>
                     </div>
 
                     <div id='modalPublicar__containerInputs'>

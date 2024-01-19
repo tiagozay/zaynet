@@ -102,7 +102,7 @@ export default function ModalCompartilharPublicacao({ modalAberto, fecharModal }
                 alt="Perfil usuário"
                 id="modalCompartilharPublicacao__perfilUsuario"
               />
-              <p id="modalCompartilharPublicacao__nomeUsuario">Pedro souza</p>
+              <p id="modalCompartilharPublicacao__nomeUsuario">{UsuarioService.obtemNomeCompletoDoUsuarioLogado()}</p>
             </div>
 
             <div id='modalCompartilharPublicacao__containerInputs'>

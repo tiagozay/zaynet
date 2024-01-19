@@ -95,7 +95,7 @@ export default function ModalEditarPublicacaoCompartilhada({ modalAberto, fechar
                                 alt="Perfil usuário"
                                 id="modalEditarPublicacaoCompartilhada__perfilUsuario"
                             />
-                            <p id="modalEditarPublicacaoCompartilhada__nomeUsuario">Pedro souza</p>
+                            <p id="modalEditarPublicacaoCompartilhada__nomeUsuario">{UsuarioService.obtemNomeCompletoDoUsuarioLogado()}</p>
                         </div>
 
                         <div id='modalEditarPublicacaoCompartilhada__containerInputs'>
