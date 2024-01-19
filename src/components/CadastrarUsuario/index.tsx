@@ -6,17 +6,16 @@ import ModalCadastroPrimeiraFase from './ModalCadastroPrimeiraFase';
 import ModalCadastroSegundaFase from './ModalCadastroSegundaFase';
 import { useNavigate } from 'react-router-dom';
 import { CadastroUsuarioContext } from '../../contexts/CadastroUsuarioContext';
-import { APIService } from '../../services/APIService';
-import APIResponse from '../../Utils/APIResponse';
+import UsuarioService from '../../services/UsuarioService';
 import { LoginService } from '../../services/LoginService';
+import APIResponse from '../../Utils/APIResponse';
 
 interface CadastrarUsuarioProps {
     fecharCadastro: () => void,
     modalAberto: boolean,
-    abrirToast: (titulo: string, texto: string) => void
 }
 
-export default function CadastrarUsuario({ fecharCadastro, modalAberto, abrirToast }: CadastrarUsuarioProps) {
+export default function CadastrarUsuario({ fecharCadastro, modalAberto }: CadastrarUsuarioProps) {
 
     const navigate = useNavigate();
 
@@ -27,12 +26,16 @@ export default function CadastrarUsuario({ fecharCadastro, modalAberto, abrirToa
     const [modalPrimeiraFaseCadastroAberto, setModalPrimeiraFaseCadastroAberto] = useState(false);
     const [modalSegundaFaseCadastroAberto, setModalSegundaFaseCadastroAberto] = useState(false);
 
-    const [indicadorEnvioSendoRealizado, setIndicadorEnvioSendoRealizado] = useState(false);
+    const [
+        indicadorCadastroSendoEnviado,
+        setIndicadorCadastroSendoEnviado
+    ] = useState(false);
 
     const {
         setIndicadorCadastroUsuarioAberto,
         fasesDoCadastroConcluidas,
         setFasesDoCadastroConcluidas,
+        setMensagemDeErroCadastro,
         nome,
         setNome,
         sobrenome,
@@ -58,64 +61,45 @@ export default function CadastrarUsuario({ fecharCadastro, modalAberto, abrirToa
     } = useContext(CadastroUsuarioContext);
 
     useEffect(() => {
-        //Verfiicação que indica que todas as fases do cadastro já foram concluídas
+        //Verfiicação que indica que todas as fases do cadastro (pelos modais, no layout desktop) já foram concluídas
         if (fasesDoCadastroConcluidas === 2) {
-            setIndicadorEnvioSendoRealizado(true);
 
-            APIService.post(
-                'usuarios',
-                {
-                    nome,
-                    sobrenome,
-                    email,
-                    senha,
-                    dataDeNascimento,
-                    genero,
-                    cidadeNatal,
-                    cidadeAtual,
-                    statusDeRelacionamento,
-                    fotoDoPerfil,
-                    fotoDaCapa
+            setIndicadorCadastroSendoEnviado(true);
+
+            UsuarioService.cadastraUsuario(
+                nome,
+                sobrenome,
+                email,
+                senha,
+                dataDeNascimento,
+                genero,
+                cidadeNatal,
+                cidadeAtual,
+                statusDeRelacionamento,
+                fotoDoPerfil,
+                fotoDaCapa
+            ).then(dataLogin => {
+
+                setIndicadorCadastroSendoEnviado(false);
+
+                const token = dataLogin.token;
+
+                const usuario = dataLogin.usuario;
+
+                LoginService.armazenaInfoLogin(token, usuario);
+
+                navigate('/');
+            })
+            .catch((res: APIResponse) => {
+                setIndicadorCadastroSendoEnviado(false);
+                zerarIndicadoresDeCadastro();
+
+                if(res.domainError){
+                    abrirToast(res.message);
+                }else{
+                    abrirToast("Erro inesperado ao criar conta");
                 }
-            )
-                .then(res => {
-
-                    if (res.data && 'dataLogin' in res.data) {
-
-                        const token = res.data.dataLogin.token;
-    
-                        const usuario = res.data.dataLogin.usuario;
-    
-                        LoginService.armazenaInfoLogin(token, usuario);
-    
-                        navigate('/');
-    
-                    }
-
-                    setIndicadorEnvioSendoRealizado(false);
-                })
-                .catch((res) => {
-                    res.json()
-                        .then((res: APIResponse) => {
-
-                            console.log(res);
-
-                            if(res.domainError){
-                                abrirToast(
-                                    "Erro ao criar conta",
-                                    res.message
-                                );
-                            }else{
-                                abrirToast(
-                                    "Erro ao criar conta",
-                                    "Erro inesperado ao criar conta"
-                                );
-                            }
-                            
-                            setIndicadorEnvioSendoRealizado(false);
-                            zerarIndicadoresDeCadastro();
-                        })
-                })
+             });
         }
 
         if (!isMobile && fasesDoCadastroConcluidas === 0) {
@@ -147,6 +131,10 @@ export default function CadastrarUsuario({ fecharCadastro, modalAberto, abrirToa
         if (event.target === overlay.current) {
             handleFecharCadastro();
         }
+    }
+
+    function abrirToast(texto: string) {
+        setMensagemDeErroCadastro(texto);
     }
 
     function zerarIndicadoresDeCadastro() {
@@ -194,7 +182,7 @@ export default function CadastrarUsuario({ fecharCadastro, modalAberto, abrirToa
             <ModalCadastroSegundaFase
                 fecharCadastro={handleFecharCadastro}
                 clickCadastrar={clickCadastrarSegundaFasePeloModal}
-                indicadorEnvioSendoRealizado={indicadorEnvioSendoRealizado}
+                indicadorCadastroSendoEnviado={indicadorCadastroSendoEnviado}
             />
         );
     }

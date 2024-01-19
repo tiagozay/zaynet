@@ -5,13 +5,13 @@ import { CadastroUsuarioContext } from '../../../contexts/CadastroUsuarioContext
 interface ModalCadastroPrimeiraFaseProps {
     fecharCadastro: () => void,
     clickCadastrar: () => void,
-    indicadorEnvioSendoRealizado: boolean
+    indicadorCadastroSendoEnviado: boolean,
 }
 
 export default function ModalCadastroSegundaFase({
     fecharCadastro,
     clickCadastrar,
-    indicadorEnvioSendoRealizado
+    indicadorCadastroSendoEnviado,
 }: ModalCadastroPrimeiraFaseProps) {
 
     const {
@@ -109,7 +109,7 @@ export default function ModalCadastroSegundaFase({
                             'segundaFaseCadastro__btnCadastrarDesativado' :
                             ''}
 
-                            ${indicadorEnvioSendoRealizado ?
+                            ${indicadorCadastroSendoEnviado ?
                             'segundaFaseCadastro__btnCadastrarCarregando' :
                             ''}
                         `

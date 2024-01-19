@@ -1,11 +1,13 @@
 import React, { ReactNode, createContext, useState } from "react";
 
-interface TypeCadastroUsuarioContext
-{
+interface TypeCadastroUsuarioContext {
     indicadorCadastroUsuarioAberto: boolean,
     setIndicadorCadastroUsuarioAberto: React.Dispatch<React.SetStateAction<boolean>>,
     fasesDoCadastroConcluidas: 0 | 1 | 2,
     setFasesDoCadastroConcluidas: React.Dispatch<React.SetStateAction<0 | 1 | 2>>,
+    mensagemDeErroCadastro: string,
+    setMensagemDeErroCadastro: React.Dispatch<React.SetStateAction<string>>,
+    zerarIndicadoresDeCadastro: Function,
     nome: string,
     setNome: React.Dispatch<React.SetStateAction<string>>,
     sobrenome: string,
@@ -33,40 +35,48 @@ interface TypeCadastroUsuarioContext
 
 export const CadastroUsuarioContext = createContext<TypeCadastroUsuarioContext>({
     indicadorCadastroUsuarioAberto: false,
-    setIndicadorCadastroUsuarioAberto: () => {},
+    setIndicadorCadastroUsuarioAberto: () => { },
     fasesDoCadastroConcluidas: 0,
-    setFasesDoCadastroConcluidas: () => {},
+    setFasesDoCadastroConcluidas: () => { },
+    mensagemDeErroCadastro: "",
+    setMensagemDeErroCadastro: () => { },
+    zerarIndicadoresDeCadastro: () => {},
     nome: "",
-    setNome: () => {},
+    setNome: () => { },
     sobrenome: "",
-    setSobrenome: () => {},
+    setSobrenome: () => { },
     email: "",
-    setEmail: () => {},
+    setEmail: () => { },
     senha: "",
-    setSenha: () => {},
+    setSenha: () => { },
     dataDeNascimento: "",
-    setDataDeNascimento: () => {},
+    setDataDeNascimento: () => { },
     genero: "",
-    setGenero: () => {},
+    setGenero: () => { },
     cidadeNatal: "",
-    setCidadeNatal: () => {},
+    setCidadeNatal: () => { },
     cidadeAtual: "",
-    setCidadeAtual: () => {},
+    setCidadeAtual: () => { },
     statusDeRelacionamento: "",
-    setStatusDeRelacionamento: () => {},
+    setStatusDeRelacionamento: () => { },
     fotoDoPerfil: null,
-    setFotoDoPerfil: () => {},
+    setFotoDoPerfil: () => { },
     fotoDaCapa: null,
-    setFotoDaCapa: () => {},
-}); 
+    setFotoDaCapa: () => { },
+});
 
-export default function CadastroUsuarioProvider({children}: {children: ReactNode}){
+export default function CadastroUsuarioProvider({ children }: { children: ReactNode }) {
     const [
-        indicadorCadastroUsuarioAberto, 
+        indicadorCadastroUsuarioAberto,
         setIndicadorCadastroUsuarioAberto
     ] = useState(false);
 
     const [fasesDoCadastroConcluidas, setFasesDoCadastroConcluidas] = useState<0 | 1 | 2>(0);
+
+    const [
+        mensagemDeErroCadastro,
+        setMensagemDeErroCadastro
+    ] = useState("");
 
     const [nome, setNome] = useState("");
     const [sobrenome, setSobrenome] = useState("");
@@ -80,12 +90,33 @@ export default function CadastroUsuarioProvider({children}: {children: ReactNode
     const [fotoDoPerfil, setFotoDoPerfil] = useState<File | null>(null);
     const [fotoDaCapa, setFotoDaCapa] = useState<File | null>(null);
 
+    function zerarIndicadoresDeCadastro()
+    {
+        setIndicadorCadastroUsuarioAberto(false);
+        setFasesDoCadastroConcluidas(0);
+
+        setNome("");
+        setSobrenome("");
+        setEmail("");
+        setSenha("");
+        setDataDeNascimento("");
+        setGenero("");
+        setCidadeNatal("");
+        setCidadeAtual("");
+        setStatusDeRelacionamento("");
+        setFotoDoPerfil(null);
+        setFotoDaCapa(null);
+    }
+
     return (
         <CadastroUsuarioContext.Provider value={{
             indicadorCadastroUsuarioAberto,
             setIndicadorCadastroUsuarioAberto,
             fasesDoCadastroConcluidas,
             setFasesDoCadastroConcluidas,
+            mensagemDeErroCadastro,
+            setMensagemDeErroCadastro,
+            zerarIndicadoresDeCadastro,
             nome,
             setNome,
             sobrenome,
