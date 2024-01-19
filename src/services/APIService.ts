@@ -30,8 +30,13 @@ export abstract class APIService
                 headers: headers
             }
         )
-        // .then( res => res.text() )
-        // .then( res => console.log(res) )
+        // .then( res => {
+
+        //     res.text()
+        //         .then(res => console.log(res));
+
+        //     return res.ok ? res : Promise.reject(res)
+        // })
         .then( res => res.ok ? res : Promise.reject(res))
         .then( res => {
             resSemConverter = res;
