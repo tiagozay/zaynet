@@ -67,13 +67,13 @@ export class ArquivosPublicacaoService {
     }
 
 
-    public static processaImagensEVideosRecebidosDoUsuario(arquivosSelecionados: FileList): Promise<ArquivoSelecionadoComSuaMiniatura[]> {
+    public static processaImagensEVideosRecebidosDoUsuario(arquivosSelecionados: FileList, tamanhoDaMiniatura = 200): Promise<ArquivoSelecionadoComSuaMiniatura[]> {
         const listaDeArquivosComSuasMiniaturasPromises = Array.from(arquivosSelecionados).map(arquivo => {
             const tipoArquivo = ArquivosPublicacaoService.identificaSeArquivoEImagemOuVideo(arquivo) as "Imagem" | "Vídeo";
 
             if (tipoArquivo === "Imagem") {
 
-                return ArquivosPublicacaoService.diminuiTamanhoDeImagem(200, arquivo)
+                return ArquivosPublicacaoService.diminuiTamanhoDeImagem(tamanhoDaMiniatura, arquivo)
                     .then(miniatura => {
                         return new ArquivoSelecionadoComSuaMiniatura(
                             arquivo,
@@ -83,7 +83,7 @@ export class ArquivosPublicacaoService {
 
 
             } else {
-                return ArquivosPublicacaoService.obtemImagemDoPrimeiroFrameDoVideo(200, arquivo)
+                return ArquivosPublicacaoService.obtemImagemDoPrimeiroFrameDoVideo(tamanhoDaMiniatura, arquivo)
                     .then(miniatura => {
                         return new ArquivoSelecionadoComSuaMiniatura(
                             arquivo,
