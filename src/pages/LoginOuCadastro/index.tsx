@@ -25,6 +25,8 @@ export default function LoginOuCadastro() {
 
     const [exibirSenha, setExibirSenha] = useState(false);
 
+    const {mensagemDeErroCadastro} = useContext(CadastroUsuarioContext);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -35,6 +37,15 @@ export default function LoginOuCadastro() {
                 }
             });
     }, []);
+
+    useEffect(() => {
+        if(mensagemDeErroCadastro){
+            abrirToast(
+                "Erro ao cadastrar usuário!",
+                mensagemDeErroCadastro
+            );
+        }
+    }, [mensagemDeErroCadastro]);
 
     function handleExibirSenha() {
         setExibirSenha(state => !state);
@@ -122,7 +133,6 @@ export default function LoginOuCadastro() {
                     <CadastrarUsuario
                         fecharCadastro={fecharCadastroUsuario}
                         modalAberto={indicadorCadastroUsuarioAberto}
-                        abrirToast={abrirToast}
                     />
                     : ""
                 }
