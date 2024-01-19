@@ -7,6 +7,7 @@ import ModalPublicar from '../../components/ModalPublicar';
 import { useNavigate } from 'react-router-dom';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import PublicacaoCompartilhada from '../../components/PublicacaoCompartilhada';
+import UsuarioService from '../../services/UsuarioService';
 
 export default function Home() {
 
@@ -54,7 +55,7 @@ export default function Home() {
         <div id='feed_adicionarUmaNovaPublicacao'>
           <div id='feed_adicionarUmaNovaPublicacao__container'>
             <img
-              src="./imagensDinamicas/perfil.jpg"
+              src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()}
               alt="Foto perfil"
               id='feed_adicionarUmaNovaPublicacao__perfil'
             />

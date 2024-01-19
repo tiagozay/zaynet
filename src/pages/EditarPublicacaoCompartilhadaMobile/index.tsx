@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import ModalDeConfirmacao from '../../components/ModalDeConfirmacao';
+import UsuarioService from '../../services/UsuarioService';
 
 export default function EditarPublicacaoCompartilhadaMobile() {
 
@@ -100,7 +101,7 @@ export default function EditarPublicacaoCompartilhadaMobile() {
                 <div id="editarPublicacaoCompartilhadaMobile__container">
                     <div id="editarPublicacaoCompartilhadaMobile__divPerfilENomeUsuario">
                         <img
-                            src="./imagensDinamicas/perfil.jpg"
+                            src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()}
                             alt="Perfil usuário"
                             id="editarPublicacaoCompartilhadaMobile__divPerfilENomeUsuario__perfil"
                         />

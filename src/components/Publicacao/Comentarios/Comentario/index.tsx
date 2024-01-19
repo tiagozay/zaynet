@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Comentario.css';
 import EstruturaDoComentario from './EstruturaDoComentario';
+import UsuarioService from '../../../../services/UsuarioService';
 
 
 interface ComentarioProps {
@@ -84,7 +85,7 @@ export default function Comentario({ perfilUsuario, nomeUsuario, comentario, res
                             id='comentario__listaDeRespostas__divInputResponder'
                         >
                             <img
-                                src="./imagensDinamicas/perfil.jpg"
+                                src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()}
                                 id='comentario__divInputResponder__perfil'
                                 alt="Foto perfil"
                             />

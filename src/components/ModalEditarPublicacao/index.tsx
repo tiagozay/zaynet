@@ -6,6 +6,7 @@ import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import ModalDeConfirmacao from '../ModalDeConfirmacao';
 import MidiaEditarPublicacao from '../MidiaEditarPublicacao';
+import UsuarioService from '../../services/UsuarioService';
 
 interface ModalEditarPublicacaoProps {
     modalAberto: boolean,
@@ -152,7 +153,7 @@ export default function ModalEditarPublicacao({ modalAberto, fecharModal }: Moda
                     <div id='modalEditarPublicacao__container'>
                         <div id="modalEditarPublicacao__nomeEPerfilDoUsuario">
                             <img
-                                src="./imagensDinamicas/perfil.jpg"
+                                src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()}
                                 alt="Perfil usuário"
                                 id="modalEditarPublicacao__perfilUsuario"
                             />

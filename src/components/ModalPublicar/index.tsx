@@ -5,6 +5,7 @@ import { ArquivosPublicacaoService } from '../../services/ArquivosPublicacaoServ
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import { ArquivoSelecionadoComSuaMiniatura } from '../../models/ArquivoSelecionadoComSuaMiniatura';
 import { useMediaQuery } from 'react-responsive';
+import UsuarioService from '../../services/UsuarioService';
 
 interface ModalPublicarProps {
     modalAberto: boolean,
@@ -133,7 +134,7 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
                 <div id='modalPublicar__container'>
                     <div id="modalPublicar__nomeEPerfilDoUsuario">
                         <img
-                            src="./imagensDinamicas/perfil.jpg"
+                            src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()}
                             alt="Perfil usuário"
                             id="modalPublicar__perfilUsuario"
                         />

@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import './PesquisarPorUmaPessoaMobile.css';
 import { useNavigate } from 'react-router-dom';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
+import UsuarioService from '../../services/UsuarioService';
 
 export default function PesquisarPorUmaPessoaMobile() {
 
@@ -40,7 +41,7 @@ export default function PesquisarPorUmaPessoaMobile() {
             <ul id="pesquisarPorUmaPessoaMobile__listaDeResultados">
                 <li id='pesquisarPorUmaPessoaMobile__listaDeResultados__resultado'>
                     <img 
-                        src="./imagensDinamicas/perfil.jpg" 
+                        src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()} 
                         alt="Perfil usuário" 
                         id='pesquisarPorUmaPessoaMobile__listaDeResultados__resultado__perfil'
                     />
@@ -60,7 +61,7 @@ export default function PesquisarPorUmaPessoaMobile() {
                 </li>   
                 <li id='pesquisarPorUmaPessoaMobile__listaDeResultados__resultado'>
                     <img 
-                        src="./imagensDinamicas/perfil.jpg" 
+                        src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()} 
                         alt="Perfil usuário" 
                         id='pesquisarPorUmaPessoaMobile__listaDeResultados__resultado__perfil'
                     />
@@ -70,7 +71,7 @@ export default function PesquisarPorUmaPessoaMobile() {
                 </li>   
                 <li id='pesquisarPorUmaPessoaMobile__listaDeResultados__resultado'>
                     <img 
-                        src="./imagensDinamicas/perfil.jpg" 
+                        src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()} 
                         alt="Perfil usuário" 
                         id='pesquisarPorUmaPessoaMobile__listaDeResultados__resultado__perfil'
                     />

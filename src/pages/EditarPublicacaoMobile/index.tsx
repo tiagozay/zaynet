@@ -7,6 +7,7 @@ import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import MidiaEditarPublicacao from '../../components/MidiaEditarPublicacao';
 import ModalDeConfirmacao from '../../components/ModalDeConfirmacao';
+import UsuarioService from '../../services/UsuarioService';
 
 export default function EditarPublicacaoMobile() {
 
@@ -152,7 +153,7 @@ export default function EditarPublicacaoMobile() {
                 <div id="editarPublicacaoMobile__container">
                     <div id="editarPublicacaoMobile__divPerfilENomeUsuario">
                         <img
-                            src="./imagensDinamicas/perfil.jpg"
+                            src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()}
                             alt="Perfil usuário"
                             id="editarPublicacaoMobile__divPerfilENomeUsuario__perfil"
                         />

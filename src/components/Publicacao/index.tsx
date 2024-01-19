@@ -11,6 +11,7 @@ import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import ModalCompartilharPublicacao from '../ModalCompartilharPublicacao';
 import MenuOpcoesPublicacao from '../MenuOpcoesPublicacao';
+import UsuarioService from '../../services/UsuarioService';
 
 interface PublicacaoProps {
   publicacaoCompartilhada?: boolean
@@ -23,7 +24,7 @@ export default function Publicacao({ publicacaoCompartilhada }: PublicacaoProps)
 
   const publicacao = {
     nomeAutor: "Pedro souza",
-    perfil: "./imagensDinamicas/perfil.jpg",
+    perfil: UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado(),
     tempoDePublicacao: "10 h",
     texto: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero, distinctio autem? Magnam autem quisquam voluptates eius cupiditate. Sapiente blanditiis obcaecati natus, similique, repellendus ipsum ipsam dicta eos consequatur, distinctio soluta?",
     midias: [

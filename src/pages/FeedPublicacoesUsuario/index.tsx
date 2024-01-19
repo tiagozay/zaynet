@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './FeedPublicacoesUsuario.css';
 import Publicacao from '../../components/Publicacao';
+import UsuarioService from '../../services/UsuarioService';
 
 export default function FeedPublicacoesUsuario() {
     return (
@@ -57,7 +58,7 @@ export default function FeedPublicacoesUsuario() {
                             <li className='perfilUsuario__amigosLateral__listaDeAmigos__amigo'>
                                 <img
                                     className='perfilUsuario__listaDeAmigos__perfilAmigo'
-                                    src="./imagensDinamicas/perfil.jpg" alt="Perfil usuário"
+                                    src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()} alt="Perfil usuário"
                                 />
                                 <p className='perfilUsuario__listaAmigos__nomeAmigo'>José Andrade</p>
                             </li>
@@ -71,7 +72,7 @@ export default function FeedPublicacoesUsuario() {
                             <li className='perfilUsuario__amigosLateral__listaDeAmigos__amigo'>
                                 <img
                                     className='perfilUsuario__listaDeAmigos__perfilAmigo'
-                                    src="./imagensDinamicas/perfil.jpg" alt="Perfil usuário"
+                                    src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()} alt="Perfil usuário"
                                 />
                                 <p className='perfilUsuario__listaAmigos__nomeAmigo'>José Andrade</p>
                             </li>
@@ -85,7 +86,7 @@ export default function FeedPublicacoesUsuario() {
                             <li className='perfilUsuario__amigosLateral__listaDeAmigos__amigo'>
                                 <img
                                     className='perfilUsuario__listaDeAmigos__perfilAmigo'
-                                    src="./imagensDinamicas/perfil.jpg" alt="Perfil usuário"
+                                    src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()} alt="Perfil usuário"
                                 />
                                 <p className='perfilUsuario__listaAmigos__nomeAmigo'>José Andrade</p>
                             </li>

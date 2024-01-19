@@ -5,6 +5,7 @@ import ModalConfiguracoesDaConta from '../../../ModalConfiguracoesDaConta';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../../../config';
 import { LoginService } from '../../../../services/LoginService';
+import UsuarioService from '../../../../services/UsuarioService';
 
 export default function ModalOpcoesConta() {
 
@@ -96,7 +97,7 @@ export default function ModalOpcoesConta() {
             }
             <div id="divModalOpcoesConta">
                 <img
-                    src="./imagensDinamicas/perfil.jpg"
+                    src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()}
                     alt="Perfil usuário"
                     onClick={abrirModal}
                     ref={btnAbrirModalRef}
@@ -108,11 +109,11 @@ export default function ModalOpcoesConta() {
                         <div id="divModalOpcoesConta__modal" ref={menuOpcoesDaPublicacaoRef}>
                             <Link to='/perfil' id="divModalOpcoesConta__modal__linkConta">
                                 <img
-                                    src="./imagensDinamicas/perfil.jpg"
+                                    src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()}
                                     alt="Perfil usuário"
                                     id='divModalOpcoesConta__linkConta__perfil'
                                 />
-                                <p id='divModalOpcoesConta__linkConta__nomeUsuario'>Pedro souza</p>
+                                <p id='divModalOpcoesConta__linkConta__nomeUsuario'>{UsuarioService.obtemNomeCompletoDoUsuarioLogado()}</p>
                             </Link>
 
                             <button className='modalOpcoesConta__btnOpcao' onClick={abrirModalConfiguracoesConta}>

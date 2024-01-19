@@ -6,6 +6,7 @@ import SelecionarArquivos from '../../components/SelecionarArquivos';
 import PreviasArquivos from '../../components/SelecionarArquivos/PreviasArquivos';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
+import UsuarioService from '../../services/UsuarioService';
 
 export default function PublicarMobile() {
 
@@ -91,7 +92,7 @@ export default function PublicarMobile() {
             <div id="publicarMobile__container">
                 <div id="publicarMobile__divPerfilENomeUsuario">
                     <img
-                        src="./imagensDinamicas/perfil.jpg"
+                        src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()}
                         alt="Perfil usuário"
                         id="publicarMobile__divPerfilENomeUsuario__perfil"
                     />

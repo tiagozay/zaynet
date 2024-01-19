@@ -61,9 +61,17 @@ export default abstract class UsuarioService {
         return `${usuario.nome} ${usuario.sobrenome}`;
     }
 
-    public static obtemPerfilDoUsuarioLogado() {
+    public static obtemMiniaturaPerfilDoUsuarioLogado() {
         const usuario = LoginService.buscaUsuarioLogado();
 
-        return `http://localhost:8080/imagensDinamicas/perfisUsuarios/Miniatura/${usuario.caminhoMiniaturaFotoPerfil}`;
+        const nomeMiniaturaFotoPerfil = usuario.caminhoMiniaturaFotoPerfil;
+
+        if(nomeMiniaturaFotoPerfil){
+            return `http://localhost:8080/imagensDinamicas/perfisUsuarios/Miniatura/${nomeMiniaturaFotoPerfil}`;
+        }else{
+            return `http://localhost:8080/imagensDinamicas/perfisUsuarios/imagemSemPerfil.png`;
+        }
+
+    
     }
 }

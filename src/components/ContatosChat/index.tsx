@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect, useContext } from 'react';
 import './ContatosChat.css';
 import { CaixaDeMensagemContext } from '../../contexts/CaixaDeMensagemContext';
 import { ConversaModel, MensagemEnviada, MensagemRecebida } from '../../models/ConversaModel';
+import UsuarioService from '../../services/UsuarioService';
+
 
 export default function ContatosChat() {
 
@@ -105,7 +107,7 @@ export default function ContatosChat() {
             </div>
             <ul id='contatosChat__listaDeContatos'>
                 <li className='contatosChat__listaDeContatos__contato' onClick={() => clickEmAlgumContato(conversa2)}>
-                    <img src="./imagensDinamicas/perfil.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
+                    <img src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()} alt="Perfil usuário" id='contatosChat__perfilContato' />
                     <p id='contatosChat__nomeContato'>Pedro souza</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato' onClick={() => clickEmAlgumContato(conversa1)}>
@@ -113,7 +115,7 @@ export default function ContatosChat() {
                     <p id='contatosChat__nomeContato'>Maria almeida</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato' onClick={() => clickEmAlgumContato(conversa2)}>
-                    <img src="./imagensDinamicas/perfil.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
+                    <img src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()} alt="Perfil usuário" id='contatosChat__perfilContato' />
                     <p id='contatosChat__nomeContato'>Pedro souza</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato' onClick={() => clickEmAlgumContato(conversa1)}>
@@ -121,7 +123,7 @@ export default function ContatosChat() {
                     <p id='contatosChat__nomeContato'>Maria almeida</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato' onClick={() => clickEmAlgumContato(conversa2)}>
-                    <img src="./imagensDinamicas/perfil.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
+                    <img src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()} alt="Perfil usuário" id='contatosChat__perfilContato' />
                     <p id='contatosChat__nomeContato'>Pedro souza</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato' onClick={() => clickEmAlgumContato(conversa1)}>
@@ -129,7 +131,7 @@ export default function ContatosChat() {
                     <p id='contatosChat__nomeContato'>Maria almeida</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato' onClick={() => clickEmAlgumContato(conversa2)}>
-                    <img src="./imagensDinamicas/perfil.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
+                    <img src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()} alt="Perfil usuário" id='contatosChat__perfilContato' />
                     <p id='contatosChat__nomeContato'>Pedro souza</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato' onClick={() => clickEmAlgumContato(conversa1)}>
@@ -137,7 +139,7 @@ export default function ContatosChat() {
                     <p id='contatosChat__nomeContato'>Maria almeida</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato' onClick={() => clickEmAlgumContato(conversa2)}>
-                    <img src="./imagensDinamicas/perfil.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
+                    <img src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()} alt="Perfil usuário" id='contatosChat__perfilContato' />
                     <p id='contatosChat__nomeContato'>Pedro souza</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato' onClick={() => clickEmAlgumContato(conversa1)}>
@@ -145,7 +147,7 @@ export default function ContatosChat() {
                     <p id='contatosChat__nomeContato'>Maria almeida</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato' onClick={() => clickEmAlgumContato(conversa2)}>
-                    <img src="./imagensDinamicas/perfil.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
+                    <img src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()} alt="Perfil usuário" id='contatosChat__perfilContato' />
                     <p id='contatosChat__nomeContato'>Pedro souza</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato' onClick={() => clickEmAlgumContato(conversa1)}>
@@ -153,7 +155,7 @@ export default function ContatosChat() {
                     <p id='contatosChat__nomeContato'>Maria almeida</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato' onClick={() => clickEmAlgumContato(conversa2)}>
-                    <img src="./imagensDinamicas/perfil.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
+                    <img src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()} alt="Perfil usuário" id='contatosChat__perfilContato' />
                     <p id='contatosChat__nomeContato'>Pedro souza</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato' onClick={() => clickEmAlgumContato(conversa1)}>
@@ -161,7 +163,7 @@ export default function ContatosChat() {
                     <p id='contatosChat__nomeContato'>Maria almeida</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato' onClick={() => clickEmAlgumContato(conversa2)}>
-                    <img src="./imagensDinamicas/perfil.jpg" alt="Perfil usuário" id='contatosChat__perfilContato' />
+                    <img src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()} alt="Perfil usuário" id='contatosChat__perfilContato' />
                     <p id='contatosChat__nomeContato'>Pedro souza</p>
                 </li>
                 <li className='contatosChat__listaDeContatos__contato' onClick={() => clickEmAlgumContato(conversa1)}>

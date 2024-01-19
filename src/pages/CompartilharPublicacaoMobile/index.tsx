@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Publicacao from '../../components/Publicacao';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
+import UsuarioService from '../../services/UsuarioService';
 
 export default function CompartilharPublicacaoMobile() {
 
@@ -46,7 +47,7 @@ export default function CompartilharPublicacaoMobile() {
             <div id="compartilharPublicacaoMobile__container">
                 <div id="compartilharPublicacaoMobile__divPerfilENomeUsuario">
                     <img
-                        src="./imagensDinamicas/perfil.jpg"
+                        src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()}
                         alt="Perfil usuário"
                         id="compartilharPublicacaoMobile__divPerfilENomeUsuario__perfil"
                     />

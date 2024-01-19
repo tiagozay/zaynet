@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './ModalEditarPublicacaoCompartilhada.css';
 import ModalDeConfirmacao from '../ModalDeConfirmacao';
 import Publicacao from '../Publicacao';
+import UsuarioService from '../../services/UsuarioService';
 
 interface ModalEditarPublicacaoCompatilhadaProps {
     modalAberto: boolean,
@@ -90,7 +91,7 @@ export default function ModalEditarPublicacaoCompartilhada({ modalAberto, fechar
                     <div id='modalEditarPublicacaoCompartilhada__container'>
                         <div id="modalEditarPublicacaoCompartilhada__nomeEPerfilDoUsuario">
                             <img
-                                src="./imagensDinamicas/perfil.jpg"
+                                src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()}
                                 alt="Perfil usuário"
                                 id="modalEditarPublicacaoCompartilhada__perfilUsuario"
                             />

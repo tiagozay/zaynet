@@ -3,6 +3,7 @@ import './Comentarios.css';
 import { useState } from 'react';
 import Comentario from './Comentario';
 import InputComentario from './InputComentario';
+import UsuarioService from '../../../services/UsuarioService';
 
 // class ComentarioOBJ{
 //   public perfilUsuario: string;
@@ -61,7 +62,7 @@ export default function Comentarios() {
       </ul>
 
       <div id='publicacao__inputNovoComentario'>
-        <img src="./imagensDinamicas/perfil.jpg" alt="Perfil usuário" id='inputNovoComentario__perfil' />
+        <img src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()} alt="Perfil usuário" id='inputNovoComentario__perfil' />
         <InputComentario />
       </div>
     </div>

@@ -10,6 +10,7 @@ import ModalEditarPublicacao from '../ModalEditarPublicacao';
 import ModalEditarPublicacaoCompartilhada from '../ModalEditarPublicacaoCompartilhada';
 import ModalCompartilharPublicacao from '../ModalCompartilharPublicacao';
 import MenuOpcoesPublicacao from '../MenuOpcoesPublicacao';
+import UsuarioService from '../../services/UsuarioService';
 
 export default function PublicacaoCompartilhada() {
 
@@ -18,7 +19,7 @@ export default function PublicacaoCompartilhada() {
 
     const publicacao = {
         nomeAutor: "Pedro souza",
-        perfil: "./imagensDinamicas/perfil.jpg",
+        perfil: UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado(),
         tempoDePublicacao: "5 minutos",
         texto: "Isto é uma verdadeira obra de arte!",
     }

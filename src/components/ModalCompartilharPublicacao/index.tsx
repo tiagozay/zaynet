@@ -4,6 +4,7 @@ import Publicacao from '../Publicacao';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import ModalDeConfirmacao from '../ModalDeConfirmacao';
+import UsuarioService from '../../services/UsuarioService';
 
 interface ModalPublicarProps {
   modalAberto: boolean,
@@ -97,7 +98,7 @@ export default function ModalCompartilharPublicacao({ modalAberto, fecharModal }
           <div id='modalCompartilharPublicacao__container'>
             <div id="modalCompartilharPublicacao__nomeEPerfilDoUsuario">
               <img
-                src="./imagensDinamicas/perfil.jpg"
+                src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()}
                 alt="Perfil usuário"
                 id="modalCompartilharPublicacao__perfilUsuario"
               />

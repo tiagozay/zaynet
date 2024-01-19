@@ -1,5 +1,6 @@
 import React from 'react';
 import './Amigos.css';
+import UsuarioService from '../../services/UsuarioService';
 
 export default function Amigos() {
     return (
@@ -8,7 +9,7 @@ export default function Amigos() {
                 <h3 id='amigosPage__titulo'>Amigos</h3>
                 <ul id='amigosPage__listaAmigos'>
                     <li id='amigosPage__amigo'>
-                        <img src="./imagensDinamicas/perfil.jpg" alt="Perfil do usuário" id='amigo__perfil'/>
+                        <img src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()} alt="Perfil do usuário" id='amigo__perfil'/>
                         <div id='amigo__informacoesAmigo'>
                             <p id='amigo__informacoesAmigo__nome'>Pedro souza</p>
                             <p id='amigo__informacoesAmigo__amigosEmComum'>105 amigos em comum</p>
@@ -29,7 +30,7 @@ export default function Amigos() {
                         </div>
                     </li>
                     <li id='amigosPage__amigo'>
-                        <img src="./imagensDinamicas/perfil.jpg" alt="Perfil do usuário" id='amigo__perfil'/>
+                        <img src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()} alt="Perfil do usuário" id='amigo__perfil'/>
                         <div id='amigo__informacoesAmigo'>
                             <p id='amigo__informacoesAmigo__nome'>Pedro souza</p>
                             <p id='amigo__informacoesAmigo__amigosEmComum'>105 amigos em comum</p>
