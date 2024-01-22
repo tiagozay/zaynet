@@ -63,4 +63,13 @@ abstract class LoginService
 
         return true;
     }
+
+    public static function obtemIdUsuarioLogado(string $token): int
+    {
+        $chaveSecreta = getenv('JWT_KEY');
+
+        $decoded = JWT::decode($token, new Key($chaveSecreta, 'HS256'));
+
+        return $decoded->id;
+    }
 }
