@@ -53,4 +53,35 @@ export abstract class APIService
             }
         });
     }
+
+
+    public static postTeste(rota: string, data: { [key: string]: any }) 
+    {
+        const formData = new FormData();
+
+        for (const key in data) {
+            if(data.hasOwnProperty(key) && data[key]){
+                formData.append(key, data[key]);
+            }
+        }
+
+        const headers = {
+            'Authorization': `Bearer ${LoginService.buscaTokenArmazenado()}`
+        };
+
+        let resSemConverter: Response | null = null;
+
+        return fetch(
+            `${this.url}${rota}`,
+            {
+                method: 'post',
+                body: formData,
+                headers: headers
+            }
+        )
+        .then( res => res.text() )
+        .then( res => console.log(res) );
+        
+    }
+
 }
