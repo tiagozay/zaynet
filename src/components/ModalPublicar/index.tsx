@@ -6,6 +6,11 @@ import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import { ArquivoSelecionadoComSuaMiniatura } from '../../models/ArquivoSelecionadoComSuaMiniatura';
 import { useMediaQuery } from 'react-responsive';
 import UsuarioService from '../../services/UsuarioService';
+import { APIService } from '../../services/APIService';
+import APIResponse from '../../Utils/APIResponse';
+import Toast from '../Toast';
+import { useNavigate } from 'react-router-dom';
+import { PublicacaoService } from '../../services/PublicacaoService';
 
 interface ModalPublicarProps {
     modalAberto: boolean,
@@ -18,13 +23,18 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
     const [permisaoParaPublicar, setPermisaoParaPublicar] = useState(false);
     const [indicadorAlgumTextoDigitado, setIndicadorAlgumTextoDigitado] = useState(false);
     const [indicadorAlgumaMidiaSelecionada, setIndicadorAlgumaMidiaSelecionada] = useState(false);
+    const [indicadorCadastroSendoEnviado, setIndicadorCadastroSendoEnviado] = useState(false);
+    const [indicadorToastAberto, setIndicadorToastAberto] = useState(false);
+    const [mensagemToast, setMensagemToast] = useState("");
 
     const [textoDigitado, setTextoDigitado] = useState<string | null>(null);
     const [arquivosSelecionados, setArquivosSelecionados] = useState<FileList | null>(null);
 
-    const isMobile = useMediaQuery({maxWidth: TAMANHO_DE_TELA_MOBILE});
+    const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
 
     const overlay = useRef(null);
+
+    const navigate = useNavigate();
 
     //Este useEffect é responsável por resetar os estados toda vez que o modal for re-aberto.
     useEffect(() => {
@@ -74,32 +84,28 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
     }, []);
 
     useEffect(() => {
-        if(isMobile){
+        if (isMobile) {
             fecharModal();
         }
     }, [isMobile]);
 
-    function publicar() {
+    async function publicar() {
 
-        //Publicação de arquivos provisória, apenas um protótipo
+        setIndicadorCadastroSendoEnviado(true);
 
-        if (arquivosSelecionados) {
-                ArquivosPublicacaoService.processaImagensEVideosRecebidosDoUsuario(arquivosSelecionados)
-                .then(arquivosProcessados => {
+        PublicacaoService.publicar(textoDigitado, arquivosSelecionados)
+            .then(() => {
+                setIndicadorCadastroSendoEnviado(false);
+                fecharModal();
+                navigate("/");
+            })
+            .catch(e => {
+                setIndicadorCadastroSendoEnviado(false);
 
-                    const formData = ArquivosPublicacaoService.geraFormDataParaEnvioDeArquivosParaOServidor(
-                        arquivosProcessados
-                    )
+                e.json()
+                    .then((res: APIResponse) => abrirToast(res.message));
+            })
 
-                    fetch('http://localhost:8080/cadastrarPublicacao.php', {
-                        method: 'post',
-                        body: formData
-                    })
-                        .then(res => res.text())
-                        .then(res => console.log(res));
-
-                });
-        }
     }
 
     function clickOverlay(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
@@ -120,65 +126,89 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
         setIndicadorInputImagensEVideosAberto(false);
     }
 
+    function abrirToast(mensagem: string) {
+        setIndicadorToastAberto(true);
+        setMensagemToast(mensagem);
+    }
+
+    function fecharToast() {
+        setIndicadorToastAberto(false);
+    }
+
     return (
-        <div id="modalPublicar__overlay" ref={overlay} onClick={clickOverlay}>
-            <div id="modalPublicar">
-                <div id='modalPublicar__tituloEBtnDeFechar'>
-                    <h3 id='modalPublicar__tituloModal'>Criar publicação</h3>
-                    <button
-                        id='modalPublicar__btnFechar'
-                        className='material-symbols-outlined'
-                        onClick={fecharModal}
-                    >close</button>
-                </div>
-                <div id='modalPublicar__container'>
-                    <div id="modalPublicar__nomeEPerfilDoUsuario">
-                        <img
-                            src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()}
-                            alt="Perfil usuário"
-                            id="modalPublicar__perfilUsuario"
-                        />
-                        <p id="modalPublicar__nomeUsuario">{UsuarioService.obtemNomeCompletoDoUsuarioLogado()}</p>
+        <>
+            {
+                indicadorToastAberto ?
+                    <Toast
+                        titulo={"Erro ao criar publicação!"}
+                        texto={mensagemToast}
+                        fechaToast={fecharToast}
+                    /> : ""
+            }
+
+            <div id="modalPublicar__overlay" ref={overlay} onClick={clickOverlay}>
+                <div id="modalPublicar">
+                    <div id='modalPublicar__tituloEBtnDeFechar'>
+                        <h3 id='modalPublicar__tituloModal'>Criar publicação</h3>
+                        <button
+                            id='modalPublicar__btnFechar'
+                            className='material-symbols-outlined'
+                            onClick={fecharModal}
+                        >close</button>
                     </div>
-
-                    <div id='modalPublicar__containerInputs'>
-                        <textarea
-                            id='modalPublicar__campoTexto'
-                            className={
-                                indicadorInputImagensEVideosAberto ? "modalPublicar__campoTextoMaisBaixo" : ""
-                            }
-                            placeholder='No que você está pensando, Pedro?'
-                            onChange={aoDigitarTexto}
-                        ></textarea>
-
-                        {
-                            indicadorInputImagensEVideosAberto &&
-
-                            <SelecionarArquivos
-                                fecharInput={fecharInputImagensEVideos}
-                                setArquivosSelecionados={setArquivosSelecionados}
+                    <div id='modalPublicar__container'>
+                        <div id="modalPublicar__nomeEPerfilDoUsuario">
+                            <img
+                                src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()}
+                                alt="Perfil usuário"
+                                id="modalPublicar__perfilUsuario"
                             />
-                        }
-                    </div>
-                    <div id='modalPublicar__divAdicionarFotosEVideos'>
-                        <p>Adicionar à publicação</p>
-                        <div id='modalPublicar__divAdicionarFotosEVideos__icones'>
-                            <button onClick={abrirInputImagensEVideos}>
-                                <img src="./icones/imagemIcone.png" alt="" />
-                            </button>
-                            <button onClick={abrirInputImagensEVideos}>
-                                <img src="./icones/videoIcone.png" alt="" />
-                            </button>
+                            <p id="modalPublicar__nomeUsuario">{UsuarioService.obtemNomeCompletoDoUsuarioLogado()}</p>
                         </div>
+
+                        <div id='modalPublicar__containerInputs'>
+                            <textarea
+                                id='modalPublicar__campoTexto'
+                                className={
+                                    indicadorInputImagensEVideosAberto ? "modalPublicar__campoTextoMaisBaixo" : ""
+                                }
+                                placeholder='No que você está pensando, Pedro?'
+                                onChange={aoDigitarTexto}
+                            ></textarea>
+
+                            {
+                                indicadorInputImagensEVideosAberto &&
+
+                                <SelecionarArquivos
+                                    fecharInput={fecharInputImagensEVideos}
+                                    setArquivosSelecionados={setArquivosSelecionados}
+                                />
+                            }
+                        </div>
+                        <div id='modalPublicar__divAdicionarFotosEVideos'>
+                            <p>Adicionar à publicação</p>
+                            <div id='modalPublicar__divAdicionarFotosEVideos__icones'>
+                                <button onClick={abrirInputImagensEVideos}>
+                                    <img src="./icones/imagemIcone.png" alt="" />
+                                </button>
+                                <button onClick={abrirInputImagensEVideos}>
+                                    <img src="./icones/videoIcone.png" alt="" />
+                                </button>
+                            </div>
+                        </div>
+                        <button
+                            id='modalPublicar__btnPublicar'
+                            disabled={!permisaoParaPublicar || indicadorCadastroSendoEnviado}
+                            className={`
+                            ${!permisaoParaPublicar ? "modalPublicar__btnPublicarInativo" : ""}
+                            ${indicadorCadastroSendoEnviado ? "modalPublicar__btnPublicarCarregando" : ""}
+                        `}
+                            onClick={publicar}
+                        >Publicar</button>
                     </div>
-                    <button
-                        id='modalPublicar__btnPublicar'
-                        disabled={!permisaoParaPublicar}
-                        className={!permisaoParaPublicar ? "modalPublicar__btnPublicarInativo" : ""}
-                        onClick={publicar}
-                    >Publicar</button>
                 </div>
             </div>
-        </div>
+        </>
+
     )
 }

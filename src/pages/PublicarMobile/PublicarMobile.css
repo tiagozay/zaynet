@@ -38,6 +38,20 @@
     font-weight: 600;
     transition: 100ms;
 }
+.publicarMobile__btnPublicarCarregando{
+    background: linear-gradient(90deg, #2176FF, #649fe6, #1971ff);
+    background-size: 200% 100%;
+    animation: loading 2s linear infinite;
+    cursor: progress!important;
+}
+@keyframes loading {
+    0% {
+      background-position: 100% 0;
+    }
+    100% {
+      background-position: -100% 0;
+    }
+  }
 .publicarMobile__btnPublicarInativo{
     background-color: #444546!important;
     color: rgb(155, 155, 155)!important;

@@ -7,12 +7,18 @@ import PreviasArquivos from '../../components/SelecionarArquivos/PreviasArquivos
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import UsuarioService from '../../services/UsuarioService';
+import { PublicacaoService } from '../../services/PublicacaoService';
+import APIResponse from '../../Utils/APIResponse';
+import Toast from '../../components/Toast';
 
 export default function PublicarMobile() {
 
     const [permisaoParaPublicar, setPermisaoParaPublicar] = useState(false);
     const [indicadorAlgumTextoDigitado, setIndicadorAlgumTextoDigitado] = useState(false);
     const [indicadorAlgumaMidiaSelecionada, setIndicadorAlgumaMidiaSelecionada] = useState(false);
+    const [indicadorCadastroSendoEnviado, setIndicadorCadastroSendoEnviado] = useState(false);
+    const [indicadorToastAberto, setIndicadorToastAberto] = useState(false);
+    const [mensagemToast, setMensagemToast] = useState("");
 
     const [indicadorInputImagensEVideosAberto, setIndicadorInputImagensEVideosAberto] = useState(false);
 
@@ -24,7 +30,7 @@ export default function PublicarMobile() {
     const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
 
     useEffect(() => {
-        if(!isMobile){
+        if (!isMobile) {
             navigate(-1);
         }
     }, [isMobile]);
@@ -71,60 +77,102 @@ export default function PublicarMobile() {
         setIndicadorInputImagensEVideosAberto(false);
     }
 
+    function abrirToast(mensagem: string) {
+        setIndicadorToastAberto(true);
+        setMensagemToast(mensagem);
+    }
+
+    function fecharToast() {
+        setIndicadorToastAberto(false);
+    }
+
+    async function publicar() {
+
+        setIndicadorCadastroSendoEnviado(true);
+
+        PublicacaoService.publicar(textoDigitado, arquivosSelecionados)
+            .then(() => {
+                setIndicadorCadastroSendoEnviado(false);
+                navigate("/");
+            })
+            .catch(e => {
+                setIndicadorCadastroSendoEnviado(false);
+
+                e.json()
+                    .then((res: APIResponse) => abrirToast(res.message));
+            })
+
+    }
+
     return (
-        <div id="publicarMobile__page">
-            <div id="publicarMobile__cabecalho">
-                <div id="publicarMobile__cabecalho__container">
+        <>
+            {
+                indicadorToastAberto ?
+                    <Toast
+                        titulo={"Erro ao criar publicação!"}
+                        texto={mensagemToast}
+                        fechaToast={fecharToast}
+                    /> : ""
+            }
+            <div id="publicarMobile__page">
+                <div id="publicarMobile__cabecalho">
+                    <div id="publicarMobile__cabecalho__container">
+                        <button
+                            onClick={aoClicarEmVoltar}
+                            className='material-symbols-outlined'
+                            id='publicarMobile__btnVoltar'
+                        >arrow_back</button>
+                        <h3 id="publicarMobile__titulo">Criar publicação</h3>
+                    </div>
                     <button
-                        onClick={aoClicarEmVoltar}
-                        className='material-symbols-outlined'
-                        id='publicarMobile__btnVoltar'
-                    >arrow_back</button>
-                    <h3 id="publicarMobile__titulo">Criar publicação</h3>
-                </div>
-                <button
-                    id="publicarMobile__btnPublicar"
-                    disabled={!permisaoParaPublicar}
-                    className={!permisaoParaPublicar ? "publicarMobile__btnPublicarInativo" : ""}
-                >PUBLICAR</button>
-            </div>
-
-            <div id="publicarMobile__container">
-                <div id="publicarMobile__divPerfilENomeUsuario">
-                    <img
-                        src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()}
-                        alt="Perfil usuário"
-                        id="publicarMobile__divPerfilENomeUsuario__perfil"
-                    />
-                    <p
-                        id="publicarMobile__divPerfilENomeUsuario__nome"
-                    >Pedro souza</p>
+                        id="publicarMobile__btnPublicar"
+                        disabled={!permisaoParaPublicar || indicadorCadastroSendoEnviado}
+                        className={`
+                        ${!permisaoParaPublicar ? "publicarMobile__btnPublicarInativo" : ""}
+                        ${indicadorCadastroSendoEnviado ? "publicarMobile__btnPublicarCarregando" : ""}
+                    `}
+                        onClick={publicar}
+                    >PUBLICAR</button>
                 </div>
 
-                <textarea
-                    id="publicarMobile__campoTexto"
-                    placeholder='No que você está pensando, Pedro?'
-                    onChange={aoDigitarTexto}
-                >
+                <div id="publicarMobile__container">
+                    <div id="publicarMobile__divPerfilENomeUsuario">
+                        <img
+                            src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()}
+                            alt="Perfil usuário"
+                            id="publicarMobile__divPerfilENomeUsuario__perfil"
+                        />
+                        <p
+                            id="publicarMobile__divPerfilENomeUsuario__nome"
+                        >Pedro souza</p>
+                    </div>
 
-                </textarea>
+                    <textarea
+                        id="publicarMobile__campoTexto"
+                        placeholder='No que você está pensando, Pedro?'
+                        onChange={aoDigitarTexto}
+                    >
 
-                {
-                    indicadorInputImagensEVideosAberto &&
-                    <SelecionarArquivos 
-                        fecharInput={fecharInputImagensEVideos}
-                        setArquivosSelecionados={setArquivosSelecionados}
-                    />
-                }
+                    </textarea>
+
+                    {
+                        indicadorInputImagensEVideosAberto &&
+                        <SelecionarArquivos
+                            fecharInput={fecharInputImagensEVideos}
+                            setArquivosSelecionados={setArquivosSelecionados}
+                        />
+                    }
+
+                </div>
+
+                <div id="publicarMobile__divIconeFotoOuVideo" className={indicadorInputImagensEVideosAberto ? 'displayNone' : ""}>
+                    <button onClick={abrirInputImagensEVideos}>
+                        <img src="./icones/imagemIcone.png" alt="" />
+                    </button>
+                </div>
 
             </div>
+        </>
 
-            <div id="publicarMobile__divIconeFotoOuVideo" className={indicadorInputImagensEVideosAberto ? 'displayNone' : ""}>
-                <button onClick={abrirInputImagensEVideos}>
-                    <img src="./icones/imagemIcone.png" alt="" />
-                </button>
-            </div>
-
-        </div>
     )
 }
