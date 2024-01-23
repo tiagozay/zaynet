@@ -1,9 +1,9 @@
 export class ArquivoSelecionadoComSuaMiniatura {
-    public arquivoSelecionado: File;
-    public miniaturaDoArquivo: File;
+    public arquivoOriginal: File;
+    public miniatura: File;
 
-    public constructor(arquivoSelecionado: File, miniaturaDoArquivo: File) {
-        this.arquivoSelecionado = arquivoSelecionado;
-        this.miniaturaDoArquivo = miniaturaDoArquivo;
+    public constructor(arquivoOriginal: File, miniatura: File) {
+        this.arquivoOriginal = arquivoOriginal;
+        this.miniatura = miniatura;
     }
 }

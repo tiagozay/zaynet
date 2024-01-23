@@ -1,3 +1,4 @@
+import { ArquivoBase64ComSuaMiniatura } from "../models/ArquivoBase64ComSuaMiniatura";
 import { ArquivoSelecionadoComSuaMiniatura } from "../models/ArquivoSelecionadoComSuaMiniatura";
 
 export class ArquivosPublicacaoService {
@@ -9,14 +10,42 @@ export class ArquivosPublicacaoService {
         })
     }
 
+    public static transformaArquivosProcessadosEmBase64(arquivos: ArquivoSelecionadoComSuaMiniatura[]) 
+    {
+
+        const base64Promises = arquivos.map(
+            arquivoProcessado => ArquivosPublicacaoService.transformaArquivoProcessadoEmBase64(arquivoProcessado)
+        )
+
+        return Promise.all(base64Promises);
+    }
+
+    public static transformaArquivoProcessadoEmBase64(arquivo: ArquivoSelecionadoComSuaMiniatura) 
+    {
+
+        const promiseArquivoOriginal = ArquivosPublicacaoService.transformaFileEmBase64(
+            arquivo.arquivoOriginal
+        );
+        const promiseMiniatura = ArquivosPublicacaoService.transformaFileEmBase64(
+            arquivo.miniatura
+        );
+
+        return Promise.all([promiseArquivoOriginal, promiseMiniatura])
+            .then( arquivosBase64 => {
+                return new ArquivoBase64ComSuaMiniatura(
+                    arquivosBase64[0],
+                    arquivosBase64[1],
+                );
+            } )
+    }
+
     public static transformaFileListEmBase64(arquivos: FileList) {
         const base64Promises = Array.from(arquivos).map(arquivo => this.transformaFileEmBase64(arquivo));
 
         return Promise.all(base64Promises);
     }
 
-    public static transformaFileEmBase64(arquivo: File)
-    {
+    public static transformaFileEmBase64(arquivo: File) {
         return this.readAsDataURL(arquivo);
     }
 
@@ -67,7 +96,10 @@ export class ArquivosPublicacaoService {
     }
 
 
-    public static processaImagensEVideosRecebidosDoUsuario(arquivosSelecionados: FileList, tamanhoDaMiniatura = 200): Promise<ArquivoSelecionadoComSuaMiniatura[]> {
+    public static processaImagensEVideosRecebidosDoUsuario(
+        arquivosSelecionados: FileList,
+        tamanhoDaMiniatura = 200
+    ): Promise<ArquivoSelecionadoComSuaMiniatura[]> {
         const listaDeArquivosComSuasMiniaturasPromises = Array.from(arquivosSelecionados).map(arquivo => {
             const tipoArquivo = ArquivosPublicacaoService.identificaSeArquivoEImagemOuVideo(arquivo) as "Imagem" | "Vídeo";
 
@@ -96,38 +128,6 @@ export class ArquivosPublicacaoService {
 
         return Promise.all(listaDeArquivosComSuasMiniaturasPromises)
     }
-
-    public static geraFormDataParaEnvioDeArquivosParaOServidor(arquivosProcessados: ArquivoSelecionadoComSuaMiniatura[]): FormData {
-        const formData = new FormData();
-
-        arquivosProcessados.forEach(arquivo => {
-
-            const novoNomeArquivo = ArquivosPublicacaoService.geraStringUnica();
-
-            const extensaoArquivo = ArquivosPublicacaoService.obtemExtensaoArquivoAPartirDoNome(
-                arquivo.arquivoSelecionado.name
-            );
-            const extensaoMiniatura = ArquivosPublicacaoService.obtemExtensaoArquivoAPartirDoNome(
-                arquivo.miniaturaDoArquivo.name
-            );
-
-            formData.append(
-                'arquivos[]',
-                arquivo.arquivoSelecionado,
-                `${novoNomeArquivo}.${extensaoArquivo}`
-            );
-
-            formData.append(
-                'arquivos[]',
-                arquivo.miniaturaDoArquivo,
-                `${novoNomeArquivo}_miniatura.${extensaoMiniatura}`
-            );
-
-        });
-
-        return formData;
-    }
-
 
     public static geraMiniaturasDeImagens(imagens: File[]) {
         const diminuirTamanhoDasImagensPromises = Array.from(imagens)
