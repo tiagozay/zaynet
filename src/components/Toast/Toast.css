@@ -12,6 +12,7 @@
     background-color: #bf0303;
     margin-bottom: 10px;
     border-radius: 5px;
+    max-width: 40%;
 }
 #toast__divIconeETitulo{
     display: flex;
@@ -31,4 +32,9 @@
     font-size: 14px;
     margin-top: 3px;
 
+}
+@media(max-width: 680px){
+    #toast{
+        max-width: 80%;
+    }
 }
