@@ -32,7 +32,7 @@ class Publicacao
     #[Column(nullable: true, type: 'text', length: 65535)]
     private ?string $texto;
 
-    #[OneToMany(mappedBy: 'publicacao', targetEntity: MidiaPublicacao::class)]
+    #[OneToMany(mappedBy: 'publicacao', targetEntity: MidiaPublicacao::class, cascade:['persist', 'remove'])]
     private Collection $midiasPublicacao;
 
     #[OneToMany(mappedBy: 'publicacao', targetEntity: ComentarioPublicacao::class)]
@@ -60,8 +60,6 @@ class Publicacao
 
         $this->autor = $autor;
         
-        $autor->adicionaPublicacao($this);
-
         $this->texto = $texto;
         $this->comentarios = new ArrayCollection();
         $this->curtidas = new ArrayCollection();
@@ -87,10 +85,14 @@ class Publicacao
                     $nomeMiniatura
                 );   
 
+                $this->midiasPublicacao = new ArrayCollection();
+
                 $this->midiasPublicacao->add($midia);
 
             }
         }
+
+        $autor->adicionaPublicacao($this);
     }
 
     /** @throws DomainException */
