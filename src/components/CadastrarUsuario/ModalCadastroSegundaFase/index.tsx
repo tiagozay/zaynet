@@ -116,7 +116,7 @@ export default function ModalCadastroSegundaFase({
                     }
 
                     onClick={clickCadastrar}
-                    disabled={!indicadorPermicaoEnviarFormulario}
+                    disabled={!indicadorPermicaoEnviarFormulario || indicadorCadastroSendoEnviado}
                 >Finalizar cadastro</button>
             </form>
         </div >
