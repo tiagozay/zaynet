@@ -27,7 +27,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "POST") 
 
         $entityManager = EntityManagerCreator::create();
 
-        $autor = $entityManager->find(Usuario::class, 19);
+        $autor = $entityManager->find(Usuario::class, $idAutor);
 
         //Se há arquivos de midia da publicação, neste momento será feito o tratamento dos dados que vem do cliente. Os arquivos virão em um formato JSON no campo 'arquivos' do POST, aí é feita a decodificação do JSON e obtem se um array de objetos, onde cada objeto possui 2 propriedades: arquivoOriginal e miniatura, ambas são a representação do arquivo em base 64. Aí para cada onjeto de arquivo, instancio 2 obejtos do tipo ArquivoPublicacao (Um para o arquivo original e outro para a miniatura), onde cada 1 terá suas propriedades de arquivo, como tamanho, tipo, e o código base64, e aí com esses 2 crio um objeto do tipo ArquivoPublicacaoOriginalEMiniatura passando os dois novos criados para ela, assim formando uma lista de ArquivoPublicacaoOriginalEMiniatura que será passada para o construtor da publicação, onde será feita a validação das regras de negócio e a persistência das mesmas.
         if ($arquivos) {
