@@ -3,10 +3,13 @@ namespace Tiagozay\BackEnd\Domain\Models;
 
 require_once __DIR__.'/../../../vendor/autoload.php';
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\OneToMany;
 use DomainException;
 use JsonSerializable;
 use Tiagozay\BackEnd\Services\ImageService;
@@ -57,6 +60,9 @@ class Usuario implements JsonSerializable
     #[Column(length: 240, nullable: true)]
     private ?string $caminhoFotoCapa;
 
+    #[OneToMany(mappedBy:'autor', targetEntity: Publicacao::class)]
+    private Collection $publicacoes;
+
     /** @throws DomainException */
     public function __construct(
         string $nome,
@@ -83,6 +89,8 @@ class Usuario implements JsonSerializable
         $this->cidadeNatal = $cidadeNatal;
         $this->cidadeAtual = $cidadeAtual;
         $this->statusDeRelacionamento = $statusDeRelacionamento;
+
+        $this->publicacoes = new ArrayCollection();
 
         if ($fotoPerfil) {
             $this->caminhoFotoPerfil = ImageService::persisteImagemEGeraNome(
@@ -197,6 +205,11 @@ class Usuario implements JsonSerializable
     public function getSenha(): string
     {
         return $this->senha;
+    }
+
+    public function adicionaPublicacao(Publicacao $publicacao)
+    {
+        $this->publicacoes->add($publicacao);
     }
 
     public function jsonSerialize(): mixed
