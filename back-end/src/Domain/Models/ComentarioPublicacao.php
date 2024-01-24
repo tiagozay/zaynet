@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping\OneToMany;
 use JsonSerializable;
 
 #[Entity()]
-class ComentarioPublicacao
+class ComentarioPublicacao implements JsonSerializable
 {
     #[Id]
     #[GeneratedValue()]
@@ -34,4 +34,15 @@ class ComentarioPublicacao
 
     #[OneToMany(mappedBy: 'comentario', targetEntity: ComentarioResposta::class)]
     private Collection $respostas;
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'id' => $this->id,
+            'autor' => $this->autor,
+            'conteudo' => $this->conteudo,
+            'curtidas' => $this->curtidas->toArray(),
+            'respostas' => $this->respostas->toArray(),
+        ];
+    }
 }

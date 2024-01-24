@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping\ManyToOne;
 use JsonSerializable;
 
 #[Entity()]
-class MidiaPublicacao 
+class MidiaPublicacao implements JsonSerializable
 {
     #[Id]
     #[GeneratedValue()]
@@ -32,6 +32,15 @@ class MidiaPublicacao
         $this->publicacao= $publicacao;
         $this->nomeArquivoOriginal = $nomeArquivoOriginal;
         $this->nomeMiniatura = $nomeMiniatura;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'id' => $this->id,
+            'nomeArquivoOriginal' => $this->nomeArquivoOriginal,
+            'nomeMiniatura' => $this->nomeMiniatura,
+        ];
     }
    
 }

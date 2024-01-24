@@ -19,7 +19,7 @@ use Tiagozay\BackEnd\Services\DataService;
 use Tiagozay\BackEnd\Services\ImageService;
 
 #[Entity()]
-class Publicacao
+class Publicacao implements JsonSerializable
 {
     #[Id]
     #[GeneratedValue()]
@@ -45,7 +45,7 @@ class Publicacao
     private int $quantidadeDeCompartilhamentos;
 
     #[Column()]
-    private DateTime $dataDePublicação;
+    private DateTime $dataDePublicacao;
 
     /** @throws DomainException */
     public function __construct(
@@ -64,7 +64,7 @@ class Publicacao
         $this->comentarios = new ArrayCollection();
         $this->curtidas = new ArrayCollection();
         $this->quantidadeDeCompartilhamentos = 0;
-        $this->dataDePublicação = DataService::geraDataAtual();
+        $this->dataDePublicacao = DataService::geraDataAtual();
 
         if ($midiasPublicacao) {
             foreach ($midiasPublicacao as $midiaPublicacao) {
@@ -126,5 +126,19 @@ class Publicacao
                 }
             }
         }
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'id' => $this->id,
+            'autor' => $this->autor,
+            'texto' => $this->texto,
+            'midiasPublicacao' => $this->midiasPublicacao->toArray(),
+            'comentarios' => $this->comentarios->toArray(),
+            'curtidas' => $this->curtidas->toArray(),
+            'quantidadeDeCompartilhamentos' => $this->quantidadeDeCompartilhamentos,
+            'dataDePublicacao' => DataService::formataDataParaString($this->dataDePublicacao)
+        ];
     }
 }

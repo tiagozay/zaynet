@@ -1,7 +1,8 @@
 <?php
+
 namespace Tiagozay\BackEnd\Domain\Models;
 
-require_once __DIR__.'/../../../vendor/autoload.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
 
 
 use Doctrine\ORM\Mapping\Column;
@@ -12,7 +13,7 @@ use Doctrine\ORM\Mapping\ManyToOne;
 use JsonSerializable;
 
 #[Entity()]
-class CurtidaComentarioPublicacao 
+class CurtidaComentarioPublicacao implements JsonSerializable
 {
     #[Id]
     #[GeneratedValue()]
@@ -22,7 +23,14 @@ class CurtidaComentarioPublicacao
     #[ManyToOne(Usuario::class)]
     private Usuario $autor;
 
-    #[ManyToOne(ComentarioPublicacao::class, inversedBy:'curtidas')]
+    #[ManyToOne(ComentarioPublicacao::class, inversedBy: 'curtidas')]
     private ComentarioPublicacao $comentario;
-   
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'id' => $this->id,
+            'autor' => $this->autor
+        ];
+    }
 }
