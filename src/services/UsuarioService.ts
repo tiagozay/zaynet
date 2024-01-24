@@ -67,11 +67,10 @@ export default abstract class UsuarioService {
         const nomeMiniaturaFotoPerfil = usuario.caminhoMiniaturaFotoPerfil;
 
         if(nomeMiniaturaFotoPerfil){
-            return `http://localhost:8080/imagensDinamicas/perfisUsuarios/Miniatura/${nomeMiniaturaFotoPerfil}`;
+            return `${process.env.REACT_APP_CAMINHO_IMAGEM_PERFIL_MINIATURA}${nomeMiniaturaFotoPerfil}`;
         }else{
-            return `http://localhost:8080/imagensDinamicas/perfisUsuarios/imagemSemPerfil.png`;
+            return `${process.env.REACT_APP_CAMINHO_IMAGEM_SEM_PERFIL}`;
         }
-
     
     }
 }
