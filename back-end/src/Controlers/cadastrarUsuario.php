@@ -10,15 +10,15 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 //Verificação realizada para que o código não seja executado em outros momentos (como quando rodar a CLI do doctrine), aí rodará somente quando for uma requisição HTTP com o método POST
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "POST") {
-    $nome = $_POST['nome'];
-    $sobrenome = $_POST['sobrenome'];
-    $email = $_POST['email'];
-    $senha = $_POST['senha'];
-    $dataDeNascimento = $_POST['dataDeNascimento'];
-    $genero = $_POST['genero'];
-    $cidadeNatal = $_POST['cidadeNatal'];
-    $cidadeAtual = $_POST['cidadeAtual'];
-    $statusDeRelacionamento = $_POST['statusDeRelacionamento'];
+    $nome = isset($_POST['nome']) ? $_POST['nome'] : null;
+    $sobrenome = isset($_POST['sobrenome']) ? $_POST['sobrenome'] : null;
+    $email = isset($_POST['email']) ? $_POST['email'] : null;
+    $senha = isset($_POST['senha']) ? $_POST['senha'] : null;
+    $dataDeNascimento = isset($_POST['dataDeNascimento']) ? $_POST['dataDeNascimento'] : null;
+    $genero = isset($_POST['genero']) ? $_POST['genero'] : null;
+    $cidadeNatal = isset($_POST['cidadeNatal']) ? $_POST['cidadeNatal'] : null;
+    $cidadeAtual = isset($_POST['cidadeAtual']) ? $_POST['cidadeAtual'] : null;
+    $statusDeRelacionamento = isset($_POST['statusDeRelacionamento']) ? $_POST['statusDeRelacionamento'] : null;
     $fotoDoPerfil = isset($_FILES['fotoDoPerfil']) ? $_FILES['fotoDoPerfil'] : null;
     $miniaturaFotoDoPerfil = isset($_FILES['miniaturaFotoDoPerfil']) ? $_FILES['miniaturaFotoDoPerfil'] : null;
     $fotoDaCapa = isset($_FILES['fotoDaCapa']) ? $_FILES['fotoDaCapa'] : null;
