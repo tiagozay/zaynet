@@ -15,27 +15,27 @@ export default function EditarPublicacaoMobile() {
     const publicacao = {
         texto: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero, distinctio autem? Magnam autem quisquam voluptates eius cupiditate. Sapiente blanditiis obcaecati natus, similique, repellendus ipsum ipsam dicta eos consequatur, distinctio soluta?",
         midias: [
-            new MidiaPublicacaoModel(
+            new MidiaPublicacaoModel(null,
                 '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub1.jpg',
                 '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub1.jpg',
             ),
-            new MidiaPublicacaoModel(
+            new MidiaPublicacaoModel(null,
                 '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub2.jpg',
                 '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub2.jpg',
             ),
-            new MidiaPublicacaoModel(
+            new MidiaPublicacaoModel(null,
                 '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub3.jpg',
                 '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub3.jpg',
             ),
-            new MidiaPublicacaoModel(
+            new MidiaPublicacaoModel(null,
                 '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub4.jpg',
                 '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub4.jpg',
             ),
-            new MidiaPublicacaoModel(
+            new MidiaPublicacaoModel(null,
                 '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub5.jpg',
                 '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub5.jpg',
             ),
-            new MidiaPublicacaoModel(
+            new MidiaPublicacaoModel(null,
                 '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub6.mp4',
                 '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub6.jpg',
             ),

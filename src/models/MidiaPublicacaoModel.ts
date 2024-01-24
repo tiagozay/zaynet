@@ -1,9 +1,11 @@
 export class MidiaPublicacaoModel {
-    public caminhoMidiaNormal: string;
-    public caminhoMidiaMiniatura: string;
-  
-    constructor(caminhoMidiaNormal: string, caminhoMidiaMiniatura: string) {
-      this.caminhoMidiaNormal = caminhoMidiaNormal;
-      this.caminhoMidiaMiniatura = caminhoMidiaMiniatura;
-    }
+  public id: number | null;
+  public caminhoMidiaNormal: string;
+  public caminhoMidiaMiniatura: string;
+
+  constructor(id: number | null, caminhoMidiaNormal: string, caminhoMidiaMiniatura: string) {
+    this.id = id;
+    this.caminhoMidiaNormal = caminhoMidiaNormal;
+    this.caminhoMidiaMiniatura = caminhoMidiaMiniatura;
   }
+}

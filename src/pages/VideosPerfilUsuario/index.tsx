@@ -8,27 +8,27 @@ export default function VideosPerfilUsuario() {
   const navigate = useNavigate();
 
   const fotosUsuario = [
-    new MidiaPublicacaoModel(
+    new MidiaPublicacaoModel(null,
       '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub1.jpg',
       '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub1.jpg',
     ),
-    new MidiaPublicacaoModel(
+    new MidiaPublicacaoModel(null,
       '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub2.jpg',
       '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub2.jpg',
     ),
-    new MidiaPublicacaoModel(
+    new MidiaPublicacaoModel(null,
       '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub3.jpg',
       '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub3.jpg',
     ),
-    new MidiaPublicacaoModel(
+    new MidiaPublicacaoModel(null,
       '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub4.jpg',
       '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub4.jpg',
     ),
-    new MidiaPublicacaoModel(
+    new MidiaPublicacaoModel(null,
       '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub5.jpg',
       '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub5.jpg',
     ),
-    new MidiaPublicacaoModel(
+    new MidiaPublicacaoModel(null,
       '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub6.mp4',
       '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub6.jpg',
     )
