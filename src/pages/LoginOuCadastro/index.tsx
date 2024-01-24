@@ -109,6 +109,8 @@ export default function LoginOuCadastro() {
                     .then((res: APIResponse) => {
                         if (res.domainError) {
                             setMensagemDeErro(res.message);
+                        }else{
+                            setMensagemDeErro("Erro inesperado ao realizar login");
                         }
                     });
             });
