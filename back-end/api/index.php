@@ -22,6 +22,12 @@ $caminho = str_replace('back-end/', "", $caminho);
 
 switch ($method) {
     case 'GET':
+        switch ($caminho) {
+            case 'api/publicacoes':
+                require_once '../src/Controlers/buscaPublicacoes.php';
+                break;
+        }
+
         break;
     case 'POST':
 
