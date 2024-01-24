@@ -84,4 +84,54 @@ export abstract class APIService
         
     }
 
+    public static get(rota: string) 
+    {
+        const headers = {
+            'Authorization': `Bearer ${LoginService.buscaTokenArmazenado()}`
+        };
+
+        let resSemConverter: Response | null = null;
+
+        return fetch(
+            `${this.url}${rota}`,
+            {
+                method: 'get',
+                headers: headers
+            }
+        )   
+        .then( res => res.ok ? res : Promise.reject(res))
+        .then( res => {
+            resSemConverter = res;
+            return res.json() 
+        })
+        .then( res => {
+
+            const resObj = res as APIResponse;
+
+            if(resObj.success){
+                return resObj;
+            }else{
+                return Promise.reject(resSemConverter);
+            }
+        });
+    }
+
+    public static getTeste(rota: string) 
+    {
+        const headers = {
+            'Authorization': `Bearer ${LoginService.buscaTokenArmazenado()}`
+        };
+
+        return fetch(
+            `${this.url}${rota}`,
+            {
+                method: 'get',
+                headers: headers
+            }
+        )   
+        .then( res => res.text())
+        .then( res => console.log(res) );
+
+    }
+
 }
