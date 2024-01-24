@@ -1,6 +1,6 @@
 import React from 'react';
 import './MidiaEditarPublicacao.css';
-import { MidiaPublicacaoModel } from '../../models/MidiaPublicacaoModel';
+import { MidiaPublicacaoModel } from '../../models/Publicacao/MidiaPublicacaoModel';
 import { ArquivosPublicacaoService } from '../../services/ArquivosPublicacaoService';
 
 interface MidiaEditarPublicacaoProps {

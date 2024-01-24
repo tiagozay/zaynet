@@ -1,7 +1,7 @@
 import React from 'react';
 import './FotosUsuario.css';
 import { useNavigate } from 'react-router-dom';
-import { MidiaPublicacaoModel } from '../../models/MidiaPublicacaoModel';
+import { MidiaPublicacaoModel } from '../../models/Publicacao/MidiaPublicacaoModel';
 
 export default function FotosUsuario() {
 

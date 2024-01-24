@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import './CarrosselDeImagens.css';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { MidiaPublicacaoModel } from '../../models/MidiaPublicacaoModel';
+import { MidiaPublicacaoModel } from '../../models/Publicacao/MidiaPublicacaoModel';
 import { ArquivosPublicacaoService } from '../../services/ArquivosPublicacaoService';
 
 export default function CarrosselDeImagens() {

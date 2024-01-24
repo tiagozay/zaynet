@@ -1,6 +1,6 @@
 import React from 'react'
 import './VideosPerfilUsuario.css';
-import { MidiaPublicacaoModel } from '../../models/MidiaPublicacaoModel';
+import { MidiaPublicacaoModel } from '../../models/Publicacao/MidiaPublicacaoModel';
 import { useNavigate } from 'react-router-dom';
 
 export default function VideosPerfilUsuario() {

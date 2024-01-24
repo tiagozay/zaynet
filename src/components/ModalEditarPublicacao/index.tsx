@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './ModalEditarPublicacao.css';
 import SelecionarArquivos from '../SelecionarArquivos';
-import { MidiaPublicacaoModel } from '../../models/MidiaPublicacaoModel';
+import { MidiaPublicacaoModel } from '../../models/Publicacao/MidiaPublicacaoModel';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import ModalDeConfirmacao from '../ModalDeConfirmacao';

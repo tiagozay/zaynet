@@ -4,7 +4,7 @@ import UltimaImagemComSobreposicao from './UltimaImagemComSobreposicao';
 import Comentarios from './Comentarios';
 import InteracoesComAPublicacao from './InteracoesComAPublicacao';
 import { useNavigate } from 'react-router-dom';
-import { MidiaPublicacaoModel } from '../../models/MidiaPublicacaoModel';
+import { MidiaPublicacaoModel } from '../../models/Publicacao/MidiaPublicacaoModel';
 import { ArquivosPublicacaoService } from '../../services/ArquivosPublicacaoService';
 import ModalEditarPublicacao from '../ModalEditarPublicacao';
 import { useMediaQuery } from 'react-responsive';
