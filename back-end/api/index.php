@@ -17,6 +17,9 @@ $caminho = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 $caminho = ltrim($caminho, '/');
 
+//Alteração feita para rodar em produção, pois lá o caminho chega completo, com o back-end no início
+$caminho = str_replace('back-end/', "", $caminho);
+
 switch ($method) {
     case 'GET':
         break;
