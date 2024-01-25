@@ -8,10 +8,14 @@ import { useNavigate } from 'react-router-dom';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import PublicacaoCompartilhada from '../../components/PublicacaoCompartilhada';
 import UsuarioService from '../../services/UsuarioService';
+import { APIService } from '../../services/APIService';
+import { PublicacaoFactory } from '../../services/PublicacaoFactory';
+import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
 
 export default function Home() {
 
   const [modalPublicarAberto, setModalPublicarAberto] = useState(false);
+  const [publicacoes, setPublicacoes] = useState<PublicacaoModel[] | null>(null);
 
   const navigate = useNavigate();
 
@@ -36,6 +40,29 @@ export default function Home() {
     }
 
   }
+
+  useEffect(() => {
+    APIService.get('publicacoes')
+      .then(res => {
+
+        if (!res.data) {
+          return;
+        }
+
+        const objetosPublicacoes = res.data;
+
+        const publicacoesMapeadas = objetosPublicacoes.map((objetoPublicacao: any) => {
+
+          return PublicacaoFactory.create(objetoPublicacao);
+
+        });
+
+        setPublicacoes(publicacoesMapeadas);
+
+      });
+  }, [])
+
+
 
   return (
     <>
@@ -73,9 +100,12 @@ export default function Home() {
           </button>
         </div>
 
-        <Publicacao />
-        <Publicacao />
-        <PublicacaoCompartilhada />
+        {
+          publicacoes ?
+            publicacoes.map(publicacao => <Publicacao publicacao={publicacao} />) : ""
+        }
+
+        {/* <PublicacaoCompartilhada /> */}
       </section>
     </>
   )
