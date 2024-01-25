@@ -21,7 +21,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "GET") {
 
         $publicacaoRepository = $entityManager->getRepository(Publicacao::class);
 
-        $publicacoes = $publicacaoRepository->findAll();
+        $publicacoes = $publicacaoRepository->findBy([], orderBy: ['dataDePublicacao' => 'DESC']);
 
         http_response_code(200);
 
