@@ -64,7 +64,7 @@ export default abstract class UsuarioService {
     public static obtemMiniaturaPerfilDoUsuarioLogado() {
         const usuario = LoginService.buscaUsuarioLogado();
 
-        const nomeMiniaturaFotoPerfil = usuario.caminhoMiniaturaFotoPerfil;
+        const nomeMiniaturaFotoPerfil = usuario.nomeMiniaturaFotoPerfil;
 
         if(nomeMiniaturaFotoPerfil){
             return `${process.env.REACT_APP_CAMINHO_IMAGEM_PERFIL_MINIATURA}${nomeMiniaturaFotoPerfil}`;
