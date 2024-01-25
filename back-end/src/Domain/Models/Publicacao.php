@@ -65,6 +65,7 @@ class Publicacao implements JsonSerializable
         $this->curtidas = new ArrayCollection();
         $this->quantidadeDeCompartilhamentos = 0;
         $this->dataDePublicacao = DataService::geraDataAtual();
+        $this->midiasPublicacao = new ArrayCollection();
 
         if ($midiasPublicacao) {
             foreach ($midiasPublicacao as $midiaPublicacao) {
@@ -84,8 +85,6 @@ class Publicacao implements JsonSerializable
                     $nomeArquivoOriginal,
                     $nomeMiniatura
                 );   
-
-                $this->midiasPublicacao = new ArrayCollection();
 
                 $this->midiasPublicacao->add($midia);
 
