@@ -14,11 +14,15 @@ export default function PerfilUsuario() {
 
     const usuario = new Usuario(
         1,
-        "Pedro souza",
+        "Pedro",
+        "souza",
         852,
         false,
         false,
-        false
+        false,
+        'aa',
+        'aa',
+        'aa',
     );
 
     const isMobile = useMediaQuery({maxWidth: TAMANHO_DE_TELA_MOBILE});

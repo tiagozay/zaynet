@@ -119,7 +119,7 @@ export default function EditarPublicacaoCompartilhadaMobile() {
                     >
                     </textarea>
 
-                    <Publicacao publicacaoCompartilhada />
+                    {/* <Publicacao publicacaoCompartilhada /> */}
 
                 </div>
             </div>

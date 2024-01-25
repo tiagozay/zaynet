@@ -107,8 +107,8 @@ export default function FeedPublicacoesUsuario() {
                         Publicações
                     </h3>
 
-                    <Publicacao />
-                    <Publicacao />
+                    {/* <Publicacao />
+                    <Publicacao /> */}
                 </div>
 
 

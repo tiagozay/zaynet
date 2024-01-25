@@ -107,7 +107,7 @@ export default function PublicacaoCompartilhada() {
                 <p id='publicacaoCompartilhada__texto'>{publicacao.texto}</p>
 
                 <div id='publicacaoCompartilhada__containerPublicacao'>
-                    <Publicacao publicacaoCompartilhada={true} />
+                    {/* <Publicacao publicacaoCompartilhada={true} /> */}
                 </div>
 
 

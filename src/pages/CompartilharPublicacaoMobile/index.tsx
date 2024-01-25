@@ -64,7 +64,7 @@ export default function CompartilharPublicacaoMobile() {
                 </textarea>
 
                 <div id='compartilharPublicacaoMobile__containerPublicacao'>
-                    <Publicacao publicacaoCompartilhada />
+                    {/* <Publicacao publicacaoCompartilhada /> */}
                 </div>
 
 

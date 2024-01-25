@@ -113,7 +113,7 @@ export default function ModalCompartilharPublicacao({ modalAberto, fecharModal }
               ></textarea>
 
               <div id='modalCompartilharPublicacao__containerPublicacao'>
-                <Publicacao publicacaoCompartilhada />
+                {/* <Publicacao publicacaoCompartilhada /> */}
               </div>
 
             </div>
