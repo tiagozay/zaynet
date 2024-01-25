@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Comentario from './Comentario';
 import InputComentario from './InputComentario';
 import UsuarioService from '../../../services/UsuarioService';
+import { ComentarioPublicacao } from '../../../models/Publicacao/ComentarioPublicacao';
 
 // class ComentarioOBJ{
 //   public perfilUsuario: string;
@@ -22,26 +23,29 @@ import UsuarioService from '../../../services/UsuarioService';
 //   }
 // }
 
+interface ComentariosProps {
+  comentarios?: ComentarioPublicacao[] | null
+}
 
-export default function Comentarios() {
+export default function Comentarios({ comentarios }: ComentariosProps) {
   return (
     <div id='publicacao__areaComentarios'>
 
       <ul id='publicacao__areaComentarios__comentarios'>
 
-        <Comentario
-          perfilUsuario='./imagensDinamicas/perfil.jpg'
-          nomeUsuario='Pedro souza'
-          comentario='Que maravilha!'
-          respostas={[
-            {
-              perfilUsuario: './imagensDinamicas/perfil2.jpg',
-              nomeUsuario: 'Maria almeida',
-              comentario: 'É verdade!',
-            }
-          ]}
-        />
+        {
+          comentarios ? comentarios.map(comentario => (
+            <Comentario
+              perfilUsuario={`${process.env.REACT_APP_CAMINHO_IMAGEM_PERFIL_MINIATURA}${comentario.autor.nomeMiniaturaFotoPerfil}`}
+              nomeUsuario={`${comentario.autor.nome} ${comentario.autor.sobrenome}`}
+              comentario={comentario.texto}
+              curtidas={comentario.curtidas}
+              respostas={comentario.respotas}
+            />
+          )) : ""
+        }
 
+{/* 
         <Comentario
           perfilUsuario='./imagensDinamicas/perfil2.jpg'
           nomeUsuario='Maria almeida'
@@ -58,7 +62,7 @@ export default function Comentarios() {
               comentario: 'Sim, muito!',
             },
           ]}
-        />
+        /> */}
       </ul>
 
       <div id='publicacao__inputNovoComentario'>

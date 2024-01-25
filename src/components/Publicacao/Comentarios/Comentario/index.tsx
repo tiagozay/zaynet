@@ -2,16 +2,19 @@ import React, { useEffect, useRef, useState } from 'react';
 import './Comentario.css';
 import EstruturaDoComentario from './EstruturaDoComentario';
 import UsuarioService from '../../../../services/UsuarioService';
+import { ComentarioResposta } from '../../../../models/Publicacao/ComentarioResposta';
+import { CurtidaComentario } from '../../../../models/Publicacao/CurtidaComentario';
 
 
 interface ComentarioProps {
     perfilUsuario: string;
     nomeUsuario: string;
     comentario: string;
-    respostas?: { perfilUsuario: string, nomeUsuario: string, comentario: string }[]
+    curtidas?: CurtidaComentario[] | null; 
+    respostas?: ComentarioResposta[] | null
 }
 
-export default function Comentario({ perfilUsuario, nomeUsuario, comentario, respostas }: ComentarioProps) {
+export default function Comentario({ perfilUsuario, nomeUsuario, comentario, curtidas, respostas }: ComentarioProps) {
 
     const [indicadorInputResponderAberto, setIndicadorInputResponderAberto] = useState(false);
     const [permisaoParaEnviarResposta, setPermisaoParaEnviarResposta] = useState(false);
@@ -71,9 +74,9 @@ export default function Comentario({ perfilUsuario, nomeUsuario, comentario, res
                     respostas?.map((resposta, index) => (
                         <EstruturaDoComentario
                             key={index}
-                            comentario={resposta.comentario}
-                            nomeUsuario={resposta.nomeUsuario}
-                            perfilUsuario={resposta.perfilUsuario}
+                            comentario={resposta.texto}
+                            nomeUsuario={`${resposta.autor.nome} ${resposta.autor.sobrenome}`}
+                            perfilUsuario={`${process.env.REACT_APP_CAMINHO_IMAGEM_PERFIL_MINIATURA}${resposta.autor.nomeMiniaturaFotoPerfil}`}
                             ehUmaResposta={true}
                         />
                     ))
