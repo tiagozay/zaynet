@@ -30,7 +30,7 @@ abstract class ImageService
         $novoNome = ImageService::geraNomeParaMidiaBase64($arquivo->fileBase64);
 
         file_put_contents(
-            $diretorio.".".$novoNome,
+            $diretorio.$novoNome,
             $arquivo->fileDecodificado
         );
 
