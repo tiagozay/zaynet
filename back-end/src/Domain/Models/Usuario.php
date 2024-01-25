@@ -52,13 +52,13 @@ class Usuario implements JsonSerializable
     private string $statusDeRelacionamento;
 
     #[Column(length: 240, nullable: true)]
-    private ?string $caminhoFotoPerfil;
+    private ?string $nomeFotoPerfil;
 
     #[Column(length: 240, nullable: true)]
-    private ?string $caminhoMiniaturaFotoPerfil;
+    private ?string $nomeMiniaturaFotoPerfil;
 
     #[Column(length: 240, nullable: true)]
-    private ?string $caminhoFotoCapa;
+    private ?string $nomeFotoCapa;
 
     #[OneToMany(mappedBy:'autor', targetEntity: Publicacao::class)]
     private Collection $publicacoes;
@@ -93,30 +93,30 @@ class Usuario implements JsonSerializable
         $this->publicacoes = new ArrayCollection();
 
         if ($fotoPerfil) {
-            $this->caminhoFotoPerfil = ImageService::persisteImagemEGeraNome(
+            $this->nomeFotoPerfil = ImageService::persisteImagemEGeraNome(
                 $fotoPerfil,
                 __DIR__ . "\..\..\..\imagensDinamicas\PerfisUsuarios\TamanhoOriginal\\"
             );
         }else {
-            $this->caminhoFotoPerfil = null;
+            $this->nomeFotoPerfil = null;
         }
 
         if ($miniaturafotoPerfil) {
-            $this->caminhoMiniaturaFotoPerfil = ImageService::persisteImagemEGeraNome(
+            $this->nomeMiniaturaFotoPerfil = ImageService::persisteImagemEGeraNome(
                 $miniaturafotoPerfil,
                 __DIR__ . "\..\..\..\imagensDinamicas\PerfisUsuarios\Miniatura\\"
             );
         }else {
-            $this->caminhoMiniaturaFotoPerfil = null;
+            $this->nomeMiniaturaFotoPerfil = null;
         }
 
         if ($fotoCapa) {
-            $this->caminhoFotoCapa = ImageService::persisteImagemEGeraNome(
+            $this->nomeFotoCapa = ImageService::persisteImagemEGeraNome(
                 $fotoCapa,
                 __DIR__ . "\..\..\..\imagensDinamicas\CapasUsuarios\\"
             );
         }else {
-            $this->caminhoFotoCapa = null;
+            $this->nomeFotoCapa = null;
         }
 
     }
@@ -224,9 +224,9 @@ class Usuario implements JsonSerializable
             'cidadeNatal' => $this->cidadeNatal,
             'cidadeAtual' => $this->cidadeAtual,
             'statusDeRelacionamento' => $this->statusDeRelacionamento,
-            'caminhoFotoPerfil' => $this->caminhoFotoPerfil,
-            'caminhoMiniaturaFotoPerfil' => $this->caminhoMiniaturaFotoPerfil,
-            'caminhoFotoCapa' => $this->caminhoFotoCapa,
+            'nomeFotoPerfil' => $this->nomeFotoPerfil,
+            'nomeMiniaturaFotoPerfil' => $this->nomeMiniaturaFotoPerfil,
+            'nomeFotoCapa' => $this->nomeFotoCapa,
         ];
     }
 }

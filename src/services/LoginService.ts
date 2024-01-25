@@ -12,9 +12,9 @@ interface InforUsuarioLogado {
     cidadeNatal: string;
     cidadeAtual: string;
     statusDeRelacionamento: string;
-    caminhoFotoPerfil?: string;
-    caminhoMiniaturaFotoPerfil?: string;
-    caminhoFotoCapa?: string;
+    nomeFotoPerfil?: string;
+    nomeMiniaturaFotoPerfil?: string;
+    nomeFotoCapa?: string;
 }
 
 export abstract class LoginService {
