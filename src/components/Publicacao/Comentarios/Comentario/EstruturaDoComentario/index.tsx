@@ -28,6 +28,8 @@ export default function EstruturaDoComentario({
 
     const inputRef = useRef<HTMLInputElement | null>(null);
 
+    const [novoComentarioDigitado, setNovoComentarioDigitado] = useState("");
+
     useEffect(() => {
         document.addEventListener("keydown", (e: KeyboardEvent) => {
             if (e.key === "Escape") {
@@ -66,7 +68,12 @@ export default function EstruturaDoComentario({
                 {
                     indicadorEdicao ?
                         <div id='comentario__divInputEditarComentario'>
-                            <InputComentario ref={inputRef} value={comentario} />
+                            <InputComentario
+                                ref={inputRef}
+                                novoComentarioDigitado={novoComentarioDigitado}
+                                setNovoComentarioDigitado={setNovoComentarioDigitado}
+                                clickEnviarComentario={() => {}}
+                            />
                             <p id="editarComentario__textoCancelar">
                                 Pressione Esc para
                                 <button onClick={fecharEdicao}>cancelar</button>
@@ -92,10 +99,10 @@ export default function EstruturaDoComentario({
 
                                 {
                                     !ehUmaResposta ?
-                                    <button className='comentario__opcao' onClick={clickResponderComentario}>
-                                        Responder
-                                    </button> : 
-                                    ""
+                                        <button className='comentario__opcao' onClick={clickResponderComentario}>
+                                            Responder
+                                        </button> :
+                                        ""
                                 }
 
                                 {
