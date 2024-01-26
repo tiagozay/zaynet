@@ -179,7 +179,10 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
               <InteracoesComAPublicacao compartilharPublicacao={abrirModalCompartilharPublicacao} />
 
               <div id='publicacao__linhaDivisoria'></div>
-              <Comentarios comentarios={publicacao.comentarios}/>
+              <Comentarios
+                comentarios={publicacao.comentarios}
+                idPublicacao={publicacao.id}
+              />
             </> :
             ""
         }
