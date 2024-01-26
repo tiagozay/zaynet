@@ -3,34 +3,28 @@ namespace Tiagozay\BackEnd\Domain\Models;
 
 require_once __DIR__.'/../../../vendor/autoload.php';
 
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping\Column;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\GeneratedValue;
-use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\ManyToOne;
-use Doctrine\ORM\Mapping\OneToMany;
 use JsonSerializable;
 
 #[Entity()]
-class ComentarioResposta implements JsonSerializable
+class ComentarioResposta extends Comentario implements JsonSerializable
 {
-    #[Id]
-    #[GeneratedValue()]
-    #[Column()]
-    private ?int $id;
+    #[ManyToOne(Comentario::class, inversedBy:'respotas')]
+    private Comentario $comentarioPublicacao;
 
-    #[ManyToOne(Usuario::class)]
-    private Usuario $autor;
+    public function __construct(Usuario $autor, string $conteudo )
+    {
+        $this->autor = $autor;
+        $this->conteudo = $conteudo;
+        $this->curtidas = new ArrayCollection();
+    }
 
-    #[ManyToOne(ComentarioPublicacao::class, inversedBy:'respotas')]
-    private ComentarioPublicacao $comentarioPublicacao;
-
-    #[Column(type: 'text', length:65535)]
-    private string $conteudo;
-
-    #[OneToMany(mappedBy: 'comentario', targetEntity: CurtidaComentarioResposta::class)]
-    private Collection $curtidas;
+    public function adicionarCurtida(CurtidaComentario $curtida)
+    {
+        $this->curtidas->add($curtida);
+    }
 
     public function jsonSerialize(): mixed
     {

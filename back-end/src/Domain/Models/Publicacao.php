@@ -35,7 +35,7 @@ class Publicacao implements JsonSerializable
     #[OneToMany(mappedBy: 'publicacao', targetEntity: MidiaPublicacao::class, cascade:['persist', 'remove'])]
     private Collection $midiasPublicacao;
 
-    #[OneToMany(mappedBy: 'publicacao', targetEntity: ComentarioPublicacao::class)]
+    #[OneToMany(mappedBy: 'publicacao', targetEntity: Comentario::class)]
     private Collection $comentarios;
 
     #[OneToMany(mappedBy: 'publicacao', targetEntity: Curtida::class)]
@@ -125,6 +125,11 @@ class Publicacao implements JsonSerializable
                 }
             }
         }
+    }
+
+    public function adicionarComentario(Comentario $comentario)
+    {
+        $this->comentarios->add($comentario);
     }
 
     public function jsonSerialize(): mixed

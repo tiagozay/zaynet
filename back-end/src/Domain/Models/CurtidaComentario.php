@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping\ManyToOne;
 use JsonSerializable;
 
 #[Entity()]
-class CurtidaComentarioPublicacao implements JsonSerializable
+class CurtidaComentario implements JsonSerializable
 {
     #[Id]
     #[GeneratedValue()]
@@ -23,8 +23,13 @@ class CurtidaComentarioPublicacao implements JsonSerializable
     #[ManyToOne(Usuario::class)]
     private Usuario $autor;
 
-    #[ManyToOne(ComentarioPublicacao::class, inversedBy: 'curtidas')]
-    private ComentarioPublicacao $comentario;
+    #[ManyToOne(Comentario::class, inversedBy: 'curtidas')]
+    private Comentario $comentario;
+
+    public function __construct(Usuario $autor)
+    {
+        $this->autor = $autor;
+    }
 
     public function jsonSerialize(): mixed
     {
