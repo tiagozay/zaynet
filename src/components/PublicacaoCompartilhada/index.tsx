@@ -114,7 +114,7 @@ export default function PublicacaoCompartilhada() {
                 <InteracoesComAPublicacao compartilharPublicacao={abrirModalCompartilharPublicacao} />
 
                 <div id='publicacaoCompartilhada__linhaDivisoria'></div>
-                <Comentarios />
+                {/* <Comentarios /> */}
             </div>
         </>
 
