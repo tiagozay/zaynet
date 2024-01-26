@@ -3,24 +3,25 @@ import './InputComentario.css';
 import { useState } from 'react';
 
 interface InputComentarioProps{
-    value?: string;
+    novoComentarioDigitado: string;
+    setNovoComentarioDigitado: React.Dispatch<React.SetStateAction<string>>;
+    clickEnviarComentario: () => void;
 }
 
-function InputComentario({value} : InputComentarioProps, ref: Ref<HTMLInputElement>) {
+function InputComentario({novoComentarioDigitado, setNovoComentarioDigitado, clickEnviarComentario} : InputComentarioProps, ref: Ref<HTMLInputElement>) {
     const [indicadorBtnEnviarComentarioAtivo, setIndicadorBtnEnviarComentarioAtivo] = useState(false);
-    const [comentarioDigitado, setComentarioDigitado] = useState(!value ? "" : value);
 
     function aoDigitarComentario(event: React.ChangeEvent<HTMLInputElement>) {
-        setComentarioDigitado(event.target.value);
+        setNovoComentarioDigitado(event.target.value);
     }
 
     useEffect(() => {
-        if (comentarioDigitado.trim().length > 0) {
+        if (novoComentarioDigitado.trim().length > 0) {
             setIndicadorBtnEnviarComentarioAtivo(true);
         } else {
             setIndicadorBtnEnviarComentarioAtivo(false);
         }
-    }, [comentarioDigitado]);
+    }, [novoComentarioDigitado]);
 
     return (
         <div id='inputComentario__divInput'>
@@ -28,7 +29,7 @@ function InputComentario({value} : InputComentarioProps, ref: Ref<HTMLInputEleme
                 type="text" 
                 placeholder='Escreva um  comentário...'
                 id='inputComentario__input'
-                value={comentarioDigitado}
+                value={novoComentarioDigitado}
                 onChange={aoDigitarComentario}
                 ref={ref}
             />
@@ -36,6 +37,7 @@ function InputComentario({value} : InputComentarioProps, ref: Ref<HTMLInputEleme
                 className={`material-symbols-outlined ${!indicadorBtnEnviarComentarioAtivo && 'btnComentarInativo'}`}
                 disabled={!indicadorBtnEnviarComentarioAtivo}
                 id='inputComentario__btnEnviarComentario'
+                onClick={() => clickEnviarComentario()}
             >send</button>
         </div>
     );
