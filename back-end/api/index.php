@@ -44,7 +44,7 @@ switch ($method) {
             case 'api/publicacoes':
                 require_once '../src/Controlers/cadastraPublicacao.php';
                 break;
-            case 'api/publicacoes/comentarios':
+            case 'api/comentarios':
                 require_once '../src/Controlers/comentarEmPublicacao.php';
                 break;
             default:
