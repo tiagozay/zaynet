@@ -5,37 +5,38 @@ import Comentario from './Comentario';
 import InputComentario from './InputComentario';
 import UsuarioService from '../../../services/UsuarioService';
 import { ComentarioPublicacao } from '../../../models/Publicacao/ComentarioPublicacao';
-
-// class ComentarioOBJ{
-//   public perfilUsuario: string;
-//   public nomeUsuario: string;
-//   public comentario: string;
-
-//   constructor(
-//     perfilUsuario: string,
-//     nomeUsuario: string,
-//     comentario: string,
-//   )
-//   {
-//     this.perfilUsuario = perfilUsuario;
-//     this.nomeUsuario = nomeUsuario;
-//     this.comentario = comentario;
-//   }
-// }
+import { APIService } from '../../../services/APIService';
 
 interface ComentariosProps {
-  comentarios?: ComentarioPublicacao[] | null
+  comentarios?: ComentarioPublicacao[] | null,
+  idPublicacao: number,
 }
 
-export default function Comentarios({ comentarios }: ComentariosProps) {
+export default function Comentarios({ comentarios, idPublicacao }: ComentariosProps) {
+
+  const [novoComentarioDigitado, setNovoComentarioDigitado] = useState("");
+
+  function enviarNovoComentario() {
+    APIService.post(
+      'publicacoes/comentarios',
+      {
+        idPublicacao,
+        conteudo: novoComentarioDigitado
+      }
+    )
+      .then(res => {
+        setNovoComentarioDigitado("");
+      });
+  }
+
   return (
     <div id='publicacao__areaComentarios'>
 
       <ul id='publicacao__areaComentarios__comentarios'>
-
         {
           comentarios ? comentarios.map(comentario => (
             <Comentario
+              key={comentario.id}
               perfilUsuario={`${process.env.REACT_APP_CAMINHO_IMAGEM_PERFIL_MINIATURA}${comentario.autor.nomeMiniaturaFotoPerfil}`}
               nomeUsuario={`${comentario.autor.nome} ${comentario.autor.sobrenome}`}
               comentario={comentario.texto}
@@ -44,30 +45,15 @@ export default function Comentarios({ comentarios }: ComentariosProps) {
             />
           )) : ""
         }
-
-{/* 
-        <Comentario
-          perfilUsuario='./imagensDinamicas/perfil2.jpg'
-          nomeUsuario='Maria almeida'
-          comentario='Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem voluptatum, nulla voluptatibus numquam vel nam, fuga quas pariatur architecto aperiam, ipsam minus asperiores aspernatur sit. Facere soluta modi libero eaque?'
-          respostas={[
-            {
-              perfilUsuario: './imagensDinamicas/perfil.jpg',
-              nomeUsuario: 'Pedro souza',
-              comentario: 'Que lagal!',
-            },
-            {
-              perfilUsuario: './imagensDinamicas/perfil2.jpg',
-              nomeUsuario: 'Maria almeida',
-              comentario: 'Sim, muito!',
-            },
-          ]}
-        /> */}
       </ul>
 
       <div id='publicacao__inputNovoComentario'>
         <img src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()} alt="Perfil usuário" id='inputNovoComentario__perfil' />
-        <InputComentario />
+        <InputComentario
+          novoComentarioDigitado={novoComentarioDigitado}
+          setNovoComentarioDigitado={setNovoComentarioDigitado}
+          clickEnviarComentario={enviarNovoComentario}
+        />
       </div>
     </div>
   );

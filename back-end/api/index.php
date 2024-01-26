@@ -44,6 +44,9 @@ switch ($method) {
             case 'api/publicacoes':
                 require_once '../src/Controlers/cadastraPublicacao.php';
                 break;
+            case 'api/publicacoes/comentarios':
+                require_once '../src/Controlers/comentarEmPublicacao.php';
+                break;
             default:
                 http_response_code(404);
                 echo json_encode(['error' => 'Recusro não encontrado']);
