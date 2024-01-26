@@ -102,7 +102,7 @@ export default function Home() {
 
         {
           publicacoes ?
-            publicacoes.map(publicacao => <Publicacao publicacao={publicacao} />) : ""
+            publicacoes.map(publicacao => <Publicacao key={publicacao.id} publicacao={publicacao} />) : ""
         }
 
         {/* <PublicacaoCompartilhada /> */}
