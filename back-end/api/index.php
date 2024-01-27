@@ -22,9 +22,21 @@ $caminho = str_replace('back-end/', "", $caminho);
 
 switch ($method) {
     case 'GET':
+
+        preg_match('/^api\/publicacoes\/(?<idPublicacao>\d+)\/comentarios$/', $caminho, $matches);
+
+        if (!empty($matches['idPublicacao'])) {
+            $idPublicacao = $matches['idPublicacao'];
+            require_once '../src/Controlers/buscaComentariosDePublicacao.php';
+            exit();
+        }
         switch ($caminho) {
             case 'api/publicacoes':
                 require_once '../src/Controlers/buscaPublicacoes.php';
+                break;
+            default:
+                http_response_code(404);
+                echo json_encode(['error' => 'Recusro não encontrado']);
                 break;
         }
 
