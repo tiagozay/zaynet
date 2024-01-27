@@ -6,19 +6,35 @@ import InputComentario from './InputComentario';
 import UsuarioService from '../../../services/UsuarioService';
 import { ComentarioPublicacao } from '../../../models/Publicacao/ComentarioPublicacao';
 import { APIService } from '../../../services/APIService';
+import { PublicacaoFactory } from '../../../services/PublicacaoFactory';
 
 interface ComentariosProps {
-  comentarios?: ComentarioPublicacao[] | null,
+  comentariosPublicacao?: ComentarioPublicacao[] | null,
   idPublicacao: number,
 }
 
-export default function Comentarios({ comentarios, idPublicacao }: ComentariosProps) {
+export default function Comentarios({ comentariosPublicacao, idPublicacao }: ComentariosProps) {
 
   const [novoComentarioDigitado, setNovoComentarioDigitado] = useState("");
 
+  const [comentarios, setComentarios] = useState(comentariosPublicacao);
+
+  function buscaComentariosDaPublicacao() {
+    APIService.get(`publicacoes/${idPublicacao}/comentarios`)
+    .then( res => {
+
+      const comentarios = res.data?.map((objetoComentario: any) => {
+        return PublicacaoFactory.createComentarioPublicacao(objetoComentario);
+      });
+
+      setComentarios(comentarios);
+    });
+
+  }
+
   function enviarNovoComentario() {
     APIService.post(
-      'publicacoes/comentarios',
+      'comentarios',
       {
         idPublicacao,
         conteudo: novoComentarioDigitado
@@ -26,6 +42,7 @@ export default function Comentarios({ comentarios, idPublicacao }: ComentariosPr
     )
       .then(res => {
         setNovoComentarioDigitado("");
+        buscaComentariosDaPublicacao();
       });
   }
 

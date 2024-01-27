@@ -180,7 +180,7 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
 
               <div id='publicacao__linhaDivisoria'></div>
               <Comentarios
-                comentarios={publicacao.comentarios}
+                comentariosPublicacao={publicacao.comentarios}
                 idPublicacao={publicacao.id}
               />
             </> :

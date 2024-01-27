@@ -60,7 +60,7 @@ export abstract class PublicacaoFactory {
         );
     }
 
-    private static createComentarioPublicacao(objetoComentarioPublicacao: any): ComentarioPublicacao {
+    public static createComentarioPublicacao(objetoComentarioPublicacao: any): ComentarioPublicacao {
 
         const autor = PublicacaoFactory.createAutor(objetoComentarioPublicacao.autor);
 
