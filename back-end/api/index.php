@@ -69,6 +69,15 @@ switch ($method) {
     case 'PUT':
         break;
     case 'DELETE':
+
+        preg_match('/^api\/comentarios\/(?<idComentario>\d+)$/', $caminho, $matches);
+
+        if (!empty($matches['idComentario'])) {
+            $idComentario = $matches['idComentario'];
+            require_once '../src/Controlers/excluirComentario.php';
+            exit();
+        }
+
         break;
     default:
         http_response_code(405);
