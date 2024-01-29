@@ -70,6 +70,8 @@ export abstract class PublicacaoFactory {
 
         return new ComentarioPublicacao(
             objetoComentarioPublicacao.id,
+            objetoComentarioPublicacao.idPublicacao,
+            objetoComentarioPublicacao.idAutorPublicacao,
             autor,
             objetoComentarioPublicacao.conteudo,
             curtidasComentario,
@@ -95,6 +97,8 @@ export abstract class PublicacaoFactory {
 
         return new ComentarioResposta(
             objetoRespostaComentario.id,
+            objetoRespostaComentario.idPublicacao,
+            objetoRespostaComentario.idAutorPublicacao,
             autor,
             objetoRespostaComentario.conteudo,
             curtidasResposta
