@@ -36,7 +36,7 @@ class Comentario implements JsonSerializable
     #[Column(type: 'text', length:65535)]
     protected string $conteudo;
 
-    #[OneToMany(mappedBy:'comentario', targetEntity: CurtidaComentario::class)]
+    #[OneToMany(mappedBy:'comentario', targetEntity: CurtidaComentario::class, cascade: ['persist', 'remove'])]
     protected Collection $curtidas;
 
     #[OneToMany(mappedBy: 'comentarioPublicacao', targetEntity: ComentarioResposta::class)]
