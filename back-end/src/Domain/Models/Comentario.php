@@ -61,11 +61,23 @@ class Comentario implements JsonSerializable
         $this->respostas->add($resposta);
     }
 
+    public function getAutor(): Usuario
+    {
+        return $this->autor;
+    }
+
+    public function getPublicacao(): Publicacao
+    {
+        return $this->publicacao;
+    } 
+
     public function jsonSerialize(): mixed
     {
         return [
             'id' => $this->id,
             'autor' => $this->autor,
+            'idPublicacao' => $this->publicacao->getId(),
+            'idAutorPublicacao' => $this->publicacao->getAutor()->getId(),
             'conteudo' => $this->conteudo,
             'curtidas' => $this->curtidas->toArray(),
             'respostas' => $this->respostas->toArray(),

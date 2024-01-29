@@ -132,6 +132,16 @@ class Publicacao implements JsonSerializable
         $this->comentarios->add($comentario);
     }
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getAutor(): Usuario
+    {
+        return $this->autor;
+    }
+
     public function getComentarios(): array
     {
         return $this->comentarios->toArray();
