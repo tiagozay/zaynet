@@ -2,33 +2,45 @@ import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import InputComentario from '../../InputComentario';
 import './EstruturaDoComentario.css';
+import UsuarioService from '../../../../../services/UsuarioService';
+import { ComentarioPublicacao } from '../../../../../models/Publicacao/ComentarioPublicacao';
+import ModalDeConfirmacao from '../../../../ModalDeConfirmacao';
+import { APIService } from '../../../../../services/APIService';
+import { ComentarioResposta } from '../../../../../models/Publicacao/ComentarioResposta';
 
 interface EstruturaDoComentarioProps {
-    perfilUsuario: string;
-    nomeUsuario: string;
-    comentario: string;
+    comentario: ComentarioPublicacao | ComentarioResposta;
     ehUmaResposta: boolean;
-    clickResponderComentario?: () => void
+    clickResponderComentario?: () => void,
+    atualizaComentarios: () => void
 }
 
 export default function EstruturaDoComentario({
-    perfilUsuario,
-    nomeUsuario,
     comentario,
     ehUmaResposta,
-    clickResponderComentario
+    clickResponderComentario,
+    atualizaComentarios
 }: EstruturaDoComentarioProps) {
-    //Mock que será removido quando tiver sistema de login
-    const usuarioLogado = true;
 
     const [quantidadeDeCurtidas, setQuantidadeDeCurtidas] = useState(2);
 
     const [usuarioJaCurtiuOComentario, setUsuarioJaCurtiuOComentario] = useState(false);
     const [indicadorEdicao, setIndicadorEdicao] = useState(false);
 
+    const [modalConfirmacaoExcluirComentarioAberto, setModalConfirmacaoExcluirComentarioAberto] = useState(false);
+
     const inputRef = useRef<HTMLInputElement | null>(null);
 
     const [novoComentarioDigitado, setNovoComentarioDigitado] = useState("");
+
+    const idUsuarioLogado = UsuarioService.obtemIdUsuarioLogado();
+
+    const idComentario = comentario.id;
+    const perfilUsuario = `${process.env.REACT_APP_CAMINHO_IMAGEM_PERFIL_MINIATURA}${comentario.autor.nomeMiniaturaFotoPerfil}`;
+    const idAutor = comentario.autor.id;
+    const idAutorPublicacao = comentario.idAutorPublicacao;
+    const nomeUsuario = `${comentario.autor.nome} ${comentario.autor.sobrenome}`;
+    const conteudo = comentario.texto;
 
     useEffect(() => {
         document.addEventListener("keydown", (e: KeyboardEvent) => {
@@ -37,6 +49,14 @@ export default function EstruturaDoComentario({
             }
         })
     }, []);
+
+    useEffect(() => {
+        if (modalConfirmacaoExcluirComentarioAberto) {
+            document.body.style.overflowY = 'hidden';
+        } else {
+            document.body.style.overflowY = 'scroll';
+        }
+    }, [modalConfirmacaoExcluirComentarioAberto]);
 
     function clickEmCurtir() {
         if (usuarioJaCurtiuOComentario) {
@@ -60,62 +80,92 @@ export default function EstruturaDoComentario({
         setIndicadorEdicao(false);
     }
 
+    function clickExcluirComentario() {
+        setModalConfirmacaoExcluirComentarioAberto(true);
+    }
+
+    function excluirComentario() {
+        APIService.delete(`comentarios/${idComentario}`)
+            .then(res => {
+                setModalConfirmacaoExcluirComentarioAberto(false);
+                atualizaComentarios();
+            });
+    }
 
     return (
-        <div id='comentario__container'>
-            <img src={perfilUsuario} alt="Perfil usuário" className='comentario__perfil' />
-            <div className='areaComentarios__comentario__conteudo'>
-                {
-                    indicadorEdicao ?
-                        <div id='comentario__divInputEditarComentario'>
-                            <InputComentario
-                                ref={inputRef}
-                                novoComentarioDigitado={novoComentarioDigitado}
-                                setNovoComentarioDigitado={setNovoComentarioDigitado}
-                                clickEnviarComentario={() => {}}
-                            />
-                            <p id="editarComentario__textoCancelar">
-                                Pressione Esc para
-                                <button onClick={fecharEdicao}>cancelar</button>
-                            </p>
-                        </div> :
-                        <>
-                            <div className='comenario__nomeEComentario'>
-                                <span className='comentario__nome'>{nomeUsuario}</span>
-                                <p className='comentario__conteudo'>{comentario}</p>
-                            </div>
+        <>
 
-                            <div className='comentario__opcoes'>
-                                <button className={`
+            {
+                modalConfirmacaoExcluirComentarioAberto ?
+                    <ModalDeConfirmacao
+                        titulo='Excluir comentário'
+                        mensagem='Deseja mesmo excluír este comentário?'
+                        modalAberto={modalConfirmacaoExcluirComentarioAberto}
+                        fecharModal={() => setModalConfirmacaoExcluirComentarioAberto(false)}
+                        aoConfirmar={excluirComentario}
+                    /> : ""
+            }
+            <div id='comentario__container'>
+                <img src={perfilUsuario} alt="Perfil usuário" className='comentario__perfil' />
+                <div className='areaComentarios__comentario__conteudo'>
+                    {
+                        indicadorEdicao ?
+                            <div id='comentario__divInputEditarComentario'>
+                                <InputComentario
+                                    ref={inputRef}
+                                    novoComentarioDigitado={novoComentarioDigitado}
+                                    setNovoComentarioDigitado={setNovoComentarioDigitado}
+                                    clickEnviarComentario={() => { }}
+                                />
+                                <p id="editarComentario__textoCancelar">
+                                    Pressione Esc para
+                                    <button onClick={fecharEdicao}>cancelar</button>
+                                </p>
+                            </div> :
+                            <>
+                                <div className='comenario__nomeEComentario'>
+                                    <span className='comentario__nome'>{nomeUsuario}</span>
+                                    <p className='comentario__conteudo'>{conteudo}</p>
+                                </div>
+
+                                <div className='comentario__opcoes'>
+                                    <button className={`
                             comentario__opcao 
                             ${usuarioJaCurtiuOComentario && 'btnDeCurtirJaPrecionado'}
                         `}
-                                    id='comentario__opcaoLike'
-                                    onClick={clickEmCurtir}
-                                >
-                                    Curtir
-                                    (<span id='comentario__opcaoLike__quantidade'>{quantidadeDeCurtidas}</span>)
-                                </button>
+                                        id='comentario__opcaoLike'
+                                        onClick={clickEmCurtir}
+                                    >
+                                        Curtir
+                                        (<span id='comentario__opcaoLike__quantidade'>{quantidadeDeCurtidas}</span>)
+                                    </button>
 
-                                {
-                                    !ehUmaResposta ?
-                                        <button className='comentario__opcao' onClick={clickResponderComentario}>
-                                            Responder
-                                        </button> :
-                                        ""
-                                }
+                                    {
+                                        !ehUmaResposta ?
+                                            <button className='comentario__opcao' onClick={clickResponderComentario}>
+                                                Responder
+                                            </button> :
+                                            ""
+                                    }
 
-                                {
-                                    usuarioLogado &&
-                                    <>
-                                        <button className='comentario__opcao' onClick={clickEmEditar}>Editar</button>
-                                        <button className='comentario__opcao' id='comentario__opcaoExcluir'>Excluir</button>
-                                    </>
-                                }
-                            </div>
-                        </>
-                }
+
+                                    {
+                                        idAutor === idUsuarioLogado ?
+                                            <button className='comentario__opcao' onClick={clickEmEditar}>Editar</button> : ""
+                                    }
+
+                                    {
+                                        //Só exibe o botão de excluir comentário se for o autor do comentario ou o autor da publicação
+                                        idAutor === idUsuarioLogado || idAutorPublicacao === idUsuarioLogado ?
+
+                                            <button className='comentario__opcao' id='comentario__opcaoExcluir' onClick={clickExcluirComentario}>Excluir</button> : ""
+                                    }
+                                </div>
+                            </>
+                    }
+                </div>
             </div>
-        </div>
+        </>
+
     )
 }
