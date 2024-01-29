@@ -2,19 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import './Comentario.css';
 import EstruturaDoComentario from './EstruturaDoComentario';
 import UsuarioService from '../../../../services/UsuarioService';
-import { ComentarioResposta } from '../../../../models/Publicacao/ComentarioResposta';
-import { CurtidaComentario } from '../../../../models/Publicacao/CurtidaComentario';
+import { ComentarioPublicacao } from '../../../../models/Publicacao/ComentarioPublicacao';
 
 
 interface ComentarioProps {
-    perfilUsuario: string;
-    nomeUsuario: string;
-    comentario: string;
-    curtidas?: CurtidaComentario[] | null; 
-    respostas?: ComentarioResposta[] | null
+    comentario: ComentarioPublicacao,
+    atualizaComentarios: () => void
 }
 
-export default function Comentario({ perfilUsuario, nomeUsuario, comentario, curtidas, respostas }: ComentarioProps) {
+export default function Comentario({comentario, atualizaComentarios }: ComentarioProps) {
 
     const [indicadorInputResponderAberto, setIndicadorInputResponderAberto] = useState(false);
     const [permisaoParaEnviarResposta, setPermisaoParaEnviarResposta] = useState(false);
@@ -43,45 +39,38 @@ export default function Comentario({ perfilUsuario, nomeUsuario, comentario, cur
         }
     }, [respostaDigitada]);
 
-    function clickAbrirInputResponder()
-    {
+    function clickAbrirInputResponder() {
         setIndicadorInputResponderAberto(true);
     }
 
-    function fecharInputResponder()
-    {
+    function fecharInputResponder() {
         setIndicadorInputResponderAberto(false);
     }
 
-    function aoDigitarResposta(e: React.ChangeEvent<HTMLInputElement>)
-    {
+    function aoDigitarResposta(e: React.ChangeEvent<HTMLInputElement>) {
         setRespostaDigitada(e.target.value);
-    }   
+    }
 
     return (
         <li className='publicacao__areaComentarios__comentario'>
 
             <EstruturaDoComentario
                 comentario={comentario}
-                nomeUsuario={nomeUsuario}
-                perfilUsuario={perfilUsuario}
                 ehUmaResposta={false}
                 clickResponderComentario={clickAbrirInputResponder}
+                atualizaComentarios={atualizaComentarios}
             />
 
             <ul id="comentario__listaDeRespostas">
                 {
-                    respostas?.map((resposta, index) => (
+                    comentario.respotas?.map((resposta) => (
                         <EstruturaDoComentario
-                            key={index}
-                            comentario={resposta.texto}
-                            nomeUsuario={`${resposta.autor.nome} ${resposta.autor.sobrenome}`}
-                            perfilUsuario={`${process.env.REACT_APP_CAMINHO_IMAGEM_PERFIL_MINIATURA}${resposta.autor.nomeMiniaturaFotoPerfil}`}
+                            comentario={resposta}
                             ehUmaResposta={true}
+                            atualizaComentarios={atualizaComentarios}
                         />
                     ))
                 }
-
                 {
                     indicadorInputResponderAberto ?
                         <div
@@ -100,13 +89,12 @@ export default function Comentario({ perfilUsuario, nomeUsuario, comentario, cur
                                         placeholder='Escreva uma resposta'
                                         ref={inputRef}
                                         value={respostaDigitada}
-                                        onChange={ aoDigitarResposta }
+                                        onChange={aoDigitarResposta}
                                     />
                                     <button
                                         className={`
                                             material-symbols-outlined 
-                                            ${ !permisaoParaEnviarResposta ? 'btnResponderInativo' : ''} 
-              
+                                            ${!permisaoParaEnviarResposta ? 'btnResponderInativo' : ''} 
                                         `}
                                         id='comentario__divInputResponder__btnEnviarResposta'
                                         disabled={!permisaoParaEnviarResposta}
