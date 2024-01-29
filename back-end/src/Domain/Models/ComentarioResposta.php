@@ -31,6 +31,8 @@ class ComentarioResposta extends Comentario implements JsonSerializable
         return [
             'id' => $this->id,
             'autor' => $this->autor,
+            'idPublicacao' => $this->comentarioPublicacao->getPublicacao()->getId(),
+            'idAutorPublicacao' => $this->comentarioPublicacao->getPublicacao()->getAutor()->getId(),
             'conteudo' => $this->conteudo,
             'curtidas' => $this->curtidas->toArray()
         ];
