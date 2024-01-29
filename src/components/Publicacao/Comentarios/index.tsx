@@ -21,14 +21,14 @@ export default function Comentarios({ comentariosPublicacao, idPublicacao }: Com
 
   function buscaComentariosDaPublicacao() {
     APIService.get(`publicacoes/${idPublicacao}/comentarios`)
-    .then( res => {
+      .then(res => {
 
-      const comentarios = res.data?.map((objetoComentario: any) => {
-        return PublicacaoFactory.createComentarioPublicacao(objetoComentario);
+        const comentarios = res.data?.map((objetoComentario: any) => {
+          return PublicacaoFactory.createComentarioPublicacao(objetoComentario);
+        });
+
+        setComentarios(comentarios);
       });
-
-      setComentarios(comentarios);
-    });
 
   }
 
@@ -54,11 +54,8 @@ export default function Comentarios({ comentariosPublicacao, idPublicacao }: Com
           comentarios ? comentarios.map(comentario => (
             <Comentario
               key={comentario.id}
-              perfilUsuario={`${process.env.REACT_APP_CAMINHO_IMAGEM_PERFIL_MINIATURA}${comentario.autor.nomeMiniaturaFotoPerfil}`}
-              nomeUsuario={`${comentario.autor.nome} ${comentario.autor.sobrenome}`}
-              comentario={comentario.texto}
-              curtidas={comentario.curtidas}
-              respostas={comentario.respotas}
+              comentario={comentario}
+              atualizaComentarios={buscaComentariosDaPublicacao}
             />
           )) : ""
         }
