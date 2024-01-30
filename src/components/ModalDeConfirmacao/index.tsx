@@ -25,14 +25,18 @@ export default function ModalDeConfirmacao({
 
     useEffect(() => {
 
-        let handleEscKey = (event: KeyboardEvent) => {
-            event.key === 'Escape' && fecharModal();
+        let handleKey = (event: KeyboardEvent) => {
+            if(event.key === 'Escape'){
+                fecharModal();
+            }else if(event.key === 'Enter'){
+                aoConfirmar();
+            }
         }
 
-        document.addEventListener('keydown', handleEscKey);
+        document.addEventListener('keydown', handleKey);
 
         return () => {
-            document.removeEventListener('keydown', handleEscKey);
+            document.removeEventListener('keydown', handleKey);
         };
     }, []);
 
