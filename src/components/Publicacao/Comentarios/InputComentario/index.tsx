@@ -1,14 +1,14 @@
-import React, { LegacyRef, useEffect, forwardRef, Ref } from 'react';
+import React, { LegacyRef, useEffect, forwardRef, Ref, useRef } from 'react';
 import './InputComentario.css';
 import { useState } from 'react';
 
-interface InputComentarioProps{
+interface InputComentarioProps {
     novoComentarioDigitado: string;
     setNovoComentarioDigitado: React.Dispatch<React.SetStateAction<string>>;
     clickEnviarComentario: () => void;
 }
 
-function InputComentario({novoComentarioDigitado, setNovoComentarioDigitado, clickEnviarComentario} : InputComentarioProps, ref: Ref<HTMLInputElement>) {
+function InputComentario({ novoComentarioDigitado, setNovoComentarioDigitado, clickEnviarComentario }: InputComentarioProps, ref: Ref<HTMLInputElement>) {
     const [indicadorBtnEnviarComentarioAtivo, setIndicadorBtnEnviarComentarioAtivo] = useState(false);
 
     function aoDigitarComentario(event: React.ChangeEvent<HTMLInputElement>) {
@@ -23,14 +23,21 @@ function InputComentario({novoComentarioDigitado, setNovoComentarioDigitado, cli
         }
     }, [novoComentarioDigitado]);
 
+    function aoPressionarEnter(event: React.KeyboardEvent<HTMLInputElement>) {
+        if (event.key === 'Enter' && indicadorBtnEnviarComentarioAtivo) {
+            clickEnviarComentario();
+        }
+    }
+
     return (
         <div id='inputComentario__divInput'>
             <input
-                type="text" 
+                type="text"
                 placeholder='Escreva um  comentário...'
                 id='inputComentario__input'
                 value={novoComentarioDigitado}
                 onChange={aoDigitarComentario}
+                onKeyPress={aoPressionarEnter}
                 ref={ref}
             />
             <button
