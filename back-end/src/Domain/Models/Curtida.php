@@ -24,6 +24,12 @@ class Curtida implements JsonSerializable
     #[ManyToOne(Publicacao::class, inversedBy:'curtitas')]
     private Publicacao $publicacao;
 
+    public function __construct(Publicacao $publicacao, Usuario $autor)
+    {
+        $this->publicacao = $publicacao;
+        $this->autor = $autor;
+    }
+
     public function jsonSerialize(): mixed
     {
         return [
