@@ -161,7 +161,7 @@ export default function CarrosselDeImagens() {
                 return (
                   <img
                     key={index}
-                    src={midia.caminhoMidiaNormal}
+                    src={`${process.env.REACT_APP_CAMINHO_MIDIA_PUBLICACAO}${midia.caminhoMidiaNormal}`}
                     alt="Imagem publicação"
                     id="carrosselImagens__imagem"
                     className={`${(index === indiceImagemAtual) && 'imagemExibida'}`}
@@ -174,7 +174,7 @@ export default function CarrosselDeImagens() {
                   <video
                     ref={(video: HTMLVideoElement) => (videoRefs.current[index] = video)}
                     onLoad={imagemCarregada}
-                    src={midia.caminhoMidiaNormal}
+                    src={`${process.env.REACT_APP_CAMINHO_MIDIA_PUBLICACAO}${midia.caminhoMidiaNormal}`}
                     id="carrosselImagens__imagem"
                     className={`${(index === indiceImagemAtual) && 'imagemExibida'}`
                     }
@@ -198,7 +198,7 @@ export default function CarrosselDeImagens() {
                 return (
                   <img
                     key={index}
-                    src={imagem.caminhoMidiaMiniatura ? imagem.caminhoMidiaMiniatura : ""}
+                    src={`${process.env.REACT_APP_CAMINHO_MIDIA_PUBLICACAO_MINIATURA}${imagem.caminhoMidiaMiniatura}`}
                     alt="Imagem publicação"
                     id="listaMiniaturasDasImagens__imagem"
                     className={`${(index === indiceImagemAtual) && 'listaMiniaturasDasImagens__imagemSelecionada'}`}
@@ -218,7 +218,7 @@ export default function CarrosselDeImagens() {
                       <i className='material-symbols-outlined'>play_arrow</i>
                     </div>
                     <img
-                      src={imagem.caminhoMidiaMiniatura ? imagem.caminhoMidiaMiniatura : ""}
+                      src={`${process.env.REACT_APP_CAMINHO_MIDIA_PUBLICACAO_MINIATURA}${imagem.caminhoMidiaMiniatura}`}
                       alt="Imagem publicação"
                       id="listaMiniaturasDasImagens__imagem"
                       onLoad={imagemCarregada}
