@@ -26,6 +26,10 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "POST") 
         /** @var Comentario */
         $comentario = $entityManager->find(Comentario::class, $idComentario);
 
+        if(!$comentario){
+            throw new Exception("Comentário não encontado");
+        }
+
         $autor = $entityManager->find(Usuario::class, $idAutor);
 
         $curtidaRepository = $entityManager->getRepository(CurtidaComentario::class);

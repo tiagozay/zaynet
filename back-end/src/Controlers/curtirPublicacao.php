@@ -26,6 +26,10 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "POST") 
         /** @var Publicacao */
         $publicacao = $entityManager->find(Publicacao::class, $idPublicacao);
 
+        if(!$publicacao){
+            throw new Exception("Publicação não encontada");
+        }
+
         $autor = $entityManager->find(Usuario::class, $idAutor);
 
         $curtidaRepository = $entityManager->getRepository(Curtida::class);
