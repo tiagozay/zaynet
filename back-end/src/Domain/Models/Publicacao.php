@@ -35,10 +35,10 @@ class Publicacao implements JsonSerializable
     #[OneToMany(mappedBy: 'publicacao', targetEntity: MidiaPublicacao::class, cascade:['persist', 'remove'])]
     private Collection $midiasPublicacao;
 
-    #[OneToMany(mappedBy: 'publicacao', targetEntity: Comentario::class)]
+    #[OneToMany(mappedBy: 'publicacao', targetEntity: Comentario::class, cascade:['persist', 'remove'])]
     private Collection $comentarios;
 
-    #[OneToMany(mappedBy: 'publicacao', targetEntity: Curtida::class)]
+    #[OneToMany(mappedBy: 'publicacao', targetEntity: Curtida::class, cascade:['persist', 'remove'])]
     private Collection $curtidas;
 
     #[Column()]
@@ -145,6 +145,11 @@ class Publicacao implements JsonSerializable
     public function getComentarios(): array
     {
         return $this->comentarios->toArray();
+    }
+
+    public function adicionarCurtida(Curtida $curtida)
+    {
+        $this->curtidas->add($curtida);
     }
 
     public function jsonSerialize(): mixed
