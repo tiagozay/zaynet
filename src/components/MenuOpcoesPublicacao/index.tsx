@@ -48,8 +48,20 @@ export default function MenuOpcoesPublicacao({
         }
     }
 
-    function abrirMenuOpcoesDaPublicacao() {
-        setIndicadorMenuOpcoesPublicacaoAberto(true);
+    function editarPublicacao()
+    {
+        fecharMenuOpcoesDaPublicacao();
+        clickEditarPublicacao();
+    }
+
+    function excluirPublicacao()
+    {
+        fecharMenuOpcoesDaPublicacao();
+        clickExluirPublicacao();
+    }
+
+    function clickAbrirMenuOpcoesDaPublicacao() {
+        setIndicadorMenuOpcoesPublicacaoAberto( state => !state);
     }
 
     function fecharMenuOpcoesDaPublicacao() {
@@ -63,7 +75,7 @@ export default function MenuOpcoesPublicacao({
             <button
                 className='material-symbols-outlined'
                 id='publicacao__btnOpcoesPublicacao'
-                onClick={abrirMenuOpcoesDaPublicacao}
+                onClick={clickAbrirMenuOpcoesDaPublicacao}
                 ref={btnAbrirMenuDeOpcoesRef}
             >
                 more_vert
@@ -78,14 +90,14 @@ export default function MenuOpcoesPublicacao({
                         <div id='publicacao__divOpcoesPublicacao__menu'>
                             <button
                                 id='publicacao__btnEditarPublicacao'
-                                onClick={clickEditarPublicacao}
+                                onClick={editarPublicacao}
                             >
                                 <i className='material-symbols-outlined'>edit</i>
                                 Editar publicação
                             </button>
                             <button
                                 id='publicacao__btnExcluirPublicacao'
-                                onClick={clickExluirPublicacao}
+                                onClick={excluirPublicacao}
                             >
                                 <i className='material-symbols-outlined'>delete</i>
                                 Excluír publicação
