@@ -51,7 +51,7 @@ export abstract class PublicacaoFactory {
         );
     }
 
-    private static createCurtidaPublicacao(objetoCurtidaPublicacao: any): CurtidaPublicacao {
+    public static createCurtidaPublicacao(objetoCurtidaPublicacao: any): CurtidaPublicacao {
         const autor = PublicacaoFactory.createAutor(objetoCurtidaPublicacao.autor);
 
         return new CurtidaPublicacao(
