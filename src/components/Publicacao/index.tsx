@@ -34,6 +34,9 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
   const [quantidadeDeComentarios, setQuantidadeDeComentarios] = useState(
     publicacao.comentarios ? publicacao.comentarios.length : 0
   );
+  const [quantidadeDeCurtidas, setQuantidadeDeCurtidas] = useState(
+    publicacao.curtidas ? publicacao.curtidas.length : 0
+  );
 
   const classeDeCadaImagem = publicacao.midiasPublicacao?.length === 1 ? "imagemOcupandoTodoTamanho" : "imagemOcupandoMetade";
 
@@ -183,6 +186,8 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
               <InteracoesComAPublicacao
                 publicacao={publicacao}
                 quantidadeDeComentarios={quantidadeDeComentarios}
+                quantidadeDeCurtidas={quantidadeDeCurtidas}
+                setQuantidadeDeCurtidas={setQuantidadeDeCurtidas}
                 compartilharPublicacao={abrirModalCompartilharPublicacao}
               />
 
