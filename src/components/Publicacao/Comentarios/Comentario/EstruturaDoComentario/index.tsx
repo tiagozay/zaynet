@@ -21,9 +21,6 @@ export default function EstruturaDoComentario({
     clickResponderComentario,
     atualizaComentarios
 }: EstruturaDoComentarioProps) {
-
-    const [quantidadeDeCurtidas, setQuantidadeDeCurtidas] = useState(2);
-
     const [usuarioJaCurtiuOComentario, setUsuarioJaCurtiuOComentario] = useState(false);
     const [indicadorEdicao, setIndicadorEdicao] = useState(false);
 
@@ -41,6 +38,9 @@ export default function EstruturaDoComentario({
     const idAutorPublicacao = comentario.idAutorPublicacao;
     const nomeUsuario = `${comentario.autor.nome} ${comentario.autor.sobrenome}`;
     const conteudo = comentario.texto;
+    const [quantidadeDeCurtidas, setQuantidadeDeCurtidas] = useState(
+        comentario.curtidas ? comentario.curtidas.length : 0
+    );
 
     useEffect(() => {
         document.addEventListener("keydown", (e: KeyboardEvent) => {
@@ -58,19 +58,18 @@ export default function EstruturaDoComentario({
         }
     }, [modalConfirmacaoExcluirComentarioAberto]);
 
-    function clickEmCurtir() {
-        if (usuarioJaCurtiuOComentario) {
-            setQuantidadeDeCurtidas(quantidadeDeCurtidas - 1);
-        } else {
-            setQuantidadeDeCurtidas(quantidadeDeCurtidas + 1);
-        }
-        setUsuarioJaCurtiuOComentario(!usuarioJaCurtiuOComentario);
-
-    }
-
     useEffect(() => {
         inputRef.current?.focus();
     }, [indicadorEdicao]);
+
+    useEffect(() => {
+        const usuarioLogadoJaCurtiu = comentario.curtidas?.some(curtida => {
+            return curtida.autor.id === idUsuarioLogado
+        });
+
+        setUsuarioJaCurtiuOComentario(usuarioLogadoJaCurtiu ? true : false);
+
+    }, []);
 
     function clickEmEditar() {
         setIndicadorEdicao(true);
@@ -90,6 +89,21 @@ export default function EstruturaDoComentario({
                 setModalConfirmacaoExcluirComentarioAberto(false);
                 atualizaComentarios();
             });
+    }
+
+    function clickEmCurtir() {
+
+        //Antes de enviar a curtida para o servidor, dispara os alterações no front-end
+        if (usuarioJaCurtiuOComentario) {
+            setQuantidadeDeCurtidas(quantidadeDeCurtidas - 1);
+        } else {
+            setQuantidadeDeCurtidas(quantidadeDeCurtidas + 1);
+        }
+        setUsuarioJaCurtiuOComentario(!usuarioJaCurtiuOComentario);
+
+        APIService.post(`comentarios/${idComentario}/curtir`, {})
+            .catch(() => { });
+
     }
 
     return (

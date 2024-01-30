@@ -26,8 +26,9 @@ class CurtidaComentario implements JsonSerializable
     #[ManyToOne(Comentario::class, inversedBy: 'curtidas')]
     private Comentario $comentario;
 
-    public function __construct(Usuario $autor)
+    public function __construct(Comentario $comentario,Usuario $autor)
     {
+        $this->comentario = $comentario;
         $this->autor = $autor;
     }
 

@@ -43,6 +43,14 @@ switch ($method) {
         break;
     case 'POST':
 
+        preg_match('/^api\/comentarios\/(?<idComentario>\d+)\/curtir$/', $caminho, $matches);
+
+        if (!empty($matches['idComentario'])) {
+            $idComentario = $matches['idComentario'];
+            require_once '../src/Controlers/curtirComentario.php';
+            exit();
+        }
+
         switch ($caminho) {
             case 'api/usuarios':
                 require_once '../src/Controlers/cadastrarUsuario.php';
