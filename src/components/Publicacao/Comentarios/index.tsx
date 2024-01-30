@@ -10,10 +10,11 @@ import { PublicacaoFactory } from '../../../services/PublicacaoFactory';
 
 interface ComentariosProps {
   comentariosPublicacao?: ComentarioPublicacao[] | null,
+  setQuantidadeDeComentarios: React.Dispatch<React.SetStateAction<number>>,
   idPublicacao: number,
 }
 
-export default function Comentarios({ comentariosPublicacao, idPublicacao }: ComentariosProps) {
+export default function Comentarios({ comentariosPublicacao, setQuantidadeDeComentarios, idPublicacao }: ComentariosProps) {
 
   const [novoComentarioDigitado, setNovoComentarioDigitado] = useState("");
 
@@ -28,6 +29,7 @@ export default function Comentarios({ comentariosPublicacao, idPublicacao }: Com
         });
 
         setComentarios(comentarios);
+        setQuantidadeDeComentarios(comentarios.length)
       });
 
   }

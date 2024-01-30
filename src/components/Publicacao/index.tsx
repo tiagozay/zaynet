@@ -31,6 +31,10 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
   const [indicadorModalEditarPublicacaoAberto, setIndicadorModalEditarPublicacaoAberto] = useState(false);
   const [indicadorModalCompartilharPublicacaoAberto, setIndicadorModalCompartilharPublicacaoAberto] = useState(false);
 
+  const [quantidadeDeComentarios, setQuantidadeDeComentarios] = useState(
+    publicacao.comentarios ? publicacao.comentarios.length : 0
+  );
+
   const classeDeCadaImagem = publicacao.midiasPublicacao?.length === 1 ? "imagemOcupandoTodoTamanho" : "imagemOcupandoMetade";
 
   useEffect(() => {
@@ -176,11 +180,16 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
         {
           !publicacaoCompartilhada ?
             <>
-              <InteracoesComAPublicacao compartilharPublicacao={abrirModalCompartilharPublicacao} />
+              <InteracoesComAPublicacao
+                publicacao={publicacao}
+                quantidadeDeComentarios={quantidadeDeComentarios}
+                compartilharPublicacao={abrirModalCompartilharPublicacao}
+              />
 
               <div id='publicacao__linhaDivisoria'></div>
               <Comentarios
                 comentariosPublicacao={publicacao.comentarios}
+                setQuantidadeDeComentarios={setQuantidadeDeComentarios}
                 idPublicacao={publicacao.id}
               />
             </> :

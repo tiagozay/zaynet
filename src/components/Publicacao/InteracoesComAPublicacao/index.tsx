@@ -1,12 +1,15 @@
 import React from 'react';
 import './InteracoesComAPublicacao.css';
+import { PublicacaoModel } from '../../../models/Publicacao/PublicacaoModel';
 
 interface InteracoesComAPublicacaoProps
 {
+    publicacao: PublicacaoModel,
+    quantidadeDeComentarios: number,
     compartilharPublicacao: () => void
 }
 
-export default function InteracoesComAPublicacao({compartilharPublicacao} : InteracoesComAPublicacaoProps) {
+export default function InteracoesComAPublicacao({publicacao, quantidadeDeComentarios, compartilharPublicacao} : InteracoesComAPublicacaoProps) {
     return (
         <>
             <div id='publicacao__quantidadeDeInteracoes'>
@@ -16,7 +19,7 @@ export default function InteracoesComAPublicacao({compartilharPublicacao} : Inte
                 </div>
                 <div id='publicacao__quantidadeDeInteracoes__container'>
                     <div className='publicacao__quantidadeDeInteracoes__interacao'>
-                        <span>2</span>
+                        <span>{quantidadeDeComentarios}</span>
                         <i className='material-symbols-outlined'>chat_bubble</i>
                     </div>
                     <div className='publicacao__quantidadeDeInteracoes__interacao'>
