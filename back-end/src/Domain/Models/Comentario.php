@@ -42,13 +42,20 @@ class Comentario implements JsonSerializable
     #[OneToMany(mappedBy: 'comentarioPublicacao', targetEntity: ComentarioResposta::class)]
     private Collection $respostas;
 
+    /** @throws DomainException */
     public function __construct(Usuario $autor, Publicacao $publicacao, string $conteudo)
     {
         $this->autor = $autor;
         $this->publicacao = $publicacao;
-        $this->conteudo = $conteudo;
+        $this->setConteudo($conteudo);
         $this->curtidas = new ArrayCollection();
         $this->respostas = new ArrayCollection();
+    }
+
+    /** @throws DomainException */
+    public function editarComentario(string $novoComentario)
+    {
+        $this->setConteudo($novoComentario);
     }
 
     public function adicionarCurtida(CurtidaComentario $curtida)
@@ -59,6 +66,15 @@ class Comentario implements JsonSerializable
     public function adicionarResposta(ComentarioResposta $resposta)
     {
         $this->respostas->add($resposta);
+    }
+
+    /** @throws DomainException */
+    public function setConteudo(string $conteudo)
+    {
+        if (strlen(trim($conteudo)) === 0 || strlen(trim($conteudo)) > 5000) {
+            throw new \DomainException("Conteúdo comentário inválido");
+        }
+        $this->conteudo = $conteudo;
     }
 
     public function getAutor(): Usuario

@@ -83,6 +83,15 @@ switch ($method) {
 
         break;
     case 'PUT':
+
+        preg_match('/^api\/comentarios\/(?<idComentario>\d+)$/', $caminho, $matches);
+
+        if (!empty($matches['idComentario'])) {
+            $idComentario = $matches['idComentario'];
+            require_once '../src/Controlers/editarComentario.php';
+            exit();
+        }
+
         break;
     case 'DELETE':
 

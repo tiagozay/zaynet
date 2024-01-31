@@ -28,7 +28,7 @@ export default function EstruturaDoComentario({
 
     const inputRef = useRef<HTMLInputElement | null>(null);
 
-    const [novoComentarioDigitado, setNovoComentarioDigitado] = useState("");
+    const [comentarioDigitado, setComentarioDigitado] = useState(comentario.texto);
 
     const idUsuarioLogado = UsuarioService.obtemIdUsuarioLogado();
 
@@ -106,6 +106,19 @@ export default function EstruturaDoComentario({
 
     }
 
+    function editarComentario()
+    {
+        if(comentarioDigitado !== comentario.texto){
+            APIService.put(`comentarios/${comentario.id}`, {comentario: comentarioDigitado})
+            .then(() => {
+                fecharEdicao();
+                atualizaComentarios();
+            }) 
+        }else{
+            fecharEdicao();
+        }   
+    }
+
     return (
         <>
 
@@ -127,9 +140,9 @@ export default function EstruturaDoComentario({
                             <div id='comentario__divInputEditarComentario'>
                                 <InputComentario
                                     ref={inputRef}
-                                    novoComentarioDigitado={novoComentarioDigitado}
-                                    setNovoComentarioDigitado={setNovoComentarioDigitado}
-                                    clickEnviarComentario={() => { }}
+                                    novoComentarioDigitado={comentarioDigitado}
+                                    setNovoComentarioDigitado={setComentarioDigitado}
+                                    clickEnviarComentario={editarComentario}
                                 />
                                 <p id="editarComentario__textoCancelar">
                                     Pressione Esc para
