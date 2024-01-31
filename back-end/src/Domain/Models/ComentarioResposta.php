@@ -11,7 +11,7 @@ use JsonSerializable;
 #[Entity()]
 class ComentarioResposta extends Comentario implements JsonSerializable
 {
-    #[ManyToOne(Comentario::class, inversedBy:'respotas')]
+    #[ManyToOne(Comentario::class, inversedBy:'respostas')]
     private Comentario $comentarioPublicacao;
 
     public function __construct(Comentario $comentario, Usuario $autor, string $conteudo )
