@@ -64,7 +64,7 @@ export default function Comentario({ comentario, atualizaComentarios }: Comentar
                 {
                     comentario.respotas?.map((resposta) => (
                         <EstruturaDoComentario
-                            key={comentario.id}
+                            key={resposta.id}
                             comentario={resposta}
                             ehUmaResposta={true}
                             atualizaComentarios={atualizaComentarios}
