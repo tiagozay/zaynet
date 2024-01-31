@@ -51,6 +51,14 @@ switch ($method) {
             exit();
         }
 
+        preg_match('/^api\/comentarios\/(?<idComentario>\d+)\/respostas$/', $caminho, $matches);
+
+        if (!empty($matches['idComentario'])) {
+            $idComentario = $matches['idComentario'];
+            require_once '../src/Controlers/responderComentario.php';
+            exit();
+        }
+
         preg_match('/^api\/publicacoes\/(?<idPublicacao>\d+)\/curtir$/', $caminho, $matches);
 
         if (!empty($matches['idPublicacao'])) {

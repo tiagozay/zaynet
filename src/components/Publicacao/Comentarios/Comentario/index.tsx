@@ -3,6 +3,8 @@ import './Comentario.css';
 import EstruturaDoComentario from './EstruturaDoComentario';
 import UsuarioService from '../../../../services/UsuarioService';
 import { ComentarioPublicacao } from '../../../../models/Publicacao/ComentarioPublicacao';
+import { APIService } from '../../../../services/APIService';
+import InputComentario from '../InputComentario';
 
 
 interface ComentarioProps {
@@ -10,10 +12,9 @@ interface ComentarioProps {
     atualizaComentarios: () => void
 }
 
-export default function Comentario({comentario, atualizaComentarios }: ComentarioProps) {
+export default function Comentario({ comentario, atualizaComentarios }: ComentarioProps) {
 
     const [indicadorInputResponderAberto, setIndicadorInputResponderAberto] = useState(false);
-    const [permisaoParaEnviarResposta, setPermisaoParaEnviarResposta] = useState(false);
 
     const [respostaDigitada, setRespostaDigitada] = useState("");
 
@@ -31,14 +32,6 @@ export default function Comentario({comentario, atualizaComentarios }: Comentari
         inputRef.current?.focus();
     }, [indicadorInputResponderAberto]);
 
-    useEffect(() => {
-        if (respostaDigitada.trim().length > 0) {
-            setPermisaoParaEnviarResposta(true);
-        } else {
-            setPermisaoParaEnviarResposta(false);
-        }
-    }, [respostaDigitada]);
-
     function clickAbrirInputResponder() {
         setIndicadorInputResponderAberto(true);
     }
@@ -47,8 +40,14 @@ export default function Comentario({comentario, atualizaComentarios }: Comentari
         setIndicadorInputResponderAberto(false);
     }
 
-    function aoDigitarResposta(e: React.ChangeEvent<HTMLInputElement>) {
-        setRespostaDigitada(e.target.value);
+    function aoEnviarResposta() {
+        if (respostaDigitada.length !== 0) {
+            APIService.post(`comentarios/${comentario.id}/respostas`, { conteudo: respostaDigitada })
+                .then(() => {
+                    atualizaComentarios();
+                    fecharInputResponder();
+                })
+        }
     }
 
     return (
@@ -65,6 +64,7 @@ export default function Comentario({comentario, atualizaComentarios }: Comentari
                 {
                     comentario.respotas?.map((resposta) => (
                         <EstruturaDoComentario
+                            key={comentario.id}
                             comentario={resposta}
                             ehUmaResposta={true}
                             atualizaComentarios={atualizaComentarios}
@@ -82,26 +82,13 @@ export default function Comentario({comentario, atualizaComentarios }: Comentari
                                 alt="Foto perfil"
                             />
                             <div id='comentario__divInputResponder__container'>
-                                <div id='comentario__divInputResponder__divInput'>
-                                    <input
-                                        type="text"
-                                        id='comentario__divInputResponder__input'
-                                        placeholder='Escreva uma resposta'
-                                        ref={inputRef}
-                                        value={respostaDigitada}
-                                        onChange={aoDigitarResposta}
-                                    />
-                                    <button
-                                        className={`
-                                            material-symbols-outlined 
-                                            ${!permisaoParaEnviarResposta ? 'btnResponderInativo' : ''} 
-                                        `}
-                                        id='comentario__divInputResponder__btnEnviarResposta'
-                                        disabled={!permisaoParaEnviarResposta}
-                                    >
-                                        send
-                                    </button>
-                                </div>
+
+                                <InputComentario
+                                    clickEnviarComentario={aoEnviarResposta}
+                                    novoComentarioDigitado={respostaDigitada}
+                                    setNovoComentarioDigitado={setRespostaDigitada}
+                                    ref={inputRef}
+                                />
 
                                 <p id='comentario__divInputResponder__textoCancelar'>
                                     Pressione Esc para

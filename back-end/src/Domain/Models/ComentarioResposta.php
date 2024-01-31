@@ -14,8 +14,9 @@ class ComentarioResposta extends Comentario implements JsonSerializable
     #[ManyToOne(Comentario::class, inversedBy:'respotas')]
     private Comentario $comentarioPublicacao;
 
-    public function __construct(Usuario $autor, string $conteudo )
+    public function __construct(Comentario $comentario, Usuario $autor, string $conteudo )
     {
+        $this->comentarioPublicacao = $comentario;
         $this->autor = $autor;
         $this->conteudo = $conteudo;
         $this->curtidas = new ArrayCollection();
