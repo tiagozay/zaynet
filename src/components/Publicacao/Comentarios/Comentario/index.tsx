@@ -38,6 +38,7 @@ export default function Comentario({ comentario, atualizaComentarios }: Comentar
 
     function fecharInputResponder() {
         setIndicadorInputResponderAberto(false);
+        setRespostaDigitada("");
     }
 
     function aoEnviarResposta() {
