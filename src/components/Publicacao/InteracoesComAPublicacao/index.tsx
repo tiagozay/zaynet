@@ -38,7 +38,8 @@ export default function InteracoesComAPublicacao({ publicacao, quantidadeDeComen
             indicarUsuarioJaCurtiuPublicacao => !indicarUsuarioJaCurtiuPublicacao
         );
 
-        APIService.postTeste(`publicacoes/${publicacao.id}/curtir`, {})
+        APIService.post(`publicacoes/${publicacao.id}/curtir`, {})
+        .catch(() => {})
 
     }
 
