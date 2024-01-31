@@ -106,17 +106,16 @@ export default function EstruturaDoComentario({
 
     }
 
-    function editarComentario()
-    {
-        if(comentarioDigitado !== comentario.texto){
-            APIService.put(`comentarios/${comentario.id}`, {comentario: comentarioDigitado})
-            .then(() => {
-                fecharEdicao();
-                atualizaComentarios();
-            }) 
-        }else{
+    function editarComentario() {
+        if (comentarioDigitado !== comentario.texto) {
+            APIService.put(`comentarios/${comentario.id}`, { comentario: comentarioDigitado })
+                .then(() => {
+                    fecharEdicao();
+                    atualizaComentarios();
+                })
+        } else {
             fecharEdicao();
-        }   
+        }
     }
 
     return (
