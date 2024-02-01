@@ -8,9 +8,12 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\DiscriminatorColumn;
+use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\InheritanceType;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use DomainException;
@@ -19,33 +22,36 @@ use Tiagozay\BackEnd\Services\DataService;
 use Tiagozay\BackEnd\Services\ImageService;
 
 #[Entity()]
+#[InheritanceType('SINGLE_TABLE')]
+#[DiscriminatorColumn(name: 'discr', type: 'string')]
+#[DiscriminatorMap(['publicacao_normal' => Publicacao::class, 'publicacao_compartilhada' => PublicacaoCompartilhada::class])]
 class Publicacao implements JsonSerializable
 {
     #[Id]
     #[GeneratedValue()]
     #[Column()]
-    private ?int $id;
+    protected ?int $id;
 
     #[ManyToOne(Usuario::class, inversedBy: 'publicacoes')]
-    private Usuario $autor;
+    protected Usuario $autor;
 
     #[Column(nullable: true, type: 'text', length: 65535)]
-    private ?string $texto;
+    protected ?string $texto;
 
     #[OneToMany(mappedBy: 'publicacao', targetEntity: MidiaPublicacao::class, cascade:['persist', 'remove'])]
     private Collection $midiasPublicacao;
 
     #[OneToMany(mappedBy: 'publicacao', targetEntity: Comentario::class, cascade:['persist', 'remove'])]
-    private Collection $comentarios;
+    protected Collection $comentarios;
 
     #[OneToMany(mappedBy: 'publicacao', targetEntity: Curtida::class, cascade:['persist', 'remove'])]
-    private Collection $curtidas;
+    protected Collection $curtidas;
+
+    #[OneToMany(mappedBy:'publicacao', targetEntity:PublicacaoCompartilhada::class)]
+    private Collection $compartilhamentos;
 
     #[Column()]
-    private int $quantidadeDeCompartilhamentos;
-
-    #[Column()]
-    private DateTime $dataDePublicacao;
+    protected DateTime $dataDePublicacao;
 
     /** @throws DomainException */
     public function __construct(
@@ -63,7 +69,7 @@ class Publicacao implements JsonSerializable
         $this->texto = $texto;
         $this->comentarios = new ArrayCollection();
         $this->curtidas = new ArrayCollection();
-        $this->quantidadeDeCompartilhamentos = 0;
+        $this->compartilhamentos = new ArrayCollection();
         $this->dataDePublicacao = DataService::geraDataAtual();
         $this->midiasPublicacao = new ArrayCollection();
 
@@ -127,11 +133,6 @@ class Publicacao implements JsonSerializable
         }
     }
 
-    public function adicionarComentario(Comentario $comentario)
-    {
-        $this->comentarios->add($comentario);
-    }
-
     public function getId(): int
     {
         return $this->id;
@@ -147,9 +148,19 @@ class Publicacao implements JsonSerializable
         return $this->comentarios->toArray();
     }
 
+    public function adicionarComentario(Comentario $comentario)
+    {
+        $this->comentarios->add($comentario);
+    }
+
     public function adicionarCurtida(Curtida $curtida)
     {
         $this->curtidas->add($curtida);
+    }
+    
+    public function adicionarCompartilhamento(PublicacaoCompartilhada $publicacaoCompartilhada)
+    {
+        $this->compartilhamentos->add($publicacaoCompartilhada);
     }
 
     public function jsonSerialize(): mixed
@@ -161,7 +172,7 @@ class Publicacao implements JsonSerializable
             'midiasPublicacao' => $this->midiasPublicacao->toArray(),
             'comentarios' => $this->comentarios->toArray(),
             'curtidas' => $this->curtidas->toArray(),
-            'quantidadeDeCompartilhamentos' => $this->quantidadeDeCompartilhamentos,
+            'quantidadeDeCompartilhamentos' => $this->compartilhamentos->count(),
             'dataDePublicacao' => DataService::formataDataParaString($this->dataDePublicacao)
         ];
     }
