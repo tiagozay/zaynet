@@ -142,7 +142,7 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
         <p id='publicacao__texto'>{publicacao.texto}</p>
 
         {
-          publicacao.midiasPublicacao ?
+          publicacao.midiasPublicacao  && publicacao.midiasPublicacao.length !== 0 ?
             <div id='publicacao__imagens'>
               {
                 publicacao.midiasPublicacao.slice(0, 4).map((midia, index) => {
