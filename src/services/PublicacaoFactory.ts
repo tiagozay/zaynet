@@ -3,14 +3,18 @@ import { ComentarioResposta } from "../models/Publicacao/ComentarioResposta";
 import { CurtidaComentario } from "../models/Publicacao/CurtidaComentario";
 import { CurtidaPublicacao } from "../models/Publicacao/CurtidaPublicacao";
 import { MidiaPublicacaoModel } from "../models/Publicacao/MidiaPublicacaoModel";
+import { PublicacaoCompartilhadaModel } from "../models/Publicacao/PublicacaoCompartilhadaModel";
 import { PublicacaoModel } from "../models/Publicacao/PublicacaoModel";
 import { Usuario } from "../models/Usuario";
 
 export abstract class PublicacaoFactory {
-    public static create(objetoPublicacao: any): PublicacaoModel
+    public static create(objetoPublicacao: any): PublicacaoModel | PublicacaoCompartilhadaModel
     {
+        if(objetoPublicacao.indicadorEhUmaPublicacaoCompartilhada){
+            return this.createPublicacaoCompartilhada(objetoPublicacao);
+        }
 
-        const midiasPublicacao = objetoPublicacao.midiasPublicacao.map((objetoMidiaPublicacao: any) => PublicacaoFactory.createMidiaPublicacao(objetoMidiaPublicacao));
+        const midiasPublicacao = objetoPublicacao.midiasPublicacao?.map((objetoMidiaPublicacao: any) => PublicacaoFactory.createMidiaPublicacao(objetoMidiaPublicacao));
 
         const comentariosPublicacao = objetoPublicacao.comentarios.map((objetoComentarioPublicacao: any) => PublicacaoFactory.createComentarioPublicacao(objetoComentarioPublicacao));
 
@@ -26,6 +30,23 @@ export abstract class PublicacaoFactory {
             comentariosPublicacao,
             curtidasPublicacao
         );
+    }
+
+    private static createPublicacaoCompartilhada(objetoPublicacao: any)
+    {
+        const comentariosPublicacao = objetoPublicacao.comentarios.map((objetoComentarioPublicacao: any) => PublicacaoFactory.createComentarioPublicacao(objetoComentarioPublicacao));
+
+        const curtidasPublicacao = objetoPublicacao.curtidas.map((objetoCurtidaPublicacao: any) => PublicacaoFactory.createCurtidaPublicacao(objetoCurtidaPublicacao));
+
+        return new PublicacaoCompartilhadaModel(
+            objetoPublicacao.id,
+            this.create(objetoPublicacao.publicacao) as PublicacaoModel,
+            PublicacaoFactory.createAutor(objetoPublicacao.autor),
+            objetoPublicacao.texto,
+            objetoPublicacao.dataDePublicacao,
+            comentariosPublicacao,
+            curtidasPublicacao
+        )
     }
 
     private static createAutor(objetoAutor: any): Usuario {
