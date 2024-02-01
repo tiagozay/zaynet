@@ -11,11 +11,12 @@ import UsuarioService from '../../services/UsuarioService';
 import { APIService } from '../../services/APIService';
 import { PublicacaoFactory } from '../../services/PublicacaoFactory';
 import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
+import { PublicacaoCompartilhadaModel } from '../../models/Publicacao/PublicacaoCompartilhadaModel';
 
 export default function Home() {
 
   const [modalPublicarAberto, setModalPublicarAberto] = useState(false);
-  const [publicacoes, setPublicacoes] = useState<PublicacaoModel[] | null>(null);
+  const [publicacoes, setPublicacoes] = useState<Array<PublicacaoModel | PublicacaoCompartilhadaModel> | null>(null);
 
   const navigate = useNavigate();
 
@@ -102,10 +103,14 @@ export default function Home() {
 
         {
           publicacoes ?
-            publicacoes.map(publicacao => <Publicacao key={publicacao.id} publicacao={publicacao} />) : ""
+            publicacoes.map(publicacao => {
+              if(publicacao instanceof PublicacaoCompartilhadaModel ){
+                return <PublicacaoCompartilhada key={publicacao.id} publicacao={publicacao} />
+              }else{
+                return <Publicacao key={publicacao.id} publicacao={publicacao} />
+              }
+            }) : ""
         }
-
-        {/* <PublicacaoCompartilhada /> */}
       </section>
     </>
   )
