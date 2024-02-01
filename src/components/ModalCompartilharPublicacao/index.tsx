@@ -5,13 +5,16 @@ import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import ModalDeConfirmacao from '../ModalDeConfirmacao';
 import UsuarioService from '../../services/UsuarioService';
+import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
 
-interface ModalPublicarProps {
+interface ModalCompartilharPublicacaoProps {
+  publicacao: PublicacaoModel,
   modalAberto: boolean,
+  aoCompartilharPublicacao: (textoDigitado: string | null) => void,
   fecharModal: () => void
 }
 
-export default function ModalCompartilharPublicacao({ modalAberto, fecharModal }: ModalPublicarProps) {
+export default function ModalCompartilharPublicacao({ publicacao, modalAberto, aoCompartilharPublicacao, fecharModal }: ModalCompartilharPublicacaoProps) {
 
   const [modalDeCofirmarDescarteAberto, setModalDeCofirmarDescarteAberto] = useState(false);
 
@@ -40,11 +43,6 @@ export default function ModalCompartilharPublicacao({ modalAberto, fecharModal }
     }
   }, [isMobile]);
 
-
-  function publicar() {
-
-  }
-
   function abrirConfirmacaoDeDescarte() {
     setModalDeCofirmarDescarteAberto(true);
   }
@@ -69,6 +67,11 @@ export default function ModalCompartilharPublicacao({ modalAberto, fecharModal }
 
   function aoDigitarTexto(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setTextoDigitado(e.target.value.trim());
+  }
+
+  function compartilharPublicacao()
+  {
+    aoCompartilharPublicacao(textoDigitado);
   }
 
   return (
@@ -113,14 +116,17 @@ export default function ModalCompartilharPublicacao({ modalAberto, fecharModal }
               ></textarea>
 
               <div id='modalCompartilharPublicacao__containerPublicacao'>
-                {/* <Publicacao publicacaoCompartilhada /> */}
+                <Publicacao
+                  publicacao={publicacao}
+                  publicacaoCompartilhada
+                />
               </div>
 
             </div>
             <button
               id='modalCompartilharPublicacao__btnPublicar'
-              onClick={publicar}
-            >Publicar</button>
+              onClick={compartilharPublicacao}
+            >Compartilhar</button>
           </div>
         </div>
       </div>

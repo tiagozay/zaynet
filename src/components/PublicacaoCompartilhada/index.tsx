@@ -6,26 +6,30 @@ import Publicacao from '../Publicacao';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import { useNavigate } from 'react-router-dom';
-import ModalEditarPublicacao from '../ModalEditarPublicacao';
 import ModalEditarPublicacaoCompartilhada from '../ModalEditarPublicacaoCompartilhada';
 import ModalCompartilharPublicacao from '../ModalCompartilharPublicacao';
 import MenuOpcoesPublicacao from '../MenuOpcoesPublicacao';
-import UsuarioService from '../../services/UsuarioService';
+import { PublicacaoCompartilhadaModel } from '../../models/Publicacao/PublicacaoCompartilhadaModel';
+import { APIService } from '../../services/APIService';
 
-export default function PublicacaoCompartilhada() {
+interface PublicacaoCompartilhadaProps {
+    publicacao: PublicacaoCompartilhadaModel
+}
+
+export default function PublicacaoCompartilhada({ publicacao }: PublicacaoCompartilhadaProps) {
 
     //Mock provisório que indica se a publicacao atual é do autor que está logado. Futuramente para obter esse dado deverá ser feita uma verificação com dados vindos do redux ou algo semelhante
     const indicadorPublicacaoDoUsuarioLogado = true;
 
-    const publicacao = {
-        nomeAutor: "Pedro souza",
-        perfil: UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado(),
-        tempoDePublicacao: "5 minutos",
-        texto: "Isto é uma verdadeira obra de arte!",
-    }
-
     const [indicadorModalEditarPublicacaoAberto, setIndicadorModalEditarPublicacaoAberto] = useState(false);
     const [indicadorModalCompartilharPublicacaoAberto, setIndicadorModalCompartilharPublicacaoAberto] = useState(false);
+
+    const [quantidadeDeComentarios, setQuantidadeDeComentarios] = useState(
+        publicacao.comentarios ? publicacao.comentarios.length : 0
+    );
+    const [quantidadeDeCurtidas, setQuantidadeDeCurtidas] = useState(
+        publicacao.curtidas ? publicacao.curtidas.length : 0
+    );
 
     const navigate = useNavigate();
 
@@ -59,6 +63,14 @@ export default function PublicacaoCompartilhada() {
         }
     }
 
+    function compartilharPublicacao(textoDigitado: string | null) {
+        APIService.post(`publicacoes/${publicacao.publicacao.id}/compartilhar`, { texto: textoDigitado })
+            .then(() => {
+                fehcarModalCompartilharPublicacao();
+            })
+            .catch(() => { })
+    }
+
     function fehcarModalEditarPublicacao() {
         setIndicadorModalEditarPublicacaoAberto(false);
     }
@@ -76,7 +88,9 @@ export default function PublicacaoCompartilhada() {
             {
                 indicadorModalCompartilharPublicacaoAberto ?
                     <ModalCompartilharPublicacao
+                        publicacao={publicacao.publicacao}
                         fecharModal={fehcarModalCompartilharPublicacao}
+                        aoCompartilharPublicacao={compartilharPublicacao}
                         modalAberto={indicadorModalCompartilharPublicacaoAberto}
                     /> :
                     ""
@@ -84,13 +98,13 @@ export default function PublicacaoCompartilhada() {
             <div id='publicacaoCompartilhada'>
                 <div id='publicacaoCompartilhada__infoUsuario'>
                     <div id='publicacaoCompartilhada__infoUsuarioContainer'>
-                        <img src={publicacao.perfil} alt="Perfil usuário" id='publicacaoCompartilhada__perfil' />
+                        <img src={`${process.env.REACT_APP_CAMINHO_IMAGEM_PERFIL_MINIATURA}${publicacao.autor.nomeMiniaturaFotoPerfil}`} alt="Perfil usuário" id='publicacaoCompartilhada__perfil' />
                         <div id='publicacaoCompartilhada__infoUsuarioContainer__divInfo'>
                             <p id='publicacaoCompartilhada__tituloAutor'>
-                                <span>Pedro souza </span>
+                                <span>{`${publicacao.autor.nome} ${publicacao.autor.sobrenome}`} </span>
                                 compartilhou uma publicação
                             </p>
-                            <p id='publicacaoCompartilhada__tempoDePublicacao'>Há {publicacao.tempoDePublicacao}</p>
+                            <p id='publicacaoCompartilhada__tempoDePublicacao'>{publicacao.dataDePublicacao}</p>
                         </div>
                     </div>
                     {
@@ -107,14 +121,28 @@ export default function PublicacaoCompartilhada() {
                 <p id='publicacaoCompartilhada__texto'>{publicacao.texto}</p>
 
                 <div id='publicacaoCompartilhada__containerPublicacao'>
-                    {/* <Publicacao publicacaoCompartilhada={true} /> */}
+                    <Publicacao
+                        publicacao={publicacao.publicacao}
+                        publicacaoCompartilhada={true}
+                    />
                 </div>
 
 
-                {/* <InteracoesComAPublicacao compartilharPublicacao={abrirModalCompartilharPublicacao} /> */}
+                <InteracoesComAPublicacao
+                    publicacao={publicacao}
+                    quantidadeDeComentarios={quantidadeDeComentarios}
+                    quantidadeDeCurtidas={quantidadeDeCurtidas}
+                    setQuantidadeDeCurtidas={setQuantidadeDeCurtidas}
+                    compartilharPublicacao={abrirModalCompartilharPublicacao}
+                    quantidadeDeCompartilhamentos={0}
+                />
 
                 <div id='publicacaoCompartilhada__linhaDivisoria'></div>
-                {/* <Comentarios /> */}
+                <Comentarios
+                    idPublicacao={publicacao.id}
+                    setQuantidadeDeComentarios={setQuantidadeDeComentarios}
+                    comentariosPublicacao={publicacao.comentarios}
+                />
             </div>
         </>
 

@@ -4,16 +4,18 @@ import { PublicacaoModel } from '../../../models/Publicacao/PublicacaoModel';
 import { APIService } from '../../../services/APIService';
 import UsuarioService from '../../../services/UsuarioService';
 import { PublicacaoFactory } from '../../../services/PublicacaoFactory';
+import { PublicacaoCompartilhadaModel } from '../../../models/Publicacao/PublicacaoCompartilhadaModel';
 
 interface InteracoesComAPublicacaoProps {
-    publicacao: PublicacaoModel,
+    publicacao: PublicacaoModel | PublicacaoCompartilhadaModel,
     quantidadeDeComentarios: number,
     quantidadeDeCurtidas: number,
+    quantidadeDeCompartilhamentos: number,
     setQuantidadeDeCurtidas: React.Dispatch<React.SetStateAction<number>>,
     compartilharPublicacao: () => void
 }
 
-export default function InteracoesComAPublicacao({ publicacao, quantidadeDeComentarios, quantidadeDeCurtidas, setQuantidadeDeCurtidas, compartilharPublicacao }: InteracoesComAPublicacaoProps) {
+export default function InteracoesComAPublicacao({ publicacao, quantidadeDeComentarios, quantidadeDeCurtidas, quantidadeDeCompartilhamentos, setQuantidadeDeCurtidas, compartilharPublicacao }: InteracoesComAPublicacaoProps) {
 
     const idUsuarioLogado = UsuarioService.obtemIdUsuarioLogado();
 
@@ -24,11 +26,11 @@ export default function InteracoesComAPublicacao({ publicacao, quantidadeDeComen
 
     function curtirPublicacao() {
 
-        if(indicarUsuarioJaCurtiuPublicacao){
+        if (indicarUsuarioJaCurtiuPublicacao) {
             setQuantidadeDeCurtidas(
                 quantidadeDeCurtidas => quantidadeDeCurtidas - 1
             );
-        }else{
+        } else {
             setQuantidadeDeCurtidas(
                 quantidadeDeCurtidas => quantidadeDeCurtidas + 1
             );
@@ -39,7 +41,7 @@ export default function InteracoesComAPublicacao({ publicacao, quantidadeDeComen
         );
 
         APIService.post(`publicacoes/${publicacao.id}/curtir`, {})
-        .catch(() => {})
+            .catch(() => { })
 
     }
 
@@ -50,15 +52,18 @@ export default function InteracoesComAPublicacao({ publicacao, quantidadeDeComen
                     <i className='material-symbols-outlined'>thumb_up</i>
                     <span>{quantidadeDeCurtidas}</span>
                 </div>
-                <div id='publicacao__quantidadeDeInteracoes__container'>
+                <div id='publicacao__quantidadeDeInteracoes__container' className={publicacao instanceof PublicacaoCompartilhadaModel ? 'publicacao__quantidadeDeInteracoes__containerMenor' : ''}>
                     <div className='publicacao__quantidadeDeInteracoes__interacao'>
                         <span>{quantidadeDeComentarios}</span>
                         <i className='material-symbols-outlined'>chat_bubble</i>
                     </div>
-                    <div className='publicacao__quantidadeDeInteracoes__interacao'>
-                        <span>2</span>
-                        <i className='material-symbols-outlined'>share</i>
-                    </div>
+                    {
+                        publicacao instanceof PublicacaoModel ?
+                            <div className='publicacao__quantidadeDeInteracoes__interacao'>
+                                <span>{quantidadeDeCompartilhamentos}</span>
+                                <i className='material-symbols-outlined'>share</i>
+                            </div> : ""
+                    }
                 </div>
 
             </div>

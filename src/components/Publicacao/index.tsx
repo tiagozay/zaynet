@@ -13,6 +13,7 @@ import ModalCompartilharPublicacao from '../ModalCompartilharPublicacao';
 import MenuOpcoesPublicacao from '../MenuOpcoesPublicacao';
 import UsuarioService from '../../services/UsuarioService';
 import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
+import { APIService } from '../../services/APIService';
 
 interface PublicacaoProps {
   publicacao: PublicacaoModel,
@@ -36,6 +37,9 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
   );
   const [quantidadeDeCurtidas, setQuantidadeDeCurtidas] = useState(
     publicacao.curtidas ? publicacao.curtidas.length : 0
+  );
+  const [quantidadeDeCompartilhamentos, setQuantidadeDeCompartilhamentos] = useState(
+    publicacao instanceof PublicacaoModel ? publicacao.quantidadeDeCompartilhamentos : 0
   );
 
   const classeDeCadaImagem = publicacao.midiasPublicacao?.length === 1 ? "imagemOcupandoTodoTamanho" : "imagemOcupandoMetade";
@@ -86,6 +90,14 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
     setIndicadorModalCompartilharPublicacaoAberto(false);
   }
 
+  function compartilharPublicacao(textoDigitado: string | null) {
+    APIService.post(`publicacoes/${publicacao.id}/compartilhar`, { texto: textoDigitado })
+      .then(() => {
+        setQuantidadeDeCompartilhamentos(state => state + 1);
+        fehcarModalCompartilharPublicacao();
+      })
+      .catch(() => { })
+  }
 
   return (
     <>
@@ -102,6 +114,7 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
           <ModalCompartilharPublicacao
             publicacao={publicacao}
             fecharModal={fehcarModalCompartilharPublicacao}
+            aoCompartilharPublicacao={compartilharPublicacao}
             modalAberto={indicadorModalCompartilharPublicacaoAberto}
           /> :
           ""
@@ -188,6 +201,7 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
                 publicacao={publicacao}
                 quantidadeDeComentarios={quantidadeDeComentarios}
                 quantidadeDeCurtidas={quantidadeDeCurtidas}
+                quantidadeDeCompartilhamentos={quantidadeDeCompartilhamentos}
                 setQuantidadeDeCurtidas={setQuantidadeDeCurtidas}
                 compartilharPublicacao={abrirModalCompartilharPublicacao}
               />
