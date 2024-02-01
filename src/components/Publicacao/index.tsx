@@ -100,6 +100,7 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
       {
         indicadorModalCompartilharPublicacaoAberto ?
           <ModalCompartilharPublicacao
+            publicacao={publicacao}
             fecharModal={fehcarModalCompartilharPublicacao}
             modalAberto={indicadorModalCompartilharPublicacaoAberto}
           /> :
