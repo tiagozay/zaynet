@@ -67,6 +67,14 @@ switch ($method) {
             exit();
         }
 
+        preg_match('/^api\/publicacoes\/(?<idPublicacao>\d+)\/compartilhar$/', $caminho, $matches);
+
+        if (!empty($matches['idPublicacao'])) {
+            $idPublicacao = $matches['idPublicacao'];
+            require_once '../src/Controlers/compartilharPublicacao.php';
+            exit();
+        }
+
         switch ($caminho) {
             case 'api/usuarios':
                 require_once '../src/Controlers/cadastrarUsuario.php';
