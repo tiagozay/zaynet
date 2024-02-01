@@ -9,6 +9,9 @@
     justify-content: space-between;
     width: 14%;
 }
+.publicacao__quantidadeDeInteracoes__containerMenor{
+    width: 6%!important;
+}
 .publicacao__quantidadeDeInteracoes__interacao{
     display: flex;
     align-items: center;
@@ -73,6 +76,9 @@
 @media( max-width: 750px ){
     #publicacao__quantidadeDeInteracoes__container{
         width: 22%;
+    }
+    .publicacao__quantidadeDeInteracoes__containerMenor{
+        width: 11%!important;
     }
     #publicacao__opcoesDeInteracao button{
         padding: 7px 6px;
