@@ -11,6 +11,7 @@ import ModalCompartilharPublicacao from '../ModalCompartilharPublicacao';
 import MenuOpcoesPublicacao from '../MenuOpcoesPublicacao';
 import { PublicacaoCompartilhadaModel } from '../../models/Publicacao/PublicacaoCompartilhadaModel';
 import { APIService } from '../../services/APIService';
+import { PublicacaoService } from '../../services/PublicacaoService';
 
 interface PublicacaoCompartilhadaProps {
     publicacao: PublicacaoCompartilhadaModel
@@ -43,9 +44,9 @@ export default function PublicacaoCompartilhada({ publicacao }: PublicacaoCompar
         }
     }, [indicadorModalEditarPublicacaoAberto]);
 
-    function abrirModalCompartilharPublicacao() {
+    function clickCompartilharPublicacao() {
         if (isMobile) {
-            navigate('/compartilharPublicacao');
+            navigate('/compartilharPublicacao', {state: publicacao.publicacao});
         } else {
             setIndicadorModalCompartilharPublicacaoAberto(true);
         }
@@ -64,7 +65,7 @@ export default function PublicacaoCompartilhada({ publicacao }: PublicacaoCompar
     }
 
     function compartilharPublicacao(textoDigitado: string | null) {
-        APIService.post(`publicacoes/${publicacao.publicacao.id}/compartilhar`, { texto: textoDigitado })
+        PublicacaoService.compartilhar(textoDigitado, publicacao.publicacao)
             .then(() => {
                 fehcarModalCompartilharPublicacao();
             })
@@ -133,7 +134,7 @@ export default function PublicacaoCompartilhada({ publicacao }: PublicacaoCompar
                     quantidadeDeComentarios={quantidadeDeComentarios}
                     quantidadeDeCurtidas={quantidadeDeCurtidas}
                     setQuantidadeDeCurtidas={setQuantidadeDeCurtidas}
-                    compartilharPublicacao={abrirModalCompartilharPublicacao}
+                    compartilharPublicacao={clickCompartilharPublicacao}
                     quantidadeDeCompartilhamentos={0}
                 />
 

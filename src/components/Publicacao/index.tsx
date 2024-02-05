@@ -14,6 +14,7 @@ import MenuOpcoesPublicacao from '../MenuOpcoesPublicacao';
 import UsuarioService from '../../services/UsuarioService';
 import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
 import { APIService } from '../../services/APIService';
+import { PublicacaoService } from '../../services/PublicacaoService';
 
 interface PublicacaoProps {
   publicacao: PublicacaoModel,
@@ -78,9 +79,9 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
     setIndicadorModalEditarPublicacaoAberto(false);
   }
 
-  function abrirModalCompartilharPublicacao() {
+  function clickCompartilharPublicacao() {
     if (isMobile) {
-      navigate('/compartilharPublicacao');
+      navigate('/compartilharPublicacao', { state: publicacao });
     } else {
       setIndicadorModalCompartilharPublicacaoAberto(true);
     }
@@ -91,7 +92,7 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
   }
 
   function compartilharPublicacao(textoDigitado: string | null) {
-    APIService.post(`publicacoes/${publicacao.id}/compartilhar`, { texto: textoDigitado })
+    PublicacaoService.compartilhar(textoDigitado, publicacao)
       .then(() => {
         setQuantidadeDeCompartilhamentos(state => state + 1);
         fehcarModalCompartilharPublicacao();
@@ -142,7 +143,7 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
         <p id='publicacao__texto'>{publicacao.texto}</p>
 
         {
-          publicacao.midiasPublicacao  && publicacao.midiasPublicacao.length !== 0 ?
+          publicacao.midiasPublicacao && publicacao.midiasPublicacao.length !== 0 ?
             <div id='publicacao__imagens'>
               {
                 publicacao.midiasPublicacao.slice(0, 4).map((midia, index) => {
@@ -203,7 +204,7 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
                 quantidadeDeCurtidas={quantidadeDeCurtidas}
                 quantidadeDeCompartilhamentos={quantidadeDeCompartilhamentos}
                 setQuantidadeDeCurtidas={setQuantidadeDeCurtidas}
-                compartilharPublicacao={abrirModalCompartilharPublicacao}
+                compartilharPublicacao={clickCompartilharPublicacao}
               />
 
               <div id='publicacao__linhaDivisoria'></div>
