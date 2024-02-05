@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import './CompartilharPublicacaoMobile.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Publicacao from '../../components/Publicacao';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import UsuarioService from '../../services/UsuarioService';
+import { PublicacaoService } from '../../services/PublicacaoService';
 
-export default function CompartilharPublicacaoMobile() {
+export default function CompartilharPublicacaoMobile({}) {
 
     const [textoDigitado, setTextoDigitado] = useState<string | null>(null);
 
     const navigate = useNavigate();
+
+    const location = useLocation();
+
+    const publicacao = location.state;
 
     const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
 
@@ -28,6 +33,15 @@ export default function CompartilharPublicacaoMobile() {
         setTextoDigitado(e.target.value);
     }
 
+    function compartilhar()
+    {
+        PublicacaoService.compartilhar(textoDigitado, publicacao)
+        .then( () => {
+            navigate(-1);
+        } )
+        .catch(() => {});
+    }
+
     return (
         <div id="compartilharPublicacaoMobile__page">
             <div id="compartilharPublicacaoMobile__cabecalho">
@@ -41,7 +55,8 @@ export default function CompartilharPublicacaoMobile() {
                 </div>
                 <button
                     id="compartilharPublicacaoMobile__btnPublicar"
-                >PUBLICAR</button>
+                    onClick={compartilhar}
+                >COMPARTILHAR</button>
             </div>
 
             <div id="compartilharPublicacaoMobile__container">
@@ -64,7 +79,10 @@ export default function CompartilharPublicacaoMobile() {
                 </textarea>
 
                 <div id='compartilharPublicacaoMobile__containerPublicacao'>
-                    {/* <Publicacao publicacaoCompartilhada /> */}
+                    <Publicacao 
+                        publicacao={publicacao}
+                        publicacaoCompartilhada 
+                    />
                 </div>
 
 
