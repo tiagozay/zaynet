@@ -1,3 +1,4 @@
+import { PublicacaoModel } from "../models/Publicacao/PublicacaoModel";
 import { APIService } from "./APIService";
 import { ArquivosPublicacaoService } from "./ArquivosPublicacaoService";
 
@@ -26,5 +27,9 @@ export abstract class PublicacaoService {
             arquivos: arquivosSelecionados ? JSON.stringify(arquivosBase64) : null
         })
 
+    }
+
+    public static async compartilhar(texto: string | null, publicacao: PublicacaoModel) {
+        return APIService.post(`publicacoes/${publicacao.id}/compartilhar`, { texto })
     }
 }
