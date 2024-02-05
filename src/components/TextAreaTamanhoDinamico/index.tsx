@@ -19,7 +19,9 @@ export default function TextAreaTamanhoDinamico({ id, className, placeholder, on
     function aoDigitar(e: React.ChangeEvent<HTMLTextAreaElement>) {
 
         if (campoRef.current) {
-            setAlturaCampo(campoRef.current.scrollHeight);
+            if(alturaCampo < 175){
+                setAlturaCampo(campoRef.current.scrollHeight);
+            }
         }
 
         onChange(e);
