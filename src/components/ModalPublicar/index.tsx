@@ -11,6 +11,7 @@ import APIResponse from '../../Utils/APIResponse';
 import Toast from '../Toast';
 import { useNavigate } from 'react-router-dom';
 import { PublicacaoService } from '../../services/PublicacaoService';
+import TextAreaTamanhoDinamico from '../TextAreaTamanhoDinamico';
 
 interface ModalPublicarProps {
     modalAberto: boolean,
@@ -167,14 +168,13 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
                         </div>
 
                         <div id='modalPublicar__containerInputs'>
-                            <textarea
+
+                            <TextAreaTamanhoDinamico
                                 id='modalPublicar__campoTexto'
-                                className={
-                                    indicadorInputImagensEVideosAberto ? "modalPublicar__campoTextoMaisBaixo" : ""
-                                }
                                 placeholder='No que você está pensando, Pedro?'
                                 onChange={aoDigitarTexto}
-                            ></textarea>
+                                value={textoDigitado}
+                            />
 
                             {
                                 indicadorInputImagensEVideosAberto &&
