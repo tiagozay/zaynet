@@ -6,15 +6,16 @@ interface TextAreaTamanhoDinamicoProps {
     id: string,
     placeholder: string,
     onChange: React.ChangeEventHandler<HTMLTextAreaElement>,
+    alturaInicial: number,
     className?: string | null,
     value?: string | null,
 }
 
-export default function TextAreaTamanhoDinamico({ id, className, placeholder, onChange, value }: TextAreaTamanhoDinamicoProps) {
+export default function TextAreaTamanhoDinamico({ id, className, placeholder, onChange, alturaInicial, value }: TextAreaTamanhoDinamicoProps) {
 
     const campoRef = useRef<HTMLTextAreaElement | null>(null);
 
-    const [alturaCampo, setAlturaCampo] = useState(80);
+    const [alturaCampo, setAlturaCampo] = useState(alturaInicial);
 
     function aoDigitar(e: React.ChangeEvent<HTMLTextAreaElement>) {
 

@@ -8,6 +8,7 @@ import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import MidiaEditarPublicacao from '../../components/MidiaEditarPublicacao';
 import ModalDeConfirmacao from '../../components/ModalDeConfirmacao';
 import UsuarioService from '../../services/UsuarioService';
+import TextAreaTamanhoDinamico from '../../components/TextAreaTamanhoDinamico';
 
 export default function EditarPublicacaoMobile() {
 
@@ -162,14 +163,13 @@ export default function EditarPublicacaoMobile() {
                         >Pedro souza</p>
                     </div>
 
-                    <textarea
+                    <TextAreaTamanhoDinamico
                         id="editarPublicacaoMobile__campoTexto"
                         placeholder='No que você está pensando, Pedro?'
                         onChange={aoDigitarTexto}
                         value={textoDaPublicacao ? textoDaPublicacao : ""}
-                        spellCheck={false}
-                    >
-                    </textarea>
+                        alturaInicial={80}
+                    />
 
                     <div id='editarPublicacaoMobile__midiasDaPublicacao'>
                         <ul id='editarPublicacaoMobile__midiasDaPublicacao__listaMidias'>

@@ -10,6 +10,7 @@ import UsuarioService from '../../services/UsuarioService';
 import { PublicacaoService } from '../../services/PublicacaoService';
 import APIResponse from '../../Utils/APIResponse';
 import Toast from '../../components/Toast';
+import TextAreaTamanhoDinamico from '../../components/TextAreaTamanhoDinamico';
 
 export default function PublicarMobile() {
 
@@ -147,13 +148,12 @@ export default function PublicarMobile() {
                         >Pedro souza</p>
                     </div>
 
-                    <textarea
+                    <TextAreaTamanhoDinamico
                         id="publicarMobile__campoTexto"
                         placeholder='No que você está pensando, Pedro?'
                         onChange={aoDigitarTexto}
-                    >
-
-                    </textarea>
+                        alturaInicial={80}
+                    />
 
                     {
                         indicadorInputImagensEVideosAberto &&

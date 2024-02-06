@@ -6,8 +6,9 @@ import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import UsuarioService from '../../services/UsuarioService';
 import { PublicacaoService } from '../../services/PublicacaoService';
+import TextAreaTamanhoDinamico from '../../components/TextAreaTamanhoDinamico';
 
-export default function CompartilharPublicacaoMobile({}) {
+export default function CompartilharPublicacaoMobile({ }) {
 
     const [textoDigitado, setTextoDigitado] = useState<string | null>(null);
 
@@ -20,7 +21,7 @@ export default function CompartilharPublicacaoMobile({}) {
     const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
 
     useEffect(() => {
-        if(!isMobile){
+        if (!isMobile) {
             navigate(-1);
         }
     }, [isMobile]);
@@ -33,13 +34,12 @@ export default function CompartilharPublicacaoMobile({}) {
         setTextoDigitado(e.target.value);
     }
 
-    function compartilhar()
-    {
+    function compartilhar() {
         PublicacaoService.compartilhar(textoDigitado, publicacao)
-        .then( () => {
-            navigate(-1);
-        } )
-        .catch(() => {});
+            .then(() => {
+                navigate(-1);
+            })
+            .catch(() => { });
     }
 
     return (
@@ -71,17 +71,17 @@ export default function CompartilharPublicacaoMobile({}) {
                     >Pedro souza</p>
                 </div>
 
-                <textarea
+                <TextAreaTamanhoDinamico
                     id="compartilharPublicacaoMobile__campoTexto"
                     placeholder='No que você está pensando, Pedro?'
                     onChange={aoDigitarTexto}
-                >
-                </textarea>
+                    alturaInicial={80}
+                />
 
                 <div id='compartilharPublicacaoMobile__containerPublicacao'>
-                    <Publicacao 
+                    <Publicacao
                         publicacao={publicacao}
-                        publicacaoCompartilhada 
+                        publicacaoCompartilhada
                     />
                 </div>
 

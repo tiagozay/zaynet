@@ -174,6 +174,7 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
                                 placeholder='No que você está pensando, Pedro?'
                                 onChange={aoDigitarTexto}
                                 value={textoDigitado}
+                                alturaInicial={80}
                             />
 
                             {

@@ -7,6 +7,7 @@ import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import ModalDeConfirmacao from '../ModalDeConfirmacao';
 import MidiaEditarPublicacao from '../MidiaEditarPublicacao';
 import UsuarioService from '../../services/UsuarioService';
+import TextAreaTamanhoDinamico from '../TextAreaTamanhoDinamico';
 
 interface ModalEditarPublicacaoProps {
     modalAberto: boolean,
@@ -161,22 +162,18 @@ export default function ModalEditarPublicacao({ modalAberto, fecharModal }: Moda
                         </div>
 
                         <div id='modalEditarPublicacao__containerInputs'>
-                            <textarea
+                            <TextAreaTamanhoDinamico
                                 id='modalEditarPublicacao__campoTexto'
-                                className={
-                                    indicadorInputImagensEVideosAberto ? "modalEditarPublicacao__campoTextoMaisBaixo" : ""
-                                }
-                                value={textoDaPublicacao ? textoDaPublicacao : ""}
                                 placeholder='No que você está pensando, Pedro?'
                                 onChange={aoDigitarTexto}
-                                spellCheck={false}
-                            ></textarea>
-
+                                alturaInicial={60}
+                                value={textoDaPublicacao ? textoDaPublicacao : ""}
+                            />
                             <div id='modalEditarPublicacao__midiasDaPublicacao'>
                                 <ul id='modalEditarPublicacao__midiasDaPublicacao__listaMidias'>
                                     {
-                                        midiasDaPublicacao.map((midia, index) => 
-                                            <MidiaEditarPublicacao 
+                                        midiasDaPublicacao.map((midia, index) =>
+                                            <MidiaEditarPublicacao
                                                 midiaPublicacao={midia}
                                                 excluirMidia={excluirMidia}
                                                 index={index}

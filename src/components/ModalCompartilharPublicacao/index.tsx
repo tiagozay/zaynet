@@ -6,6 +6,7 @@ import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import ModalDeConfirmacao from '../ModalDeConfirmacao';
 import UsuarioService from '../../services/UsuarioService';
 import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
+import TextAreaTamanhoDinamico from '../TextAreaTamanhoDinamico';
 
 interface ModalCompartilharPublicacaoProps {
   publicacao: PublicacaoModel,
@@ -69,8 +70,7 @@ export default function ModalCompartilharPublicacao({ publicacao, modalAberto, a
     setTextoDigitado(e.target.value.trim());
   }
 
-  function compartilharPublicacao()
-  {
+  function compartilharPublicacao() {
     aoCompartilharPublicacao(textoDigitado);
   }
 
@@ -109,12 +109,12 @@ export default function ModalCompartilharPublicacao({ publicacao, modalAberto, a
             </div>
 
             <div id='modalCompartilharPublicacao__containerInputs'>
-              <textarea
+              <TextAreaTamanhoDinamico
                 id='modalCompartilharPublicacao__campoTexto'
                 placeholder='No que você está pensando, Pedro?'
                 onChange={aoDigitarTexto}
-              ></textarea>
-
+                alturaInicial={60}
+              />
               <div id='modalCompartilharPublicacao__containerPublicacao'>
                 <Publicacao
                   publicacao={publicacao}
