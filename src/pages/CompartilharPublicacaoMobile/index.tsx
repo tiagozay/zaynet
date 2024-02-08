@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './CompartilharPublicacaoMobile.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Publicacao from '../../components/Publicacao';
@@ -7,10 +7,15 @@ import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import UsuarioService from '../../services/UsuarioService';
 import { PublicacaoService } from '../../services/PublicacaoService';
 import TextAreaTamanhoDinamico from '../../components/TextAreaTamanhoDinamico';
+import { CompartilharPublicacaoContext } from '../../contexts/CompartilharPublicacaoContext';
 
 export default function CompartilharPublicacaoMobile({ }) {
 
-    const [textoDigitado, setTextoDigitado] = useState<string | null>(null);
+    const {
+        textoDigitado,
+        setTextoDigitado,
+        setIndicadorModalCompartilharPublicacaoAberto
+    } = useContext(CompartilharPublicacaoContext);
 
     const navigate = useNavigate();
 
@@ -22,12 +27,18 @@ export default function CompartilharPublicacaoMobile({ }) {
 
     useEffect(() => {
         if (!isMobile) {
-            navigate(-1);
+            fecharCompartilhamento()
         }
     }, [isMobile]);
 
-    function aoClicarEmVoltar() {
+    function fecharCompartilhamento() {
+        setIndicadorModalCompartilharPublicacaoAberto(false);
+        setTextoDigitado(null);
         navigate(-1);
+    }
+
+    function aoClicarEmVoltar() {
+        fecharCompartilhamento();
     }
 
     function aoDigitarTexto(e: React.ChangeEvent<HTMLTextAreaElement>) {
@@ -76,6 +87,7 @@ export default function CompartilharPublicacaoMobile({ }) {
                     placeholder='No que você está pensando, Pedro?'
                     onChange={aoDigitarTexto}
                     alturaInicial={80}
+                    value={textoDigitado}
                 />
 
                 <div id='compartilharPublicacaoMobile__containerPublicacao'>
