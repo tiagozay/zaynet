@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import './ModalCompartilharPublicacao.css';
 import Publicacao from '../Publicacao';
 import { useMediaQuery } from 'react-responsive';
@@ -7,6 +7,7 @@ import ModalDeConfirmacao from '../ModalDeConfirmacao';
 import UsuarioService from '../../services/UsuarioService';
 import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
 import TextAreaTamanhoDinamico from '../TextAreaTamanhoDinamico';
+import { CompartilharPublicacaoContext } from '../../contexts/CompartilharPublicacaoContext';
 
 interface ModalCompartilharPublicacaoProps {
   publicacao: PublicacaoModel,
@@ -19,7 +20,7 @@ export default function ModalCompartilharPublicacao({ publicacao, modalAberto, a
 
   const [modalDeCofirmarDescarteAberto, setModalDeCofirmarDescarteAberto] = useState(false);
 
-  const [textoDigitado, setTextoDigitado] = useState<string | null>(null);
+  const { textoDigitado, setTextoDigitado } = useContext(CompartilharPublicacaoContext);
 
   const overlay = useRef(null);
 
@@ -67,7 +68,7 @@ export default function ModalCompartilharPublicacao({ publicacao, modalAberto, a
   }
 
   function aoDigitarTexto(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    setTextoDigitado(e.target.value.trim());
+    setTextoDigitado(e.target.value);
   }
 
   function compartilharPublicacao() {
@@ -114,6 +115,7 @@ export default function ModalCompartilharPublicacao({ publicacao, modalAberto, a
                 placeholder='No que você está pensando, Pedro?'
                 onChange={aoDigitarTexto}
                 alturaInicial={60}
+                value={textoDigitado}
               />
               <div id='modalCompartilharPublicacao__containerPublicacao'>
                 <Publicacao
