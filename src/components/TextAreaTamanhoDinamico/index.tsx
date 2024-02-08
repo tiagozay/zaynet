@@ -36,6 +36,7 @@ export default function TextAreaTamanhoDinamico({ id, className, placeholder, on
             placeholder={placeholder}
             onChange={aoDigitar}
             ref={campoRef}
-        >{value}</textarea>
+            value={value ? value : ""}
+        ></textarea>
     )
 }
