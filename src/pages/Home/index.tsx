@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import MenuEsquerdo from '../../components/MenuEsquerdo';
 import Publicacao from '../../components/Publicacao';
 import './home.css';
 import ModalPublicar from '../../components/ModalPublicar';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import PublicacaoCompartilhada from '../../components/PublicacaoCompartilhada';
 import UsuarioService from '../../services/UsuarioService';
@@ -12,6 +12,7 @@ import { APIService } from '../../services/APIService';
 import { PublicacaoFactory } from '../../services/PublicacaoFactory';
 import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
 import { PublicacaoCompartilhadaModel } from '../../models/Publicacao/PublicacaoCompartilhadaModel';
+import { FeedContext } from '../../contexts/FeedContext';
 
 export default function Home() {
 
@@ -19,6 +20,8 @@ export default function Home() {
   const [publicacoes, setPublicacoes] = useState<Array<PublicacaoModel | PublicacaoCompartilhadaModel> | null>(null);
 
   const navigate = useNavigate();
+
+  const { posicaoFeed } = useContext(FeedContext);
 
   useEffect(() => {
     if (modalPublicarAberto) {
@@ -60,10 +63,10 @@ export default function Home() {
 
         setPublicacoes(publicacoesMapeadas);
 
+        window.scrollTo(0, posicaoFeed);
+
       });
-  }, [])
-
-
+  }, []);  
 
   return (
     <>
@@ -104,9 +107,9 @@ export default function Home() {
         {
           publicacoes ?
             publicacoes.map(publicacao => {
-              if(publicacao instanceof PublicacaoCompartilhadaModel ){
+              if (publicacao instanceof PublicacaoCompartilhadaModel) {
                 return <PublicacaoCompartilhada key={publicacao.id} publicacao={publicacao} />
-              }else{
+              } else {
                 return <Publicacao key={publicacao.id} publicacao={publicacao} />
               }
             }) : ""

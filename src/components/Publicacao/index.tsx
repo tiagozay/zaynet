@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './Publicacao.css';
 import UltimaImagemComSobreposicao from './UltimaImagemComSobreposicao';
 import Comentarios from './Comentarios';
@@ -15,6 +15,7 @@ import UsuarioService from '../../services/UsuarioService';
 import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
 import { APIService } from '../../services/APIService';
 import { PublicacaoService } from '../../services/PublicacaoService';
+import { FeedContext } from '../../contexts/FeedContext';
 
 interface PublicacaoProps {
   publicacao: PublicacaoModel,
@@ -27,6 +28,8 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
   const indicadorPublicacaoDoUsuarioLogado = true;
 
   const navigate = useNavigate();
+
+  const {posicaoFeed, setPosicaoFeed, definePosicaoDoFeed} = useContext(FeedContext);
 
   const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
 
@@ -57,14 +60,16 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
     const info = JSON.stringify(
       { imagensDoCarrossel: publicacao.midiasPublicacao, indiceImagemInicial: indice }
     );
-    navigate(`/image/${encodeURIComponent(info)}`);
+    definePosicaoDoFeed(window.scrollY)
+    .then(() => {navigate(`/image/${encodeURIComponent(info)}`)})
   }
 
   function aoClicarEmVerMaisImagens() {
     const info = JSON.stringify(
       { imagensDoCarrossel: publicacao.midiasPublicacao, indiceImagemInicial: 3 }
     );
-    navigate(`/image/${encodeURIComponent(info)}`);
+    definePosicaoDoFeed(window.scrollY)
+    .then(() => {navigate(`/image/${encodeURIComponent(info)}`)})
   }
 
   function editarPublicacao() {
