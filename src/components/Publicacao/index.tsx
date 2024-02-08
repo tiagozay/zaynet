@@ -95,7 +95,9 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
 
     if (isMobile) {
       setIndicadorModalCompartilharPublicacaoAberto(true);
-      navigate('/compartilharPublicacao', { state: publicacao });
+      definePosicaoDoFeed(window.scrollY)
+        .then(() => { navigate('/compartilharPublicacao', { state: publicacao }) })
+
     } else {
       setIndicadorModalCompartilharPublicacaoAberto(true);
     }
@@ -126,9 +128,9 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
           ""
       }
       {
-        indicadorModalCompartilharPublicacaoAberto && 
-        !publicacaoCompartilhada && 
-        idPublicacaoCompartilhada === publicacao.id?
+        indicadorModalCompartilharPublicacaoAberto &&
+          !publicacaoCompartilhada &&
+          idPublicacaoCompartilhada === publicacao.id ?
           <ModalCompartilharPublicacao
             publicacao={publicacao}
             fecharModal={fehcarModalCompartilharPublicacao}

@@ -13,6 +13,7 @@ import { PublicacaoCompartilhadaModel } from '../../models/Publicacao/Publicacao
 import { APIService } from '../../services/APIService';
 import { PublicacaoService } from '../../services/PublicacaoService';
 import { CompartilharPublicacaoContext } from '../../contexts/CompartilharPublicacaoContext';
+import { FeedContext } from '../../contexts/FeedContext';
 
 interface PublicacaoCompartilhadaProps {
     publicacao: PublicacaoCompartilhadaModel
@@ -24,6 +25,8 @@ export default function PublicacaoCompartilhada({ publicacao }: PublicacaoCompar
     const indicadorPublicacaoDoUsuarioLogado = true;
 
     const [indicadorModalEditarPublicacaoAberto, setIndicadorModalEditarPublicacaoAberto] = useState(false);
+
+    const { definePosicaoDoFeed } = useContext(FeedContext);
 
     const {
         indicadorModalCompartilharPublicacaoAberto,
@@ -55,7 +58,10 @@ export default function PublicacaoCompartilhada({ publicacao }: PublicacaoCompar
         setIdPublicacaoCompartilhada(publicacao.id);
 
         if (isMobile) {
+            setIndicadorModalCompartilharPublicacaoAberto(true);
             navigate('/compartilharPublicacao', { state: publicacao.publicacao });
+            definePosicaoDoFeed(window.scrollY)
+                .then(() => { navigate('/compartilharPublicacao', { state: publicacao }) })
         } else {
             setIndicadorModalCompartilharPublicacaoAberto(true);
         }
