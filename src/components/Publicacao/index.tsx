@@ -16,6 +16,7 @@ import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
 import { APIService } from '../../services/APIService';
 import { PublicacaoService } from '../../services/PublicacaoService';
 import { FeedContext } from '../../contexts/FeedContext';
+import { CompartilharPublicacaoContext } from '../../contexts/CompartilharPublicacaoContext';
 
 interface PublicacaoProps {
   publicacao: PublicacaoModel,
@@ -23,18 +24,23 @@ interface PublicacaoProps {
 }
 
 export default function Publicacao({ publicacao, publicacaoCompartilhada }: PublicacaoProps) {
-
   //Mock provisório que indica se a publicacao atual é do autor que está logado. Futuramente para obter esse dado deverá ser feita uma verificação com dados vindos do redux ou algo semelhante
   const indicadorPublicacaoDoUsuarioLogado = true;
 
   const navigate = useNavigate();
 
-  const {posicaoFeed, setPosicaoFeed, definePosicaoDoFeed} = useContext(FeedContext);
+  const { definePosicaoDoFeed } = useContext(FeedContext);
 
   const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
 
   const [indicadorModalEditarPublicacaoAberto, setIndicadorModalEditarPublicacaoAberto] = useState(false);
-  const [indicadorModalCompartilharPublicacaoAberto, setIndicadorModalCompartilharPublicacaoAberto] = useState(false);
+
+  const {
+    indicadorModalCompartilharPublicacaoAberto,
+    setIndicadorModalCompartilharPublicacaoAberto,
+    idPublicacaoCompartilhada,
+    setIdPublicacaoCompartilhada,
+  } = useContext(CompartilharPublicacaoContext);
 
   const [quantidadeDeComentarios, setQuantidadeDeComentarios] = useState(
     publicacao.comentarios ? publicacao.comentarios.length : 0
@@ -61,7 +67,7 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
       { imagensDoCarrossel: publicacao.midiasPublicacao, indiceImagemInicial: indice }
     );
     definePosicaoDoFeed(window.scrollY)
-    .then(() => {navigate(`/image/${encodeURIComponent(info)}`)})
+      .then(() => { navigate(`/image/${encodeURIComponent(info)}`) })
   }
 
   function aoClicarEmVerMaisImagens() {
@@ -69,7 +75,7 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
       { imagensDoCarrossel: publicacao.midiasPublicacao, indiceImagemInicial: 3 }
     );
     definePosicaoDoFeed(window.scrollY)
-    .then(() => {navigate(`/image/${encodeURIComponent(info)}`)})
+      .then(() => { navigate(`/image/${encodeURIComponent(info)}`) })
   }
 
   function editarPublicacao() {
@@ -85,7 +91,10 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
   }
 
   function clickCompartilharPublicacao() {
+    setIdPublicacaoCompartilhada(publicacao.id);
+
     if (isMobile) {
+      setIndicadorModalCompartilharPublicacaoAberto(true);
       navigate('/compartilharPublicacao', { state: publicacao });
     } else {
       setIndicadorModalCompartilharPublicacaoAberto(true);
@@ -94,6 +103,7 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
 
   function fehcarModalCompartilharPublicacao() {
     setIndicadorModalCompartilharPublicacaoAberto(false);
+    setIdPublicacaoCompartilhada(null);
   }
 
   function compartilharPublicacao(textoDigitado: string | null) {
@@ -116,7 +126,9 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
           ""
       }
       {
-        indicadorModalCompartilharPublicacaoAberto ?
+        indicadorModalCompartilharPublicacaoAberto && 
+        !publicacaoCompartilhada && 
+        idPublicacaoCompartilhada === publicacao.id?
           <ModalCompartilharPublicacao
             publicacao={publicacao}
             fecharModal={fehcarModalCompartilharPublicacao}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './PublicacaoCompartilhada.css';
 import InteracoesComAPublicacao from '../Publicacao/InteracoesComAPublicacao';
 import Comentarios from '../Publicacao/Comentarios';
@@ -12,6 +12,7 @@ import MenuOpcoesPublicacao from '../MenuOpcoesPublicacao';
 import { PublicacaoCompartilhadaModel } from '../../models/Publicacao/PublicacaoCompartilhadaModel';
 import { APIService } from '../../services/APIService';
 import { PublicacaoService } from '../../services/PublicacaoService';
+import { CompartilharPublicacaoContext } from '../../contexts/CompartilharPublicacaoContext';
 
 interface PublicacaoCompartilhadaProps {
     publicacao: PublicacaoCompartilhadaModel
@@ -23,7 +24,13 @@ export default function PublicacaoCompartilhada({ publicacao }: PublicacaoCompar
     const indicadorPublicacaoDoUsuarioLogado = true;
 
     const [indicadorModalEditarPublicacaoAberto, setIndicadorModalEditarPublicacaoAberto] = useState(false);
-    const [indicadorModalCompartilharPublicacaoAberto, setIndicadorModalCompartilharPublicacaoAberto] = useState(false);
+
+    const {
+        indicadorModalCompartilharPublicacaoAberto,
+        setIndicadorModalCompartilharPublicacaoAberto,
+        idPublicacaoCompartilhada,
+        setIdPublicacaoCompartilhada,
+    } = useContext(CompartilharPublicacaoContext);
 
     const [quantidadeDeComentarios, setQuantidadeDeComentarios] = useState(
         publicacao.comentarios ? publicacao.comentarios.length : 0
@@ -45,14 +52,17 @@ export default function PublicacaoCompartilhada({ publicacao }: PublicacaoCompar
     }, [indicadorModalEditarPublicacaoAberto]);
 
     function clickCompartilharPublicacao() {
+        setIdPublicacaoCompartilhada(publicacao.id);
+
         if (isMobile) {
-            navigate('/compartilharPublicacao', {state: publicacao.publicacao});
+            navigate('/compartilharPublicacao', { state: publicacao.publicacao });
         } else {
             setIndicadorModalCompartilharPublicacaoAberto(true);
         }
     }
 
     function fehcarModalCompartilharPublicacao() {
+        setIdPublicacaoCompartilhada(null);
         setIndicadorModalCompartilharPublicacaoAberto(false);
     }
 
@@ -87,7 +97,7 @@ export default function PublicacaoCompartilhada({ publicacao }: PublicacaoCompar
                     ""
             }
             {
-                indicadorModalCompartilharPublicacaoAberto ?
+                indicadorModalCompartilharPublicacaoAberto && idPublicacaoCompartilhada === publicacao.id ?
                     <ModalCompartilharPublicacao
                         publicacao={publicacao.publicacao}
                         fecharModal={fehcarModalCompartilharPublicacao}
