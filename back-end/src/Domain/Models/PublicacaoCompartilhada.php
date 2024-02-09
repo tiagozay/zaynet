@@ -48,7 +48,7 @@ class PublicacaoCompartilhada extends Publicacao implements JsonSerializable
         }
     }
 
-    public function jsonSerialize(): mixed
+    public function toArray(): array
     {
         return [
             'id' => $this->id,
@@ -62,5 +62,10 @@ class PublicacaoCompartilhada extends Publicacao implements JsonSerializable
             'quantidadeDeCompartilhamentos' => null,
             'dataDePublicacao' => DataService::formataDataParaString($this->dataDePublicacao)
         ];
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return $this->toArray();
     }
 }
