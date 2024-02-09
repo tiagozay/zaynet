@@ -76,7 +76,7 @@ root.render(
                 </Route>
                 <Route path='/image/:objInfoCarrosel' element={<CarrosselDeImagens />} />
                 <Route path='/pesquisar' element={<PesquisarPorUmaPessoaMobile />} />
-                <Route path='/publicad' element={<PublicarMobile />} />
+                <Route path='/publicar' element={<PublicarMobile />} />
                 <Route path='/compartilharPublicacao' element={<CompartilharPublicacaoMobile />} />
                 <Route path='/editarPublicacao' element={<EditarPublicacaoMobile />} />
                 <Route path='/editarPublicacaoCompartilhada' element={<EditarPublicacaoCompartilhadaMobile />} />
