@@ -63,12 +63,15 @@ export default function Home() {
 
         setPublicacoes(publicacoesMapeadas);
 
-        //Toda vez que cair nesta página Home, buscará a posição do feed que está armazenada no contexto. Esta posição é gravada toda vez que nevegamos desta página home para outra, aí quando volta para cá, já se sabe a posição anterior e retorna para ela (este armazenamento é feito nas publicações, pois é nelas que ocorrem essas mudanças, como ao abrir carrossel de imagens, clicar em compartilhar(para mobile), clicar em editar (para mobile))
-        window.scrollTo(0, posicaoFeed);
 
       })
       .catch(() => { });
   }, []);
+
+  useEffect(() => {
+    //Toda vez que cair nesta página Home ou mudar o state de publicacoes, buscará a posição do feed que está armazenada no contexto. Esta posição é gravada toda vez que nevegamos desta página home para outra, aí quando volta para cá, já se sabe a posição anterior e retorna para ela (este armazenamento é feito nas publicações, pois é nelas que ocorrem essas mudanças, como ao abrir carrossel de imagens, clicar em compartilhar(para mobile), clicar em editar (para mobile))
+    window.scrollTo(0, posicaoFeed);
+  }, [publicacoes])
 
 
   function aoCadastrarPublicacao(publicacaoCadastrada: object) {
