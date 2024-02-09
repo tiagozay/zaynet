@@ -38,16 +38,16 @@ class Publicacao implements JsonSerializable
     #[Column(nullable: true, type: 'text', length: 65535)]
     protected ?string $texto;
 
-    #[OneToMany(mappedBy: 'publicacao', targetEntity: MidiaPublicacao::class, cascade:['persist', 'remove'])]
+    #[OneToMany(mappedBy: 'publicacao', targetEntity: MidiaPublicacao::class, cascade: ['persist', 'remove'])]
     private Collection $midiasPublicacao;
 
-    #[OneToMany(mappedBy: 'publicacao', targetEntity: Comentario::class, cascade:['persist', 'remove'])]
+    #[OneToMany(mappedBy: 'publicacao', targetEntity: Comentario::class, cascade: ['persist', 'remove'])]
     protected Collection $comentarios;
 
-    #[OneToMany(mappedBy: 'publicacao', targetEntity: Curtida::class, cascade:['persist', 'remove'])]
+    #[OneToMany(mappedBy: 'publicacao', targetEntity: Curtida::class, cascade: ['persist', 'remove'])]
     protected Collection $curtidas;
 
-    #[OneToMany(mappedBy:'publicacao', targetEntity:PublicacaoCompartilhada::class)]
+    #[OneToMany(mappedBy: 'publicacao', targetEntity: PublicacaoCompartilhada::class)]
     private Collection $compartilhamentos;
 
     #[Column()]
@@ -65,7 +65,7 @@ class Publicacao implements JsonSerializable
         );
 
         $this->autor = $autor;
-        
+
         $this->texto = $texto;
         $this->comentarios = new ArrayCollection();
         $this->curtidas = new ArrayCollection();
@@ -90,10 +90,9 @@ class Publicacao implements JsonSerializable
                     $this,
                     $nomeArquivoOriginal,
                     $nomeMiniatura
-                );   
+                );
 
                 $this->midiasPublicacao->add($midia);
-
             }
         }
 
@@ -157,13 +156,13 @@ class Publicacao implements JsonSerializable
     {
         $this->curtidas->add($curtida);
     }
-    
+
     public function adicionarCompartilhamento(PublicacaoCompartilhada $publicacaoCompartilhada)
     {
         $this->compartilhamentos->add($publicacaoCompartilhada);
     }
 
-    public function jsonSerialize(): mixed
+    public function toArray(): array
     {
         return [
             'id' => $this->id,
@@ -175,5 +174,10 @@ class Publicacao implements JsonSerializable
             'quantidadeDeCompartilhamentos' => $this->compartilhamentos->count(),
             'dataDePublicacao' => DataService::formataDataParaString($this->dataDePublicacao)
         ];
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return $this->toArray();
     }
 }
