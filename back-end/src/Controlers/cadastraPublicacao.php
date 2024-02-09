@@ -55,6 +55,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "POST") 
             true,
             false,
             "Publicação cadastrada com sucesso",
+            $publicacao->toArray()
         );
         echo json_encode($response);
     } catch (DomainException $e) {
