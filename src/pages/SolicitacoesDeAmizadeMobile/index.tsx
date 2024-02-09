@@ -1,13 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './SolicitacoesDeAmizadeMobile.css';
 import { useNavigate } from 'react-router-dom';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import { useMediaQuery } from 'react-responsive';
+import { LoginService } from '../../services/LoginService';
+import { ControleLoginContext } from '../../contexts/ControleLoginContext';
 
 export default function SolicitacoesDeAmizadeMobile() {
     const navigate = useNavigate();
 
     const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
+
+    const { permisaoParaIniciar, setPermisaoParaIniciar } = useContext(ControleLoginContext);
 
     useEffect(() => {
         if (!isMobile) {
@@ -15,7 +19,20 @@ export default function SolicitacoesDeAmizadeMobile() {
         }
     }, [isMobile]);
 
+    useEffect(() => {
+        LoginService.verificaSeHaLoginValido()
+            .then(loginValido => {
+                if (loginValido) {
+                    setPermisaoParaIniciar(true);
+                } else {
+                    navigate('/login');
+                }
+            })
+            .catch(() => { })
+    }, [permisaoParaIniciar]);
+
     return (
+        permisaoParaIniciar &&
         <section id='solicitacoesDeAmizadePage' className='espacamentosParaCompensarPartesDoHeader'>
             <h3 id='solicitacoesDeAmizadeMobile__titulo'>Solicitações de amizade</h3>
             <ul id="listaDeSolicitacoesDeAmizadeMobile">

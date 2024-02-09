@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './EditarPublicacaoMobile.css';
 import { useNavigate } from 'react-router-dom';
 import SelecionarArquivos from '../../components/SelecionarArquivos';
@@ -9,6 +9,8 @@ import MidiaEditarPublicacao from '../../components/MidiaEditarPublicacao';
 import ModalDeConfirmacao from '../../components/ModalDeConfirmacao';
 import UsuarioService from '../../services/UsuarioService';
 import TextAreaTamanhoDinamico from '../../components/TextAreaTamanhoDinamico';
+import { ControleLoginContext } from '../../contexts/ControleLoginContext';
+import { LoginService } from '../../services/LoginService';
 
 export default function EditarPublicacaoMobile() {
 
@@ -50,6 +52,8 @@ export default function EditarPublicacaoMobile() {
     const [textoDaPublicacao, setTextoDaPublicacao] = useState<string | null>(null);
     const [midiasDaPublicacao, setMidiasDaPublicacao] = useState<MidiaPublicacaoModel[]>(publicacao.midias);
 
+    const { permisaoParaIniciar, setPermisaoParaIniciar } = useContext(ControleLoginContext);
+
     const [novosArquivosSelecionados, setNovosArquivosSelecionados] = useState<FileList | null>(null);
 
     const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
@@ -63,6 +67,18 @@ export default function EditarPublicacaoMobile() {
         setMidiasDaPublicacao(publicacao.midias);
         setNovosArquivosSelecionados(null);
     }, []);
+
+    useEffect(() => {
+        LoginService.verificaSeHaLoginValido()
+            .then(loginValido => {
+                if (loginValido) {
+                    setPermisaoParaIniciar(true);
+                } else {
+                    navigate('/login');
+                }
+            })
+            .catch(() => { })
+    }, [permisaoParaIniciar]);
 
     useEffect(() => {
         if (!isMobile) {
@@ -123,6 +139,7 @@ export default function EditarPublicacaoMobile() {
     }
 
     return (
+        permisaoParaIniciar &&
         <>
             {
                 modalDeConfirmacaoDeDescarteAberto ?

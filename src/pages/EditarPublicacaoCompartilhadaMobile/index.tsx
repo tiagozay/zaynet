@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './EditarPublicacaoCompartilhadaMobile.css';
 import Publicacao from '../../components/Publicacao';
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +6,8 @@ import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import ModalDeConfirmacao from '../../components/ModalDeConfirmacao';
 import UsuarioService from '../../services/UsuarioService';
+import { ControleLoginContext } from '../../contexts/ControleLoginContext';
+import { LoginService } from '../../services/LoginService';
 
 export default function EditarPublicacaoCompartilhadaMobile() {
 
@@ -13,6 +15,8 @@ export default function EditarPublicacaoCompartilhadaMobile() {
     const publicacao = {
         texto: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero, distinctio autem? Magnam autem quisquam voluptates eius cupiditate. Sapiente blanditiis obcaecati natus, similique, repellendus ipsum ipsam dicta eos consequatur, distinctio soluta?",
     }
+
+    const { permisaoParaIniciar, setPermisaoParaIniciar } = useContext(ControleLoginContext);
 
     const [indicadorModificacaoRealizada, setIndicadorModificacaoRealizada] = useState(false);
     const [modalDeConfirmacaoDeDescarteAberto, setmodalDeConfirmacaoDeDescarteAberto] = useState(false);
@@ -27,6 +31,18 @@ export default function EditarPublicacaoCompartilhadaMobile() {
         setIndicadorModificacaoRealizada(false);
         setTextoDaPublicacao(publicacao.texto);
     }, []);
+
+    useEffect(() => {
+        LoginService.verificaSeHaLoginValido()
+            .then(loginValido => {
+                if (loginValido) {
+                    setPermisaoParaIniciar(true);
+                } else {
+                    navigate('/login');
+                }
+            })
+            .catch(() => { })
+    }, [permisaoParaIniciar]);
 
     useEffect(() => {
         if (!isMobile) {
@@ -70,6 +86,7 @@ export default function EditarPublicacaoCompartilhadaMobile() {
     }
 
     return (
+        permisaoParaIniciar && 
         <>
             {
                 modalDeConfirmacaoDeDescarteAberto ?

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './PerfilUsuario.css';
 import Header from '../../components/Header';
 import MenuResponderSolicitacao from './MenuResponderSolicitacao';
@@ -9,6 +9,8 @@ import Publicacao from '../../components/Publicacao';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import ModalEditarInformacoesDoPerfil from '../../components/ModalEditarInformacoesDoPerfil';
 import { useMediaQuery } from 'react-responsive';
+import { ControleLoginContext } from '../../contexts/ControleLoginContext';
+import { LoginService } from '../../services/LoginService';
 
 export default function PerfilUsuario() {
 
@@ -29,9 +31,15 @@ export default function PerfilUsuario() {
 
     const [indicadorModalEditarPefilAberto, setIndicadorModalEditarPefilAberto] = useState(false);
 
+    const { permisaoParaIniciar, setPermisaoParaIniciar } = useContext(ControleLoginContext);
+
     const navigate = useNavigate();
 
     const paginaAberta = useLocation().pathname;
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     useEffect(() => {
         if (indicadorModalEditarPefilAberto) {
@@ -42,8 +50,16 @@ export default function PerfilUsuario() {
     }, [indicadorModalEditarPefilAberto]);
 
     useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+        LoginService.verificaSeHaLoginValido()
+            .then(loginValido => {
+                if (loginValido) {
+                    setPermisaoParaIniciar(true);
+                } else {
+                    navigate('/login');
+                }
+            })
+            .catch(() => { })
+    }, [permisaoParaIniciar]);
 
     function abrirModalEditarPerfil() {
         if(isMobile){
@@ -58,6 +74,7 @@ export default function PerfilUsuario() {
     }
 
     return (
+        permisaoParaIniciar &&
         <>
             {
                 indicadorModalEditarPefilAberto ?

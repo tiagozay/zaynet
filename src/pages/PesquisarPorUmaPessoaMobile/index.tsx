@@ -1,8 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import './PesquisarPorUmaPessoaMobile.css';
 import { useNavigate } from 'react-router-dom';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import UsuarioService from '../../services/UsuarioService';
+import { ControleLoginContext } from '../../contexts/ControleLoginContext';
+import { LoginService } from '../../services/LoginService';
 
 export default function PesquisarPorUmaPessoaMobile() {
 
@@ -11,6 +13,8 @@ export default function PesquisarPorUmaPessoaMobile() {
     function voltar() {
         navigate(-1);
     }
+
+    const { permisaoParaIniciar, setPermisaoParaIniciar } = useContext(ControleLoginContext);
 
     const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -21,8 +25,21 @@ export default function PesquisarPorUmaPessoaMobile() {
             navigate('/');
         }
     }, []);
+
+    useEffect(() => {
+        LoginService.verificaSeHaLoginValido()
+          .then(loginValido => {
+            if (loginValido) {
+              setPermisaoParaIniciar(true);
+            } else {
+              navigate('/login');
+            }
+          })
+          .catch(() => { })
+      }, [permisaoParaIniciar]);
     
     return (
+        permisaoParaIniciar &&
         <section id='pesquisarPorUmaPessoaMobile_page'>
             <div id='pesquisarPorUmaPessoaMobile__divInputEBtnVoltar'>
                 <button

@@ -8,8 +8,12 @@ import UsuarioService from '../../services/UsuarioService';
 import { PublicacaoService } from '../../services/PublicacaoService';
 import TextAreaTamanhoDinamico from '../../components/TextAreaTamanhoDinamico';
 import { CompartilharPublicacaoContext } from '../../contexts/CompartilharPublicacaoContext';
+import { LoginService } from '../../services/LoginService';
+import { ControleLoginContext } from '../../contexts/ControleLoginContext';
 
 export default function CompartilharPublicacaoMobile({ }) {
+
+    const { permisaoParaIniciar, setPermisaoParaIniciar } = useContext(ControleLoginContext);
 
     const {
         textoDigitado,
@@ -24,6 +28,18 @@ export default function CompartilharPublicacaoMobile({ }) {
     const publicacao = location.state;
 
     const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
+
+    useEffect(() => {
+        LoginService.verificaSeHaLoginValido()
+            .then(loginValido => {
+                if (loginValido) {
+                    setPermisaoParaIniciar(true);
+                } else {
+                    navigate('/login');
+                }
+            })
+            .catch(() => { })
+    }, [permisaoParaIniciar]);
 
     useEffect(() => {
         if (!isMobile) {
@@ -54,6 +70,7 @@ export default function CompartilharPublicacaoMobile({ }) {
     }
 
     return (
+        permisaoParaIniciar &&
         <div id="compartilharPublicacaoMobile__page">
             <div id="compartilharPublicacaoMobile__cabecalho">
                 <div id="compartilharPublicacaoMobile__cabecalho__container">
@@ -97,8 +114,8 @@ export default function CompartilharPublicacaoMobile({ }) {
                     />
                 </div>
 
-
             </div>
         </div>
+
     )
 }

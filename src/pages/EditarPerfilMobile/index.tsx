@@ -1,10 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import './EditarPerfilMobile.css';
 import { useNavigate } from 'react-router-dom';
 import { ArquivosPublicacaoService } from '../../services/ArquivosPublicacaoService';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import ModalDeConfirmacao from '../../components/ModalDeConfirmacao';
+import { ControleLoginContext } from '../../contexts/ControleLoginContext';
+import { LoginService } from '../../services/LoginService';
 
 export default function EditarPerfilMobile() {
 
@@ -40,6 +42,8 @@ export default function EditarPerfilMobile() {
     const [indicadorModificacaoRealizada, setIndicadorModificacaoRealizada] = useState(false);
     const [modalDeConfirmacaoDeDescarteAberto, setmodalDeConfirmacaoDeDescarteAberto] = useState(false);
 
+    const { permisaoParaIniciar, setPermisaoParaIniciar } = useContext(ControleLoginContext);
+
     const inputPerfilRef = useRef<HTMLInputElement | null>(null);
     const inputCapaRef = useRef<HTMLInputElement | null>(null);
 
@@ -56,6 +60,19 @@ export default function EditarPerfilMobile() {
         setCidadeAtual(informacoesUsuario.cidadeAtual);
         setStatusDeRelacionamento(informacoesUsuario.statusDeRelacionamento);
     }, []);
+
+    useEffect(() => {
+
+        LoginService.verificaSeHaLoginValido()
+            .then(loginValido => {
+                if (loginValido) {
+                    setPermisaoParaIniciar(true);
+                } else {
+                    navigate('/login');
+                }
+            })
+            .catch(() => { })
+    }, [permisaoParaIniciar]);
 
     useEffect(() => {
         if (
@@ -84,6 +101,7 @@ export default function EditarPerfilMobile() {
         cidadeAtual,
         statusDeRelacionamento
     ]);
+    
 
     useEffect(() => {
         if (novaFotoPerfil) {
@@ -178,6 +196,7 @@ export default function EditarPerfilMobile() {
     }
 
     return (
+        permisaoParaIniciar &&
         <>
             {
                 modalDeConfirmacaoDeDescarteAberto ?

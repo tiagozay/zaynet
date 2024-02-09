@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import './PublicarMobile.css';
 import { useNavigate } from 'react-router-dom';
 import { ArquivosPublicacaoService } from '../../services/ArquivosPublicacaoService';
@@ -11,6 +11,8 @@ import { PublicacaoService } from '../../services/PublicacaoService';
 import APIResponse from '../../Utils/APIResponse';
 import Toast from '../../components/Toast';
 import TextAreaTamanhoDinamico from '../../components/TextAreaTamanhoDinamico';
+import { ControleLoginContext } from '../../contexts/ControleLoginContext';
+import { LoginService } from '../../services/LoginService';
 
 export default function PublicarMobile() {
 
@@ -30,12 +32,26 @@ export default function PublicarMobile() {
 
     const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
 
+    const { permisaoParaIniciar, setPermisaoParaIniciar } = useContext(ControleLoginContext);
+
     useEffect(() => {
         if (!isMobile) {
             navigate(-1);
         }
     }, [isMobile]);
 
+
+    useEffect(() => {
+        LoginService.verificaSeHaLoginValido()
+            .then(loginValido => {
+                if (loginValido) {
+                    setPermisaoParaIniciar(true);
+                } else {
+                    navigate('/login');
+                }
+            })
+            .catch(() => { })
+    }, [permisaoParaIniciar]);
 
     useEffect(() => {
         if (indicadorAlgumTextoDigitado || indicadorAlgumaMidiaSelecionada) {
@@ -106,6 +122,7 @@ export default function PublicarMobile() {
     }
 
     return (
+        permisaoParaIniciar &&
         <>
             {
                 indicadorToastAberto ?

@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './ConfiguracoesContaMobile.css';
 import ModalDeConfirmacao from '../../components/ModalDeConfirmacao';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
+import { ControleLoginContext } from '../../contexts/ControleLoginContext';
+import { LoginService } from '../../services/LoginService';
 
 export default function ConfiguracoesContaMobile() {
 
     const usuario = {
         email: 'pedrosouza@gmail.com'
     }
+
+    const { permisaoParaIniciar, setPermisaoParaIniciar } = useContext(ControleLoginContext);
 
     const [indicadorAlteracaoRealizada, setIndicadorAlteracaoRealizada] = useState(false);
     const [modalDeConfirmacaoDeDescarteAberto, setmodalDeConfirmacaoDeDescarteAberto] = useState(false);
@@ -28,6 +32,19 @@ export default function ConfiguracoesContaMobile() {
     useEffect(() => {
         setEmail(usuario.email);
     }, []);
+
+    useEffect(() => {
+
+        LoginService.verificaSeHaLoginValido()
+            .then(loginValido => {
+                if (loginValido) {
+                    setPermisaoParaIniciar(true);
+                } else {
+                    navigate('/login');
+                }
+            })
+            .catch(() => { })
+    }, [permisaoParaIniciar]);
 
     useEffect(() => {
         if (
@@ -79,7 +96,7 @@ export default function ConfiguracoesContaMobile() {
     function clickExibirNovaSenha() {
         setIndicadorExibirNovaSenha(state => !state);
     }
-    
+
     function aoDigitarSenha(e: React.ChangeEvent<HTMLInputElement>) {
         setSenha(e.target.value);
     }
@@ -94,6 +111,7 @@ export default function ConfiguracoesContaMobile() {
 
 
     return (
+        permisaoParaIniciar && 
         <>
             {
                 modalDeConfirmacaoDeDescarteAberto ?

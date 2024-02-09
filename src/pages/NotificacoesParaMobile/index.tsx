@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './NotificacoesParaMobile.css';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
+import { ControleLoginContext } from '../../contexts/ControleLoginContext';
+import { LoginService } from '../../services/LoginService';
 
 
 export default function NotificacoesParaMobile() {
@@ -11,6 +13,21 @@ export default function NotificacoesParaMobile() {
 
   const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
 
+  const { permisaoParaIniciar, setPermisaoParaIniciar } = useContext(ControleLoginContext);
+
+  useEffect(() => {
+    LoginService.verificaSeHaLoginValido()
+      .then(loginValido => {
+        if (loginValido) {
+          setPermisaoParaIniciar(true);
+        } else {
+          navigate('/login');
+        }
+      })
+      .catch(() => { })
+  }, [permisaoParaIniciar]);
+
+
   useEffect(() => {
     if (!isMobile) {
       navigate('/');
@@ -18,6 +35,7 @@ export default function NotificacoesParaMobile() {
   }, [isMobile]);
 
   return (
+    permisaoParaIniciar &&
     <section id='notificacoesPage' className='espacamentosParaCompensarPartesDoHeader'>
       <h3 id='notificacoesMobile__titulo'>Notificações</h3>
       <ul id='notificacoesMobile__notificacoes'>

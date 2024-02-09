@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Header from '../../components/Header'
 import { Outlet, useNavigate } from 'react-router-dom';
 import MenuEsquerdo from '../../components/MenuEsquerdo';
 import ContatosChat from '../../components/ContatosChat';
 import { LoginService } from '../../services/LoginService';
 import PageLoading from '../../components/PageLoading';
+import { ControleLoginContext } from '../../contexts/ControleLoginContext';
 
 export default function PaginaBaseComHeader() {
 
-    const [indicadorPermisaoParaIniciar, setIndicadorPermisaoParaIniciar] = useState(false);
+    const {permisaoParaIniciar, setPermisaoParaIniciar} = useContext(ControleLoginContext);
 
     const navigate = useNavigate();
 
@@ -16,17 +17,18 @@ export default function PaginaBaseComHeader() {
         LoginService.verificaSeHaLoginValido()
             .then( loginValido => {
                 if(loginValido){
-                    setIndicadorPermisaoParaIniciar(true);
+                    setPermisaoParaIniciar(true);
                 }else{
                     navigate('/login');
                 }
-            } );
+            } )
+            .catch(() => {})
     }, []);
 
     return (
         <>
             {
-                !indicadorPermisaoParaIniciar ?
+                !permisaoParaIniciar ?
                     <PageLoading /> :
                     <>
                         <MenuEsquerdo></MenuEsquerdo>

@@ -5,6 +5,8 @@ import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import { useMediaQuery } from 'react-responsive';
 import { ConversaModel, MensagemEnviada, MensagemRecebida } from '../../models/ConversaModel';
 import { CaixaDeMensagemContext } from '../../contexts/CaixaDeMensagemContext';
+import { ControleLoginContext } from '../../contexts/ControleLoginContext';
+import { LoginService } from '../../services/LoginService';
 
 export default function MensagensMobile() {
     const conversa1 = new ConversaModel(
@@ -47,25 +49,39 @@ export default function MensagensMobile() {
         ]
     );
 
-    const {abrirChat} = useContext(CaixaDeMensagemContext);
+    const { abrirChat } = useContext(CaixaDeMensagemContext);
 
     const navigate = useNavigate();
 
-    const isMobile = useMediaQuery({maxWidth: TAMANHO_DE_TELA_MOBILE});
+    const { permisaoParaIniciar, setPermisaoParaIniciar } = useContext(ControleLoginContext);
+
+    const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
 
     useEffect(() => {
-        if(!isMobile){
+        if (!isMobile) {
             navigate('/');
         }
     }, [isMobile]);
 
-    function clickAbrirConversa(conversa: ConversaModel)
-    {
+    useEffect(() => {
+        LoginService.verificaSeHaLoginValido()
+            .then(loginValido => {
+                if (loginValido) {
+                    setPermisaoParaIniciar(true);
+                } else {
+                    navigate('/login');
+                }
+            })
+            .catch(() => { })
+    }, [permisaoParaIniciar]);
+
+    function clickAbrirConversa(conversa: ConversaModel) {
         abrirChat(conversa);
         navigate('/conversa');
     }
 
     return (
+        permisaoParaIniciar &&
         <section id='mensagensPage' className='espacamentosParaCompensarPartesDoHeader'>
             <h3 id='mensagensMobile__titulo'>Mensagens</h3>
             <ul id='mensagensMobile__mensagens'>
