@@ -170,6 +170,7 @@ export default function PublicarMobile() {
                         placeholder='No que você está pensando, Pedro?'
                         onChange={aoDigitarTexto}
                         alturaInicial={80}
+                        value={textoDigitado}
                     />
 
                     {
