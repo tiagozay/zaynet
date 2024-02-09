@@ -17,7 +17,7 @@ import { FeedContext } from '../../contexts/FeedContext';
 export default function Home() {
 
   const [modalPublicarAberto, setModalPublicarAberto] = useState(false);
-  const [publicacoes, setPublicacoes] = useState<Array<PublicacaoModel | PublicacaoCompartilhadaModel> | null>(null);
+  const [publicacoes, setPublicacoes] = useState<Array<PublicacaoModel | PublicacaoCompartilhadaModel>>([]);
 
   const navigate = useNavigate();
 
@@ -66,8 +66,16 @@ export default function Home() {
         //Toda vez que cair nesta página Home, buscará a posição do feed que está armazenada no contexto. Esta posição é gravada toda vez que nevegamos desta página home para outra, aí quando volta para cá, já se sabe a posição anterior e retorna para ela (este armazenamento é feito nas publicações, pois é nelas que ocorrem essas mudanças, como ao abrir carrossel de imagens, clicar em compartilhar(para mobile), clicar em editar (para mobile))
         window.scrollTo(0, posicaoFeed);
 
-      });
-  }, []);  
+      })
+      .catch(() => { });
+  }, []);
+
+
+  function aoCadastrarPublicacao(publicacaoCadastrada: object) {
+    const publicacao = PublicacaoFactory.create(publicacaoCadastrada);
+
+    setPublicacoes(state => [publicacao, ...state])
+  }
 
   return (
     <>
@@ -77,6 +85,7 @@ export default function Home() {
           <ModalPublicar
             modalAberto={modalPublicarAberto}
             fecharModal={fecharModalPublicar}
+            aoPublicar={aoCadastrarPublicacao}
           /> :
           ""
       }

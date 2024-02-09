@@ -15,10 +15,11 @@ import TextAreaTamanhoDinamico from '../TextAreaTamanhoDinamico';
 
 interface ModalPublicarProps {
     modalAberto: boolean,
+    aoPublicar?: (publicacaoCadastrada: object) => void,
     fecharModal: () => void
 }
 
-export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublicarProps) {
+export default function ModalPublicar({ modalAberto, aoPublicar, fecharModal }: ModalPublicarProps) {
 
     const [indicadorInputImagensEVideosAberto, setIndicadorInputImagensEVideosAberto] = useState(false);
     const [permisaoParaPublicar, setPermisaoParaPublicar] = useState(false);
@@ -95,10 +96,13 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
         setIndicadorCadastroSendoEnviado(true);
 
         PublicacaoService.publicar(textoDigitado, arquivosSelecionados)
-            .then(() => {
+            .then((res) => {
                 setIndicadorCadastroSendoEnviado(false);
                 fecharModal();
-                navigate("/");
+                if (aoPublicar) {
+                    aoPublicar(res.data as object);
+                }
+
             })
             .catch(e => {
                 setIndicadorCadastroSendoEnviado(false);
@@ -116,7 +120,7 @@ export default function ModalPublicar({ modalAberto, fecharModal }: ModalPublica
     }
 
     function aoDigitarTexto(e: React.ChangeEvent<HTMLTextAreaElement>) {
-        setTextoDigitado(e.target.value.trim());
+        setTextoDigitado(e.target.value);
     }
 
     function abrirInputImagensEVideos() {
