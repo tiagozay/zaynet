@@ -50,6 +50,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "POST") 
             true,
             false,
             "Publicação compartilhada com sucesso",
+            $publicacaoCompartilhada->toArray()
         );
         echo json_encode($response);
     } catch (DomainException $e) {
