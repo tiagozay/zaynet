@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { memo, useContext, useEffect, useState } from 'react';
 import './PublicacaoCompartilhada.css';
 import InteracoesComAPublicacao from '../Publicacao/InteracoesComAPublicacao';
 import Comentarios from '../Publicacao/Comentarios';
@@ -19,7 +19,7 @@ interface PublicacaoCompartilhadaProps {
     publicacao: PublicacaoCompartilhadaModel
 }
 
-export default function PublicacaoCompartilhada({ publicacao }: PublicacaoCompartilhadaProps) {
+function PublicacaoCompartilhada({ publicacao }: PublicacaoCompartilhadaProps) {
 
     //Mock provisório que indica se a publicacao atual é do autor que está logado. Futuramente para obter esse dado deverá ser feita uma verificação com dados vindos do redux ou algo semelhante
     const indicadorPublicacaoDoUsuarioLogado = true;
@@ -165,3 +165,5 @@ export default function PublicacaoCompartilhada({ publicacao }: PublicacaoCompar
 
     )
 }
+
+export default memo(PublicacaoCompartilhada);

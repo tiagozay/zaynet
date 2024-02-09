@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { memo, useContext, useEffect, useState } from 'react';
 import './Publicacao.css';
 import UltimaImagemComSobreposicao from './UltimaImagemComSobreposicao';
 import Comentarios from './Comentarios';
@@ -23,7 +23,7 @@ interface PublicacaoProps {
   publicacaoCompartilhada?: boolean
 }
 
-export default function Publicacao({ publicacao, publicacaoCompartilhada }: PublicacaoProps) {
+function Publicacao({ publicacao, publicacaoCompartilhada }: PublicacaoProps) {
   //Mock provisório que indica se a publicacao atual é do autor que está logado. Futuramente para obter esse dado deverá ser feita uma verificação com dados vindos do redux ou algo semelhante
   const indicadorPublicacaoDoUsuarioLogado = true;
 
@@ -240,3 +240,5 @@ export default function Publicacao({ publicacao, publicacaoCompartilhada }: Publ
 
   )
 }
+
+export default memo(Publicacao);
