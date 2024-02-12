@@ -4,19 +4,12 @@ import UltimaImagemComSobreposicao from './UltimaImagemComSobreposicao';
 import Comentarios from './Comentarios';
 import InteracoesComAPublicacao from './InteracoesComAPublicacao';
 import { useNavigate } from 'react-router-dom';
-import { MidiaPublicacaoModel } from '../../models/Publicacao/MidiaPublicacaoModel';
 import { ArquivosPublicacaoService } from '../../services/ArquivosPublicacaoService';
-import ModalEditarPublicacao from '../ModalEditarPublicacao';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
-import ModalCompartilharPublicacao from '../ModalCompartilharPublicacao';
 import MenuOpcoesPublicacao from '../MenuOpcoesPublicacao';
-import UsuarioService from '../../services/UsuarioService';
 import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
-import { APIService } from '../../services/APIService';
-import { PublicacaoService } from '../../services/PublicacaoService';
 import { FeedContext } from '../../contexts/FeedContext';
-import { CompartilharPublicacaoContext } from '../../contexts/CompartilharPublicacaoContext';
 import { PublicacaoCompartilhadaModel } from '../../models/Publicacao/PublicacaoCompartilhadaModel';
 
 interface PublicacaoProps {
@@ -64,9 +57,8 @@ function Publicacao({ publicacao, compartilharPublicacao, editarPublicacao, publ
       .then(() => { navigate(`/image/${encodeURIComponent(info)}`) })
   }
 
-  function clickCompartilharPublicacao() 
-  {
-    if(compartilharPublicacao){
+  function clickCompartilharPublicacao() {
+    if (compartilharPublicacao) {
       compartilharPublicacao(publicacao);
     }
 
@@ -74,7 +66,7 @@ function Publicacao({ publicacao, compartilharPublicacao, editarPublicacao, publ
 
   return (
     <>
-   
+
       <div id='publicacao' className={publicacaoCompartilhada ? 'publicacaoSemMargem' : ''}>
         <div id='publicacao__infoUsuario'>
           <div id='publicacao__infoUsuarioContainer'>

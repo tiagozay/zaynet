@@ -1,10 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Header from '../../components/Header';
-import MenuEsquerdo from '../../components/MenuEsquerdo';
 import Publicacao from '../../components/Publicacao';
 import './home.css';
 import ModalPublicar from '../../components/ModalPublicar';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import PublicacaoCompartilhada from '../../components/PublicacaoCompartilhada';
 import UsuarioService from '../../services/UsuarioService';

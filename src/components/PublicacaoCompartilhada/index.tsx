@@ -1,19 +1,10 @@
-import React, { memo, useContext, useEffect, useState } from 'react';
+import React, { memo, useState } from 'react';
 import './PublicacaoCompartilhada.css';
 import InteracoesComAPublicacao from '../Publicacao/InteracoesComAPublicacao';
 import Comentarios from '../Publicacao/Comentarios';
 import Publicacao from '../Publicacao';
-import { useMediaQuery } from 'react-responsive';
-import { TAMANHO_DE_TELA_MOBILE } from '../../config';
-import { useNavigate } from 'react-router-dom';
-import ModalEditarPublicacaoCompartilhada from '../ModalEditarPublicacaoCompartilhada';
-import ModalCompartilharPublicacao from '../ModalCompartilharPublicacao';
 import MenuOpcoesPublicacao from '../MenuOpcoesPublicacao';
 import { PublicacaoCompartilhadaModel } from '../../models/Publicacao/PublicacaoCompartilhadaModel';
-import { APIService } from '../../services/APIService';
-import { PublicacaoService } from '../../services/PublicacaoService';
-import { CompartilharPublicacaoContext } from '../../contexts/CompartilharPublicacaoContext';
-import { FeedContext } from '../../contexts/FeedContext';
 import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
 
 interface PublicacaoCompartilhadaProps {
@@ -26,7 +17,7 @@ function PublicacaoCompartilhada({ publicacao, compartilharPublicacao, editarPub
 
     //Mock provisório que indica se a publicacao atual é do autor que está logado. Futuramente para obter esse dado deverá ser feita uma verificação com dados vindos do redux ou algo semelhante
     const indicadorPublicacaoDoUsuarioLogado = true;
-    
+
     const [quantidadeDeComentarios, setQuantidadeDeComentarios] = useState(
         publicacao.comentarios ? publicacao.comentarios.length : 0
     );
@@ -37,7 +28,7 @@ function PublicacaoCompartilhada({ publicacao, compartilharPublicacao, editarPub
     function clickCompartilharPublicacao() {
         compartilharPublicacao(publicacao.publicacao);
     }
-    
+
     return (
         <>
             <div id='publicacaoCompartilhada'>

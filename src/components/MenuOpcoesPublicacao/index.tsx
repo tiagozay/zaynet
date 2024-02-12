@@ -10,8 +10,8 @@ interface MenuOpcoesPublicacaoProps {
 }
 
 export default function MenuOpcoesPublicacao({
-    publicacao, 
-    clickEditarPublicacao, 
+    publicacao,
+    clickEditarPublicacao,
     clickExluirPublicacao
 }: MenuOpcoesPublicacaoProps) {
 
@@ -53,23 +53,21 @@ export default function MenuOpcoesPublicacao({
         }
     }
 
-    function editarPublicacao()
-    {
+    function editarPublicacao() {
         fecharMenuOpcoesDaPublicacao();
 
-        if(clickEditarPublicacao){
+        if (clickEditarPublicacao) {
             clickEditarPublicacao(publicacao);
         }
     }
 
-    function excluirPublicacao()
-    {
+    function excluirPublicacao() {
         fecharMenuOpcoesDaPublicacao();
         clickExluirPublicacao();
     }
 
     function clickAbrirMenuOpcoesDaPublicacao() {
-        setIndicadorMenuOpcoesPublicacaoAberto( state => !state);
+        setIndicadorMenuOpcoesPublicacaoAberto(state => !state);
     }
 
     function fecharMenuOpcoesDaPublicacao() {

@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import './EditarPublicacaoMobile.css';
 import { useNavigate } from 'react-router-dom';
 import SelecionarArquivos from '../../components/SelecionarArquivos';
-import { MidiaPublicacaoModel } from '../../models/Publicacao/MidiaPublicacaoModel';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import MidiaEditarPublicacao from '../../components/MidiaEditarPublicacao';

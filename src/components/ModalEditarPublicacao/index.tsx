@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import './ModalEditarPublicacao.css';
 import SelecionarArquivos from '../SelecionarArquivos';
-import { MidiaPublicacaoModel } from '../../models/Publicacao/MidiaPublicacaoModel';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import ModalDeConfirmacao from '../ModalDeConfirmacao';
@@ -11,7 +10,6 @@ import TextAreaTamanhoDinamico from '../TextAreaTamanhoDinamico';
 import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
 import { PublicacaoCompartilhadaModel } from '../../models/Publicacao/PublicacaoCompartilhadaModel';
 import Publicacao from '../Publicacao';
-import PublicacaoCompartilhada from '../PublicacaoCompartilhada';
 import { EditarPublicacaoContext } from '../../contexts/EditarPublicacaoContext';
 
 interface ModalEditarPublicacaoProps {
@@ -24,8 +22,8 @@ export default function ModalEditarPublicacao({ publicacao, modalAberto, fecharM
 
     const {
         textoDigitado,
-        setTextoDigitado, 
-        midiasDaPublicacao, 
+        setTextoDigitado,
+        midiasDaPublicacao,
         setMidiasDaPublicacao
     } = useContext(EditarPublicacaoContext);
 

@@ -22,7 +22,7 @@ export const EditarPublicacaoContext = createContext<TypeEditarPublicacaoContext
     textoDigitado: null,
     setTextoDigitado: () => { },
     midiasDaPublicacao: null,
-    setMidiasDaPublicacao: () => {} 
+    setMidiasDaPublicacao: () => { }
 });
 
 export default function EditarPublicacaoContextProvider({ children }: { children: ReactNode }) {
@@ -34,10 +34,10 @@ export default function EditarPublicacaoContextProvider({ children }: { children
     const [midiasDaPublicacao, setMidiasDaPublicacao] = useState<MidiaPublicacaoModel[] | null>(null)
 
     const [publicacaoEditada, setPublicacaoEditada] = useState<PublicacaoModel | PublicacaoCompartilhadaModel | null>(null);
-    
+
     useEffect(() => {
 
-        if(!indicadorModalEditarPublicacaoAberto){
+        if (!indicadorModalEditarPublicacaoAberto) {
             setTextoDigitado(null);
             setPublicacaoEditada(null);
         }
