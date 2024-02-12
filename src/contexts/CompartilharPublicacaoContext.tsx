@@ -1,11 +1,12 @@
 import { chownSync } from "fs";
 import React, { ReactNode, createContext, useEffect, useState } from "react";
+import { PublicacaoModel } from "../models/Publicacao/PublicacaoModel";
 
 interface TypeCompartilharPublicacaoContext {
     indicadorModalCompartilharPublicacaoAberto: boolean,
     setIndicadorModalCompartilharPublicacaoAberto: React.Dispatch<React.SetStateAction<boolean>>,
-    idPublicacaoCompartilhada: number | null,
-    setIdPublicacaoCompartilhada: React.Dispatch<React.SetStateAction<number | null>>,
+    publicacaoCompartilhada: PublicacaoModel | null,
+    setPublicacaoCompartilhada: React.Dispatch<React.SetStateAction<PublicacaoModel | null>>,
     textoDigitado: string | null,
     setTextoDigitado: React.Dispatch<React.SetStateAction<string | null>>
 }
@@ -13,8 +14,8 @@ interface TypeCompartilharPublicacaoContext {
 export const CompartilharPublicacaoContext = createContext<TypeCompartilharPublicacaoContext>({
     indicadorModalCompartilharPublicacaoAberto: false,
     setIndicadorModalCompartilharPublicacaoAberto: () => { },
-    idPublicacaoCompartilhada: null,
-    setIdPublicacaoCompartilhada: () => { },
+    publicacaoCompartilhada: null,
+    setPublicacaoCompartilhada: () => { },
     textoDigitado: null,
     setTextoDigitado: () => { }
 });
@@ -25,13 +26,13 @@ export default function CompartilharPublicacaoContextProvider({ children }: { ch
 
     const [textoDigitado, setTextoDigitado] = useState<string | null>(null);
 
-    const [idPublicacaoCompartilhada, setIdPublicacaoCompartilhada] = useState<number | null>(null);
+    const [publicacaoCompartilhada, setPublicacaoCompartilhada] = useState<PublicacaoModel | null>(null);
     
     useEffect(() => {
 
         if(!indicadorModalCompartilharPublicacaoAberto){
             setTextoDigitado(null);
-            setIdPublicacaoCompartilhada(null);
+            setPublicacaoCompartilhada(null);
         }
 
     }, [indicadorModalCompartilharPublicacaoAberto]);
@@ -40,8 +41,8 @@ export default function CompartilharPublicacaoContextProvider({ children }: { ch
         <CompartilharPublicacaoContext.Provider value={{
             indicadorModalCompartilharPublicacaoAberto,
             setIndicadorModalCompartilharPublicacaoAberto,
-            idPublicacaoCompartilhada,
-            setIdPublicacaoCompartilhada,
+            publicacaoCompartilhada,
+            setPublicacaoCompartilhada,
             textoDigitado,
             setTextoDigitado
         }}>
