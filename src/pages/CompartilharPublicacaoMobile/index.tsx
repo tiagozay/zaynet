@@ -10,22 +10,20 @@ import TextAreaTamanhoDinamico from '../../components/TextAreaTamanhoDinamico';
 import { CompartilharPublicacaoContext } from '../../contexts/CompartilharPublicacaoContext';
 import { LoginService } from '../../services/LoginService';
 import { ControleLoginContext } from '../../contexts/ControleLoginContext';
+import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
 
 export default function CompartilharPublicacaoMobile({ }) {
 
     const { permisaoParaIniciar, setPermisaoParaIniciar } = useContext(ControleLoginContext);
 
     const {
+        publicacaoCompartilhada,
         textoDigitado,
         setTextoDigitado,
         setIndicadorModalCompartilharPublicacaoAberto
     } = useContext(CompartilharPublicacaoContext);
 
     const navigate = useNavigate();
-
-    const location = useLocation();
-
-    const publicacao = location.state;
 
     const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
 
@@ -47,6 +45,10 @@ export default function CompartilharPublicacaoMobile({ }) {
         }
     }, [isMobile]);
 
+    if(publicacaoCompartilhada === null){
+        throw new Error("Nenhuma publicação recebida");
+    }
+
     function fecharCompartilhamento() {
         setIndicadorModalCompartilharPublicacaoAberto(false);
         setTextoDigitado(null);
@@ -62,9 +64,14 @@ export default function CompartilharPublicacaoMobile({ }) {
     }
 
     function compartilhar() {
-        PublicacaoService.compartilhar(textoDigitado, publicacao)
+        if(publicacaoCompartilhada === null){
+            throw new Error("Nenhuma publicação recebida");
+        }
+
+        PublicacaoService.compartilhar(textoDigitado, publicacaoCompartilhada)
             .then(() => {
                 navigate(-1);
+                setTextoDigitado(null);
             })
             .catch(() => { });
     }
@@ -109,7 +116,7 @@ export default function CompartilharPublicacaoMobile({ }) {
 
                 <div id='compartilharPublicacaoMobile__containerPublicacao'>
                     <Publicacao
-                        publicacao={publicacao}
+                        publicacao={publicacaoCompartilhada}
                         publicacaoCompartilhada
                     />
                 </div>

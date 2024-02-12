@@ -8,15 +8,15 @@ import UsuarioService from '../../services/UsuarioService';
 import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
 import TextAreaTamanhoDinamico from '../TextAreaTamanhoDinamico';
 import { CompartilharPublicacaoContext } from '../../contexts/CompartilharPublicacaoContext';
+import { PublicacaoService } from '../../services/PublicacaoService';
 
 interface ModalCompartilharPublicacaoProps {
   publicacao: PublicacaoModel,
-  modalAberto: boolean,
-  aoCompartilharPublicacao: (textoDigitado: string | null) => void,
+  aoCompartilhar: (publicacaoCadastrada: object) => void,
   fecharModal: () => void
 }
 
-export default function ModalCompartilharPublicacao({ publicacao, modalAberto, aoCompartilharPublicacao, fecharModal }: ModalCompartilharPublicacaoProps) {
+export default function ModalCompartilharPublicacao({ publicacao, aoCompartilhar, fecharModal }: ModalCompartilharPublicacaoProps) {
 
   const [modalDeCofirmarDescarteAberto, setModalDeCofirmarDescarteAberto] = useState(false);
 
@@ -29,7 +29,7 @@ export default function ModalCompartilharPublicacao({ publicacao, modalAberto, a
   useEffect(() => {
 
     let handleEscKey = (event: KeyboardEvent) => {
-      event.key === 'Escape' && aoFecharModal();
+      event.key === 'Escape' && clickFecharModal();
     }
 
     document.addEventListener('keydown', handleEscKey);
@@ -41,7 +41,7 @@ export default function ModalCompartilharPublicacao({ publicacao, modalAberto, a
 
   useEffect(() => {
     if (isMobile) {
-      fecharModal();
+      fecharModalELimparTexto();
     }
   }, [isMobile]);
 
@@ -54,16 +54,22 @@ export default function ModalCompartilharPublicacao({ publicacao, modalAberto, a
   }
 
   function confirmarDescarteDePublicacao() {
+    fecharModalELimparTexto();
+  }
+
+  function fecharModalELimparTexto()
+  {
+    setTextoDigitado("");
     fecharModal();
   }
 
-  function aoFecharModal() {
+  function clickFecharModal() {
     abrirConfirmacaoDeDescarte();
   }
 
   function clickOverlay(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     if (event.target === overlay.current) {
-      aoFecharModal();
+      clickFecharModal();
     }
   }
 
@@ -72,7 +78,15 @@ export default function ModalCompartilharPublicacao({ publicacao, modalAberto, a
   }
 
   function compartilharPublicacao() {
-    aoCompartilharPublicacao(textoDigitado);
+    PublicacaoService.compartilhar(textoDigitado, publicacao)
+      .then((res) => {
+
+        fecharModalELimparTexto();
+        aoCompartilhar(res.data as object);
+
+        // setQuantidadeDeCompartilhamentos(state => state + 1);
+      })
+      .catch(() => { })
   }
 
   return (
@@ -96,7 +110,7 @@ export default function ModalCompartilharPublicacao({ publicacao, modalAberto, a
             <button
               id='modalCompartilharPublicacao__btnFechar'
               className='material-symbols-outlined'
-              onClick={aoFecharModal}
+              onClick={clickFecharModal}
             >close</button>
           </div>
           <div id='modalCompartilharPublicacao__container'>

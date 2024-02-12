@@ -14,27 +14,21 @@ import { APIService } from '../../services/APIService';
 import { PublicacaoService } from '../../services/PublicacaoService';
 import { CompartilharPublicacaoContext } from '../../contexts/CompartilharPublicacaoContext';
 import { FeedContext } from '../../contexts/FeedContext';
+import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
 
 interface PublicacaoCompartilhadaProps {
-    publicacao: PublicacaoCompartilhadaModel
+    publicacao: PublicacaoCompartilhadaModel,
+    compartilharPublicacao: (publicacao: PublicacaoModel) => void,
+
 }
 
-function PublicacaoCompartilhada({ publicacao }: PublicacaoCompartilhadaProps) {
+function PublicacaoCompartilhada({ publicacao, compartilharPublicacao }: PublicacaoCompartilhadaProps) {
 
     //Mock provisório que indica se a publicacao atual é do autor que está logado. Futuramente para obter esse dado deverá ser feita uma verificação com dados vindos do redux ou algo semelhante
     const indicadorPublicacaoDoUsuarioLogado = true;
 
     const [indicadorModalEditarPublicacaoAberto, setIndicadorModalEditarPublicacaoAberto] = useState(false);
-
-    const { definePosicaoDoFeed } = useContext(FeedContext);
-
-    const {
-        indicadorModalCompartilharPublicacaoAberto,
-        setIndicadorModalCompartilharPublicacaoAberto,
-        idPublicacaoCompartilhada,
-        setIdPublicacaoCompartilhada,
-    } = useContext(CompartilharPublicacaoContext);
-
+    
     const [quantidadeDeComentarios, setQuantidadeDeComentarios] = useState(
         publicacao.comentarios ? publicacao.comentarios.length : 0
     );
@@ -55,37 +49,15 @@ function PublicacaoCompartilhada({ publicacao }: PublicacaoCompartilhadaProps) {
     }, [indicadorModalEditarPublicacaoAberto]);
 
     function clickCompartilharPublicacao() {
-        setIdPublicacaoCompartilhada(publicacao.id);
-
-        if (isMobile) {
-            setIndicadorModalCompartilharPublicacaoAberto(true);
-            navigate('/compartilharPublicacao', { state: publicacao.publicacao });
-            definePosicaoDoFeed(window.scrollY)
-                .then(() => { navigate('/compartilharPublicacao', { state: publicacao }) })
-        } else {
-            setIndicadorModalCompartilharPublicacaoAberto(true);
-        }
+        compartilharPublicacao(publicacao.publicacao);
     }
-
-    function fehcarModalCompartilharPublicacao() {
-        setIdPublicacaoCompartilhada(null);
-        setIndicadorModalCompartilharPublicacaoAberto(false);
-    }
-
+    
     function editarPublicacao() {
         if (isMobile) {
             navigate('/editarPublicacaoCompartilhada');
         } else {
             setIndicadorModalEditarPublicacaoAberto(true);
         }
-    }
-
-    function compartilharPublicacao(textoDigitado: string | null) {
-        PublicacaoService.compartilhar(textoDigitado, publicacao.publicacao)
-            .then(() => {
-                fehcarModalCompartilharPublicacao();
-            })
-            .catch(() => { })
     }
 
     function fehcarModalEditarPublicacao() {
@@ -99,16 +71,6 @@ function PublicacaoCompartilhada({ publicacao }: PublicacaoCompartilhadaProps) {
                     <ModalEditarPublicacaoCompartilhada
                         fecharModal={fehcarModalEditarPublicacao}
                         modalAberto={indicadorModalEditarPublicacaoAberto}
-                    /> :
-                    ""
-            }
-            {
-                indicadorModalCompartilharPublicacaoAberto && idPublicacaoCompartilhada === publicacao.id ?
-                    <ModalCompartilharPublicacao
-                        publicacao={publicacao.publicacao}
-                        fecharModal={fehcarModalCompartilharPublicacao}
-                        aoCompartilharPublicacao={compartilharPublicacao}
-                        modalAberto={indicadorModalCompartilharPublicacaoAberto}
                     /> :
                     ""
             }
