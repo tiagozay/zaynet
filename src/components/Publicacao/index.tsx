@@ -11,6 +11,7 @@ import MenuOpcoesPublicacao from '../MenuOpcoesPublicacao';
 import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
 import { FeedContext } from '../../contexts/FeedContext';
 import { PublicacaoCompartilhadaModel } from '../../models/Publicacao/PublicacaoCompartilhadaModel';
+import UsuarioService from '../../services/UsuarioService';
 
 interface PublicacaoProps {
   publicacao: PublicacaoModel,
@@ -20,14 +21,10 @@ interface PublicacaoProps {
 }
 
 function Publicacao({ publicacao, compartilharPublicacao, editarPublicacao, publicacaoCompartilhada }: PublicacaoProps) {
-  //Mock provisório que indica se a publicacao atual é do autor que está logado. Futuramente para obter esse dado deverá ser feita uma verificação com dados vindos do redux ou algo semelhante
-  const indicadorPublicacaoDoUsuarioLogado = true;
 
   const navigate = useNavigate();
 
   const { definePosicaoDoFeed } = useContext(FeedContext);
-
-  const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
 
   const [quantidadeDeComentarios, setQuantidadeDeComentarios] = useState(
     publicacao.comentarios ? publicacao.comentarios.length : 0
@@ -40,6 +37,8 @@ function Publicacao({ publicacao, compartilharPublicacao, editarPublicacao, publ
   );
 
   const classeDeCadaImagem = publicacao.midiasPublicacao?.length === 1 ? "imagemOcupandoTodoTamanho" : "imagemOcupandoMetade";
+
+  const indicadorPublicacaoDoUsuarioLogado = publicacao.autor.id === UsuarioService.obtemIdUsuarioLogado();
 
   function aoClicarEmUmaImagem(indice: number) {
     const info = JSON.stringify(

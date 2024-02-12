@@ -6,6 +6,7 @@ import Publicacao from '../Publicacao';
 import MenuOpcoesPublicacao from '../MenuOpcoesPublicacao';
 import { PublicacaoCompartilhadaModel } from '../../models/Publicacao/PublicacaoCompartilhadaModel';
 import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
+import UsuarioService from '../../services/UsuarioService';
 
 interface PublicacaoCompartilhadaProps {
     publicacao: PublicacaoCompartilhadaModel,
@@ -15,15 +16,14 @@ interface PublicacaoCompartilhadaProps {
 
 function PublicacaoCompartilhada({ publicacao, compartilharPublicacao, editarPublicacao }: PublicacaoCompartilhadaProps) {
 
-    //Mock provisório que indica se a publicacao atual é do autor que está logado. Futuramente para obter esse dado deverá ser feita uma verificação com dados vindos do redux ou algo semelhante
-    const indicadorPublicacaoDoUsuarioLogado = true;
-
     const [quantidadeDeComentarios, setQuantidadeDeComentarios] = useState(
         publicacao.comentarios ? publicacao.comentarios.length : 0
     );
     const [quantidadeDeCurtidas, setQuantidadeDeCurtidas] = useState(
         publicacao.curtidas ? publicacao.curtidas.length : 0
     );
+
+    const indicadorPublicacaoDoUsuarioLogado = publicacao.autor.id === UsuarioService.obtemIdUsuarioLogado();
 
     function clickCompartilharPublicacao() {
         compartilharPublicacao(publicacao.publicacao);
