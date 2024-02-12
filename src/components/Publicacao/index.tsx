@@ -41,19 +41,23 @@ function Publicacao({ publicacao, compartilharPublicacao, editarPublicacao, publ
   const indicadorPublicacaoDoUsuarioLogado = publicacao.autor.id === UsuarioService.obtemIdUsuarioLogado();
 
   function aoClicarEmUmaImagem(indice: number) {
-    const info = JSON.stringify(
-      { imagensDoCarrossel: publicacao.midiasPublicacao, indiceImagemInicial: indice }
-    );
+    const info = {
+      midias: publicacao.midiasPublicacao,
+      indiceInicial: indice
+    };
+
     definePosicaoDoFeed(window.scrollY)
-      .then(() => { navigate(`/image/${encodeURIComponent(info)}`) })
+      .then(() => { navigate('/image', {state: info}) });
   }
 
   function aoClicarEmVerMaisImagens() {
-    const info = JSON.stringify(
-      { imagensDoCarrossel: publicacao.midiasPublicacao, indiceImagemInicial: 3 }
-    );
+    const info = {
+      midias: publicacao.midiasPublicacao,
+      indiceInicial: 3
+    };
+
     definePosicaoDoFeed(window.scrollY)
-      .then(() => { navigate(`/image/${encodeURIComponent(info)}`) })
+      .then(() => { navigate('/image', {state: info}) });
   }
 
   function clickCompartilharPublicacao() {

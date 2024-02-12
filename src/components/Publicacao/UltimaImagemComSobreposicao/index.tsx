@@ -12,7 +12,7 @@ export default function UltimaImagemComSobreposicao(
     { urlImagem, classeDeCadaImagem, quantidadeDeImagensRestantes, aoClicarEmVerTodasImagens }: UltimaImagemComSobreposicaoProps
 ) {
     const style = {
-        backgroundImage: `url(${urlImagem})`,
+        backgroundImage: `url(${process.env.REACT_APP_CAMINHO_MIDIA_PUBLICACAO}${urlImagem})`,
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         backgroundSize: 'cover',

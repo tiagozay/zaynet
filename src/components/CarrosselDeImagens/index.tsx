@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import './CarrosselDeImagens.css';
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { MidiaPublicacaoModel } from '../../models/Publicacao/MidiaPublicacaoModel';
 import { ArquivosPublicacaoService } from '../../services/ArquivosPublicacaoService';
 
@@ -13,6 +13,8 @@ export default function CarrosselDeImagens() {
   const videoRefs = useRef<HTMLVideoElement[]>([]);
 
   const navigate = useNavigate();
+
+  const location = useLocation();
 
   const container = useRef(null);
 
@@ -29,21 +31,12 @@ export default function CarrosselDeImagens() {
     };
   }, []);
 
-  let paramsInfo;
-
-  const params = useParams();
-
   useEffect(() => {
-    if (params.objInfoCarrosel) {
-      paramsInfo = JSON.parse(
-        params.objInfoCarrosel
-      ) as { imagensDoCarrossel: MidiaPublicacaoModel[], indiceImagemInicial: number };
-    } else {
-      return;
-    }
 
-    setIndiceImagemAtual(paramsInfo.indiceImagemInicial);
-    setImagensDoCarrossel(paramsInfo.imagensDoCarrossel);
+    const info = location.state;
+
+    setIndiceImagemAtual(info.indiceInicial);
+    setImagensDoCarrossel(info.midias);
 
   }, []);
 

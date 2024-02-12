@@ -78,7 +78,7 @@ root.render(
                       <Route path='/adicionarAmigos' element={<AdicionarAmigos />} />
                       <Route path='/fotos' element={<FotosUsuario />} />
                     </Route>
-                    <Route path='/image/:objInfoCarrosel' element={<CarrosselDeImagens />} />
+                    <Route path='/image' element={<CarrosselDeImagens />} />
                     <Route path='/pesquisar' element={<PesquisarPorUmaPessoaMobile />} />
                     <Route path='/publicar' element={<PublicarMobile />} />
                     <Route path='/compartilharPublicacao' element={<CompartilharPublicacaoMobile />} />
