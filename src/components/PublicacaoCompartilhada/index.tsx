@@ -19,15 +19,13 @@ import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
 interface PublicacaoCompartilhadaProps {
     publicacao: PublicacaoCompartilhadaModel,
     compartilharPublicacao: (publicacao: PublicacaoModel) => void,
-
+    editarPublicacao?: (publicacao: PublicacaoModel | PublicacaoCompartilhadaModel) => void,
 }
 
-function PublicacaoCompartilhada({ publicacao, compartilharPublicacao }: PublicacaoCompartilhadaProps) {
+function PublicacaoCompartilhada({ publicacao, compartilharPublicacao, editarPublicacao }: PublicacaoCompartilhadaProps) {
 
     //Mock provisório que indica se a publicacao atual é do autor que está logado. Futuramente para obter esse dado deverá ser feita uma verificação com dados vindos do redux ou algo semelhante
     const indicadorPublicacaoDoUsuarioLogado = true;
-
-    const [indicadorModalEditarPublicacaoAberto, setIndicadorModalEditarPublicacaoAberto] = useState(false);
     
     const [quantidadeDeComentarios, setQuantidadeDeComentarios] = useState(
         publicacao.comentarios ? publicacao.comentarios.length : 0
@@ -36,44 +34,12 @@ function PublicacaoCompartilhada({ publicacao, compartilharPublicacao }: Publica
         publicacao.curtidas ? publicacao.curtidas.length : 0
     );
 
-    const navigate = useNavigate();
-
-    const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
-
-    useEffect(() => {
-        if (indicadorModalEditarPublicacaoAberto) {
-            document.body.style.overflowY = 'hidden';
-        } else {
-            document.body.style.overflowY = 'scroll';
-        }
-    }, [indicadorModalEditarPublicacaoAberto]);
-
     function clickCompartilharPublicacao() {
         compartilharPublicacao(publicacao.publicacao);
     }
     
-    function editarPublicacao() {
-        if (isMobile) {
-            navigate('/editarPublicacaoCompartilhada');
-        } else {
-            setIndicadorModalEditarPublicacaoAberto(true);
-        }
-    }
-
-    function fehcarModalEditarPublicacao() {
-        setIndicadorModalEditarPublicacaoAberto(false);
-    }
-
     return (
         <>
-            {
-                indicadorModalEditarPublicacaoAberto ?
-                    <ModalEditarPublicacaoCompartilhada
-                        fecharModal={fehcarModalEditarPublicacao}
-                        modalAberto={indicadorModalEditarPublicacaoAberto}
-                    /> :
-                    ""
-            }
             <div id='publicacaoCompartilhada'>
                 <div id='publicacaoCompartilhada__infoUsuario'>
                     <div id='publicacaoCompartilhada__infoUsuarioContainer'>
@@ -89,6 +55,7 @@ function PublicacaoCompartilhada({ publicacao, compartilharPublicacao }: Publica
                     {
                         indicadorPublicacaoDoUsuarioLogado ?
                             <MenuOpcoesPublicacao
+                                publicacao={publicacao}
                                 clickEditarPublicacao={editarPublicacao}
                                 clickExluirPublicacao={() => { }}
                             />

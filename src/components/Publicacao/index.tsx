@@ -17,14 +17,16 @@ import { APIService } from '../../services/APIService';
 import { PublicacaoService } from '../../services/PublicacaoService';
 import { FeedContext } from '../../contexts/FeedContext';
 import { CompartilharPublicacaoContext } from '../../contexts/CompartilharPublicacaoContext';
+import { PublicacaoCompartilhadaModel } from '../../models/Publicacao/PublicacaoCompartilhadaModel';
 
 interface PublicacaoProps {
   publicacao: PublicacaoModel,
   compartilharPublicacao?: (publicacao: PublicacaoModel) => void,
+  editarPublicacao?: (publicacao: PublicacaoModel | PublicacaoCompartilhadaModel) => void,
   publicacaoCompartilhada?: boolean
 }
 
-function Publicacao({ publicacao, compartilharPublicacao, publicacaoCompartilhada }: PublicacaoProps) {
+function Publicacao({ publicacao, compartilharPublicacao, editarPublicacao, publicacaoCompartilhada }: PublicacaoProps) {
   //Mock provisório que indica se a publicacao atual é do autor que está logado. Futuramente para obter esse dado deverá ser feita uma verificação com dados vindos do redux ou algo semelhante
   const indicadorPublicacaoDoUsuarioLogado = true;
 
@@ -33,8 +35,6 @@ function Publicacao({ publicacao, compartilharPublicacao, publicacaoCompartilhad
   const { definePosicaoDoFeed } = useContext(FeedContext);
 
   const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
-
-  const [indicadorModalEditarPublicacaoAberto, setIndicadorModalEditarPublicacaoAberto] = useState(false);
 
   const [quantidadeDeComentarios, setQuantidadeDeComentarios] = useState(
     publicacao.comentarios ? publicacao.comentarios.length : 0
@@ -47,14 +47,6 @@ function Publicacao({ publicacao, compartilharPublicacao, publicacaoCompartilhad
   );
 
   const classeDeCadaImagem = publicacao.midiasPublicacao?.length === 1 ? "imagemOcupandoTodoTamanho" : "imagemOcupandoMetade";
-
-  useEffect(() => {
-    if (indicadorModalEditarPublicacaoAberto) {
-      document.body.style.overflowY = 'hidden';
-    } else {
-      document.body.style.overflowY = 'scroll';
-    }
-  }, [indicadorModalEditarPublicacaoAberto]);
 
   function aoClicarEmUmaImagem(indice: number) {
     const info = JSON.stringify(
@@ -72,18 +64,6 @@ function Publicacao({ publicacao, compartilharPublicacao, publicacaoCompartilhad
       .then(() => { navigate(`/image/${encodeURIComponent(info)}`) })
   }
 
-  function editarPublicacao() {
-    if (isMobile) {
-      navigate('/editarPublicacao');
-    } else {
-      setIndicadorModalEditarPublicacaoAberto(true);
-    }
-  }
-
-  function fehcarModalEditarPublicacao() {
-    setIndicadorModalEditarPublicacaoAberto(false);
-  }
-
   function clickCompartilharPublicacao() 
   {
     if(compartilharPublicacao){
@@ -94,14 +74,7 @@ function Publicacao({ publicacao, compartilharPublicacao, publicacaoCompartilhad
 
   return (
     <>
-      {
-        indicadorModalEditarPublicacaoAberto ?
-          <ModalEditarPublicacao
-            fecharModal={fehcarModalEditarPublicacao}
-            modalAberto={indicadorModalEditarPublicacaoAberto}
-          /> :
-          ""
-      }
+   
       <div id='publicacao' className={publicacaoCompartilhada ? 'publicacaoSemMargem' : ''}>
         <div id='publicacao__infoUsuario'>
           <div id='publicacao__infoUsuarioContainer'>
@@ -114,6 +87,7 @@ function Publicacao({ publicacao, compartilharPublicacao, publicacaoCompartilhad
           {
             indicadorPublicacaoDoUsuarioLogado && !publicacaoCompartilhada ?
               <MenuOpcoesPublicacao
+                publicacao={publicacao}
                 clickEditarPublicacao={editarPublicacao}
                 clickExluirPublicacao={() => { }}
               />

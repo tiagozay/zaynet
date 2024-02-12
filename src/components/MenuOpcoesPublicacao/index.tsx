@@ -1,13 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './MenuOpcoesPublicacao.css';
+import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
+import { PublicacaoCompartilhadaModel } from '../../models/Publicacao/PublicacaoCompartilhadaModel';
 
 interface MenuOpcoesPublicacaoProps {
-    clickEditarPublicacao: () => void,
+    publicacao: PublicacaoModel | PublicacaoCompartilhadaModel,
+    clickEditarPublicacao?: (publicacao: PublicacaoModel | PublicacaoCompartilhadaModel) => void,
     clickExluirPublicacao: () => void,
 }
 
 export default function MenuOpcoesPublicacao({
-    clickEditarPublicacao, clickExluirPublicacao
+    publicacao, 
+    clickEditarPublicacao, 
+    clickExluirPublicacao
 }: MenuOpcoesPublicacaoProps) {
 
     const btnAbrirMenuDeOpcoesRef = useRef<HTMLButtonElement | null>(null);
@@ -51,7 +56,10 @@ export default function MenuOpcoesPublicacao({
     function editarPublicacao()
     {
         fecharMenuOpcoesDaPublicacao();
-        clickEditarPublicacao();
+
+        if(clickEditarPublicacao){
+            clickEditarPublicacao(publicacao);
+        }
     }
 
     function excluirPublicacao()

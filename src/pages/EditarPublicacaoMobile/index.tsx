@@ -11,46 +11,24 @@ import UsuarioService from '../../services/UsuarioService';
 import TextAreaTamanhoDinamico from '../../components/TextAreaTamanhoDinamico';
 import { ControleLoginContext } from '../../contexts/ControleLoginContext';
 import { LoginService } from '../../services/LoginService';
+import { EditarPublicacaoContext } from '../../contexts/EditarPublicacaoContext';
+import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
+import { PublicacaoCompartilhadaModel } from '../../models/Publicacao/PublicacaoCompartilhadaModel';
+import Publicacao from '../../components/Publicacao';
 
 export default function EditarPublicacaoMobile() {
 
-    //Mock provisório de uma publicação. Posteriormente ela virá do redux ou algo semelhante.
-    const publicacao = {
-        texto: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero, distinctio autem? Magnam autem quisquam voluptates eius cupiditate. Sapiente blanditiis obcaecati natus, similique, repellendus ipsum ipsam dicta eos consequatur, distinctio soluta?",
-        midias: [
-            new MidiaPublicacaoModel(null,
-                '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub1.jpg',
-                '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub1.jpg',
-            ),
-            new MidiaPublicacaoModel(null,
-                '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub2.jpg',
-                '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub2.jpg',
-            ),
-            new MidiaPublicacaoModel(null,
-                '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub3.jpg',
-                '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub3.jpg',
-            ),
-            new MidiaPublicacaoModel(null,
-                '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub4.jpg',
-                '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub4.jpg',
-            ),
-            new MidiaPublicacaoModel(null,
-                '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub5.jpg',
-                '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub5.jpg',
-            ),
-            new MidiaPublicacaoModel(null,
-                '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub6.mp4',
-                '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub6.jpg',
-            ),
-        ]
-    }
+    const {
+        publicacaoEditada,
+        textoDigitado,
+        setTextoDigitado,
+        midiasDaPublicacao, 
+        setMidiasDaPublicacao
+    } = useContext(EditarPublicacaoContext);
 
     const [indicadorInputImagensEVideosAberto, setIndicadorInputImagensEVideosAberto] = useState(false);
     const [indicadorAlteracaoRealizada, setIndicadorAlteracaoRealizada] = useState(false);
     const [modalDeConfirmacaoDeDescarteAberto, setmodalDeConfirmacaoDeDescarteAberto] = useState(false);
-
-    const [textoDaPublicacao, setTextoDaPublicacao] = useState<string | null>(null);
-    const [midiasDaPublicacao, setMidiasDaPublicacao] = useState<MidiaPublicacaoModel[]>(publicacao.midias);
 
     const { permisaoParaIniciar, setPermisaoParaIniciar } = useContext(ControleLoginContext);
 
@@ -63,8 +41,13 @@ export default function EditarPublicacaoMobile() {
     useEffect(() => {
         setIndicadorInputImagensEVideosAberto(false);
         setIndicadorAlteracaoRealizada(false);
-        setTextoDaPublicacao(publicacao.texto);
-        setMidiasDaPublicacao(publicacao.midias);
+
+        setTextoDigitado(publicacaoEditada?.texto ? publicacaoEditada?.texto : null);
+
+        if (publicacaoEditada instanceof PublicacaoModel) {
+            setMidiasDaPublicacao(publicacaoEditada.midiasPublicacao);
+        }
+
         setNovosArquivosSelecionados(null);
     }, []);
 
@@ -88,24 +71,29 @@ export default function EditarPublicacaoMobile() {
 
     useEffect(() => {
         if (
-            textoDaPublicacao?.trim() !== publicacao.texto ||
-            midiasDaPublicacao.length !== publicacao.midias.length ||
+            textoDigitado?.trim() !== publicacaoEditada?.texto ||
+            (publicacaoEditada instanceof PublicacaoModel && midiasDaPublicacao?.length !== publicacaoEditada.midiasPublicacao?.length) ||
             novosArquivosSelecionados?.length
         ) {
             setIndicadorAlteracaoRealizada(true);
         } else {
             setIndicadorAlteracaoRealizada(false);
         }
-    }, [textoDaPublicacao, midiasDaPublicacao, novosArquivosSelecionados]);
+    }, [textoDigitado, midiasDaPublicacao, novosArquivosSelecionados]);
+
+    if (publicacaoEditada === null) {
+        throw new Error("Nenhuma publicação recebida");
+    }
 
     function aoDigitarTexto(e: React.ChangeEvent<HTMLTextAreaElement>) {
-        setTextoDaPublicacao(e.target.value);
+        setTextoDigitado(e.target.value);
     }
 
     //Função provísória que serve para excluir imagens do array. Quando esta parte for integrada com o back-end a implementação dela pode mudar. Esta serve apenas para modificar o estado e identificar a mudança.
     function excluirMidia(indice: number) {
         setMidiasDaPublicacao(state => {
-            return state.filter((midia, index) => indice !== index);
+            // return state.filter((midia, index) => indice !== index);
+            return [];
         });
     }
 
@@ -184,25 +172,37 @@ export default function EditarPublicacaoMobile() {
                         id="editarPublicacaoMobile__campoTexto"
                         placeholder='No que você está pensando, Pedro?'
                         onChange={aoDigitarTexto}
-                        value={textoDaPublicacao ? textoDaPublicacao : ""}
+                        value={textoDigitado ? textoDigitado : ""}
                         alturaInicial={80}
                     />
 
-                    <div id='editarPublicacaoMobile__midiasDaPublicacao'>
-                        <ul id='editarPublicacaoMobile__midiasDaPublicacao__listaMidias'>
+                    {
+                        publicacaoEditada instanceof PublicacaoModel &&
+                        <div id='editarPublicacaoMobile__midiasDaPublicacao'>
+                            <ul id='editarPublicacaoMobile__midiasDaPublicacao__listaMidias'>
+                                {
+                                    midiasDaPublicacao?.map((midia, index) =>
+                                        <MidiaEditarPublicacao
+                                            midiaPublicacao={midia}
+                                            excluirMidia={excluirMidia}
+                                            index={index}
+                                            key={index}
+                                        />
+                                    )
+                                }
+                            </ul>
+                        </div>
+                    }
 
-                            {
-                                midiasDaPublicacao.map((midia, index) =>
-                                    <MidiaEditarPublicacao
-                                        midiaPublicacao={midia}
-                                        excluirMidia={excluirMidia}
-                                        index={index}
-                                        key={index}
-                                    />
-                                )
-                            }
-                        </ul>
-                    </div>
+                    {
+                        publicacaoEditada instanceof PublicacaoCompartilhadaModel &&
+                        <div id='modalCompartilharPublicacao__containerPublicacao'>
+                            <Publicacao
+                                publicacao={publicacaoEditada.publicacao}
+                                publicacaoCompartilhada
+                            />
+                        </div>
+                    }
 
                     {
                         indicadorInputImagensEVideosAberto &&
@@ -214,11 +214,14 @@ export default function EditarPublicacaoMobile() {
 
                 </div>
 
-                <div id="editarPublicacaoMobile__divIconeFotoOuVideo" className={indicadorInputImagensEVideosAberto ? 'displayNone' : ""}>
-                    <button onClick={abrirInputImagensEVideos}>
-                        <img src="./icones/imagemIcone.png" alt="" />
-                    </button>
-                </div>
+                {
+                    publicacaoEditada instanceof PublicacaoModel &&
+                    <div id="editarPublicacaoMobile__divIconeFotoOuVideo" className={indicadorInputImagensEVideosAberto ? 'displayNone' : ""}>
+                        <button onClick={abrirInputImagensEVideos}>
+                            <img src="./icones/imagemIcone.png" alt="" />
+                        </button>
+                    </div>
+                }
 
             </div>
         </>

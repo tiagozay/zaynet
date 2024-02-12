@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import './ModalEditarPublicacao.css';
 import SelecionarArquivos from '../SelecionarArquivos';
 import { MidiaPublicacaoModel } from '../../models/Publicacao/MidiaPublicacaoModel';
@@ -8,50 +8,29 @@ import ModalDeConfirmacao from '../ModalDeConfirmacao';
 import MidiaEditarPublicacao from '../MidiaEditarPublicacao';
 import UsuarioService from '../../services/UsuarioService';
 import TextAreaTamanhoDinamico from '../TextAreaTamanhoDinamico';
+import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
+import { PublicacaoCompartilhadaModel } from '../../models/Publicacao/PublicacaoCompartilhadaModel';
+import Publicacao from '../Publicacao';
+import PublicacaoCompartilhada from '../PublicacaoCompartilhada';
+import { EditarPublicacaoContext } from '../../contexts/EditarPublicacaoContext';
 
 interface ModalEditarPublicacaoProps {
+    publicacao: PublicacaoModel | PublicacaoCompartilhadaModel,
     modalAberto: boolean,
     fecharModal: () => void
 }
 
-export default function ModalEditarPublicacao({ modalAberto, fecharModal }: ModalEditarPublicacaoProps) {
+export default function ModalEditarPublicacao({ publicacao, modalAberto, fecharModal }: ModalEditarPublicacaoProps) {
 
-    //Mock provisório de uma publicação. Posteriormente ela virá do redux ou algo semelhante.
-    const publicacao = {
-        texto: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero, distinctio autem? Magnam autem quisquam voluptates eius cupiditate. Sapiente blanditiis obcaecati natus, similique, repellendus ipsum ipsam dicta eos consequatur, distinctio soluta?",
-        midias: [
-            new MidiaPublicacaoModel(null,
-                '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub1.jpg',
-                '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub1.jpg',
-            ),
-            new MidiaPublicacaoModel(null,
-                '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub2.jpg',
-                '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub2.jpg',
-            ),
-            new MidiaPublicacaoModel(null,
-                '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub3.jpg',
-                '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub3.jpg',
-            ),
-            new MidiaPublicacaoModel(null,
-                '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub4.jpg',
-                '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub4.jpg',
-            ),
-            new MidiaPublicacaoModel(null,
-                '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub5.jpg',
-                '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub5.jpg',
-            ),
-            new MidiaPublicacaoModel(null,
-                '/imagensDinamicas/publicacoes/imagensNormaisEVideos/pub6.mp4',
-                '/imagensDinamicas/publicacoes/miniaturasDasImagens/pub6.jpg',
-            ),
-        ]
-    }
+    const {
+        textoDigitado,
+        setTextoDigitado, 
+        midiasDaPublicacao, 
+        setMidiasDaPublicacao
+    } = useContext(EditarPublicacaoContext);
 
     const [indicadorInputImagensEVideosAberto, setIndicadorInputImagensEVideosAberto] = useState(false);
     const [indicadorAlgumaAlteracaoRealizada, setIndicadorAlgumaAlteracaoRealizada] = useState(false);
-
-    const [textoDaPublicacao, setTextoDaPublicacao] = useState<string | null>(null);
-    const [midiasDaPublicacao, setMidiasDaPublicacao] = useState<MidiaPublicacaoModel[]>(publicacao.midias);
 
     const [novosArquivosSelecionados, setNovosArquivosSelecionados] = useState<FileList | null>(null);
 
@@ -61,10 +40,16 @@ export default function ModalEditarPublicacao({ modalAberto, fecharModal }: Moda
 
     //Este useEffect é responsável por resetar os estados toda vez que o modal for re-aberto.
     useEffect(() => {
+
         setIndicadorInputImagensEVideosAberto(false);
         setIndicadorAlgumaAlteracaoRealizada(false);
-        setTextoDaPublicacao(publicacao.texto);
-        setMidiasDaPublicacao(publicacao.midias);
+        setTextoDigitado(publicacao.texto);
+
+        if (publicacao instanceof PublicacaoModel) {
+            setMidiasDaPublicacao(publicacao.midiasPublicacao);
+        }
+
+
         setNovosArquivosSelecionados(null);
     }, [modalAberto]);
 
@@ -76,28 +61,29 @@ export default function ModalEditarPublicacao({ modalAberto, fecharModal }: Moda
 
     useEffect(() => {
         if (
-            textoDaPublicacao?.trim() !== publicacao.texto ||
-            midiasDaPublicacao.length !== publicacao.midias.length ||
+            textoDigitado?.trim() !== publicacao.texto ||
+            (publicacao instanceof PublicacaoModel && midiasDaPublicacao?.length !== publicacao.midiasPublicacao?.length) ||
             novosArquivosSelecionados?.length
         ) {
             setIndicadorAlgumaAlteracaoRealizada(true);
         } else {
             setIndicadorAlgumaAlteracaoRealizada(false);
         }
-    }, [textoDaPublicacao, midiasDaPublicacao, novosArquivosSelecionados]);
+    }, [textoDigitado, midiasDaPublicacao, novosArquivosSelecionados]);
 
     function publicar() {
 
     }
 
     function aoDigitarTexto(e: React.ChangeEvent<HTMLTextAreaElement>) {
-        setTextoDaPublicacao(e.target.value);
+        setTextoDigitado(e.target.value);
     }
 
     //Função provísória que serve para excluir imagens do array. Quando esta parte for integrada com o back-end a implementação dela pode mudar. Esta serve apenas para modificar o estado e identificar a mudança.
     function excluirMidia(indice: number) {
         setMidiasDaPublicacao(state => {
-            return state.filter((midia, index) => indice !== index);
+            // return state.filter((midia, index) => indice !== index);
+            return [];
         });
     }
 
@@ -167,22 +153,38 @@ export default function ModalEditarPublicacao({ modalAberto, fecharModal }: Moda
                                 placeholder='No que você está pensando, Pedro?'
                                 onChange={aoDigitarTexto}
                                 alturaInicial={60}
-                                value={textoDaPublicacao ? textoDaPublicacao : ""}
+                                value={textoDigitado ? textoDigitado : ""}
                             />
-                            <div id='modalEditarPublicacao__midiasDaPublicacao'>
-                                <ul id='modalEditarPublicacao__midiasDaPublicacao__listaMidias'>
-                                    {
-                                        midiasDaPublicacao.map((midia, index) =>
-                                            <MidiaEditarPublicacao
-                                                midiaPublicacao={midia}
-                                                excluirMidia={excluirMidia}
-                                                index={index}
-                                                key={index}
-                                            />
-                                        )
-                                    }
-                                </ul>
-                            </div>
+
+                            {
+                                publicacao instanceof PublicacaoModel &&
+                                <div id='modalEditarPublicacao__midiasDaPublicacao'>
+                                    <ul id='modalEditarPublicacao__midiasDaPublicacao__listaMidias'>
+                                        {
+                                            midiasDaPublicacao?.map((midia, index) =>
+                                                <MidiaEditarPublicacao
+                                                    midiaPublicacao={midia}
+                                                    excluirMidia={excluirMidia}
+                                                    index={index}
+                                                    key={index}
+                                                />
+                                            )
+                                        }
+                                    </ul>
+                                </div>
+                            }
+
+                            {
+                                publicacao instanceof PublicacaoCompartilhadaModel &&
+                                <div id='modalCompartilharPublicacao__containerPublicacao'>
+                                    <Publicacao
+                                        publicacao={publicacao.publicacao}
+                                        publicacaoCompartilhada
+                                    />
+                                </div>
+                            }
+
+
 
                             {
                                 indicadorInputImagensEVideosAberto &&
@@ -193,17 +195,22 @@ export default function ModalEditarPublicacao({ modalAberto, fecharModal }: Moda
                                 />
                             }
                         </div>
-                        <div id='modalEditarPublicacao__divAdicionarFotosEVideos'>
-                            <p>Adicionar à publicação</p>
-                            <div id='modalEditarPublicacao__divAdicionarFotosEVideos__icones'>
-                                <button onClick={abrirInputImagensEVideos}>
-                                    <img src="./icones/imagemIcone.png" alt="" />
-                                </button>
-                                <button onClick={abrirInputImagensEVideos}>
-                                    <img src="./icones/videoIcone.png" alt="" />
-                                </button>
+
+                        {
+                            publicacao instanceof PublicacaoModel &&
+                            <div id='modalEditarPublicacao__divAdicionarFotosEVideos'>
+                                <p>Adicionar à publicação</p>
+                                <div id='modalEditarPublicacao__divAdicionarFotosEVideos__icones'>
+                                    <button onClick={abrirInputImagensEVideos}>
+                                        <img src="./icones/imagemIcone.png" alt="" />
+                                    </button>
+                                    <button onClick={abrirInputImagensEVideos}>
+                                        <img src="./icones/videoIcone.png" alt="" />
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        }
+
                         <button
                             id='modalEditarPublicacao__btnSalvar'
                             disabled={!indicadorAlgumaAlteracaoRealizada}
@@ -212,7 +219,7 @@ export default function ModalEditarPublicacao({ modalAberto, fecharModal }: Moda
                         >Salvar</button>
                     </div>
                 </div>
-            </div>
+            </div >
         </>
 
     )
