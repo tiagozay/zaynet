@@ -16,10 +16,11 @@ import { useMediaQuery } from 'react-responsive';
 import { CompartilharPublicacaoContext } from '../../contexts/CompartilharPublicacaoContext';
 import ModalEditarPublicacao from '../../components/ModalEditarPublicacao';
 import { EditarPublicacaoContext } from '../../contexts/EditarPublicacaoContext';
+import { PublicarContext } from '../../contexts/PublicarContext';
 
 export default function Home() {
 
-  const [modalPublicarAberto, setModalPublicarAberto] = useState(false);
+  const {indicadorModalPublicarAberto, setIndicadorModalPublicarAberto} =  useContext(PublicarContext);
 
   const {
     indicadorModalCompartilharPublicacaoAberto,
@@ -44,12 +45,12 @@ export default function Home() {
   const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
 
   useEffect(() => {
-    if (modalPublicarAberto || indicadorModalCompartilharPublicacaoAberto || indicadorModalEditarPublicacaoAberto) {
+    if (indicadorModalPublicarAberto || indicadorModalCompartilharPublicacaoAberto || indicadorModalEditarPublicacaoAberto) {
       document.body.style.overflowY = 'hidden';
     } else {
       document.body.style.overflowY = 'scroll';
     }
-  }, [modalPublicarAberto, indicadorModalCompartilharPublicacaoAberto, indicadorModalEditarPublicacaoAberto]);
+  }, [indicadorModalPublicarAberto, indicadorModalCompartilharPublicacaoAberto, indicadorModalEditarPublicacaoAberto]);
 
   useEffect(() => {
     //Toda vez que cair nesta página Home ou mudar o state de publicacoes, buscará a posição do feed que está armazenada no contexto. Esta posição é gravada toda vez que nevegamos desta página home para outra, aí quando volta para cá, já se sabe a posição anterior e retorna para ela (este armazenamento é feito nas publicações, pois é nelas que ocorrem essas mudanças, como ao abrir carrossel de imagens, clicar em compartilhar(para mobile), clicar em editar (para mobile))
@@ -80,14 +81,14 @@ export default function Home() {
   }, []);
 
   function fecharModalPublicar() {
-    setModalPublicarAberto(false);
+    setIndicadorModalPublicarAberto(false);
   }
 
   function abrirModalPublicar() {
     if (isMobile) {
       navigate('/publicar');
     } else {
-      setModalPublicarAberto(true);
+      setIndicadorModalPublicarAberto(true);
     }
   }
 
@@ -141,9 +142,9 @@ export default function Home() {
     <>
 
       {
-        modalPublicarAberto ?
+        indicadorModalPublicarAberto ?
           <ModalPublicar
-            modalAberto={modalPublicarAberto}
+            modalAberto={indicadorModalPublicarAberto}
             fecharModal={fecharModalPublicar}
             aoPublicar={adicionaNovaPublicacaoAoEstado}
           /> :
@@ -185,7 +186,7 @@ export default function Home() {
               id='feed_adicionarUmaNovaPublicacao__input'
               placeholder='No que você está pensando, Pedro?'
               onClick={abrirModalPublicar}
-              disabled={modalPublicarAberto ? true : false}
+              disabled={indicadorModalPublicarAberto ? true : false}
             />
           </div>
           <button id='feed_adicionarUmaNovaPublicacao__btnFotoEVideo' onClick={abrirModalPublicar}>
