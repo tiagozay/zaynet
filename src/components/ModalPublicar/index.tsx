@@ -8,7 +8,7 @@ import { useMediaQuery } from 'react-responsive';
 import UsuarioService from '../../services/UsuarioService';
 import { APIService } from '../../services/APIService';
 import APIResponse from '../../Utils/APIResponse';
-import Toast from '../Toast';
+import ToastDeErro from '../ToastDeErro';
 import { useNavigate } from 'react-router-dom';
 import { PublicacaoService } from '../../services/PublicacaoService';
 import TextAreaTamanhoDinamico from '../TextAreaTamanhoDinamico';
@@ -144,7 +144,7 @@ export default function ModalPublicar({ modalAberto, aoPublicar, fecharModal }: 
         <>
             {
                 indicadorToastAberto ?
-                    <Toast
+                    <ToastDeErro
                         titulo={"Erro ao criar publicação!"}
                         texto={mensagemToast}
                         fechaToast={fecharToast}

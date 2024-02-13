@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './Toast.css';
+import './ToastDeErro.css';
 
 interface ToastProps {
     titulo: string,
@@ -7,7 +7,7 @@ interface ToastProps {
     fechaToast: () => void
 }
 
-export default function Toast({ titulo, texto, fechaToast }: ToastProps) {
+export default function ToastDeErro({ titulo, texto, fechaToast }: ToastProps) {
 
     useEffect(() => {
         const timeout = setTimeout(() => {

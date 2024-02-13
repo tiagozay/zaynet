@@ -9,7 +9,7 @@ import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import UsuarioService from '../../services/UsuarioService';
 import { PublicacaoService } from '../../services/PublicacaoService';
 import APIResponse from '../../Utils/APIResponse';
-import Toast from '../../components/Toast';
+import ToastDeErro from '../../components/ToastDeErro';
 import TextAreaTamanhoDinamico from '../../components/TextAreaTamanhoDinamico';
 import { ControleLoginContext } from '../../contexts/ControleLoginContext';
 import { LoginService } from '../../services/LoginService';
@@ -126,7 +126,7 @@ export default function PublicarMobile() {
         <>
             {
                 indicadorToastAberto ?
-                    <Toast
+                    <ToastDeErro
                         titulo={"Erro ao criar publicação!"}
                         texto={mensagemToast}
                         fechaToast={fecharToast}

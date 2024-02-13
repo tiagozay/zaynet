@@ -6,7 +6,7 @@ import { APIService } from '../../services/APIService';
 import { LoginService } from '../../services/LoginService';
 import APIResponse from '../../Utils/APIResponse';
 import { useNavigate } from 'react-router-dom';
-import Toast from '../../components/Toast';
+import ToastDeErro from '../../components/ToastDeErro';
 import ReCAPTCHA from "react-google-recaptcha";
 
 export default function LoginOuCadastro() {
@@ -109,7 +109,7 @@ export default function LoginOuCadastro() {
                     .then((res: APIResponse) => {
                         if (res.domainError) {
                             setMensagemDeErro(res.message);
-                        }else{
+                        } else {
                             setMensagemDeErro("Erro inesperado ao realizar login");
                         }
                     });
@@ -132,7 +132,7 @@ export default function LoginOuCadastro() {
         <>
             {
                 indicadorToastAberto ?
-                    <Toast
+                    <ToastDeErro
                         titulo={tituloToast}
                         texto={textoToast}
                         fechaToast={fecharToast}
