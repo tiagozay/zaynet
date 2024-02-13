@@ -1,0 +1,12 @@
+#toast{ 
+    padding: 18px 15px;
+    color: rgb(234, 234, 234);
+    font-family: var(--fontePadrao);
+    position: fixed;
+    bottom: 40px;
+    left: 5px;
+    background-color: #3A3B3C;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+}

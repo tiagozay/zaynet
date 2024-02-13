@@ -17,6 +17,7 @@ import { CompartilharPublicacaoContext } from '../../contexts/CompartilharPublic
 import ModalEditarPublicacao from '../../components/ModalEditarPublicacao';
 import { EditarPublicacaoContext } from '../../contexts/EditarPublicacaoContext';
 import { PublicarContext } from '../../contexts/PublicarContext';
+import Toast from '../../components/Toast';
 
 export default function Home() {
 
@@ -35,6 +36,8 @@ export default function Home() {
     publicacaoEditada,
     setPublicacaoEditada
   } = useContext(EditarPublicacaoContext);
+
+  const [mensagemToast, setMensagemToast] = useState<string | null>(null);
 
   const [publicacoes, setPublicacoes] = useState<Array<PublicacaoModel | PublicacaoCompartilhadaModel>>([]);
 
@@ -80,6 +83,16 @@ export default function Home() {
       .catch(() => { });
   }, []);
 
+  function abrirToast(mensagem: string)
+  {
+    setMensagemToast(mensagem);
+  }
+
+  function fecharToast()
+  {
+    setMensagemToast(null);
+  }
+
   function fecharModalPublicar() {
     setIndicadorModalPublicarAberto(false);
   }
@@ -107,6 +120,7 @@ export default function Home() {
   }
 
   function aoCompartilhar() {
+    setMensagemToast("Publicação compartilhada com sucesso!");
     setPublicacaoCompartilhada(null);
   }
 
@@ -138,15 +152,28 @@ export default function Home() {
     setPublicacoes(state => [publicacao, ...state])
   }
 
+  function aoPublicar(publicacao: object){
+    setMensagemToast("Publicação criada com sucesso!");
+    adicionaNovaPublicacaoAoEstado(publicacao);
+  }
+
   return (
     <>
+
+      {
+        mensagemToast &&
+        <Toast 
+          texto={mensagemToast}
+          fechaToast={fecharToast}
+        />
+      }
 
       {
         indicadorModalPublicarAberto ?
           <ModalPublicar
             modalAberto={indicadorModalPublicarAberto}
             fecharModal={fecharModalPublicar}
-            aoPublicar={adicionaNovaPublicacaoAoEstado}
+            aoPublicar={aoPublicar}
           /> :
           ""
       }
