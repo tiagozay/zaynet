@@ -10,8 +10,8 @@ interface TypeEditarPublicacaoContext {
     setPublicacaoEditada: React.Dispatch<React.SetStateAction<PublicacaoModel | PublicacaoCompartilhadaModel | null>>,
     textoDigitado: string | null,
     setTextoDigitado: React.Dispatch<React.SetStateAction<string | null>>,
-    midiasDaPublicacao: MidiaPublicacaoModel[] | null,
-    setMidiasDaPublicacao: React.Dispatch<React.SetStateAction<MidiaPublicacaoModel[] | null>>
+    midiasDaPublicacao: MidiaPublicacaoModel[] | [],
+    setMidiasDaPublicacao: React.Dispatch<React.SetStateAction<MidiaPublicacaoModel[] | []>>,
 }
 
 export const EditarPublicacaoContext = createContext<TypeEditarPublicacaoContext>({
@@ -21,7 +21,7 @@ export const EditarPublicacaoContext = createContext<TypeEditarPublicacaoContext
     setPublicacaoEditada: () => { },
     textoDigitado: null,
     setTextoDigitado: () => { },
-    midiasDaPublicacao: null,
+    midiasDaPublicacao: [],
     setMidiasDaPublicacao: () => { }
 });
 
@@ -31,7 +31,7 @@ export default function EditarPublicacaoContextProvider({ children }: { children
 
     const [textoDigitado, setTextoDigitado] = useState<string | null>(null);
 
-    const [midiasDaPublicacao, setMidiasDaPublicacao] = useState<MidiaPublicacaoModel[] | null>(null)
+    const [midiasDaPublicacao, setMidiasDaPublicacao] = useState<MidiaPublicacaoModel[] | []>([])
 
     const [publicacaoEditada, setPublicacaoEditada] = useState<PublicacaoModel | PublicacaoCompartilhadaModel | null>(null);
 
