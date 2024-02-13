@@ -34,6 +34,16 @@ class MidiaPublicacao implements JsonSerializable
         $this->nomeMiniatura = $nomeMiniatura;
     }
 
+    public function getNomeArquivoOriginal(): string
+    {
+        return $this->nomeArquivoOriginal;
+    }
+
+    public function getNomeMiniatura(): string
+    {
+        return $this->nomeMiniatura;
+    }
+
     public function jsonSerialize(): mixed
     {
         return [
