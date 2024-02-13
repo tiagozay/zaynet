@@ -1,4 +1,4 @@
-#toast__overlay{
+#toastDeErro__overlay{
     width: 100%;
     position: fixed;
     display: flex;
@@ -6,7 +6,7 @@
     bottom: 0;
     z-index: 25;
 }
-#toast{
+#toastDeErro{
     padding: 15px 25px;
     left: 50%;
     background-color: #bf0303;
@@ -14,18 +14,18 @@
     border-radius: 5px;
     max-width: 40%;
 }
-#toast__divIconeETitulo{
+#toastDeErro__divIconeETitulo{
     display: flex;
     align-items: center;
     color: rgb(240, 240, 240);
     font-family: var(--fontePadrao);
 }
-#toast__divIconeETitulo h4{
+#toastDeErro__divIconeETitulo h4{
     font-weight: 600;
     margin-left: 5px;
     font-size: 14px;
 }
-#toast__texto{
+#toastDeErro__texto{
     color: rgb(240, 240, 240);
     font-family: var(--fontePadrao);
     font-weight: 500;
@@ -34,7 +34,7 @@
 
 }
 @media(max-width: 680px){
-    #toast{
+    #toastDeErro{
         max-width: 80%;
     }
 }

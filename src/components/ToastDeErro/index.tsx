@@ -20,13 +20,13 @@ export default function ToastDeErro({ titulo, texto, fechaToast }: ToastProps) {
     }, []);
 
     return (
-        <div id='toast__overlay'>
-            <div id='toast'>
-                <div id='toast__divIconeETitulo'>
+        <div id='toastDeErro__overlay'>
+            <div id='toastDeErro'>
+                <div id='toastDeErro__divIconeETitulo'>
                     <i className='material-symbols-outlined'>error</i>
                     <h4>{titulo}</h4>
                 </div>
-                <p id='toast__texto'>
+                <p id='toastDeErro__texto'>
                     {texto}
                 </p>
             </div>
