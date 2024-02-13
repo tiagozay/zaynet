@@ -30,6 +30,15 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "PUT") {
             throw new Exception("Comentário não encontrado");
         }
 
+        $idUsuarioLogado = LoginService::obtemIdUsuarioLogado($token);
+
+        //Verificação para que somente autor do comentário consiga editá-lo
+        if (
+            $comentario->getAutor()->getId() !== $idUsuarioLogado
+        ) {
+            throw new Exception("Sem permisão para editar comentário");
+        }
+
         $comentario->editarComentario($data->comentario);
 
         $entityManager->flush();
