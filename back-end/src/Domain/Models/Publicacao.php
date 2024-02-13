@@ -100,6 +100,55 @@ class Publicacao implements JsonSerializable
     }
 
     /** @throws DomainException */
+    public function editar(
+        ?string $texto,
+        ?array $novasMidias,
+        ?array $midiasParaExcluir
+    ){
+        $this->validaRegrasDeNegocio($texto, $novasMidias);
+
+        $this->texto = $texto;
+
+        if ($novasMidias) {
+            foreach ($novasMidias as $midiaPublicacao) {
+
+                $nomeArquivoOriginal = ImageService::persisteMidiaBinariaPublicacaoEGeraNome(
+                    $midiaPublicacao->arquivoOriginal,
+                    __DIR__ . "\..\..\..\imagensDinamicas\MidiasPublicacoes\MidiasOriginais\\"
+                );
+
+                $nomeMiniatura = ImageService::persisteMidiaBinariaPublicacaoEGeraNome(
+                    $midiaPublicacao->miniatura,
+                    __DIR__ . "\..\..\..\imagensDinamicas\MidiasPublicacoes\Miniaturas\\"
+                );
+
+                $midia = new MidiaPublicacao(
+                    $this,
+                    $nomeArquivoOriginal,
+                    $nomeMiniatura
+                );
+
+                $this->midiasPublicacao->add($midia);
+            }
+        }
+
+        if ($midiasParaExcluir) {
+            foreach ($midiasParaExcluir as $midiaParaExcluir) {
+
+                ImageService::removeImagemDoDiretorio(
+                    __DIR__ . "\..\..\..\imagensDinamicas\MidiasPublicacoes\MidiasOriginais\\".$midiaParaExcluir->getNomeArquivoOriginal()
+                );
+
+                ImageService::removeImagemDoDiretorio(
+                    __DIR__ . "\..\..\..\imagensDinamicas\MidiasPublicacoes\Miniaturas\\".$midiaParaExcluir->getNomeMiniatura()
+                );
+
+            }
+        }
+
+    }
+
+    /** @throws DomainException */
     private function validaRegrasDeNegocio(
         ?string $texto,
         ?array $midiasPublicacao
