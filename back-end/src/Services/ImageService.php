@@ -57,4 +57,9 @@ abstract class ImageService
 
         return $textoAleatorio . "." . $extencao;
     }
+
+    static public function removeImagemDoDiretorio(string $diretorioDoArquivo)
+    {
+        unlink($diretorioDoArquivo);
+    }
 }
