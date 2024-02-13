@@ -25,7 +25,7 @@ export default function MidiaEditarPublicacao({
                     <button
                         className='material-symbols-outlined'
                         id='modalEditarPublicacao__btnExcluirMidia'
-                        onClick={() => excluirMidia(index)}
+                        onClick={() => excluirMidia(midiaPublicacao.id as number)}
                     >close</button>
                 </div>
                 {
@@ -38,7 +38,7 @@ export default function MidiaEditarPublicacao({
                 }
             </div>
             <img
-                src={midiaPublicacao.caminhoMidiaMiniatura}
+                src={`${process.env.REACT_APP_CAMINHO_MIDIA_PUBLICACAO_MINIATURA}${midiaPublicacao.caminhoMidiaMiniatura}` }
                 alt="Midia publicacao"
             />
         </li>
