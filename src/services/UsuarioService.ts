@@ -62,6 +62,12 @@ export default abstract class UsuarioService {
         return Number(usuario.id);
     }
 
+    public static obtemNomeDoUsuarioLogado() {
+        const usuario = LoginService.buscaUsuarioLogado();
+
+        return usuario.nome;
+    }
+
     public static obtemNomeCompletoDoUsuarioLogado() {
         const usuario = LoginService.buscaUsuarioLogado();
 
