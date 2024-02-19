@@ -11,14 +11,16 @@ import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
 import { PublicacaoCompartilhadaModel } from '../../models/Publicacao/PublicacaoCompartilhadaModel';
 import Publicacao from '../Publicacao';
 import { EditarPublicacaoContext } from '../../contexts/EditarPublicacaoContext';
+import { PublicacaoService } from '../../services/PublicacaoService';
 
 interface ModalEditarPublicacaoProps {
     publicacao: PublicacaoModel | PublicacaoCompartilhadaModel,
     modalAberto: boolean,
+    aoEditar: (publicacaoEditada: object) => void,
     fecharModal: () => void
 }
 
-export default function ModalEditarPublicacao({ publicacao, modalAberto, fecharModal }: ModalEditarPublicacaoProps) {
+export default function ModalEditarPublicacao({ publicacao, modalAberto, aoEditar, fecharModal }: ModalEditarPublicacaoProps) {
 
     const {
         textoDigitado,
@@ -44,7 +46,9 @@ export default function ModalEditarPublicacao({ publicacao, modalAberto, fecharM
         setTextoDigitado(publicacao.texto);
 
         if (publicacao instanceof PublicacaoModel) {
-            setMidiasDaPublicacao(publicacao.midiasPublicacao);
+            setMidiasDaPublicacao(publicacao.midiasPublicacao ? publicacao.midiasPublicacao  : []);
+        }else{
+            setMidiasDaPublicacao([]);
         }
 
 
@@ -59,7 +63,7 @@ export default function ModalEditarPublicacao({ publicacao, modalAberto, fecharM
 
     useEffect(() => {
         if (
-            textoDigitado?.trim() !== publicacao.texto ||
+            textoDigitado?.trim() !== publicacao.texto?.trim() ||
             (publicacao instanceof PublicacaoModel && midiasDaPublicacao?.length !== publicacao.midiasPublicacao?.length) ||
             novosArquivosSelecionados?.length
         ) {
@@ -67,21 +71,38 @@ export default function ModalEditarPublicacao({ publicacao, modalAberto, fecharM
         } else {
             setIndicadorAlgumaAlteracaoRealizada(false);
         }
-    }, [textoDigitado, midiasDaPublicacao, novosArquivosSelecionados]);
+    }, [textoDigitado, novosArquivosSelecionados, midiasDaPublicacao]);
 
-    function publicar() {
+    function editarPublicacao() {
 
+        let idsMidiasExcluidas: Array<number> = [];
+
+        //Se não for uma publicação compartilhada, tira a diferença dos arrays de midias que foram excluídas pelo usuário com as mídias da publicação, e passa passa os ids delas para a variável de ids
+        if((publicacao instanceof PublicacaoModel) && publicacao.midiasPublicacao){
+            const midiasExcluidas = publicacao.midiasPublicacao.filter(
+                midia => !midiasDaPublicacao?.includes(midia as never)
+            );
+
+            idsMidiasExcluidas = midiasExcluidas.map(midia => midia.id);
+        }
+
+        PublicacaoService.editar(textoDigitado, novosArquivosSelecionados, idsMidiasExcluidas, publicacao)
+            .then((res) => {
+
+                fecharModal();
+                aoEditar(res.data as object);
+
+            })
+            .catch(() => { })
     }
 
     function aoDigitarTexto(e: React.ChangeEvent<HTMLTextAreaElement>) {
         setTextoDigitado(e.target.value);
     }
 
-    //Função provísória que serve para excluir imagens do array. Quando esta parte for integrada com o back-end a implementação dela pode mudar. Esta serve apenas para modificar o estado e identificar a mudança.
-    function excluirMidia(indice: number) {
+    function excluirMidia(id: number) {
         setMidiasDaPublicacao(state => {
-            // return state.filter((midia, index) => indice !== index);
-            return [];
+            return state.filter(midia => midia.id !== id);
         });
     }
 
@@ -213,7 +234,7 @@ export default function ModalEditarPublicacao({ publicacao, modalAberto, fecharM
                             id='modalEditarPublicacao__btnSalvar'
                             disabled={!indicadorAlgumaAlteracaoRealizada}
                             className={!indicadorAlgumaAlteracaoRealizada ? "modalEditarPublicacao__btnSalvarInativo" : ""}
-                            onClick={publicar}
+                            onClick={editarPublicacao}
                         >Salvar</button>
                     </div>
                 </div>

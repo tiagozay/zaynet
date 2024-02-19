@@ -105,6 +105,11 @@ export default function Home() {
     }
   }
 
+  function aoPublicar(publicacao: object){
+    setMensagemToast("Publicação criada com sucesso!");
+    adicionaNovaPublicacaoAoEstado(publicacao);
+  }
+
   function abrirCompartilhamento(publicacao: PublicacaoModel) {
 
     setPublicacaoCompartilhada(publicacao);
@@ -119,13 +124,13 @@ export default function Home() {
     }
   }
 
-  function aoCompartilhar() {
-    setMensagemToast("Publicação compartilhada com sucesso!");
+  function fecharCompartilhamento() {
+    setIndicadorModalCompartilharPublicacaoAberto(false);
     setPublicacaoCompartilhada(null);
   }
 
-  function fecharCompartilhamento() {
-    setIndicadorModalCompartilharPublicacaoAberto(false);
+  function aoCompartilhar() {
+    setMensagemToast("Publicação compartilhada com sucesso!");
     setPublicacaoCompartilhada(null);
   }
 
@@ -137,7 +142,10 @@ export default function Home() {
           navigate('/editarPublicacao');
         })
     } else {
-      setIndicadorModalEditarPublicacaoAberto(true);
+      definePosicaoDoFeed(window.scrollY)
+        .then(() => {
+          setIndicadorModalEditarPublicacaoAberto(true);
+        })
     }
   }
 
@@ -146,15 +154,25 @@ export default function Home() {
     setPublicacaoEditada(null);
   }
 
+  function aoEditar(publicacaoEditada: any){
+    setMensagemToast("Publicação editada com sucesso!");
+
+    setPublicacoes(state => state.map( publicacao => {
+
+      if(publicacao.id === publicacaoEditada.id){
+        return PublicacaoFactory.create(publicacaoEditada);
+      }
+      
+      return publicacao;
+
+    } ))
+
+  }
+
   function adicionaNovaPublicacaoAoEstado(publicacaoCadastrada: object) {
     const publicacao = PublicacaoFactory.create(publicacaoCadastrada);
 
     setPublicacoes(state => [publicacao, ...state])
-  }
-
-  function aoPublicar(publicacao: object){
-    setMensagemToast("Publicação criada com sucesso!");
-    adicionaNovaPublicacaoAoEstado(publicacao);
   }
 
   return (
@@ -193,6 +211,7 @@ export default function Home() {
           <ModalEditarPublicacao
             publicacao={publicacaoEditada as PublicacaoModel | PublicacaoCompartilhadaModel}
             fecharModal={fehcarModalEditarPublicacao}
+            aoEditar={aoEditar}
             modalAberto={indicadorModalEditarPublicacaoAberto}
           /> :
           ""

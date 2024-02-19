@@ -108,6 +108,14 @@ switch ($method) {
             exit();
         }
 
+        preg_match('/^api\/publicacoes\/(?<idPublicacao>\d+)$/', $caminho, $matches);
+
+        if (!empty($matches['idPublicacao'])) {
+            $idPublicacao = $matches['idPublicacao'];
+            require_once '../src/Controlers/editarPublicacao.php';
+            exit();
+        }
+
         break;
     case 'DELETE':
 

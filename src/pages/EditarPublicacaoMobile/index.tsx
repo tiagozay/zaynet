@@ -14,6 +14,7 @@ import { EditarPublicacaoContext } from '../../contexts/EditarPublicacaoContext'
 import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
 import { PublicacaoCompartilhadaModel } from '../../models/Publicacao/PublicacaoCompartilhadaModel';
 import Publicacao from '../../components/Publicacao';
+import { PublicacaoService } from '../../services/PublicacaoService';
 
 export default function EditarPublicacaoMobile() {
 
@@ -21,7 +22,7 @@ export default function EditarPublicacaoMobile() {
         publicacaoEditada,
         textoDigitado,
         setTextoDigitado,
-        midiasDaPublicacao, 
+        midiasDaPublicacao,
         setMidiasDaPublicacao
     } = useContext(EditarPublicacaoContext);
 
@@ -44,7 +45,7 @@ export default function EditarPublicacaoMobile() {
         setTextoDigitado(publicacaoEditada?.texto ? publicacaoEditada?.texto : null);
 
         if (publicacaoEditada instanceof PublicacaoModel) {
-            setMidiasDaPublicacao(publicacaoEditada.midiasPublicacao);
+            setMidiasDaPublicacao(publicacaoEditada.midiasPublicacao ? publicacaoEditada.midiasPublicacao : []);
         }
 
         setNovosArquivosSelecionados(null);
@@ -70,7 +71,7 @@ export default function EditarPublicacaoMobile() {
 
     useEffect(() => {
         if (
-            textoDigitado?.trim() !== publicacaoEditada?.texto ||
+            textoDigitado?.trim() !== publicacaoEditada?.texto?.trim() ||
             (publicacaoEditada instanceof PublicacaoModel && midiasDaPublicacao?.length !== publicacaoEditada.midiasPublicacao?.length) ||
             novosArquivosSelecionados?.length
         ) {
@@ -88,13 +89,31 @@ export default function EditarPublicacaoMobile() {
         setTextoDigitado(e.target.value);
     }
 
-    //Função provísória que serve para excluir imagens do array. Quando esta parte for integrada com o back-end a implementação dela pode mudar. Esta serve apenas para modificar o estado e identificar a mudança.
-    function excluirMidia(indice: number) {
+    function excluirMidia(id: number) {
         setMidiasDaPublicacao(state => {
-            // return state.filter((midia, index) => indice !== index);
-            return [];
+            return state.filter(midia => midia.id !== id);
         });
     }
+
+    function editarPublicacao() {
+
+        let idsMidiasExcluidas: Array<number> = [];
+
+        if ((publicacaoEditada instanceof PublicacaoModel) && publicacaoEditada.midiasPublicacao) {
+            const midiasExcluidas = publicacaoEditada.midiasPublicacao.filter(
+                midia => !midiasDaPublicacao?.includes(midia as never)
+            );
+
+            idsMidiasExcluidas = midiasExcluidas.map(midia => midia.id);
+        }
+
+        PublicacaoService.editar(textoDigitado, novosArquivosSelecionados, idsMidiasExcluidas, publicacaoEditada as PublicacaoCompartilhadaModel)
+            .then((res) => {   
+                navigate(-1);
+            })
+            .catch(() => { })
+    }
+
 
     function aoClicarEmVoltar() {
         if (indicadorAlteracaoRealizada) {
@@ -152,6 +171,7 @@ export default function EditarPublicacaoMobile() {
                         id="editarPublicacaoMobile__btnSalvar"
                         disabled={!indicadorAlteracaoRealizada}
                         className={!indicadorAlteracaoRealizada ? "editarPublicacaoMobile__btnSalvarInativo" : ""}
+                        onClick={editarPublicacao}
                     >SALVAR</button>
                 </div>
 
