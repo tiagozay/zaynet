@@ -19,6 +19,7 @@ interface ModalCompartilharPublicacaoProps {
 export default function ModalCompartilharPublicacao({ publicacao, aoCompartilhar, fecharModal }: ModalCompartilharPublicacaoProps) {
 
   const [modalDeCofirmarDescarteAberto, setModalDeCofirmarDescarteAberto] = useState(false);
+  const [indicadorCadastroSendoEnviado, setIndicadorCadastroSendoEnviado] = useState(false);
 
   const { textoDigitado, setTextoDigitado } = useContext(CompartilharPublicacaoContext);
 
@@ -57,8 +58,7 @@ export default function ModalCompartilharPublicacao({ publicacao, aoCompartilhar
     fecharModalELimparTexto();
   }
 
-  function fecharModalELimparTexto()
-  {
+  function fecharModalELimparTexto() {
     setTextoDigitado("");
     fecharModal();
   }
@@ -78,15 +78,18 @@ export default function ModalCompartilharPublicacao({ publicacao, aoCompartilhar
   }
 
   function compartilharPublicacao() {
+    setIndicadorCadastroSendoEnviado(true);
     PublicacaoService.compartilhar(textoDigitado, publicacao)
       .then((res) => {
 
         fecharModalELimparTexto();
         aoCompartilhar(res.data as object);
+        setIndicadorCadastroSendoEnviado(false);
 
-        // setQuantidadeDeCompartilhamentos(state => state + 1);
       })
-      .catch(() => { })
+      .catch(() => {
+        setIndicadorCadastroSendoEnviado(false);
+      })
   }
 
   return (
@@ -142,6 +145,8 @@ export default function ModalCompartilharPublicacao({ publicacao, aoCompartilhar
             <button
               id='modalCompartilharPublicacao__btnPublicar'
               onClick={compartilharPublicacao}
+              className={indicadorCadastroSendoEnviado ? "modalCompartilharPublicacao__btnPublicarCarregando" : ""}
+              disabled={indicadorCadastroSendoEnviado}
             >Compartilhar</button>
           </div>
         </div>

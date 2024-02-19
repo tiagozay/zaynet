@@ -26,7 +26,6 @@ import EditarPublicacaoMobile from './pages/EditarPublicacaoMobile';
 import CaixaDeMensagem from './components/CaixaDeMensagem';
 import CaixaDeMensagemProvider from './contexts/CaixaDeMensagemContext';
 import CaixaDeMensagensMobile from './pages/CaixaDeMensagensMobile';
-import EditarPublicacaoCompartilhadaMobile from './pages/EditarPublicacaoCompartilhadaMobile';
 import CompartilharPublicacaoMobile from './pages/CompartilharPublicacaoMobile';
 import EditarPerfilMobile from './pages/EditarPerfilMobile';
 import ConfiguracoesContaMobile from './pages/ConfiguracoesContaMobile';
@@ -83,7 +82,6 @@ root.render(
                     <Route path='/publicar' element={<PublicarMobile />} />
                     <Route path='/compartilharPublicacao' element={<CompartilharPublicacaoMobile />} />
                     <Route path='/editarPublicacao' element={<EditarPublicacaoMobile />} />
-                    <Route path='/editarPublicacaoCompartilhada' element={<EditarPublicacaoCompartilhadaMobile />} />
                     <Route path='/editarPerfil' element={<EditarPerfilMobile />} />
                     <Route path='/configuracoesConta' element={<ConfiguracoesContaMobile />} />
                     <Route path='/perfil' element={<PerfilUsuario />}>

@@ -23,6 +23,8 @@ export default function CompartilharPublicacaoMobile({ }) {
         setIndicadorModalCompartilharPublicacaoAberto
     } = useContext(CompartilharPublicacaoContext);
 
+    const [indicadorCadastroSendoEnviado, setIndicadorCadastroSendoEnviado] = useState(false);
+
     const navigate = useNavigate();
 
     const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
@@ -45,7 +47,7 @@ export default function CompartilharPublicacaoMobile({ }) {
         }
     }, [isMobile]);
 
-    if(publicacaoCompartilhada === null){
+    if (publicacaoCompartilhada === null) {
         throw new Error("Nenhuma publicação recebida");
     }
 
@@ -64,16 +66,20 @@ export default function CompartilharPublicacaoMobile({ }) {
     }
 
     function compartilhar() {
-        if(publicacaoCompartilhada === null){
+        if (publicacaoCompartilhada === null) {
             throw new Error("Nenhuma publicação recebida");
         }
 
+        setIndicadorCadastroSendoEnviado(true);
         PublicacaoService.compartilhar(textoDigitado, publicacaoCompartilhada)
             .then(() => {
+                setIndicadorCadastroSendoEnviado(false);
                 navigate(-1);
                 setTextoDigitado(null);
             })
-            .catch(() => { });
+            .catch(() => {
+                setIndicadorCadastroSendoEnviado(false);
+            });
     }
 
     return (
@@ -90,6 +96,8 @@ export default function CompartilharPublicacaoMobile({ }) {
                 </div>
                 <button
                     id="compartilharPublicacaoMobile__btnPublicar"
+                    className={indicadorCadastroSendoEnviado ? "modalCompartilharPublicacao__btnPublicarCarregando" : ""}
+                    disabled={indicadorCadastroSendoEnviado}
                     onClick={compartilhar}
                 >COMPARTILHAR</button>
             </div>

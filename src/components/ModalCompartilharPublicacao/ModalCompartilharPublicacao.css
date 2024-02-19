@@ -135,6 +135,20 @@
     border-radius: 8px;
     transition: 120ms;
 }
+.modalCompartilharPublicacao__btnPublicarCarregando{
+    background: linear-gradient(90deg, #2176FF, #529af2, #1971ff);
+    background-size: 200% 100%;
+    animation: loading 2s linear infinite;
+    cursor: progress!important;
+}
+@keyframes loading {
+    0% {
+      background-position: 100% 0;
+    }
+    100% {
+      background-position: -100% 0;
+    }
+  }
 .modalCompartilharPublicacao__btnPublicarInativo{
     background-color: #505151!important;
 }

@@ -145,6 +145,20 @@
     border-radius: 8px;
     transition: 120ms;
 }
+.modalEditarPublicacao__btnSalvarCarregando{
+    background: linear-gradient(90deg, #2176FF, #529af2, #1971ff);
+    background-size: 200% 100%;
+    animation: loading 2s linear infinite;
+    cursor: progress!important;
+}
+@keyframes loading {
+    0% {
+      background-position: 100% 0;
+    }
+    100% {
+      background-position: -100% 0;
+    }
+  }
 .modalEditarPublicacao__btnSalvarInativo{
     background-color: #505151!important;
 }

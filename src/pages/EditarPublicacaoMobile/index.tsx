@@ -30,6 +30,8 @@ export default function EditarPublicacaoMobile() {
     const [indicadorAlteracaoRealizada, setIndicadorAlteracaoRealizada] = useState(false);
     const [modalDeConfirmacaoDeDescarteAberto, setmodalDeConfirmacaoDeDescarteAberto] = useState(false);
 
+    const [indicadorEdicaoSendoEnviada, setIndicadorEdicaoSendoEnviada] = useState(false);
+
     const { permisaoParaIniciar, setPermisaoParaIniciar } = useContext(ControleLoginContext);
 
     const [novosArquivosSelecionados, setNovosArquivosSelecionados] = useState<FileList | null>(null);
@@ -107,11 +109,15 @@ export default function EditarPublicacaoMobile() {
             idsMidiasExcluidas = midiasExcluidas.map(midia => midia.id);
         }
 
+        setIndicadorEdicaoSendoEnviada(true);
         PublicacaoService.editar(textoDigitado, novosArquivosSelecionados, idsMidiasExcluidas, publicacaoEditada as PublicacaoCompartilhadaModel)
-            .then((res) => {   
+            .then((res) => {
+                setIndicadorEdicaoSendoEnviada(false);
                 navigate(-1);
             })
-            .catch(() => { })
+            .catch(() => {
+                setIndicadorEdicaoSendoEnviada(false);
+            })
     }
 
 
@@ -169,8 +175,11 @@ export default function EditarPublicacaoMobile() {
                     </div>
                     <button
                         id="editarPublicacaoMobile__btnSalvar"
-                        disabled={!indicadorAlteracaoRealizada}
-                        className={!indicadorAlteracaoRealizada ? "editarPublicacaoMobile__btnSalvarInativo" : ""}
+                        disabled={!indicadorAlteracaoRealizada || indicadorEdicaoSendoEnviada}
+                        className={`
+                            ${!indicadorAlteracaoRealizada ? "editarPublicacaoMobile__btnSalvarInativo" : ""}
+                            ${indicadorEdicaoSendoEnviada ? "editarPublicacaoMobile__btnSalvarCarregando" : ""}
+                        `}
                         onClick={editarPublicacao}
                     >SALVAR</button>
                 </div>

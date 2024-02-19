@@ -32,6 +32,8 @@ export default function ModalEditarPublicacao({ publicacao, modalAberto, aoEdita
     const [indicadorInputImagensEVideosAberto, setIndicadorInputImagensEVideosAberto] = useState(false);
     const [indicadorAlgumaAlteracaoRealizada, setIndicadorAlgumaAlteracaoRealizada] = useState(false);
 
+    const [indicadorEdicaoSendoEnviada, setIndicadorEdicaoSendoEnviada] = useState(false);
+
     const [novosArquivosSelecionados, setNovosArquivosSelecionados] = useState<FileList | null>(null);
 
     const [indicadorModalConfirmacaoDescartarAberto, setIndicadorModalConfirmacaoDescartarAberto] = useState(false);
@@ -46,8 +48,8 @@ export default function ModalEditarPublicacao({ publicacao, modalAberto, aoEdita
         setTextoDigitado(publicacao.texto);
 
         if (publicacao instanceof PublicacaoModel) {
-            setMidiasDaPublicacao(publicacao.midiasPublicacao ? publicacao.midiasPublicacao  : []);
-        }else{
+            setMidiasDaPublicacao(publicacao.midiasPublicacao ? publicacao.midiasPublicacao : []);
+        } else {
             setMidiasDaPublicacao([]);
         }
 
@@ -75,10 +77,12 @@ export default function ModalEditarPublicacao({ publicacao, modalAberto, aoEdita
 
     function editarPublicacao() {
 
+        setIndicadorEdicaoSendoEnviada(true);
+
         let idsMidiasExcluidas: Array<number> = [];
 
         //Se não for uma publicação compartilhada, tira a diferença dos arrays de midias que foram excluídas pelo usuário com as mídias da publicação, e passa passa os ids delas para a variável de ids
-        if((publicacao instanceof PublicacaoModel) && publicacao.midiasPublicacao){
+        if ((publicacao instanceof PublicacaoModel) && publicacao.midiasPublicacao) {
             const midiasExcluidas = publicacao.midiasPublicacao.filter(
                 midia => !midiasDaPublicacao?.includes(midia as never)
             );
@@ -91,9 +95,12 @@ export default function ModalEditarPublicacao({ publicacao, modalAberto, aoEdita
 
                 fecharModal();
                 aoEditar(res.data as object);
+                setIndicadorEdicaoSendoEnviada(false);
 
             })
-            .catch(() => { })
+            .catch(() => {
+                setIndicadorEdicaoSendoEnviada(false);
+            })
     }
 
     function aoDigitarTexto(e: React.ChangeEvent<HTMLTextAreaElement>) {
@@ -232,8 +239,11 @@ export default function ModalEditarPublicacao({ publicacao, modalAberto, aoEdita
 
                         <button
                             id='modalEditarPublicacao__btnSalvar'
-                            disabled={!indicadorAlgumaAlteracaoRealizada}
-                            className={!indicadorAlgumaAlteracaoRealizada ? "modalEditarPublicacao__btnSalvarInativo" : ""}
+                            disabled={!indicadorAlgumaAlteracaoRealizada || indicadorEdicaoSendoEnviada}
+                            className={`
+                                ${!indicadorAlgumaAlteracaoRealizada ? "modalEditarPublicacao__btnSalvarInativo" : ""} 
+                                ${indicadorEdicaoSendoEnviada ? "modalEditarPublicacao__btnSalvarCarregando" : ""}
+                            `}
                             onClick={editarPublicacao}
                         >Salvar</button>
                     </div>
