@@ -101,7 +101,7 @@ function Publicacao({ publicacao, compartilharPublicacao, editarPublicacao, publ
 
                   const imagemOuVideo = ArquivosPublicacaoService.identificaSeArquivoEImagemOuVideoPeloNome(midia.caminhoMidiaNormal)
 
-                  if (index === 3) {
+                  if (index === 3 && publicacao.midiasPublicacao.length > 4) {
 
                     return <UltimaImagemComSobreposicao
                       urlImagem={imagemOuVideo === "Imagem" ? midia.caminhoMidiaNormal : midia.caminhoMidiaMiniatura}
