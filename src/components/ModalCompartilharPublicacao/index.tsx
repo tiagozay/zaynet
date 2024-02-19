@@ -129,7 +129,7 @@ export default function ModalCompartilharPublicacao({ publicacao, aoCompartilhar
             <div id='modalCompartilharPublicacao__containerInputs'>
               <TextAreaTamanhoDinamico
                 id='modalCompartilharPublicacao__campoTexto'
-                placeholder='No que você está pensando, Pedro?'
+                placeholder={`No que você está pensando, ${UsuarioService.obtemNomeDoUsuarioLogado()}?`}
                 onChange={aoDigitarTexto}
                 alturaInicial={60}
                 value={textoDigitado}

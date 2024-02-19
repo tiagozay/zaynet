@@ -196,7 +196,7 @@ export default function ModalEditarPublicacao({ publicacao, modalAberto, aoEdita
                         <div id='modalEditarPublicacao__containerInputs'>
                             <TextAreaTamanhoDinamico
                                 id='modalEditarPublicacao__campoTexto'
-                                placeholder='No que você está pensando, Pedro?'
+                                placeholder={`No que você está pensando, ${UsuarioService.obtemNomeDoUsuarioLogado()}?`}
                                 onChange={aoDigitarTexto}
                                 alturaInicial={60}
                                 value={textoDigitado ? textoDigitado : ""}

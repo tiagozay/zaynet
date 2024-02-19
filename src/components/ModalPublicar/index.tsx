@@ -175,7 +175,7 @@ export default function ModalPublicar({ modalAberto, aoPublicar, fecharModal }: 
 
                             <TextAreaTamanhoDinamico
                                 id='modalPublicar__campoTexto'
-                                placeholder='No que você está pensando, Pedro?'
+                                placeholder={`No que você está pensando, ${UsuarioService.obtemNomeDoUsuarioLogado()}?`}
                                 onChange={aoDigitarTexto}
                                 value={textoDigitado}
                                 alturaInicial={80}
