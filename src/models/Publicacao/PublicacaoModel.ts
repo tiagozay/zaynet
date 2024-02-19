@@ -7,21 +7,21 @@ export class PublicacaoModel {
     public id: number;
     public autor: Usuario;
     public texto: string | null;
-    public midiasPublicacao: MidiaPublicacaoModel[] | null;
+    public midiasPublicacao: MidiaPublicacaoModel[];
     public dataDePublicacao: string;
     public quantidadeDeCompartilhamentos: number;
-    public comentarios: ComentarioPublicacao[] | null;
-    public curtidas: CurtidaPublicacao[] | null;
+    public comentarios: ComentarioPublicacao[];
+    public curtidas: CurtidaPublicacao[];
 
     constructor(
         id: number,
         autor: Usuario,
         texto: string | null,
-        midiasPublicacao: MidiaPublicacaoModel[] | null,
+        midiasPublicacao: MidiaPublicacaoModel[],
         dataDePublicacao: string,
         quantidadeDeCompartilhamentos: number,
-        comentarios: ComentarioPublicacao[] | null,
-        curtidas: CurtidaPublicacao[] | null
+        comentarios: ComentarioPublicacao[],
+        curtidas: CurtidaPublicacao[]
     ) {
         this.id = id;
         this.autor = autor;
