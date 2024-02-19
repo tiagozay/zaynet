@@ -38,6 +38,8 @@ export default function ModalEditarPublicacao({ publicacao, modalAberto, aoEdita
 
     const [indicadorModalConfirmacaoDescartarAberto, setIndicadorModalConfirmacaoDescartarAberto] = useState(false);
 
+    const overlay = useRef(null);
+
     const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
 
     //Este useEffect é responsável por resetar os estados toda vez que o modal for re-aberto.
@@ -62,6 +64,19 @@ export default function ModalEditarPublicacao({ publicacao, modalAberto, aoEdita
             fecharModal();
         }
     }, [isMobile]);
+
+    useEffect(() => {
+
+        let handleEscKey = (event: KeyboardEvent) => {
+            event.key === 'Escape' && clickFechar();
+        }
+
+        document.addEventListener('keydown', handleEscKey);
+
+        return () => {
+            document.removeEventListener('keydown', handleEscKey);
+        };
+    }, [indicadorAlgumaAlteracaoRealizada]);
 
     useEffect(() => {
         if (
@@ -122,10 +137,15 @@ export default function ModalEditarPublicacao({ publicacao, modalAberto, aoEdita
     }
 
     function clickFechar() {
-
         if (indicadorAlgumaAlteracaoRealizada) {
             setIndicadorModalConfirmacaoDescartarAberto(true);
         } else {
+            fecharModal();
+        }
+    }
+
+    function clickOverlay(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+        if (event.target === overlay.current) {
             fecharModal();
         }
     }
@@ -153,7 +173,7 @@ export default function ModalEditarPublicacao({ publicacao, modalAberto, aoEdita
             }
 
 
-            <div id="modalEditarPublicacao__overlay">
+            <div id="modalEditarPublicacao__overlay" ref={overlay} onClick={clickOverlay}>
                 <div id="modalEditarPublicacao">
                     <div id='modalEditarPublicacao__tituloEBtnDeFechar'>
                         <h3 id='modalEditarPublicacao__tituloModal'>Editar publicação</h3>
