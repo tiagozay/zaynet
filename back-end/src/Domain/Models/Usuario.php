@@ -212,7 +212,7 @@ class Usuario implements JsonSerializable
         $this->publicacoes->add($publicacao);
     }
 
-    public function jsonSerialize(): mixed
+    public function toArray(): mixed
     {
         return [
             'id' => $this->id,
@@ -228,5 +228,10 @@ class Usuario implements JsonSerializable
             'nomeMiniaturaFotoPerfil' => $this->nomeMiniaturaFotoPerfil,
             'nomeFotoCapa' => $this->nomeFotoCapa,
         ];
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return $this->toArray();
     }
 }
