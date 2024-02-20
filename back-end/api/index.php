@@ -30,6 +30,16 @@ switch ($method) {
             require_once '../src/Controlers/buscaComentariosDePublicacao.php';
             exit();
         }
+
+        preg_match('/^api\/usuarios\/(?<idUsuario>\d+)$/', $caminho, $matches);
+
+        if (!empty($matches['idUsuario'])) {
+            $idUsuario = $matches['idUsuario'];
+            require_once '../src/Controlers/buscaUsuario.php';
+            exit();
+        }
+
+
         switch ($caminho) {
             case 'api/publicacoes':
                 require_once '../src/Controlers/buscaPublicacoes.php';
