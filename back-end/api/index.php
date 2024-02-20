@@ -39,6 +39,14 @@ switch ($method) {
             exit();
         }
 
+        preg_match('/^api\/publicacoes\/usuarios\/(?<idUsuario>\d+)$/', $caminho, $matches);
+
+        if (!empty($matches['idUsuario'])) {
+            $idUsuario = $matches['idUsuario'];
+            require_once '../src/Controlers/buscaPublicacoesDoUsuario.php';
+            exit();
+        }
+
 
         switch ($caminho) {
             case 'api/publicacoes':
