@@ -6,21 +6,25 @@ export class Usuario {
     public nomeMiniaturaFotoPerfil: string | null;
     public nomeCapa: string | null;
     public quantidadeDeAmigos: number;
-    public indicadorEhAmigo: boolean;
-    public indicadorSolicitacaoDeAmizadeRecebida: boolean;
-    public indicadorUsuarioQuemEnviouASolicitacao: boolean;
+    public dataDeNascimento: Date;
+    public genero: string;
+    public cidadeNatal: string;
+    public cidadeAtual: string;
+    public statusDeRelacionamento: string;
 
     constructor(
         id: number,
         nome: string,
         sobrenome: string,
         quantidadeDeAmigos: number,
-        indicadorEhAmigo: boolean,
-        indicadorSolicitacaoDeAmizadeRecebida: boolean,
-        indicadorUsuarioQuemEnviouASolicitacao: boolean,
         nomeFotoPerfil: string | null,
         nomeMiniaturaFotoPerfil: string | null,
-        nomeCapa: string | null
+        nomeCapa: string | null,
+        dataDeNascimento: Date,
+        genero: string,
+        cidadeNatal: string,
+        cidadeAtual: string,
+        statusDeRelacionamento: string,
     ) {
         this.id = id;
         this.nome = nome;
@@ -29,8 +33,10 @@ export class Usuario {
         this.nomeMiniaturaFotoPerfil = nomeMiniaturaFotoPerfil;
         this.nomeCapa = nomeCapa;
         this.quantidadeDeAmigos = quantidadeDeAmigos;
-        this.indicadorEhAmigo = indicadorEhAmigo;
-        this.indicadorSolicitacaoDeAmizadeRecebida = indicadorSolicitacaoDeAmizadeRecebida;
-        this.indicadorUsuarioQuemEnviouASolicitacao = indicadorUsuarioQuemEnviouASolicitacao;
+        this.dataDeNascimento = dataDeNascimento;
+        this.genero = genero;
+        this.cidadeNatal = cidadeNatal;
+        this.cidadeAtual = cidadeAtual;
+        this.statusDeRelacionamento = statusDeRelacionamento
     }
 }

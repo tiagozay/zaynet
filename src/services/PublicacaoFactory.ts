@@ -54,13 +54,15 @@ export abstract class PublicacaoFactory {
             objetoAutor.id,
             objetoAutor.nome,
             objetoAutor.sobrenome,
-            0,
-            false,
-            false,
-            false,
+            objetoAutor.quantidadeDeAmigos,
             objetoAutor.nomeFotoPerfil,
             objetoAutor.nomeMiniaturaFotoPerfil,
             objetoAutor.nomeFotoCapa,
+            objetoAutor.dataDeNascimento,
+            objetoAutor.genero,
+            objetoAutor.cidadeNatal,
+            objetoAutor.cidadeAtual,
+            objetoAutor.statusDeRelacionamento
         );
     }
 
