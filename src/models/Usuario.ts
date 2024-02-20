@@ -5,7 +5,6 @@ export class Usuario {
     public nomeFotoPerfil: string | null;
     public nomeMiniaturaFotoPerfil: string | null;
     public nomeCapa: string | null;
-    public quantidadeDeAmigos: number;
     public dataDeNascimento: Date;
     public genero: string;
     public cidadeNatal: string;
@@ -16,7 +15,6 @@ export class Usuario {
         id: number,
         nome: string,
         sobrenome: string,
-        quantidadeDeAmigos: number,
         nomeFotoPerfil: string | null,
         nomeMiniaturaFotoPerfil: string | null,
         nomeCapa: string | null,
@@ -32,7 +30,6 @@ export class Usuario {
         this.nomeFotoPerfil = nomeFotoPerfil;
         this.nomeMiniaturaFotoPerfil = nomeMiniaturaFotoPerfil;
         this.nomeCapa = nomeCapa;
-        this.quantidadeDeAmigos = quantidadeDeAmigos;
         this.dataDeNascimento = dataDeNascimento;
         this.genero = genero;
         this.cidadeNatal = cidadeNatal;

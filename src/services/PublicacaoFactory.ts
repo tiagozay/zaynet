@@ -54,7 +54,6 @@ export abstract class PublicacaoFactory {
             objetoAutor.id,
             objetoAutor.nome,
             objetoAutor.sobrenome,
-            objetoAutor.quantidadeDeAmigos,
             objetoAutor.nomeFotoPerfil,
             objetoAutor.nomeMiniaturaFotoPerfil,
             objetoAutor.nomeFotoCapa,
