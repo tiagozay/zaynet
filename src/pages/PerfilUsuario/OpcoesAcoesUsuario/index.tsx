@@ -69,82 +69,82 @@ export default function OpcoesAcoesUsuario({usuario, editarPerfil} : OpcoesAcoes
 
     let btnsOpcoesDoUsuario: React.JSX.Element;
 
-    if (idUsuarioLogado === usuario.id) {
-        btnsOpcoesDoUsuario = (
-            <button id='perfilDoUsuario__btnEditarPerfil' onClick={editarPerfil}>
-                <i className='material-symbols-outlined'>edit</i>
-                Editar perfil
-            </button>
-        );
-    } else if (usuario.indicadorEhAmigo) {
-        btnsOpcoesDoUsuario = (
-            <>
-                <button id='perfilDoUsuario__btnAmizadeConfirmada'>
-                    <i className='material-symbols-outlined'>check</i>
-                    Amigos
-                </button>
-                <button id='perfilDoUsuario__btnEnviarMensagemAzul' onClick={() => clickAbrirConversa(conversa)}>
-                    <i className='material-symbols-outlined'>chat</i>
-                    Mensagem
-                </button>
-            </>
-        )
-    } else if (usuario.indicadorSolicitacaoDeAmizadeRecebida) {
-        btnsOpcoesDoUsuario = (
-            <>
-                {
-                    indicadorMenuResponderSolicitacaoAberto &&
-                    <MenuResponderSolicitacao
-                        indicadorMenuResponderSolicitacaoAberto={indicadorMenuResponderSolicitacaoAberto}
-                        fecharMenu={fecharMenuResponderSolicitacao}
-                    />
-                }
-                <button id='perfilDoUsuario__btnAdicionarAmigo' onClick={abrirMenuResponderSolicitacao}>
-                    <i className='material-symbols-outlined'>check</i>
-                    Responder
-                </button>
-                <button id='perfilDoUsuario__btnEnviarMensagem' onClick={() => clickAbrirConversa(conversa)}>
-                    <i className='material-symbols-outlined'>chat</i>
-                    Mensagem
-                </button>
-            </>
-        );
-    } else if (usuario.indicadorUsuarioQuemEnviouASolicitacao) {
-        btnsOpcoesDoUsuario = (
-            <>
-                <button id='perfilDoUsuario__btnAdicionarAmigo'>
-                    <i className='material-symbols-outlined'>check</i>
-                    Solicitação enviada!
-                </button>
-                <button id='perfilDoUsuario__btnEnviarMensagem' onClick={() => clickAbrirConversa(conversa)}>
-                    <i className='material-symbols-outlined'>chat</i>
-                    Mensagem
-                </button>
-            </>
-        );
-    } else if (!usuario.indicadorEhAmigo) {
-        btnsOpcoesDoUsuario = (
-            <>
-                <button id='perfilDoUsuario__btnAdicionarAmigo'>
-                    <i className='material-symbols-outlined'>group_add</i>
-                    Adicionar amigo
-                </button>
-                <button id='perfilDoUsuario__btnEnviarMensagem' onClick={() => clickAbrirConversa(conversa)}>
-                    <i className='material-symbols-outlined'>chat</i>
-                    Mensagem
-                </button>
-            </>
-        );
-    } else {
-        btnsOpcoesDoUsuario = (
-            <>
-            </>
-        );
-    }
+    // if (idUsuarioLogado === usuario.id) {
+    //     btnsOpcoesDoUsuario = (
+    //         <button id='perfilDoUsuario__btnEditarPerfil' onClick={editarPerfil}>
+    //             <i className='material-symbols-outlined'>edit</i>
+    //             Editar perfil
+    //         </button>
+    //     );
+    // } else if (usuario.indicadorEhAmigo) {
+    //     btnsOpcoesDoUsuario = (
+    //         <>
+    //             <button id='perfilDoUsuario__btnAmizadeConfirmada'>
+    //                 <i className='material-symbols-outlined'>check</i>
+    //                 Amigos
+    //             </button>
+    //             <button id='perfilDoUsuario__btnEnviarMensagemAzul' onClick={() => clickAbrirConversa(conversa)}>
+    //                 <i className='material-symbols-outlined'>chat</i>
+    //                 Mensagem
+    //             </button>
+    //         </>
+    //     )
+    // } else if (usuario.indicadorSolicitacaoDeAmizadeRecebida) {
+    //     btnsOpcoesDoUsuario = (
+    //         <>
+    //             {
+    //                 indicadorMenuResponderSolicitacaoAberto &&
+    //                 <MenuResponderSolicitacao
+    //                     indicadorMenuResponderSolicitacaoAberto={indicadorMenuResponderSolicitacaoAberto}
+    //                     fecharMenu={fecharMenuResponderSolicitacao}
+    //                 />
+    //             }
+    //             <button id='perfilDoUsuario__btnAdicionarAmigo' onClick={abrirMenuResponderSolicitacao}>
+    //                 <i className='material-symbols-outlined'>check</i>
+    //                 Responder
+    //             </button>
+    //             <button id='perfilDoUsuario__btnEnviarMensagem' onClick={() => clickAbrirConversa(conversa)}>
+    //                 <i className='material-symbols-outlined'>chat</i>
+    //                 Mensagem
+    //             </button>
+    //         </>
+    //     );
+    // } else if (usuario.indicadorUsuarioQuemEnviouASolicitacao) {
+    //     btnsOpcoesDoUsuario = (
+    //         <>
+    //             <button id='perfilDoUsuario__btnAdicionarAmigo'>
+    //                 <i className='material-symbols-outlined'>check</i>
+    //                 Solicitação enviada!
+    //             </button>
+    //             <button id='perfilDoUsuario__btnEnviarMensagem' onClick={() => clickAbrirConversa(conversa)}>
+    //                 <i className='material-symbols-outlined'>chat</i>
+    //                 Mensagem
+    //             </button>
+    //         </>
+    //     );
+    // } else if (!usuario.indicadorEhAmigo) {
+    //     btnsOpcoesDoUsuario = (
+    //         <>
+    //             <button id='perfilDoUsuario__btnAdicionarAmigo'>
+    //                 <i className='material-symbols-outlined'>group_add</i>
+    //                 Adicionar amigo
+    //             </button>
+    //             <button id='perfilDoUsuario__btnEnviarMensagem' onClick={() => clickAbrirConversa(conversa)}>
+    //                 <i className='material-symbols-outlined'>chat</i>
+    //                 Mensagem
+    //             </button>
+    //         </>
+    //     );
+    // } else {
+    //     btnsOpcoesDoUsuario = (
+    //         <>
+    //         </>
+    //     );
+    // }
 
     return (
         <div id='perfilDoUsuario__opcoesParaPefil'>
-            {btnsOpcoesDoUsuario}
+            {/* {btnsOpcoesDoUsuario} */}
         </div>
 
     )
