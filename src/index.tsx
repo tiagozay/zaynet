@@ -34,69 +34,72 @@ import CompartilharPublicacaoContextProvider from './contexts/CompartilharPublic
 import ControleLoginContextProvider from './contexts/ControleLoginContext';
 import EditarPublicacaoContextProvider from './contexts/EditarPublicacaoContext';
 import PublicarContextProvider from './contexts/PublicarContext';
+import PerfilUsuarioContextProvider from './contexts/PerfilUsuarioContext';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 root.render(
   <React.StrictMode>
     <ControleLoginContextProvider>
-      <CaixaDeMensagemProvider>
-        <FeedContextProvider>
-          <EditarPublicacaoContextProvider>
-            <PublicarContextProvider>
-              <CompartilharPublicacaoContextProvider>
-                <CaixaDeMensagem />
+      <PerfilUsuarioContextProvider>
+        <CaixaDeMensagemProvider>
+          <FeedContextProvider>
+            <EditarPublicacaoContextProvider>
+              <PublicarContextProvider>
+                <CompartilharPublicacaoContextProvider>
+                  <CaixaDeMensagem />
 
-                <BrowserRouter>
-                  <Routes>
+                  <BrowserRouter>
+                    <Routes>
 
-                    <Route path='login' element={
-                      <CadastroUsuarioProvider>
-                        <LoginOuCadastro />
-                      </CadastroUsuarioProvider>
-                    } />
-                    <Route path='cadastrarUsuarioMobilePrimeiraFase' element={
-                      <CadastroUsuarioProvider>
-                        <CadastrarUsuarioMobilePrimeiraFase />
-                      </CadastroUsuarioProvider>
+                      <Route path='login' element={
+                        <CadastroUsuarioProvider>
+                          <LoginOuCadastro />
+                        </CadastroUsuarioProvider>
+                      } />
+                      <Route path='cadastrarUsuarioMobilePrimeiraFase' element={
+                        <CadastroUsuarioProvider>
+                          <CadastrarUsuarioMobilePrimeiraFase />
+                        </CadastroUsuarioProvider>
 
-                    } />
-                    <Route path='cadastrarUsuarioMobileSegundaFase' element={
-                      <CadastroUsuarioProvider>
-                        <CadastrarUsuarioMobileSegundaFase />
-                      </CadastroUsuarioProvider>
-                    } />
+                      } />
+                      <Route path='cadastrarUsuarioMobileSegundaFase' element={
+                        <CadastroUsuarioProvider>
+                          <CadastrarUsuarioMobileSegundaFase />
+                        </CadastroUsuarioProvider>
+                      } />
 
-                    <Route path='/conversa' element={<CaixaDeMensagensMobile />} />
+                      <Route path='/conversa' element={<CaixaDeMensagensMobile />} />
 
-                    <Route path='/' element={<PaginaBaseComHeader />}>
-                      <Route path='/' element={<Home />} />
-                      <Route path='/notificacoes' element={<NotificacoesParaMobile />} />
-                      <Route path='/mensagens' element={<MensagensMobile />} />
-                      <Route path='/solicitacoesDeAmizade' element={<SolicitacoesDeAmizadeMobile />} />
-                      <Route path='/adicionarAmigos' element={<AdicionarAmigos />} />
-                      <Route path='/fotos' element={<FotosUsuario />} />
-                    </Route>
-                    <Route path='/image' element={<CarrosselDeImagens />} />
-                    <Route path='/pesquisar' element={<PesquisarPorUmaPessoaMobile />} />
-                    <Route path='/publicar' element={<PublicarMobile />} />
-                    <Route path='/compartilharPublicacao' element={<CompartilharPublicacaoMobile />} />
-                    <Route path='/editarPublicacao' element={<EditarPublicacaoMobile />} />
-                    <Route path='/editarPerfil' element={<EditarPerfilMobile />} />
-                    <Route path='/configuracoesConta' element={<ConfiguracoesContaMobile />} />
-                    <Route path='/perfil' element={<PerfilUsuario />}>
-                      <Route path='/perfil' element={<FeedPublicacoesUsuario />} />
-                      <Route path='fotos' element={<FotosPerfilUsuario />} />
-                      <Route path='videos' element={<VideosPerfilUsuario />} />
-                      <Route path='amigos' element={<AmigosPerfilUsuario />} />
-                    </Route>
-                  </Routes>
-                </BrowserRouter>
-              </CompartilharPublicacaoContextProvider>
-            </PublicarContextProvider>
-          </EditarPublicacaoContextProvider>
-        </FeedContextProvider>
-      </CaixaDeMensagemProvider>
+                      <Route path='/' element={<PaginaBaseComHeader />}>
+                        <Route path='/' element={<Home />} />
+                        <Route path='/notificacoes' element={<NotificacoesParaMobile />} />
+                        <Route path='/mensagens' element={<MensagensMobile />} />
+                        <Route path='/solicitacoesDeAmizade' element={<SolicitacoesDeAmizadeMobile />} />
+                        <Route path='/adicionarAmigos' element={<AdicionarAmigos />} />
+                        <Route path='/fotos' element={<FotosUsuario />} />
+                      </Route>
+                      <Route path='/image' element={<CarrosselDeImagens />} />
+                      <Route path='/pesquisar' element={<PesquisarPorUmaPessoaMobile />} />
+                      <Route path='/publicar' element={<PublicarMobile />} />
+                      <Route path='/compartilharPublicacao' element={<CompartilharPublicacaoMobile />} />
+                      <Route path='/editarPublicacao' element={<EditarPublicacaoMobile />} />
+                      <Route path='/editarPerfil' element={<EditarPerfilMobile />} />
+                      <Route path='/configuracoesConta' element={<ConfiguracoesContaMobile />} />
+                      <Route path='/perfil/:id' element={<PerfilUsuario />}>
+                        <Route path='/perfil/:id' element={<FeedPublicacoesUsuario />} />
+                        <Route path='fotos/:id' element={<FotosPerfilUsuario />} />
+                        <Route path='videos/:id' element={<VideosPerfilUsuario />} />
+                        <Route path='amigos/:id' element={<AmigosPerfilUsuario />} />
+                      </Route>
+                    </Routes>
+                  </BrowserRouter>
+                </CompartilharPublicacaoContextProvider>
+              </PublicarContextProvider>
+            </EditarPublicacaoContextProvider>
+          </FeedContextProvider>
+        </CaixaDeMensagemProvider>
+      </PerfilUsuarioContextProvider>
     </ControleLoginContextProvider>
 
   </React.StrictMode >
