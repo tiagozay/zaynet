@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useRef, useState } from 'react';
 import './PublicacaoCompartilhada.css';
 import InteracoesComAPublicacao from '../Publicacao/InteracoesComAPublicacao';
 import Comentarios from '../Publicacao/Comentarios';
@@ -25,8 +25,15 @@ function PublicacaoCompartilhada({ publicacao, compartilharPublicacao, editarPub
 
     const indicadorPublicacaoDoUsuarioLogado = publicacao.autor.id === UsuarioService.obtemIdUsuarioLogado();
 
+    const botaoComentarRef = useRef(null);
+
     function clickCompartilharPublicacao() {
         compartilharPublicacao(publicacao.publicacao);
+    }
+
+    function clickComentarPublicacao() {
+        const btnComentar = botaoComentarRef.current as any;
+        btnComentar.focus();
     }
 
     return (
@@ -72,6 +79,7 @@ function PublicacaoCompartilhada({ publicacao, compartilharPublicacao, editarPub
                     setQuantidadeDeCurtidas={setQuantidadeDeCurtidas}
                     compartilharPublicacao={clickCompartilharPublicacao}
                     quantidadeDeCompartilhamentos={0}
+                    comentarPublicacao={clickComentarPublicacao}
                 />
 
                 <div id='publicacaoCompartilhada__linhaDivisoria'></div>
@@ -79,6 +87,7 @@ function PublicacaoCompartilhada({ publicacao, compartilharPublicacao, editarPub
                     idPublicacao={publicacao.id}
                     setQuantidadeDeComentarios={setQuantidadeDeComentarios}
                     comentariosPublicacao={publicacao.comentarios}
+                    btnComentarRef={botaoComentarRef}
                 />
             </div>
         </>

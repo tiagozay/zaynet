@@ -1,4 +1,4 @@
-import React, { memo, useContext, useEffect, useState } from 'react';
+import React, { memo, useContext, useEffect, useRef, useState } from 'react';
 import './Publicacao.css';
 import UltimaImagemComSobreposicao from './UltimaImagemComSobreposicao';
 import Comentarios from './Comentarios';
@@ -40,6 +40,8 @@ function Publicacao({ publicacao, compartilharPublicacao, editarPublicacao, publ
 
   const indicadorPublicacaoDoUsuarioLogado = publicacao.autor.id === UsuarioService.obtemIdUsuarioLogado();
 
+  const botaoComentarRef = useRef(null);
+
   function aoClicarEmUmaImagem(indice: number) {
     const info = {
       midias: publicacao.midiasPublicacao,
@@ -65,6 +67,12 @@ function Publicacao({ publicacao, compartilharPublicacao, editarPublicacao, publ
       compartilharPublicacao(publicacao);
     }
 
+  }
+
+  function clickComentarPublicacao()
+  {
+    const btnComentar = botaoComentarRef.current as any;
+    btnComentar.focus();
   }
 
   return (
@@ -156,6 +164,7 @@ function Publicacao({ publicacao, compartilharPublicacao, editarPublicacao, publ
                 quantidadeDeCompartilhamentos={quantidadeDeCompartilhamentos}
                 setQuantidadeDeCurtidas={setQuantidadeDeCurtidas}
                 compartilharPublicacao={clickCompartilharPublicacao}
+                comentarPublicacao={clickComentarPublicacao}
               />
 
               <div id='publicacao__linhaDivisoria'></div>
@@ -163,6 +172,7 @@ function Publicacao({ publicacao, compartilharPublicacao, editarPublicacao, publ
                 comentariosPublicacao={publicacao.comentarios}
                 setQuantidadeDeComentarios={setQuantidadeDeComentarios}
                 idPublicacao={publicacao.id}
+                btnComentarRef={botaoComentarRef}
               />
             </> :
             ""

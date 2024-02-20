@@ -12,10 +12,11 @@ interface InteracoesComAPublicacaoProps {
     quantidadeDeCurtidas: number,
     quantidadeDeCompartilhamentos: number,
     setQuantidadeDeCurtidas: React.Dispatch<React.SetStateAction<number>>,
-    compartilharPublicacao: () => void
+    compartilharPublicacao: () => void,
+    comentarPublicacao: () => void,
 }
 
-export default function InteracoesComAPublicacao({ publicacao, quantidadeDeComentarios, quantidadeDeCurtidas, quantidadeDeCompartilhamentos, setQuantidadeDeCurtidas, compartilharPublicacao }: InteracoesComAPublicacaoProps) {
+export default function InteracoesComAPublicacao({ publicacao, quantidadeDeComentarios, quantidadeDeCurtidas, quantidadeDeCompartilhamentos, setQuantidadeDeCurtidas, compartilharPublicacao, comentarPublicacao }: InteracoesComAPublicacaoProps) {
 
     const idUsuarioLogado = UsuarioService.obtemIdUsuarioLogado();
 
@@ -74,7 +75,7 @@ export default function InteracoesComAPublicacao({ publicacao, quantidadeDeComen
                     <i className='material-symbols-outlined'>thumb_up</i>
                     Curtir
                 </button>
-                <button>
+                <button onClick={comentarPublicacao}>
                     <i className='material-symbols-outlined'>chat_bubble</i>
                     Comentar
                 </button>

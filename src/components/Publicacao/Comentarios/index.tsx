@@ -12,9 +12,10 @@ interface ComentariosProps {
   comentariosPublicacao?: ComentarioPublicacao[] | null,
   setQuantidadeDeComentarios: React.Dispatch<React.SetStateAction<number>>,
   idPublicacao: number,
+  btnComentarRef: React.MutableRefObject<null>
 }
 
-export default function Comentarios({ comentariosPublicacao, setQuantidadeDeComentarios, idPublicacao }: ComentariosProps) {
+export default function Comentarios({ comentariosPublicacao, setQuantidadeDeComentarios, idPublicacao, btnComentarRef }: ComentariosProps) {
 
   const [novoComentarioDigitado, setNovoComentarioDigitado] = useState("");
 
@@ -69,6 +70,7 @@ export default function Comentarios({ comentariosPublicacao, setQuantidadeDeCome
           novoComentarioDigitado={novoComentarioDigitado}
           setNovoComentarioDigitado={setNovoComentarioDigitado}
           clickEnviarComentario={enviarNovoComentario}
+          ref={btnComentarRef}
         />
       </div>
     </div>
