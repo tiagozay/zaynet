@@ -213,7 +213,7 @@ export default function ListaDePublicacoes({ publicacoesParaListar }: ListaDePub
                     />
                 </div>
                 <button id='listaDePublicacoes_adicionarUmaNovaPublicacao__btnFotoEVideo' onClick={abrirModalPublicar}>
-                    <img src="./icones/imagemIcone.png" alt="" />
+                    <img src="../icones/imagemIcone.png" alt="" />
                     Foto/vídeo
                 </button>
             </div>

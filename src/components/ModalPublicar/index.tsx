@@ -194,10 +194,10 @@ export default function ModalPublicar({ modalAberto, aoPublicar, fecharModal }: 
                             <p>Adicionar à publicação</p>
                             <div id='modalPublicar__divAdicionarFotosEVideos__icones'>
                                 <button onClick={abrirInputImagensEVideos}>
-                                    <img src="./icones/imagemIcone.png" alt="" />
+                                    <img src="../icones/imagemIcone.png" alt="" />
                                 </button>
                                 <button onClick={abrirInputImagensEVideos}>
-                                    <img src="./icones/videoIcone.png" alt="" />
+                                    <img src="../icones/videoIcone.png" alt="" />
                                 </button>
                             </div>
                         </div>
