@@ -79,21 +79,23 @@ export default function PerfilUsuario() {
                 );
 
                 setUsuario(usuario);
-                // setIndicadorUsuarioCarregando(false);
+                setIndicadorUsuarioCarregando(false);
             })
+            .catch(() => navigate("/"));
 
         APIService.get(`publicacoes/usuarios/${id}`)
-        .then( (res) => {
+            .then((res) => {
 
-            const objetosPublicacoes = res.data;
+                const objetosPublicacoes = res.data;
 
-            const publicacoes = objetosPublicacoes?.map( (objetoPublicacao: any) => {
-                return PublicacaoFactory.create(objetoPublicacao);
-            } )
+                const publicacoes = objetosPublicacoes?.map((objetoPublicacao: any) => {
+                    return PublicacaoFactory.create(objetoPublicacao);
+                })
 
-            setPublicacoes(publicacoes);
+                setPublicacoes(publicacoes);
 
-        } )
+            })
+            .catch(() => navigate("/"));
     }, []);
 
     useEffect(() => {
