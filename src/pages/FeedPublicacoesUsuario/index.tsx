@@ -1,11 +1,8 @@
 import React, { useContext, useState } from 'react';
 import './FeedPublicacoesUsuario.css';
-import Publicacao from '../../components/Publicacao';
 import UsuarioService from '../../services/UsuarioService';
 import { PerfilUsuarioContext } from '../../contexts/PerfilUsuarioContext';
-import { PublicacaoCompartilhadaModel } from '../../models/Publicacao/PublicacaoCompartilhadaModel';
-import PublicacaoCompartilhada from '../../components/PublicacaoCompartilhada';
-import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
+import ListaDePublicacoes from '../../components/ListaDePublicacoes';
 
 export default function FeedPublicacoesUsuario() {
 
@@ -15,14 +12,6 @@ export default function FeedPublicacoesUsuario() {
         usuario,
         publicacoes
     } = useContext(PerfilUsuarioContext);
-
-    function abrirEdicaoPublicacao(publicacao: PublicacaoModel | PublicacaoCompartilhadaModel) {
-
-    }
-
-    function abrirCompartilhamento(publicacao: PublicacaoModel) {
-
-    }
 
     return (
 
@@ -217,24 +206,9 @@ export default function FeedPublicacoesUsuario() {
                                 </div>
                             </div>
                             :
-                            publicacoes.map(publicacao => {
-                                if (publicacao instanceof PublicacaoCompartilhadaModel) {
-                                    return <PublicacaoCompartilhada
-                                        key={publicacao.id}
-                                        publicacao={publicacao}
-                                        compartilharPublicacao={abrirCompartilhamento}
-                                        editarPublicacao={abrirEdicaoPublicacao}
-                                    />
-                                } else {
-                                    return <Publicacao
-                                        key={publicacao.id}
-                                        publicacao={publicacao}
-                                        compartilharPublicacao={abrirCompartilhamento}
-                                        editarPublicacao={abrirEdicaoPublicacao}
-                                    />
-                                }
-                            })
-
+                            <ListaDePublicacoes
+                                publicacoesParaListar={publicacoes}
+                            />
                     }
                 </div>
             </section>
