@@ -4,7 +4,7 @@
     margin-bottom: 20px;
 }
 .areaComentarios__comentario__conteudo{
-    width: 100%;
+    flex-grow: 1;
 }
 .comentario__perfil{
     object-fit: cover;
