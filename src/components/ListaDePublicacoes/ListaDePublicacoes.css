@@ -23,7 +23,7 @@
     border-radius: 50%;
 }
 #listaDePublicacoes_adicionarUmaNovaPublicacao__input{
-    width: 100%;
+    flex-grow: 1;
     border: none;
     outline: none;
     background-color: #4E4F50;
