@@ -10,7 +10,7 @@ import { FeedContext } from '../../contexts/FeedContext';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
 import { PublicarContext } from '../../contexts/PublicarContext';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ModalPublicar from '../ModalPublicar';
 import ModalCompartilharPublicacao from '../ModalCompartilharPublicacao';
 import ModalEditarPublicacao from '../ModalEditarPublicacao';
@@ -23,6 +23,12 @@ interface ListaDePublicacoesProps {
 }
 
 export default function ListaDePublicacoes({ publicacoesParaListar }: ListaDePublicacoesProps) {
+
+    const location = useLocation();
+
+    const [indicadorSeEhFeedPerfilUsuario, setIndicadorSeEhFeedPerfilUsuario] = useState(false);
+
+    const [indicadorFeedPerfilDoUsuarioLogado, setIndicadorFeedPerfilDoUsuarioLogado] = useState(false);
 
     const [publicacoes, setPublicacoes] = useState<Array<PublicacaoModel | PublicacaoCompartilhadaModel>>(
         publicacoesParaListar
@@ -51,6 +57,23 @@ export default function ListaDePublicacoes({ publicacoesParaListar }: ListaDePub
     const navigate = useNavigate();
 
     const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
+
+    useEffect(() => {
+        const match = location.pathname.match(/\/perfil\/(\d+)/);
+
+        if(match){
+            setIndicadorSeEhFeedPerfilUsuario(true);
+        }else{
+            setIndicadorSeEhFeedPerfilUsuario(false);
+        }
+      
+        if (match && Number(match[1]) === UsuarioService.obtemIdUsuarioLogado()) {
+            setIndicadorFeedPerfilDoUsuarioLogado(true);
+        } else {
+            setIndicadorFeedPerfilDoUsuarioLogado(false);
+        }
+
+    }, [publicacoes]);
 
     useEffect(() => {
         setPublicacoes(publicacoesParaListar);
@@ -197,26 +220,31 @@ export default function ListaDePublicacoes({ publicacoesParaListar }: ListaDePub
                     ""
             }
 
-            <div id='listaDePublicacoes_adicionarUmaNovaPublicacao'>
-                <div id='listaDePublicacoes_adicionarUmaNovaPublicacao__container'>
-                    <img
-                        src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()}
-                        alt="Foto perfil"
-                        id='listaDePublicacoes_adicionarUmaNovaPublicacao__perfil'
-                    />
-                    <input
-                        type="text"
-                        id='listaDePublicacoes_adicionarUmaNovaPublicacao__input'
-                        placeholder='No que você está pensando, Pedro?'
-                        onClick={abrirModalPublicar}
-                        disabled={indicadorModalPublicarAberto ? true : false}
-                    />
-                </div>
-                <button id='listaDePublicacoes_adicionarUmaNovaPublicacao__btnFotoEVideo' onClick={abrirModalPublicar}>
-                    <img src="../icones/imagemIcone.png" alt="" />
-                    Foto/vídeo
-                </button>
-            </div>
+            {
+                !indicadorSeEhFeedPerfilUsuario || indicadorFeedPerfilDoUsuarioLogado ?
+                    <div id='listaDePublicacoes_adicionarUmaNovaPublicacao'>
+                        <div id='listaDePublicacoes_adicionarUmaNovaPublicacao__container'>
+                            <img
+                                src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()}
+                                alt="Foto perfil"
+                                id='listaDePublicacoes_adicionarUmaNovaPublicacao__perfil'
+                            />
+                            <input
+                                type="text"
+                                id='listaDePublicacoes_adicionarUmaNovaPublicacao__input'
+                                placeholder='No que você está pensando, Pedro?'
+                                onClick={abrirModalPublicar}
+                                disabled={indicadorModalPublicarAberto ? true : false}
+                            />
+                        </div>
+                        <button id='listaDePublicacoes_adicionarUmaNovaPublicacao__btnFotoEVideo' onClick={abrirModalPublicar}>
+                            <img src="../icones/imagemIcone.png" alt="" />
+                            Foto/vídeo
+                        </button>
+                    </div> : ""
+            }
+
+
 
             {
                 publicacoes.map(publicacao => {
