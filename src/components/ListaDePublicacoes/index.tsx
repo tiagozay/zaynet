@@ -61,12 +61,12 @@ export default function ListaDePublicacoes({ publicacoesParaListar }: ListaDePub
     useEffect(() => {
         const match = location.pathname.match(/\/perfil\/(\d+)/);
 
-        if(match){
+        if (match) {
             setIndicadorSeEhFeedPerfilUsuario(true);
-        }else{
+        } else {
             setIndicadorSeEhFeedPerfilUsuario(false);
         }
-      
+
         if (match && Number(match[1]) === UsuarioService.obtemIdUsuarioLogado()) {
             setIndicadorFeedPerfilDoUsuarioLogado(true);
         } else {
@@ -178,6 +178,16 @@ export default function ListaDePublicacoes({ publicacoesParaListar }: ListaDePub
         setMensagemToast(null);
     }
 
+    function clickPerfilDoUsuario() {
+
+        const idUsuarioLogado = UsuarioService.obtemIdUsuarioLogado();
+
+        //Antes de re-direcionar, verifica se já não está nesse perfil. Se sim, não faz nada.
+        if (location.pathname !== `/perfil/${idUsuarioLogado}`) {
+            navigate(`/perfil/${idUsuarioLogado}`);
+        }
+    }
+
     return (
         <>
 
@@ -228,6 +238,7 @@ export default function ListaDePublicacoes({ publicacoesParaListar }: ListaDePub
                                 src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()}
                                 alt="Foto perfil"
                                 id='listaDePublicacoes_adicionarUmaNovaPublicacao__perfil'
+                                onClick={clickPerfilDoUsuario}
                             />
                             <input
                                 type="text"

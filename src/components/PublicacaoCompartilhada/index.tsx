@@ -7,6 +7,7 @@ import MenuOpcoesPublicacao from '../MenuOpcoesPublicacao';
 import { PublicacaoCompartilhadaModel } from '../../models/Publicacao/PublicacaoCompartilhadaModel';
 import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
 import UsuarioService from '../../services/UsuarioService';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface PublicacaoCompartilhadaProps {
     publicacao: PublicacaoCompartilhadaModel,
@@ -15,6 +16,10 @@ interface PublicacaoCompartilhadaProps {
 }
 
 function PublicacaoCompartilhada({ publicacao, compartilharPublicacao, editarPublicacao }: PublicacaoCompartilhadaProps) {
+
+    const navigate = useNavigate();
+
+    const location = useLocation();
 
     const [quantidadeDeComentarios, setQuantidadeDeComentarios] = useState(
         publicacao.comentarios ? publicacao.comentarios.length : 0
@@ -36,14 +41,25 @@ function PublicacaoCompartilhada({ publicacao, compartilharPublicacao, editarPub
         btnComentar.focus();
     }
 
+    function clickPerfilDoUsuario() {
+        //Antes de re-direcionar, verifica se já não está nesse perfil. Se sim, não faz nada.
+        if (location.pathname !== `/perfil/${publicacao.autor.id}`) {
+            navigate(`/perfil/${publicacao.autor.id}`);
+        }
+    }
+
     return (
         <>
             <div id='publicacaoCompartilhada'>
                 <div id='publicacaoCompartilhada__infoUsuario'>
                     <div id='publicacaoCompartilhada__infoUsuarioContainer'>
-                        <img src={`${process.env.REACT_APP_CAMINHO_IMAGEM_PERFIL_MINIATURA}${publicacao.autor.nomeMiniaturaFotoPerfil}`} alt="Perfil usuário" id='publicacaoCompartilhada__perfil' />
+                        <img
+                            src={`${process.env.REACT_APP_CAMINHO_IMAGEM_PERFIL_MINIATURA}${publicacao.autor.nomeMiniaturaFotoPerfil}`}
+                            alt="Perfil usuário" id='publicacaoCompartilhada__perfil'
+                            onClick={clickPerfilDoUsuario}
+                        />
                         <div id='publicacaoCompartilhada__infoUsuarioContainer__divInfo'>
-                            <p id='publicacaoCompartilhada__tituloAutor'>
+                            <p id='publicacaoCompartilhada__tituloAutor' onClick={clickPerfilDoUsuario}>
                                 <span>{`${publicacao.autor.nome} ${publicacao.autor.sobrenome}`} </span>
                                 compartilhou uma publicação
                             </p>
@@ -84,6 +100,7 @@ function PublicacaoCompartilhada({ publicacao, compartilharPublicacao, editarPub
 
                 <div id='publicacaoCompartilhada__linhaDivisoria'></div>
                 <Comentarios
+                    idAutorPublicacao={publicacao.autor.id}
                     idPublicacao={publicacao.id}
                     setQuantidadeDeComentarios={setQuantidadeDeComentarios}
                     comentariosPublicacao={publicacao.comentarios}

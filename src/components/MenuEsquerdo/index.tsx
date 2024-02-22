@@ -19,7 +19,7 @@ export default function MenuEsquerdo() {
         <nav id='menuEsquerdo'>
             <ul id='menuEsquerdo__opcoes'>
                 <li id='menuEsquerdo__opcao'>
-                    <Link id='menuEsquerdo__opcao__botao' to="/perfil">
+                    <Link id='menuEsquerdo__opcao__botao' to={`/perfil/${UsuarioService.obtemIdUsuarioLogado()}`}>
                         <img src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()} alt="Foto do perfil" id='menuEsquerdo__opcao__perfil' />
                         <p id="menuEsquerdo__opcao__nome">{UsuarioService.obtemNomeCompletoDoUsuarioLogado()}</p>
                     </Link>

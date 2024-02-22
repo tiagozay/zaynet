@@ -107,7 +107,7 @@ export default function ModalOpcoesConta() {
                 {
                     indicadorMenuAberto ?
                         <div id="divModalOpcoesConta__modal" ref={menuOpcoesDaPublicacaoRef}>
-                            <Link to='/perfil' id="divModalOpcoesConta__modal__linkConta">
+                            <Link to={`/perfil/${UsuarioService.obtemIdUsuarioLogado()}`} id="divModalOpcoesConta__modal__linkConta">
                                 <img
                                     src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()}
                                     alt="Perfil usuário"

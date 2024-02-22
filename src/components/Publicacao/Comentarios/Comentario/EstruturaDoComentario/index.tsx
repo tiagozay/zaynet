@@ -7,6 +7,7 @@ import { ComentarioPublicacao } from '../../../../../models/Publicacao/Comentari
 import ModalDeConfirmacao from '../../../../ModalDeConfirmacao';
 import { APIService } from '../../../../../services/APIService';
 import { ComentarioResposta } from '../../../../../models/Publicacao/ComentarioResposta';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface EstruturaDoComentarioProps {
     comentario: ComentarioPublicacao | ComentarioResposta;
@@ -31,6 +32,10 @@ export default function EstruturaDoComentario({
     const [comentarioDigitado, setComentarioDigitado] = useState(comentario.texto);
 
     const idUsuarioLogado = UsuarioService.obtemIdUsuarioLogado();
+
+    const navigate = useNavigate();
+
+    const location = useLocation();
 
     const idComentario = comentario.id;
     const perfilUsuario = `${process.env.REACT_APP_CAMINHO_IMAGEM_PERFIL_MINIATURA}${comentario.autor.nomeMiniaturaFotoPerfil}`;
@@ -118,6 +123,12 @@ export default function EstruturaDoComentario({
         }
     }
 
+    function clickPerfilDoUsuario() {
+        //Antes de re-direcionar, verifica se já não está nesse perfil. Se sim, não faz nada.
+        if (location.pathname !== `/perfil/${idAutor}`) {
+          navigate(`/perfil/${idAutor}`);
+        }
+      }
     return (
         <>
 
@@ -132,7 +143,12 @@ export default function EstruturaDoComentario({
                     /> : ""
             }
             <div id='comentario__container'>
-                <img src={perfilUsuario} alt="Perfil usuário" className='comentario__perfil' />
+                <img 
+                    src={perfilUsuario} 
+                    alt="Perfil usuário" 
+                    className='comentario__perfil' 
+                    onClick={clickPerfilDoUsuario}
+                />
                 <div className='areaComentarios__comentario__conteudo'>
                     {
                         indicadorEdicao ?
@@ -150,7 +166,7 @@ export default function EstruturaDoComentario({
                             </div> :
                             <>
                                 <div className='comenario__nomeEComentario'>
-                                    <span className='comentario__nome'>{nomeUsuario}</span>
+                                    <span className='comentario__nome' onClick={clickPerfilDoUsuario}>{nomeUsuario}</span>
                                     <p className='comentario__conteudo'>{conteudo}</p>
                                 </div>
 

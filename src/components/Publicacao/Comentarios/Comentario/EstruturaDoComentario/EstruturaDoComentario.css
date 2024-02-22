@@ -12,6 +12,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    cursor: pointer;
 }
 .comenario__nomeEComentario{
     background-color: #3A3B3C;
@@ -26,6 +27,7 @@
     font-size: 13px;
     font-weight: 600;
     color: rgb(224, 224, 224);
+    cursor: pointer;
 }
 .comentario__conteudo{
     font-size: 14px;

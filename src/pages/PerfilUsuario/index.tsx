@@ -33,6 +33,8 @@ export default function PerfilUsuario() {
 
     const id = useParams().id;
 
+    console.log(id);
+
     const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
 
     const [indicadorModalEditarPefilAberto, setIndicadorModalEditarPefilAberto] = useState(false);
@@ -96,7 +98,7 @@ export default function PerfilUsuario() {
 
             })
             .catch(() => navigate("/"));
-    }, []);
+    }, [id]);
 
     useEffect(() => {
         if (indicadorModalEditarPefilAberto) {

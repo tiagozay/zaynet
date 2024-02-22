@@ -3,7 +3,7 @@ import './Publicacao.css';
 import UltimaImagemComSobreposicao from './UltimaImagemComSobreposicao';
 import Comentarios from './Comentarios';
 import InteracoesComAPublicacao from './InteracoesComAPublicacao';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ArquivosPublicacaoService } from '../../services/ArquivosPublicacaoService';
 import { useMediaQuery } from 'react-responsive';
 import { TAMANHO_DE_TELA_MOBILE } from '../../config';
@@ -23,6 +23,8 @@ interface PublicacaoProps {
 function Publicacao({ publicacao, compartilharPublicacao, editarPublicacao, publicacaoCompartilhada }: PublicacaoProps) {
 
   const navigate = useNavigate();
+
+  const location = useLocation();
 
   const { definePosicaoDoFeed } = useContext(FeedContext);
 
@@ -49,7 +51,7 @@ function Publicacao({ publicacao, compartilharPublicacao, editarPublicacao, publ
     };
 
     definePosicaoDoFeed(window.scrollY)
-      .then(() => { navigate('/image', {state: info}) });
+      .then(() => { navigate('/image', { state: info }) });
   }
 
   function aoClicarEmVerMaisImagens() {
@@ -59,7 +61,7 @@ function Publicacao({ publicacao, compartilharPublicacao, editarPublicacao, publ
     };
 
     definePosicaoDoFeed(window.scrollY)
-      .then(() => { navigate('/image', {state: info}) });
+      .then(() => { navigate('/image', { state: info }) });
   }
 
   function clickCompartilharPublicacao() {
@@ -69,10 +71,16 @@ function Publicacao({ publicacao, compartilharPublicacao, editarPublicacao, publ
 
   }
 
-  function clickComentarPublicacao()
-  {
+  function clickComentarPublicacao() {
     const btnComentar = botaoComentarRef.current as any;
     btnComentar.focus();
+  }
+
+  function clickPerfilDoUsuario() {
+    //Antes de re-direcionar, verifica se já não está nesse perfil. Se sim, não faz nada.
+    if (location.pathname !== `/perfil/${publicacao.autor.id}`) {
+      navigate(`/perfil/${publicacao.autor.id}`);
+    }
   }
 
   return (
@@ -81,9 +89,13 @@ function Publicacao({ publicacao, compartilharPublicacao, editarPublicacao, publ
       <div id='publicacao' className={publicacaoCompartilhada ? 'publicacaoSemMargem' : ''}>
         <div id='publicacao__infoUsuario'>
           <div id='publicacao__infoUsuarioContainer'>
-            <img src={`${process.env.REACT_APP_CAMINHO_IMAGEM_PERFIL_MINIATURA}${publicacao.autor.nomeMiniaturaFotoPerfil}`} alt="Perfil usuário" id='publicacao__perfil' />
+            <img
+              src={`${process.env.REACT_APP_CAMINHO_IMAGEM_PERFIL_MINIATURA}${publicacao.autor.nomeMiniaturaFotoPerfil}`}
+              alt="Perfil usuário" id='publicacao__perfil'
+              onClick={clickPerfilDoUsuario}
+            />
             <div id='publicacao__infoUsuarioContainer__divInfo'>
-              <p id='publicacao__nomeAutor'>{`${publicacao.autor.nome} ${publicacao.autor.sobrenome}`}</p>
+              <p id='publicacao__nomeAutor' onClick={clickPerfilDoUsuario}>{`${publicacao.autor.nome} ${publicacao.autor.sobrenome}`}</p>
               <p id='publicacao__tempoDePublicacao'>{publicacao.dataDePublicacao}</p>
             </div>
           </div>
@@ -169,6 +181,7 @@ function Publicacao({ publicacao, compartilharPublicacao, editarPublicacao, publ
 
               <div id='publicacao__linhaDivisoria'></div>
               <Comentarios
+                idAutorPublicacao={publicacao.autor.id}
                 comentariosPublicacao={publicacao.comentarios}
                 setQuantidadeDeComentarios={setQuantidadeDeComentarios}
                 idPublicacao={publicacao.id}

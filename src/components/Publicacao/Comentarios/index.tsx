@@ -7,15 +7,21 @@ import UsuarioService from '../../../services/UsuarioService';
 import { ComentarioPublicacao } from '../../../models/Publicacao/ComentarioPublicacao';
 import { APIService } from '../../../services/APIService';
 import { PublicacaoFactory } from '../../../services/PublicacaoFactory';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface ComentariosProps {
+  idAutorPublicacao: number,
   comentariosPublicacao?: ComentarioPublicacao[] | null,
   setQuantidadeDeComentarios: React.Dispatch<React.SetStateAction<number>>,
   idPublicacao: number,
   btnComentarRef: React.MutableRefObject<null>
 }
 
-export default function Comentarios({ comentariosPublicacao, setQuantidadeDeComentarios, idPublicacao, btnComentarRef }: ComentariosProps) {
+export default function Comentarios({ idAutorPublicacao, comentariosPublicacao, setQuantidadeDeComentarios, idPublicacao, btnComentarRef }: ComentariosProps) {
+
+  const navigate = useNavigate();
+
+  const location = useLocation();
 
   const [novoComentarioDigitado, setNovoComentarioDigitado] = useState("");
 
@@ -49,6 +55,13 @@ export default function Comentarios({ comentariosPublicacao, setQuantidadeDeCome
       });
   }
 
+  function clickPerfilUsuario() {
+    //Antes de re-direcionar, verifica se já não está nesse perfil. Se sim, não faz nada.
+    if (location.pathname !== `/perfil/${idAutorPublicacao}`) {
+      navigate(`/perfil/${idAutorPublicacao}`);
+    }
+  }
+
   return (
     <div id='publicacao__areaComentarios'>
 
@@ -65,7 +78,12 @@ export default function Comentarios({ comentariosPublicacao, setQuantidadeDeCome
       </ul>
 
       <div id='publicacao__inputNovoComentario'>
-        <img src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()} alt="Perfil usuário" id='inputNovoComentario__perfil' />
+        <img
+          src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()}
+          alt="Perfil usuário"
+          id='inputNovoComentario__perfil'
+          onClick={clickPerfilUsuario}
+        />
         <InputComentario
           novoComentarioDigitado={novoComentarioDigitado}
           setNovoComentarioDigitado={setNovoComentarioDigitado}

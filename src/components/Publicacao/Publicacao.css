@@ -26,6 +26,7 @@
     height: 48px;
     border-radius: 50%;
     margin-right: 10px;
+    cursor: pointer;
 }
 #publicacao__infoUsuarioContainer__divInfo{
     display: flex;
@@ -37,6 +38,7 @@
     color: rgb(231, 231, 231);
     font-weight: 600;
     font-size: 15px;
+    cursor: pointer;
 }
 #publicacao__tempoDePublicacao{
     font-size: 13px;
