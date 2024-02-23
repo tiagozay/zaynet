@@ -295,10 +295,11 @@
         box-sizing: border-box;
     }
     #perfilUsuario__containerInformacoesLaterais{
-        width: 100%;
+        width: 100%!important;
     }
     #perfilUsuario__feed{
-        width: 100%;
+        width: 100%!important;
+        padding: 0!important;
     }
     #perfilUsuario__menuPerfil__listaOpcoes{
         width: 95%;
