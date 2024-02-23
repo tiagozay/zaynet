@@ -30,6 +30,10 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "POST") 
         
         $autor = $entityManager->find(Usuario::class, $idAutor);
 
+        if(!$autor){
+            throw new DomainException("Autor não encontrado");
+        }
+
         $publicacao = $entityManager->find(Publicacao::class, $idPublicacao);
 
         $comentario = new Comentario($autor, $publicacao, $conteudo);
