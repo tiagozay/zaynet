@@ -88,7 +88,7 @@ export default abstract class UsuarioService {
     
     }
 
-    public static obtemCaminhoCompletoDoPerfilDoUsuario(usuario: Usuario): string
+    public static obtemCaminhoCompletoDoPerfilDoUsuarioRecebido(usuario: Usuario): string
     {
         const nome = usuario.nomeFotoPerfil;
 
@@ -102,7 +102,7 @@ export default abstract class UsuarioService {
 
     }
 
-    public static obtemCaminhoCompletoDoPerfilMiniaturaDoUsuario(usuario: Usuario): string
+    public static obtemCaminhoCompletoDoPerfilMiniaturaDoUsuarioRecebido(usuario: Usuario): string
     {
         const nome = usuario.nomeMiniaturaFotoPerfil;
 

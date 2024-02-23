@@ -197,7 +197,7 @@ export default function PerfilUsuario() {
 
                             <div id='perfilDoUsuario__perfilNomeEOpcoesDoUsuario'>
                                 <img
-                                    src={UsuarioService.obtemCaminhoCompletoDoPerfilDoUsuario(usuario)}
+                                    src={UsuarioService.obtemCaminhoCompletoDoPerfilDoUsuarioRecebido(usuario)}
                                     alt="Perfil usuário"
                                 />
                                 <div id='perfilDoUsuario__nomeEQuantidadeDeAmigos'>

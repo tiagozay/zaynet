@@ -54,7 +54,7 @@ function PublicacaoCompartilhada({ publicacao, compartilharPublicacao, editarPub
                 <div id='publicacaoCompartilhada__infoUsuario'>
                     <div id='publicacaoCompartilhada__infoUsuarioContainer'>
                         <img
-                            src={`${process.env.REACT_APP_CAMINHO_IMAGEM_PERFIL_MINIATURA}${publicacao.autor.nomeMiniaturaFotoPerfil}`}
+                            src={UsuarioService.obtemCaminhoCompletoDoPerfilMiniaturaDoUsuarioRecebido(publicacao.autor)}
                             alt="Perfil usuário" id='publicacaoCompartilhada__perfil'
                             onClick={clickPerfilDoUsuario}
                         />

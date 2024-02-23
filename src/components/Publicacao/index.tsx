@@ -90,7 +90,7 @@ function Publicacao({ publicacao, compartilharPublicacao, editarPublicacao, publ
         <div id='publicacao__infoUsuario'>
           <div id='publicacao__infoUsuarioContainer'>
             <img
-              src={`${process.env.REACT_APP_CAMINHO_IMAGEM_PERFIL_MINIATURA}${publicacao.autor.nomeMiniaturaFotoPerfil}`}
+              src={UsuarioService.obtemCaminhoCompletoDoPerfilMiniaturaDoUsuarioRecebido(publicacao.autor)}
               alt="Perfil usuário" id='publicacao__perfil'
               onClick={clickPerfilDoUsuario}
             />

@@ -38,7 +38,7 @@ export default function EstruturaDoComentario({
     const location = useLocation();
 
     const idComentario = comentario.id;
-    const perfilUsuario = `${process.env.REACT_APP_CAMINHO_IMAGEM_PERFIL_MINIATURA}${comentario.autor.nomeMiniaturaFotoPerfil}`;
+    const perfilUsuario = UsuarioService.obtemCaminhoCompletoDoPerfilMiniaturaDoUsuarioRecebido(comentario.autor);
     const idAutor = comentario.autor.id;
     const idAutorPublicacao = comentario.idAutorPublicacao;
     const nomeUsuario = `${comentario.autor.nome} ${comentario.autor.sobrenome}`;
