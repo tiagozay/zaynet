@@ -85,6 +85,11 @@ export default function ModalOpcoesConta() {
         LoginService.logout(navigate);
     }
 
+    function aoAbrirPerfil()
+    {
+        fecharModal();
+    }
+
     return (
         <>
             {
@@ -107,7 +112,7 @@ export default function ModalOpcoesConta() {
                 {
                     indicadorMenuAberto ?
                         <div id="divModalOpcoesConta__modal" ref={menuOpcoesDaPublicacaoRef}>
-                            <Link to={`/perfil/${UsuarioService.obtemIdUsuarioLogado()}`} id="divModalOpcoesConta__modal__linkConta">
+                            <Link to={`/perfil/${UsuarioService.obtemIdUsuarioLogado()}`} id="divModalOpcoesConta__modal__linkConta" onClick={aoAbrirPerfil}>
                                 <img
                                     src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()}
                                     alt="Perfil usuário"
