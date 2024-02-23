@@ -16,7 +16,9 @@ interface TypePerfilUsuarioContext
     publicacoes: Array<PublicacaoModel | PublicacaoCompartilhadaModel>,
     setPublicacoes: React.Dispatch<React.SetStateAction<Array<PublicacaoModel | PublicacaoCompartilhadaModel>>>,
     imagens: Array<MidiaPublicacaoModel>,
-    setImagens: React.Dispatch<React.SetStateAction<Array<MidiaPublicacaoModel>>>
+    setImagens: React.Dispatch<React.SetStateAction<Array<MidiaPublicacaoModel>>>,
+    videos: Array<MidiaPublicacaoModel>,
+    setVideos: React.Dispatch<React.SetStateAction<Array<MidiaPublicacaoModel>>>,
 }
 
 export const PerfilUsuarioContext = createContext<TypePerfilUsuarioContext>({
@@ -29,7 +31,9 @@ export const PerfilUsuarioContext = createContext<TypePerfilUsuarioContext>({
     publicacoes: [],
     setPublicacoes: () => {},
     imagens: [],
-    setImagens: () => {}
+    setImagens: () => {},
+    videos: [],
+    setVideos: () => {},
 }); 
 
 export default function PerfilUsuarioContextProvider({children}: {children: ReactNode}){
@@ -44,6 +48,8 @@ export default function PerfilUsuarioContextProvider({children}: {children: Reac
 
     const [imagens, setImagens] = useState<Array<MidiaPublicacaoModel>>([]);
 
+    const [videos, setVideos] = useState<Array<MidiaPublicacaoModel>>([]);
+
     return (
         <PerfilUsuarioContext.Provider value={{
             indicadorUsuarioCarregando,
@@ -55,7 +61,9 @@ export default function PerfilUsuarioContextProvider({children}: {children: Reac
             publicacoes,
             setPublicacoes,
             imagens,
-            setImagens
+            setImagens,
+            videos,
+            setVideos,
         }}>
             {children}
         </PerfilUsuarioContext.Provider>

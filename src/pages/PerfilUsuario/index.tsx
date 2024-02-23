@@ -34,6 +34,7 @@ export default function PerfilUsuario() {
         publicacoes,
         setPublicacoes,
         setImagens,
+        setVideos
     } = useContext(PerfilUsuarioContext);
 
     const { permisaoParaIniciar, setPermisaoParaIniciar } = useContext(ControleLoginContext);
@@ -104,6 +105,19 @@ export default function PerfilUsuario() {
         }).flat();
 
         setImagens(imagens);
+
+        const videos = publicacoesNaoCompartilhadas.map(publicacao => {
+
+            //Retorna somente os videos da publicação
+            return publicacao.midiasPublicacao.filter(midia => {
+
+                return ArquivosPublicacaoService.identificaSeArquivoEImagemOuVideoPeloNome(midia.caminhoMidiaNormal) === "Vídeo";
+
+            });
+
+        }).flat();
+
+        setVideos(videos);
 
     }, [publicacoes]);
 
