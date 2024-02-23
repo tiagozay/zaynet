@@ -68,7 +68,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "POST") 
         $response =  new APIResponse(
             false,
             false,
-            "Erro inesperado ao comentar: " ,
+            "Erro inesperado ao comentar",
         );
         echo json_encode($response);
     }

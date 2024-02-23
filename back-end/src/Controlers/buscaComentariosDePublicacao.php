@@ -47,7 +47,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "GET") {
         $response =  new APIResponse(
             false,
             false,
-            "Erro inesperado ao publicar: " . $e->getMessage(),
+            "Erro inesperado ao publicar",
         );
         echo json_encode($response);
     }

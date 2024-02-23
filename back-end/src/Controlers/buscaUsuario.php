@@ -53,7 +53,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "GET") {
         $response =  new APIResponse(
             false,
             false,
-            "Erro inesperado ao buscar usuário: ".$e->getMessage(),
+            "Erro inesperado ao buscar usuário",
         );
         echo json_encode($response);
     }

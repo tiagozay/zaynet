@@ -80,7 +80,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "POST") 
         $response =  new APIResponse(
             false,
             false,
-            "Erro inesperado ao curtir publicação: ".$e->getMessage(),
+            "Erro inesperado ao curtir publicação",
         );
         echo json_encode($response);
     }

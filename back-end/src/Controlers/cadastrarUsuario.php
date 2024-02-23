@@ -112,7 +112,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "POST") 
         $response =  new APIResponse(
             false,
             false,
-            "Erro inesperado ao cadastrar usuário: ".$e->getMessage() ,
+            "Erro inesperado ao cadastrar usuário",
         );
         echo json_encode($response);
     }

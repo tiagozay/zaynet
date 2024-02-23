@@ -97,7 +97,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "PUT") {
         $response =  new APIResponse(
             false,
             false,
-            "Erro inesperado ao editar publicação".$e->getMessage(),
+            "Erro inesperado ao editar publicação",
         );
         echo json_encode($response);
     }

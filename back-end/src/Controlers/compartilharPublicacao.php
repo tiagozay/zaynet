@@ -73,7 +73,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "POST") 
         $response =  new APIResponse(
             false,
             false,
-            "Erro inesperado ao compartilhar publicação: ".$e->getMessage(),
+            "Erro inesperado ao compartilhar publicação",
         );
         echo json_encode($response);
     }
