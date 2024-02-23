@@ -48,6 +48,7 @@ export default function Comentario({ comentario, atualizaComentarios }: Comentar
                     atualizaComentarios();
                     fecharInputResponder();
                 })
+                .catch(() => {})
         }
     }
 

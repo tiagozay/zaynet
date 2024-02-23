@@ -93,7 +93,8 @@ export default function EstruturaDoComentario({
             .then(res => {
                 setModalConfirmacaoExcluirComentarioAberto(false);
                 atualizaComentarios();
-            });
+            })
+            .catch(() => {})
     }
 
     function clickEmCurtir() {
@@ -118,6 +119,7 @@ export default function EstruturaDoComentario({
                     fecharEdicao();
                     atualizaComentarios();
                 })
+                .catch(() => {})
         } else {
             fecharEdicao();
         }

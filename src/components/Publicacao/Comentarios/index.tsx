@@ -37,7 +37,8 @@ export default function Comentarios({ idAutorPublicacao, comentariosPublicacao, 
 
         setComentarios(comentarios);
         setQuantidadeDeComentarios(comentarios.length)
-      });
+      })
+      .catch(() => {})
 
   }
 
@@ -52,7 +53,8 @@ export default function Comentarios({ idAutorPublicacao, comentariosPublicacao, 
       .then(res => {
         setNovoComentarioDigitado("");
         buscaComentariosDaPublicacao();
-      });
+      })
+      .catch(() => {})
   }
 
   function clickPerfilUsuario() {
