@@ -92,14 +92,14 @@ export default function PerfilUsuario() {
             publicacao => publicacao instanceof PublicacaoModel
         ) as Array<PublicacaoModel>;
 
-        const imagens = publicacoesNaoCompartilhadas.map( publicacao => {
+        const imagens = publicacoesNaoCompartilhadas.map(publicacao => {
 
             //Retorna somente as imagens da publicação
-            return publicacao.midiasPublicacao.filter( midia => {
+            return publicacao.midiasPublicacao.filter(midia => {
 
                 return ArquivosPublicacaoService.identificaSeArquivoEImagemOuVideoPeloNome(midia.caminhoMidiaNormal) === "Imagem";
 
-            } );
+            });
 
         }).flat();
 
@@ -222,33 +222,33 @@ export default function PerfilUsuario() {
                     <ul id='perfilUsuario__menuPerfil__listaOpcoes'>
                         <li className={
                             `perfilUsuario__menuPerfil__listaOpcoes__opcao 
-                            ${paginaAberta === '/perfil' && 'perfilUsuario__menuPerfil__listaOpcoes__opcaoAtiva'}`
+                            ${paginaAberta === `/perfil/${usuario?.id}` && 'perfilUsuario__menuPerfil__listaOpcoes__opcaoAtiva'}`
                         }
-                            onClick={() => navigate('/perfil')}
+                            onClick={() => navigate(`/perfil/${usuario?.id}`)}
                         >
                             Publicações
                         </li>
                         <li className={
                             `perfilUsuario__menuPerfil__listaOpcoes__opcao 
-                            ${paginaAberta === '/perfil/fotos' && 'perfilUsuario__menuPerfil__listaOpcoes__opcaoAtiva'}`
+                            ${paginaAberta === `/perfil/${usuario?.id}/fotos` && 'perfilUsuario__menuPerfil__listaOpcoes__opcaoAtiva'}`
                         }
-                            onClick={() => navigate('/perfil/fotos')}
+                            onClick={() => navigate(`/perfil/${usuario?.id}/fotos`)}
                         >
                             Fotos
                         </li>
                         <li className={
                             `perfilUsuario__menuPerfil__listaOpcoes__opcao 
-                            ${paginaAberta === '/perfil/videos' && 'perfilUsuario__menuPerfil__listaOpcoes__opcaoAtiva'}`
+                            ${paginaAberta === `/perfil/${usuario?.id}/videos` && 'perfilUsuario__menuPerfil__listaOpcoes__opcaoAtiva'}`
                         }
-                            onClick={() => navigate('/perfil/videos')}
+                            onClick={() => navigate(`/perfil/${usuario?.id}/videos`)}
                         >
                             Vídeos
                         </li>
                         <li className={
                             `perfilUsuario__menuPerfil__listaOpcoes__opcao 
-                            ${paginaAberta === '/perfil/amigos' && 'perfilUsuario__menuPerfil__listaOpcoes__opcaoAtiva'}`
+                            ${paginaAberta === `/perfil/${usuario?.id}/amigos` && 'perfilUsuario__menuPerfil__listaOpcoes__opcaoAtiva'}`
                         }
-                            onClick={() => navigate('/perfil/amigos')}
+                            onClick={() => navigate(`/perfil/${usuario?.id}/amigos`)}
                         >
                             Amigos
                         </li>
