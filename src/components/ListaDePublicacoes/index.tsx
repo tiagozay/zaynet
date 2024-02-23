@@ -19,10 +19,11 @@ import { PublicacaoFactory } from '../../services/PublicacaoFactory';
 import UsuarioService from '../../services/UsuarioService';
 
 interface ListaDePublicacoesProps {
-    publicacoesParaListar: Array<PublicacaoModel | PublicacaoCompartilhadaModel>
+    publicacoesParaListar: Array<PublicacaoModel | PublicacaoCompartilhadaModel>,
+    aoMudarListaDePublicacoes?: (publicacoes: Array<PublicacaoModel | PublicacaoCompartilhadaModel> ) => void
 }
 
-export default function ListaDePublicacoes({ publicacoesParaListar }: ListaDePublicacoesProps) {
+export default function ListaDePublicacoes({ publicacoesParaListar, aoMudarListaDePublicacoes }: ListaDePublicacoesProps) {
 
     const location = useLocation();
 
@@ -71,6 +72,11 @@ export default function ListaDePublicacoes({ publicacoesParaListar }: ListaDePub
             setIndicadorFeedPerfilDoUsuarioLogado(true);
         } else {
             setIndicadorFeedPerfilDoUsuarioLogado(false);
+        }
+
+        //Dispara essa função quando muda algum state para componentes superiores que precisam saber receber as mudanças no estado da lista, como para obter todas as imagens do usuário no perfil
+        if(aoMudarListaDePublicacoes){
+            aoMudarListaDePublicacoes(publicacoes);
         }
 
     }, [publicacoes]);

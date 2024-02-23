@@ -5,6 +5,8 @@ import { PerfilUsuarioContext } from '../../contexts/PerfilUsuarioContext';
 import ListaDePublicacoes from '../../components/ListaDePublicacoes';
 import { useNavigate } from 'react-router-dom';
 import { FeedContext } from '../../contexts/FeedContext';
+import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
+import { PublicacaoCompartilhadaModel } from '../../models/Publicacao/PublicacaoCompartilhadaModel';
 
 export default function FeedPublicacoesUsuario() {
 
@@ -17,6 +19,7 @@ export default function FeedPublicacoesUsuario() {
         indicadorPublicacoesDoUsuarioCarregando,
         usuario,
         publicacoes,
+        setPublicacoes,
         imagens,
     } = useContext(PerfilUsuarioContext);
 
@@ -28,6 +31,11 @@ export default function FeedPublicacoesUsuario() {
 
         definePosicaoDoFeed(window.scrollY)
             .then(() => { navigate('/image', { state: info }) });
+    }
+
+    //Função disparada pelo componente de ListaDePublicações quando alguma alteração no estado (como publicar) acontecer
+    function atualizaPublicacoes(publicacoes: Array<PublicacaoModel | PublicacaoCompartilhadaModel>){
+        setPublicacoes(publicacoes);
     }
 
     return (
@@ -221,6 +229,7 @@ export default function FeedPublicacoesUsuario() {
                             :
                             <ListaDePublicacoes
                                 publicacoesParaListar={publicacoes}
+                                aoMudarListaDePublicacoes={atualizaPublicacoes}
                             />
                     }
                 </div>
