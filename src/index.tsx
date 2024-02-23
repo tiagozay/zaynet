@@ -88,9 +88,9 @@ root.render(
                       <Route path='/configuracoesConta' element={<ConfiguracoesContaMobile />} />
                       <Route path='/perfil/:id' element={<PerfilUsuario />}>
                         <Route path='/perfil/:id' element={<FeedPublicacoesUsuario />} />
-                        <Route path='fotos/:id' element={<FotosPerfilUsuario />} />
-                        <Route path='videos/:id' element={<VideosPerfilUsuario />} />
-                        <Route path='amigos/:id' element={<AmigosPerfilUsuario />} />
+                        <Route path='fotos' element={<FotosPerfilUsuario />} />
+                        <Route path='videos' element={<VideosPerfilUsuario />} />
+                        <Route path='amigos' element={<AmigosPerfilUsuario />} />
                       </Route>
                     </Routes>
                   </BrowserRouter>
