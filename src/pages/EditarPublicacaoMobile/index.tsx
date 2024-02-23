@@ -193,7 +193,7 @@ export default function EditarPublicacaoMobile() {
                         />
                         <p
                             id="editarPublicacaoMobile__divPerfilENomeUsuario__nome"
-                        >Pedro souza</p>
+                        >{UsuarioService.obtemNomeCompletoDoUsuarioLogado()}</p>
                     </div>
 
                     <TextAreaTamanhoDinamico

@@ -111,7 +111,7 @@ export default function CompartilharPublicacaoMobile({ }) {
                     />
                     <p
                         id="compartilharPublicacaoMobile__divPerfilENomeUsuario__nome"
-                    >Pedro souza</p>
+                    >{UsuarioService.obtemNomeCompletoDoUsuarioLogado()}</p>
                 </div>
 
                 <TextAreaTamanhoDinamico
