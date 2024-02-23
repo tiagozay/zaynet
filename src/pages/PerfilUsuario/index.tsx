@@ -148,7 +148,7 @@ export default function PerfilUsuario() {
             <section id='perfilDoUsuario__page'>
 
                 {
-                    indicadorUsuarioCarregando ?
+                    indicadorUsuarioCarregando || !usuario ?
                         <section id='perfilDoUsuario__secaoInformacoesDoUsuario'>
                             <div id='perfilDoUsuario__fotoDaCapaCarregando'>
                             </div>
@@ -164,9 +164,9 @@ export default function PerfilUsuario() {
                         <section id='perfilDoUsuario__secaoInformacoesDoUsuario'>
 
                             {
-                                usuario?.nomeCapa ?
+                                usuario.nomeCapa ?
                                     <img
-                                        src={UsuarioService.obtemCaminhoCompletoDaCapaDoUsuario(usuario as Usuario) as string}
+                                        src={UsuarioService.obtemCaminhoCompletoDaCapaDoUsuario(usuario) as string}
                                         alt="Foto capa"
                                         id='perfilDoUsuario__secaoInformacoesDoUsuario__fotoCapa'
                                     /> :
@@ -176,16 +176,16 @@ export default function PerfilUsuario() {
 
                             <div id='perfilDoUsuario__perfilNomeEOpcoesDoUsuario'>
                                 <img
-                                    src={UsuarioService.obtemCaminhoCompletoDoPerfilDoUsuario(usuario as Usuario)}
+                                    src={UsuarioService.obtemCaminhoCompletoDoPerfilDoUsuario(usuario)}
                                     alt="Perfil usuário"
                                 />
                                 <div id='perfilDoUsuario__nomeEQuantidadeDeAmigos'>
-                                    <p id='perfilDoUsuario__nomeEQuantidadeDeAmigos__nome'>{usuario?.nome} {usuario?.sobrenome}</p>
+                                    <p id='perfilDoUsuario__nomeEQuantidadeDeAmigos__nome'>{usuario.nome} {usuario.sobrenome}</p>
                                     <p id='perfilDoUsuario__nomeEQuantidadeDeAmigos__amigos'>{15} amigos</p>
                                 </div>
 
                                 <OpcoesAcoesUsuario
-                                    usuario={usuario as Usuario}
+                                    usuario={usuario}
                                     editarPerfil={abrirModalEditarPerfil}
                                 />
                             </div>
