@@ -3,15 +3,32 @@ import './FeedPublicacoesUsuario.css';
 import UsuarioService from '../../services/UsuarioService';
 import { PerfilUsuarioContext } from '../../contexts/PerfilUsuarioContext';
 import ListaDePublicacoes from '../../components/ListaDePublicacoes';
+import { useNavigate } from 'react-router-dom';
+import { FeedContext } from '../../contexts/FeedContext';
 
 export default function FeedPublicacoesUsuario() {
+
+    const navigate = useNavigate();
+
+    const { definePosicaoDoFeed } = useContext(FeedContext);
 
     const {
         indicadorUsuarioCarregando,
         indicadorPublicacoesDoUsuarioCarregando,
         usuario,
-        publicacoes
+        publicacoes,
+        imagens,
     } = useContext(PerfilUsuarioContext);
+
+    function aoClicarEmUmaImagemNaLateral(indice: number) {
+        const info = {
+            midias: imagens,
+            indiceInicial: indice
+        };
+
+        definePosicaoDoFeed(window.scrollY)
+            .then(() => { navigate('/image', { state: info }) });
+    }
 
     return (
 
@@ -121,24 +138,20 @@ export default function FeedPublicacoesUsuario() {
                             <div id='perfilUsuario__fotosLateral'>
                                 <h3 id='perfilUsuario__informacoesLaterais__titulo'>Fotos</h3>
                                 <ul id='perfilUsuario__fotosLateral__listaDeFotos'>
-                                    <li className='perfilUsuario__fotosLateral__listaDeFotos__foto'>
-                                        <img src="./imagensDinamicas/publicacoes/miniaturasDasImagens/pub1.jpg" alt="Foto publicação" />
-                                    </li>
-                                    <li className='perfilUsuario__fotosLateral__listaDeFotos__foto'>
-                                        <img src="./imagensDinamicas/publicacoes/miniaturasDasImagens/pub2.jpg" alt="Foto publicação" />
-                                    </li>
-                                    <li className='perfilUsuario__fotosLateral__listaDeFotos__foto'>
-                                        <img src="./imagensDinamicas/publicacoes/miniaturasDasImagens/pub3.jpg" alt="Foto publicação" />
-                                    </li>
-                                    <li className='perfilUsuario__fotosLateral__listaDeFotos__foto'>
-                                        <img src="./imagensDinamicas/publicacoes/miniaturasDasImagens/pub1.jpg" alt="Foto publicação" />
-                                    </li>
-                                    <li className='perfilUsuario__fotosLateral__listaDeFotos__foto'>
-                                        <img src="./imagensDinamicas/publicacoes/miniaturasDasImagens/pub2.jpg" alt="Foto publicação" />
-                                    </li>
-                                    <li className='perfilUsuario__fotosLateral__listaDeFotos__foto'>
-                                        <img src="./imagensDinamicas/publicacoes/miniaturasDasImagens/pub3.jpg" alt="Foto publicação" />
-                                    </li>
+                                    {
+                                        imagens.slice(0, 6).map((midia, index) => (
+                                            <li 
+                                                className='perfilUsuario__fotosLateral__listaDeFotos__foto' 
+                                                key={midia.id}
+                                                onClick={() => aoClicarEmUmaImagemNaLateral(index)}
+                                            >
+                                                <img
+                                                    src={`${process.env.REACT_APP_CAMINHO_MIDIA_PUBLICACAO_MINIATURA}${midia.caminhoMidiaMiniatura}`}
+                                                    alt="Foto publicação"
+                                                />
+                                            </li>
+                                        ))
+                                    }
                                 </ul>
                             </div>
 

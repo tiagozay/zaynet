@@ -3,6 +3,7 @@ import { ConversaModel } from "../models/ConversaModel";
 import { Usuario } from "../models/Usuario";
 import { PublicacaoModel } from "../models/Publicacao/PublicacaoModel";
 import { PublicacaoCompartilhadaModel } from "../models/Publicacao/PublicacaoCompartilhadaModel";
+import { MidiaPublicacaoModel } from "../models/Publicacao/MidiaPublicacaoModel";
 
 interface TypePerfilUsuarioContext
 {
@@ -13,7 +14,9 @@ interface TypePerfilUsuarioContext
     usuario: Usuario | null,
     setUsuario: React.Dispatch<React.SetStateAction<Usuario | null>>,
     publicacoes: Array<PublicacaoModel | PublicacaoCompartilhadaModel>,
-    setPublicacoes: React.Dispatch<React.SetStateAction<Array<PublicacaoModel | PublicacaoCompartilhadaModel>>>
+    setPublicacoes: React.Dispatch<React.SetStateAction<Array<PublicacaoModel | PublicacaoCompartilhadaModel>>>,
+    imagens: Array<MidiaPublicacaoModel>,
+    setImagens: React.Dispatch<React.SetStateAction<Array<MidiaPublicacaoModel>>>
 }
 
 export const PerfilUsuarioContext = createContext<TypePerfilUsuarioContext>({
@@ -24,7 +27,9 @@ export const PerfilUsuarioContext = createContext<TypePerfilUsuarioContext>({
     usuario: null,
     setUsuario: () => {},
     publicacoes: [],
-    setPublicacoes: () => {}
+    setPublicacoes: () => {},
+    imagens: [],
+    setImagens: () => {}
 }); 
 
 export default function PerfilUsuarioContextProvider({children}: {children: ReactNode}){
@@ -37,6 +42,8 @@ export default function PerfilUsuarioContextProvider({children}: {children: Reac
     
     const [publicacoes, setPublicacoes] = useState<Array<PublicacaoModel | PublicacaoCompartilhadaModel>>([]);
 
+    const [imagens, setImagens] = useState<Array<MidiaPublicacaoModel>>([]);
+
     return (
         <PerfilUsuarioContext.Provider value={{
             indicadorUsuarioCarregando,
@@ -46,7 +53,9 @@ export default function PerfilUsuarioContextProvider({children}: {children: Reac
             usuario,
             setUsuario,
             publicacoes,
-            setPublicacoes
+            setPublicacoes,
+            imagens,
+            setImagens
         }}>
             {children}
         </PerfilUsuarioContext.Provider>

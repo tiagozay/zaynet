@@ -15,25 +15,12 @@ import { APIService } from '../../services/APIService';
 import { PerfilUsuarioContext } from '../../contexts/PerfilUsuarioContext';
 import UsuarioService from '../../services/UsuarioService';
 import { PublicacaoFactory } from '../../services/PublicacaoFactory';
+import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
+import { ArquivosPublicacaoService } from '../../services/ArquivosPublicacaoService';
 
 export default function PerfilUsuario() {
 
-    // const usuario = new Usuario(
-    //     1,
-    //     "Pedro",
-    //     "souza",
-    //     852,
-    //     false,
-    //     false,
-    //     false,
-    //     'aa',
-    //     'aa',
-    //     'aa',
-    // );
-
     const id = useParams().id;
-
-    console.log(id);
 
     const isMobile = useMediaQuery({ maxWidth: TAMANHO_DE_TELA_MOBILE });
 
@@ -45,10 +32,9 @@ export default function PerfilUsuario() {
         usuario,
         setUsuario,
         publicacoes,
-        setPublicacoes
+        setPublicacoes,
+        setImagens,
     } = useContext(PerfilUsuarioContext);
-
-
 
     const { permisaoParaIniciar, setPermisaoParaIniciar } = useContext(ControleLoginContext);
 
@@ -99,6 +85,27 @@ export default function PerfilUsuario() {
             })
             .catch(() => navigate("/"));
     }, [id]);
+
+    useEffect(() => {
+
+        const publicacoesNaoCompartilhadas = publicacoes.filter(
+            publicacao => publicacao instanceof PublicacaoModel
+        ) as Array<PublicacaoModel>;
+
+        const imagens = publicacoesNaoCompartilhadas.map( publicacao => {
+
+            //Retorna somente as imagens da publicação
+            return publicacao.midiasPublicacao.filter( midia => {
+
+                return ArquivosPublicacaoService.identificaSeArquivoEImagemOuVideoPeloNome(midia.caminhoMidiaNormal) === "Imagem";
+
+            } );
+
+        }).flat();
+
+        setImagens(imagens);
+
+    }, [publicacoes]);
 
     useEffect(() => {
         if (indicadorModalEditarPefilAberto) {
