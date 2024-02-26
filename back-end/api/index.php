@@ -137,6 +137,14 @@ switch ($method) {
         break;
     case 'DELETE':
 
+        preg_match('/^api\/publicacoes\/(?<idPublicacao>\d+)$/', $caminho, $matches);
+
+        if (!empty($matches['idPublicacao'])) {
+            $idPublicacao = $matches['idPublicacao'];
+            require_once '../src/Controlers/excluirPublicacao.php';
+            exit();
+        }
+
         preg_match('/^api\/comentarios\/(?<idComentario>\d+)$/', $caminho, $matches);
 
         if (!empty($matches['idComentario'])) {
