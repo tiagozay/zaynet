@@ -135,11 +135,11 @@ class Publicacao implements JsonSerializable
         if ($midiasParaExcluir) {
             foreach ($midiasParaExcluir as $midiaParaExcluir) {
 
-                ImageService::removeImagemDoDiretorio(
+                ImageService::removeMidiaDoDiretorio(
                     __DIR__ . "\..\..\..\imagensDinamicas\MidiasPublicacoes\MidiasOriginais\\".$midiaParaExcluir->getNomeArquivoOriginal()
                 );
 
-                ImageService::removeImagemDoDiretorio(
+                ImageService::removeMidiaDoDiretorio(
                     __DIR__ . "\..\..\..\imagensDinamicas\MidiasPublicacoes\Miniaturas\\".$midiaParaExcluir->getNomeMiniatura()
                 );
 
@@ -194,6 +194,12 @@ class Publicacao implements JsonSerializable
     public function getComentarios(): array
     {
         return $this->comentarios->toArray();
+    }
+
+
+    public function getMidiasPublicacao()
+    {
+        return $this->midiasPublicacao;
     }
 
     public function adicionarComentario(Comentario $comentario)
