@@ -2,6 +2,7 @@
 
 namespace Tiagozay\BackEnd\Services;
 
+use Tiagozay\BackEnd\Domain\Models\Publicacao;
 use Tiagozay\BackEnd\Utils\ArquivoPublicacao;
 use Tiagozay\BackEnd\Utils\ArquivoUpado;
 
@@ -58,8 +59,24 @@ abstract class ImageService
         return $textoAleatorio . "." . $extencao;
     }
 
-    static public function removeImagemDoDiretorio(string $diretorioDoArquivo)
+    static public function removeMidiaDoDiretorio(string $diretorioDoArquivo)
     {
         unlink($diretorioDoArquivo);
+    }
+
+    static public function excluirMidiasDePublicacao(Publicacao $publicacao)
+    {
+        $midias = $publicacao->getMidiasPublicacao();
+
+        foreach($midias as $midia){
+            ImageService::removeMidiaDoDiretorio(
+                __DIR__ . "\..\..\imagensDinamicas\MidiasPublicacoes\MidiasOriginais\\".$midia->getNomeArquivoOriginal()
+            );
+
+            ImageService::removeMidiaDoDiretorio(
+                __DIR__ . "\..\..\imagensDinamicas\MidiasPublicacoes\Miniaturas\\".$midia->getNomeMiniatura()
+            );
+        }
+
     }
 }
