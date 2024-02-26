@@ -39,7 +39,7 @@ class Comentario implements JsonSerializable
     #[OneToMany(mappedBy:'comentario', targetEntity: CurtidaComentario::class, cascade: ['persist', 'remove'])]
     protected Collection $curtidas;
 
-    #[OneToMany(mappedBy: 'comentarioPublicacao', targetEntity: ComentarioResposta::class)]
+    #[OneToMany(mappedBy: 'comentarioPublicacao', targetEntity: ComentarioResposta::class, cascade: ['persist', 'remove'])]
     private Collection $respostas;
 
     /** @throws DomainException */
