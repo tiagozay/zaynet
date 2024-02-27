@@ -47,7 +47,7 @@ class Publicacao implements JsonSerializable
     #[OneToMany(mappedBy: 'publicacao', targetEntity: Curtida::class, cascade: ['persist', 'remove'])]
     protected Collection $curtidas;
 
-    #[OneToMany(mappedBy: 'publicacao', targetEntity: PublicacaoCompartilhada::class)]
+    #[OneToMany(mappedBy: 'publicacao', targetEntity: PublicacaoCompartilhada::class, cascade: ['remove'])]
     private Collection $compartilhamentos;
 
     #[Column()]
