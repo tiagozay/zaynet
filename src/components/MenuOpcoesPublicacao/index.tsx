@@ -6,7 +6,7 @@ import { PublicacaoCompartilhadaModel } from '../../models/Publicacao/Publicacao
 interface MenuOpcoesPublicacaoProps {
     publicacao: PublicacaoModel | PublicacaoCompartilhadaModel,
     clickEditarPublicacao?: (publicacao: PublicacaoModel | PublicacaoCompartilhadaModel) => void,
-    clickExluirPublicacao: () => void,
+    clickExluirPublicacao?: (publicacao: PublicacaoModel | PublicacaoCompartilhadaModel) => void,
 }
 
 export default function MenuOpcoesPublicacao({
@@ -63,7 +63,9 @@ export default function MenuOpcoesPublicacao({
 
     function excluirPublicacao() {
         fecharMenuOpcoesDaPublicacao();
-        clickExluirPublicacao();
+        if (clickExluirPublicacao) {
+            clickExluirPublicacao(publicacao);
+        }
     }
 
     function clickAbrirMenuOpcoesDaPublicacao() {

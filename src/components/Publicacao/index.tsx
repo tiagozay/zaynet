@@ -17,10 +17,11 @@ interface PublicacaoProps {
   publicacao: PublicacaoModel,
   compartilharPublicacao?: (publicacao: PublicacaoModel) => void,
   editarPublicacao?: (publicacao: PublicacaoModel | PublicacaoCompartilhadaModel) => void,
+  excluirPublicacao?: (publicacao: PublicacaoModel | PublicacaoCompartilhadaModel) => void,
   publicacaoCompartilhada?: boolean
 }
 
-function Publicacao({ publicacao, compartilharPublicacao, editarPublicacao, publicacaoCompartilhada }: PublicacaoProps) {
+function Publicacao({ publicacao, compartilharPublicacao, editarPublicacao, excluirPublicacao,publicacaoCompartilhada }: PublicacaoProps) {
 
   const navigate = useNavigate();
 
@@ -104,7 +105,7 @@ function Publicacao({ publicacao, compartilharPublicacao, editarPublicacao, publ
               <MenuOpcoesPublicacao
                 publicacao={publicacao}
                 clickEditarPublicacao={editarPublicacao}
-                clickExluirPublicacao={() => { }}
+                clickExluirPublicacao={excluirPublicacao}
               />
               :
               ""

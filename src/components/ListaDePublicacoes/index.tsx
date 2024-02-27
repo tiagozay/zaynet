@@ -17,10 +17,12 @@ import ModalEditarPublicacao from '../ModalEditarPublicacao';
 import Toast from '../Toast';
 import { PublicacaoFactory } from '../../services/PublicacaoFactory';
 import UsuarioService from '../../services/UsuarioService';
+import ModalDeConfirmacao from '../ModalDeConfirmacao';
+import { APIService } from '../../services/APIService';
 
 interface ListaDePublicacoesProps {
     publicacoesParaListar: Array<PublicacaoModel | PublicacaoCompartilhadaModel>,
-    aoMudarListaDePublicacoes?: (publicacoes: Array<PublicacaoModel | PublicacaoCompartilhadaModel> ) => void
+    aoMudarListaDePublicacoes?: (publicacoes: Array<PublicacaoModel | PublicacaoCompartilhadaModel>) => void
 }
 
 export default function ListaDePublicacoes({ publicacoesParaListar, aoMudarListaDePublicacoes }: ListaDePublicacoesProps) {
@@ -53,6 +55,13 @@ export default function ListaDePublicacoes({ publicacoesParaListar, aoMudarLista
         setPublicacaoEditada
     } = useContext(EditarPublicacaoContext);
 
+    const [
+        indicadorModalDeConfirmacaoDeExclusaoAberto,
+        setIndicadorModalDeConfirmacaoDeExclusaoAberto
+    ] = useState(false);
+
+    const [idPublicacaoASerExcluida, setIdPublicacaoASerExcluida] = useState<number | null>(null);
+
     const { posicaoFeed, definePosicaoDoFeed } = useContext(FeedContext);
 
     const navigate = useNavigate();
@@ -75,7 +84,7 @@ export default function ListaDePublicacoes({ publicacoesParaListar, aoMudarLista
         }
 
         //Dispara essa função quando muda algum state para componentes superiores que precisam saber receber as mudanças no estado da lista, como para obter todas as imagens do usuário no perfil
-        if(aoMudarListaDePublicacoes){
+        if (aoMudarListaDePublicacoes) {
             aoMudarListaDePublicacoes(publicacoes);
         }
 
@@ -86,12 +95,12 @@ export default function ListaDePublicacoes({ publicacoesParaListar, aoMudarLista
     }, [publicacoesParaListar])
 
     useEffect(() => {
-        if (indicadorModalPublicarAberto || indicadorModalCompartilharPublicacaoAberto || indicadorModalEditarPublicacaoAberto) {
+        if (indicadorModalPublicarAberto || indicadorModalCompartilharPublicacaoAberto || indicadorModalEditarPublicacaoAberto || indicadorModalDeConfirmacaoDeExclusaoAberto) {
             document.body.style.overflowY = 'hidden';
         } else {
             document.body.style.overflowY = 'scroll';
         }
-    }, [indicadorModalPublicarAberto, indicadorModalCompartilharPublicacaoAberto, indicadorModalEditarPublicacaoAberto]);
+    }, [indicadorModalPublicarAberto, indicadorModalCompartilharPublicacaoAberto, indicadorModalEditarPublicacaoAberto, indicadorModalDeConfirmacaoDeExclusaoAberto]);
 
 
     function abrirModalPublicar() {
@@ -131,6 +140,20 @@ export default function ListaDePublicacoes({ publicacoesParaListar, aoMudarLista
         }
     }
 
+    function abrirExclusaoPublicacao(publicacao: PublicacaoModel | PublicacaoCompartilhadaModel) {
+        setIndicadorModalDeConfirmacaoDeExclusaoAberto(true);
+        setIdPublicacaoASerExcluida(publicacao.id);
+    }
+
+    function confirmarExclusaoDePublicacao() {
+        APIService.delete(`publicacoes/${idPublicacaoASerExcluida}`)
+            .then(() => {
+                removePublicacaoDoEstado(idPublicacaoASerExcluida as number);
+                fecharConfirmacaoDeExclusao();
+            })
+            .catch(() => { })
+    }
+
     function fecharModalPublicar() {
         setIndicadorModalPublicarAberto(false);
     }
@@ -143,6 +166,11 @@ export default function ListaDePublicacoes({ publicacoesParaListar, aoMudarLista
     function fehcarModalEditarPublicacao() {
         setIndicadorModalEditarPublicacaoAberto(false);
         setPublicacaoEditada(null);
+    }
+
+    function fecharConfirmacaoDeExclusao() {
+        setIndicadorModalDeConfirmacaoDeExclusaoAberto(false);
+        setIdPublicacaoASerExcluida(null);
     }
 
     function aoPublicar(publicacao: object) {
@@ -174,6 +202,20 @@ export default function ListaDePublicacoes({ publicacoesParaListar, aoMudarLista
         const publicacao = PublicacaoFactory.create(publicacaoCadastrada);
 
         setPublicacoes(state => [publicacao, ...state])
+    }
+
+    function removePublicacaoDoEstado(id: number) {
+
+        //Obtem todos os compartilhamentos da publicação excluída para remover da lista
+        const compartilhamentos = publicacoes.filter(publicacao =>
+            (publicacao instanceof PublicacaoCompartilhadaModel) && (publicacao.publicacao.id === id)
+        ) as PublicacaoCompartilhadaModel[];
+
+        //Setter recebe um filter que remove a publicação em si e seus compartilhamentos. O filter deve retornar um false toda vez que a publicação da vez foi compartilhada ou tem o mesmo id (no caso de ser ela mesma). Quando chega um compartilhamento, o some retorna "true", que invertemos o valor e vira "false", aí como estamos utilizando o operador &&, retorna false para o filter e não adiciona essa publicação ao estado. Se não for um compartilhamento (primeira condição será "true", por conta da inversão), vai para a segunda e se o id for diferente, é sinal que pode adicionar essa publicação, pois não é a que estamos buscando, e se for igual (retorna false), por utilizar o operador &&, vai false para ele fazendo novamente com que não adicione essa publicação ao estado
+        setPublicacoes(state => state.filter(publicacao => {
+            return !(compartilhamentos.some(compartilhamento => compartilhamento === publicacao)) &&
+                (publicacao.id !== id);
+        }));
     }
 
     function abrirToast(mensagem: string) {
@@ -237,6 +279,18 @@ export default function ListaDePublicacoes({ publicacoesParaListar, aoMudarLista
             }
 
             {
+                indicadorModalDeConfirmacaoDeExclusaoAberto ?
+                    <ModalDeConfirmacao
+                        aoConfirmar={confirmarExclusaoDePublicacao}
+                        fecharModal={fecharConfirmacaoDeExclusao}
+                        titulo='Excluir publicação'
+                        mensagem='Deseja mesmo excluir esta publicação?'
+                        modalAberto={indicadorModalDeConfirmacaoDeExclusaoAberto}
+                    /> :
+                    ""
+            }
+
+            {
                 !indicadorSeEhFeedPerfilUsuario || indicadorFeedPerfilDoUsuarioLogado ?
                     <div id='listaDePublicacoes_adicionarUmaNovaPublicacao'>
                         <div id='listaDePublicacoes_adicionarUmaNovaPublicacao__container'>
@@ -271,6 +325,7 @@ export default function ListaDePublicacoes({ publicacoesParaListar, aoMudarLista
                             publicacao={publicacao}
                             compartilharPublicacao={abrirCompartilhamento}
                             editarPublicacao={abrirEdicaoPublicacao}
+                            excluirPublicacao={abrirExclusaoPublicacao}
                         />
                     } else {
                         return <Publicacao
@@ -278,6 +333,7 @@ export default function ListaDePublicacoes({ publicacoesParaListar, aoMudarLista
                             publicacao={publicacao}
                             compartilharPublicacao={abrirCompartilhamento}
                             editarPublicacao={abrirEdicaoPublicacao}
+                            excluirPublicacao={abrirExclusaoPublicacao}
                         />
                     }
                 })
