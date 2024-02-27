@@ -303,7 +303,7 @@ export default function ListaDePublicacoes({ publicacoesParaListar, aoMudarLista
                             <input
                                 type="text"
                                 id='listaDePublicacoes_adicionarUmaNovaPublicacao__input'
-                                placeholder='No que você está pensando, Pedro?'
+                                placeholder={`No que você está pensando, ${UsuarioService.obtemNomeDoUsuarioLogado()}?`}
                                 onClick={abrirModalPublicar}
                                 disabled={indicadorModalPublicarAberto ? true : false}
                             />
