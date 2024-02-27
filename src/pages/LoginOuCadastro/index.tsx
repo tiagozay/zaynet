@@ -28,6 +28,9 @@ export default function LoginOuCadastro() {
 
     const [captcha, setCaptcha] = useState<string | null>(null);
 
+    //State para reiniciar re-captcha
+    const [reCAPTCHAKey, setReCAPTCHAKey] = useState(0);
+
     const { mensagemDeErroCadastro } = useContext(CadastroUsuarioContext);
 
     const navigate = useNavigate();
@@ -105,6 +108,10 @@ export default function LoginOuCadastro() {
             .catch(res => {
                 setIndicadorLoginSendoEnviado(false);
 
+                //Reinicia o re-captcha
+                setReCAPTCHAKey(state => state + 1);
+                setCaptcha(null);
+
                 res.json()
                     .then((res: APIResponse) => {
                         if (res.domainError) {
@@ -167,6 +174,7 @@ export default function LoginOuCadastro() {
 
                     <div id="formularioDeLogin__containerReCaptcha">
                         <ReCAPTCHA
+                            key={reCAPTCHAKey}
                             sitekey={process.env.REACT_APP_SITE_RECAPTCHA_KEY as string}
                             onChange={aoClicarNoCaptcha}
                         />
