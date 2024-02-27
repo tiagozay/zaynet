@@ -15,24 +15,24 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "POST") 
     $senha = $_POST['senha'];
     $captcha = $_POST['captcha'];
 
-    $recaptchaSecretKey  = getenv('RECAPTCHA_KEY');
-
-    $client = new Client();
-    $response = $client->post('https://www.google.com/recaptcha/api/siteverify', [
-        'form_params' => [
-            'secret'   => $recaptchaSecretKey,
-            'response' => $captcha,
-        ],
-        'verify' => false,
-    ]);
-
-    $responseData = json_decode($response->getBody());
-
-    if (!$responseData->success) {
-        throw new DomainException("Re-captcha inválido!");
-    }
-
     try {
+
+        $recaptchaSecretKey  = getenv('RECAPTCHA_KEY');
+
+        $client = new Client();
+        $response = $client->post('https://www.google.com/recaptcha/api/siteverify', [
+            'form_params' => [
+                'secret'   => $recaptchaSecretKey,
+                'response' => $captcha,
+            ],
+            'verify' => false,
+        ]);
+    
+        $responseData = json_decode($response->getBody());
+    
+        if (!$responseData->success) {
+            throw new DomainException("Re-captcha inválido!");
+        }
 
         $entityManager = EntityManagerCreator::create();
 
