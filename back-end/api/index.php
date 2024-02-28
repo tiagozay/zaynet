@@ -52,6 +52,9 @@ switch ($method) {
             case 'api/publicacoes':
                 require_once '../src/Controlers/buscaPublicacoes.php';
                 break;
+            case 'api/usuariosNaoAmigos':
+                require_once '../src/Controlers/buscaUsuariosNaoAmigos.php';
+                break;
             default:
                 http_response_code(404);
                 echo json_encode(['error' => 'Recusro não encontrado']);
