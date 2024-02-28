@@ -223,7 +223,7 @@ class Usuario implements JsonSerializable
             return;
         }
         $this->amigos->add($usuario);
-        $usuario->adicionaAmigo($usuario);
+        $usuario->adicionaAmigo($this);
     }
 
     public function adicionaPublicacao(Publicacao $publicacao)
