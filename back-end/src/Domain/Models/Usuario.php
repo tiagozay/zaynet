@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\OneToMany;
 use DomainException;
 use JsonSerializable;
@@ -63,6 +64,9 @@ class Usuario implements JsonSerializable
     #[OneToMany(mappedBy:'autor', targetEntity: Publicacao::class)]
     private Collection $publicacoes;
 
+    #[ManyToMany(Usuario::class)]
+    private Collection $amigos;
+
     /** @throws DomainException */
     public function __construct(
         string $nome,
@@ -91,6 +95,7 @@ class Usuario implements JsonSerializable
         $this->statusDeRelacionamento = $statusDeRelacionamento;
 
         $this->publicacoes = new ArrayCollection();
+        $this->amigos = new ArrayCollection();
 
         if ($fotoPerfil) {
             $this->nomeFotoPerfil = ImageService::persisteImagemEGeraNome(
@@ -207,6 +212,20 @@ class Usuario implements JsonSerializable
         return $this->senha;
     }
 
+    public function getAmigos()
+    {
+        return $this->amigos;
+    }
+
+    public function adicionaAmigo(Usuario $usuario)
+    {
+        if($this->amigos->contains($usuario)){
+            return;
+        }
+        $this->amigos->add($usuario);
+        $usuario->adicionaAmigo($usuario);
+    }
+
     public function adicionaPublicacao(Publicacao $publicacao)
     {
         $this->publicacoes->add($publicacao);
@@ -214,6 +233,25 @@ class Usuario implements JsonSerializable
 
     public function toArray(): mixed
     {
+        $amigos = [];
+
+        foreach ($this->amigos->toArray() as $amigo) {
+            $amigos[] = [
+                'id' => $amigo->id,
+                'nome' => $amigo->nome,
+                'sobrenome' => $amigo->sobrenome,
+                'email' => $amigo->email,
+                'dataDeNascimento' => $amigo->dataDeNascimento,
+                'genero' => $amigo->genero,
+                'cidadeNatal' => $amigo->cidadeNatal,
+                'cidadeAtual' => $amigo->cidadeAtual,
+                'statusDeRelacionamento' => $amigo->statusDeRelacionamento,
+                'nomeFotoPerfil' => $amigo->nomeFotoPerfil,
+                'nomeMiniaturaFotoPerfil' => $amigo->nomeMiniaturaFotoPerfil,
+                'nomeFotoCapa' => $amigo->nomeFotoCapa,
+            ];
+        }
+
         return [
             'id' => $this->id,
             'nome' => $this->nome,
@@ -227,6 +265,7 @@ class Usuario implements JsonSerializable
             'nomeFotoPerfil' => $this->nomeFotoPerfil,
             'nomeMiniaturaFotoPerfil' => $this->nomeMiniaturaFotoPerfil,
             'nomeFotoCapa' => $this->nomeFotoCapa,
+            'amigos' => $amigos
         ];
     }
 
