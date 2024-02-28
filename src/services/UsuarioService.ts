@@ -4,6 +4,7 @@ import { LoginService } from "./LoginService";
 import APIResponse from "../Utils/APIResponse";
 import { ArquivosPublicacaoService } from "./ArquivosPublicacaoService";
 import { Usuario } from "../models/Usuario";
+import { Conta } from "../models/Conta";
 
 export default abstract class UsuarioService {
     public static async cadastraUsuario(
@@ -88,7 +89,7 @@ export default abstract class UsuarioService {
     
     }
 
-    public static obtemCaminhoCompletoDoPerfilDoUsuarioRecebido(usuario: Usuario): string
+    public static obtemCaminhoCompletoDoPerfilDoUsuarioRecebido(usuario: Conta): string
     {
         const nome = usuario.nomeFotoPerfil;
 
@@ -102,7 +103,7 @@ export default abstract class UsuarioService {
 
     }
 
-    public static obtemCaminhoCompletoDoPerfilMiniaturaDoUsuarioRecebido(usuario: Usuario): string
+    public static obtemCaminhoCompletoDoPerfilMiniaturaDoUsuarioRecebido(usuario: Conta): string
     {
         const nome = usuario.nomeMiniaturaFotoPerfil;
 
@@ -116,7 +117,7 @@ export default abstract class UsuarioService {
 
     }
 
-    public static obtemCaminhoCompletoDaCapaDoUsuario(usuario: Usuario): string | false
+    public static obtemCaminhoCompletoDaCapaDoUsuario(usuario: Conta): string | false
     {
         const nome = usuario.nomeCapa;
 
