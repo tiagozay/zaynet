@@ -1,9 +1,6 @@
-import { Amigo } from "./Amigo";
 import { Conta } from "./Conta";
 
-export class Usuario extends Conta{
-    public amigos: Array<Amigo>;
-
+export class Amigo extends Conta{
     constructor(
         id: number,
         nome: string,
@@ -16,9 +13,7 @@ export class Usuario extends Conta{
         cidadeNatal: string,
         cidadeAtual: string,
         statusDeRelacionamento: string,
-        amigos: Array<Amigo>
     ) {
         super(id, nome, sobrenome, nomeFotoPerfil, nomeMiniaturaFotoPerfil, nomeCapa, dataDeNascimento, genero, cidadeNatal, cidadeAtual, statusDeRelacionamento);
-        this.amigos = amigos;
     }
 }
