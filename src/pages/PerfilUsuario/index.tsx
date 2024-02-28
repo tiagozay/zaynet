@@ -17,6 +17,7 @@ import UsuarioService from '../../services/UsuarioService';
 import { PublicacaoFactory } from '../../services/PublicacaoFactory';
 import { PublicacaoModel } from '../../models/Publicacao/PublicacaoModel';
 import { ArquivosPublicacaoService } from '../../services/ArquivosPublicacaoService';
+import { UsuarioFactory } from '../../services/UsuarioFactory';
 
 export default function PerfilUsuario() {
 
@@ -53,20 +54,8 @@ export default function PerfilUsuario() {
 
                 const objetoUsuario = res.data;
 
-                const usuario = new Usuario(
-                    objetoUsuario.id,
-                    objetoUsuario.nome,
-                    objetoUsuario.sobrenome,
-                    objetoUsuario.nomeFotoPerfil,
-                    objetoUsuario.nomeMiniaturaFotoPerfil,
-                    objetoUsuario.nomeFotoCapa,
-                    objetoUsuario.dataDeNascimento,
-                    objetoUsuario.genero,
-                    objetoUsuario.cidadeNatal,
-                    objetoUsuario.cidadeAtual,
-                    objetoUsuario.statusDeRelacionamento
-                );
-
+                const usuario = UsuarioFactory.create(objetoUsuario);
+                
                 setUsuario(usuario);
                 setIndicadorUsuarioCarregando(false);
             })
