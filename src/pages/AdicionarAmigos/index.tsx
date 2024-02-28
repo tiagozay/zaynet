@@ -1,73 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './AdicionarAmigos.css';
 import PessoaParaAdicionar from './PessoaParaAdicionar';
+import { Usuario } from '../../models/Usuario';
+import { APIService } from '../../services/APIService';
+import { UsuarioFactory } from '../../services/UsuarioFactory';
+import UsuarioService from '../../services/UsuarioService';
 
 export default function AdicionarAmigos() {
+
+  const [usuarios, setUsuarios] = useState<Usuario[]>([]);
+
+  useEffect(() => {
+    APIService.get('usuariosNaoAmigos')
+      .then(res => {
+
+        if (!res.data) {
+          return;
+        }
+
+        const objetosUsuarios = res.data;
+
+        const usuarios = objetosUsuarios.map((objetoUsuario: any) => UsuarioFactory.create(objetoUsuario))
+
+        setUsuarios(usuarios);
+
+      })
+  }, []);
+
   return (
     <section id="adicionarAmigosPage">
       <div id='adicionarAmigosPage__container'>
         <h3 id='adicionarAmigosPage__titulo'>Adicionar amigos</h3>
         <ul id='adicionarAmigosPage__listaPessoas'>
-          <PessoaParaAdicionar
-            perfil='./imagensDinamicas/perfil2.jpg'
-            nome='Maria almeida'
-            amigosEmComum={89}
-          />
-          <PessoaParaAdicionar
-            perfil='./imagensDinamicas/perfil.jpg'
-            nome='Pedro souza'
-            amigosEmComum={105}
-          />
-          <PessoaParaAdicionar
-            perfil='./imagensDinamicas/perfil2.jpg'
-            nome='Maria almeida'
-            amigosEmComum={89}
-          />
-          <PessoaParaAdicionar
-            perfil='./imagensDinamicas/perfil.jpg'
-            nome='Pedro souza'
-            amigosEmComum={105}
-          />
-              <PessoaParaAdicionar
-            perfil='./imagensDinamicas/perfil.jpg'
-            nome='Pedro souza'
-            amigosEmComum={105}
-          />
-          <PessoaParaAdicionar
-            perfil='./imagensDinamicas/perfil2.jpg'
-            nome='Maria almeida'
-            amigosEmComum={89}
-          />
-          <PessoaParaAdicionar
-            perfil='./imagensDinamicas/perfil2.jpg'
-            nome='Maria almeida'
-            amigosEmComum={89}
-          />
-          <PessoaParaAdicionar
-            perfil='./imagensDinamicas/perfil.jpg'
-            nome='Pedro souza'
-            amigosEmComum={105}
-          />
-          <PessoaParaAdicionar
-            perfil='./imagensDinamicas/perfil2.jpg'
-            nome='Maria almeida'
-            amigosEmComum={89}
-          />
-          <PessoaParaAdicionar
-            perfil='./imagensDinamicas/perfil.jpg'
-            nome='Pedro souza'
-            amigosEmComum={105}
-          />
-              <PessoaParaAdicionar
-            perfil='./imagensDinamicas/perfil.jpg'
-            nome='Pedro souza'
-            amigosEmComum={105}
-          />
-          <PessoaParaAdicionar
-            perfil='./imagensDinamicas/perfil2.jpg'
-            nome='Maria almeida'
-            amigosEmComum={89}
-          />
+          {
+            usuarios.map(usuario => {
+              return <PessoaParaAdicionar
+                key={usuario.id}
+                perfil={UsuarioService.obtemCaminhoCompletoDoPerfilMiniaturaDoUsuarioRecebido(usuario)}
+                nome={ `${usuario.nome} ${usuario.sobrenome}` }
+                amigosEmComum={89}
+              />
+            })
+          }
         </ul>
       </div>
     </section>
