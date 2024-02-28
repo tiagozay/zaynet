@@ -6,6 +6,7 @@ import { MidiaPublicacaoModel } from "../models/Publicacao/MidiaPublicacaoModel"
 import { PublicacaoCompartilhadaModel } from "../models/Publicacao/PublicacaoCompartilhadaModel";
 import { PublicacaoModel } from "../models/Publicacao/PublicacaoModel";
 import { Usuario } from "../models/Usuario";
+import { UsuarioFactory } from "./UsuarioFactory";
 
 export abstract class PublicacaoFactory {
     public static create(objetoPublicacao: any): PublicacaoModel | PublicacaoCompartilhadaModel
@@ -50,19 +51,7 @@ export abstract class PublicacaoFactory {
     }
 
     private static createAutor(objetoAutor: any): Usuario {
-        return new Usuario(
-            objetoAutor.id,
-            objetoAutor.nome,
-            objetoAutor.sobrenome,
-            objetoAutor.nomeFotoPerfil,
-            objetoAutor.nomeMiniaturaFotoPerfil,
-            objetoAutor.nomeFotoCapa,
-            objetoAutor.dataDeNascimento,
-            objetoAutor.genero,
-            objetoAutor.cidadeNatal,
-            objetoAutor.cidadeAtual,
-            objetoAutor.statusDeRelacionamento
-        );
+        return UsuarioFactory.create(objetoAutor);
     }
 
     private static createMidiaPublicacao(objetoMidiaPublicacao: any): MidiaPublicacaoModel {
