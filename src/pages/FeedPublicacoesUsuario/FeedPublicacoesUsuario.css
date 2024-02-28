@@ -97,6 +97,7 @@
 .perfilUsuario__amigosLateral__listaDeAmigos__amigo{
     width: 100%;
     height: 120px;
+    cursor: pointer;
 }
 .perfilUsuario__listaDeAmigos__perfilAmigo{
     height: 90px;

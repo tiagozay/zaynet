@@ -33,8 +33,13 @@ export default function FeedPublicacoesUsuario() {
             .then(() => { navigate('/image', { state: info }) });
     }
 
+    function clickAmigo(id: number)
+    {
+        navigate(`/perfil/${id}`);
+    }
+
     //Função disparada pelo componente de ListaDePublicações quando alguma alteração no estado (como publicar) acontecer
-    function atualizaPublicacoes(publicacoes: Array<PublicacaoModel | PublicacaoCompartilhadaModel>){
+    function atualizaPublicacoes(publicacoes: Array<PublicacaoModel | PublicacaoCompartilhadaModel>) {
         setPublicacoes(publicacoes);
     }
 
@@ -148,8 +153,8 @@ export default function FeedPublicacoesUsuario() {
                                 <ul id='perfilUsuario__fotosLateral__listaDeFotos'>
                                     {
                                         imagens.slice(0, 6).map((midia, index) => (
-                                            <li 
-                                                className='perfilUsuario__fotosLateral__listaDeFotos__foto' 
+                                            <li
+                                                className='perfilUsuario__fotosLateral__listaDeFotos__foto'
                                                 key={midia.id}
                                                 onClick={() => aoClicarEmUmaImagemNaLateral(index)}
                                             >
@@ -166,48 +171,20 @@ export default function FeedPublicacoesUsuario() {
                             <div id='perfilUsuario__amigosLateral'>
                                 <h3 id='perfilUsuario__informacoesLaterais__titulo'>Amigos</h3>
                                 <ul id='perfilUsuario__amigosLateral__listaDeAmigos'>
-                                    <li className='perfilUsuario__amigosLateral__listaDeAmigos__amigo'>
-                                        <img
-                                            className='perfilUsuario__listaDeAmigos__perfilAmigo'
-                                            src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()} alt="Perfil usuário"
-                                        />
-                                        <p className='perfilUsuario__listaAmigos__nomeAmigo'>José Andrade</p>
-                                    </li>
-                                    <li className='perfilUsuario__amigosLateral__listaDeAmigos__amigo'>
-                                        <img
-                                            className='perfilUsuario__listaDeAmigos__perfilAmigo'
-                                            src="./imagensDinamicas/perfil2.jpg" alt="Perfil usuário"
-                                        />
-                                        <p className='perfilUsuario__listaAmigos__nomeAmigo'>José Andrade</p>
-                                    </li>
-                                    <li className='perfilUsuario__amigosLateral__listaDeAmigos__amigo'>
-                                        <img
-                                            className='perfilUsuario__listaDeAmigos__perfilAmigo'
-                                            src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()} alt="Perfil usuário"
-                                        />
-                                        <p className='perfilUsuario__listaAmigos__nomeAmigo'>José Andrade</p>
-                                    </li>
-                                    <li className='perfilUsuario__amigosLateral__listaDeAmigos__amigo'>
-                                        <img
-                                            className='perfilUsuario__listaDeAmigos__perfilAmigo'
-                                            src="./imagensDinamicas/perfil2.jpg" alt="Perfil usuário"
-                                        />
-                                        <p className='perfilUsuario__listaAmigos__nomeAmigo'>Maria de souza da luz</p>
-                                    </li>
-                                    <li className='perfilUsuario__amigosLateral__listaDeAmigos__amigo'>
-                                        <img
-                                            className='perfilUsuario__listaDeAmigos__perfilAmigo'
-                                            src={UsuarioService.obtemMiniaturaPerfilDoUsuarioLogado()} alt="Perfil usuário"
-                                        />
-                                        <p className='perfilUsuario__listaAmigos__nomeAmigo'>José Andrade</p>
-                                    </li>
-                                    <li className='perfilUsuario__amigosLateral__listaDeAmigos__amigo'>
-                                        <img
-                                            className='perfilUsuario__listaDeAmigos__perfilAmigo'
-                                            src="./imagensDinamicas/perfil2.jpg" alt="Perfil usuário"
-                                        />
-                                        <p className='perfilUsuario__listaAmigos__nomeAmigo'>José Andrade</p>
-                                    </li>
+
+                                    {
+                                        usuario?.amigos.map(amigo => (
+                                            <li key={amigo.id} onClick={() => clickAmigo(amigo.id)} className='perfilUsuario__amigosLateral__listaDeAmigos__amigo'>
+                                                <img
+                                                    className='perfilUsuario__listaDeAmigos__perfilAmigo'
+                                                    src={UsuarioService.obtemCaminhoCompletoDoPerfilDoUsuarioRecebido(amigo)} alt="Perfil usuário"
+                                                />
+                                                <p className='perfilUsuario__listaAmigos__nomeAmigo'>{`${amigo.nome} ${amigo.sobrenome}`}</p>
+                                            </li>
+                                        ))
+                                    }
+
+
                                 </ul>
                             </div>
                         </div>
