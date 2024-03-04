@@ -35,8 +35,8 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === "GET") {
 
         $usuarios = $usuarioRepository->findAll();
 
-        $usuariosNaoAmigos = array_filter($usuarios, function($usuario) use ($usuarioLogado){
-            return !$usuarioLogado->getAmigos()->contains($usuario);
+        $usuariosNaoAmigos = array_filter($usuarios, function($usuario) use ($usuarioLogado, $idAutor){
+            return !$usuarioLogado->getAmigos()->contains($usuario) && $usuario->getId() !== $idAutor;
         });
 
         //Re-indexar array, se não dá erro na hora de converter para json
