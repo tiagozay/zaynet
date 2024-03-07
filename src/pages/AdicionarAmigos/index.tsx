@@ -27,6 +27,11 @@ export default function AdicionarAmigos() {
       })
   }, []);
 
+  function clickAdicionarAmigo(id: number) {
+    APIService.post(`usuarios/solicitacaoDeAmizade/${id}`, {})
+      .catch(() => { });
+  }
+
   return (
     <section id="adicionarAmigosPage">
       <div id='adicionarAmigosPage__container'>
@@ -36,9 +41,11 @@ export default function AdicionarAmigos() {
             usuarios.map(usuario => {
               return <PessoaParaAdicionar
                 key={usuario.id}
+                id={usuario.id}
                 perfil={UsuarioService.obtemCaminhoCompletoDoPerfilMiniaturaDoUsuarioRecebido(usuario)}
-                nome={ `${usuario.nome} ${usuario.sobrenome}` }
+                nome={`${usuario.nome} ${usuario.sobrenome}`}
                 amigosEmComum={89}
+                clickAdicionarAmigo={clickAdicionarAmigo}
               />
             })
           }

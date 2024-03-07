@@ -96,6 +96,14 @@ switch ($method) {
             exit();
         }
 
+        preg_match('/^api\/usuarios\/solicitacaoDeAmizade\/(?<idUsuario>\d+)$/', $caminho, $matches);
+
+        if (!empty($matches['idUsuario'])) {
+            $idUsuario = $matches['idUsuario'];
+            require_once '../src/Controlers/enviaSolicitacaoDeAmizade.php';
+            exit();
+        }
+
         switch ($caminho) {
             case 'api/usuarios':
                 require_once '../src/Controlers/cadastrarUsuario.php';

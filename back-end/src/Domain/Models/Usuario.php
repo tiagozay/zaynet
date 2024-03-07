@@ -67,6 +67,9 @@ class Usuario implements JsonSerializable
     #[ManyToMany(Usuario::class)]
     private Collection $amigos;
 
+    #[OneToMany(mappedBy: "usuario", targetEntity: SolicitacaoDeAmizade::class)]
+    private Collection $solicitacoesDeAmizade;
+
     /** @throws DomainException */
     public function __construct(
         string $nome,
@@ -95,6 +98,7 @@ class Usuario implements JsonSerializable
         $this->statusDeRelacionamento = $statusDeRelacionamento;
 
         $this->publicacoes = new ArrayCollection();
+        $this->solicitacoesDeAmizade = new ArrayCollection();
         $this->amigos = new ArrayCollection();
 
         if ($fotoPerfil) {
@@ -217,6 +221,11 @@ class Usuario implements JsonSerializable
         return $this->amigos;
     }
 
+    public function adicionarSolicitacaoDeAmizade(SolicitacaoDeAmizade $solicitacao)
+    {
+        $this->solicitacoesDeAmizade->add($solicitacao);
+    }
+
     public function adicionaAmigo(Usuario $usuario)
     {
         if($this->amigos->contains($usuario)){
@@ -229,6 +238,22 @@ class Usuario implements JsonSerializable
     public function adicionaPublicacao(Publicacao $publicacao)
     {
         $this->publicacoes->add($publicacao);
+    }
+
+    public function verificaSeEhAmigo(Usuario $usuario): bool
+    {
+        return $this->amigos->contains($usuario);
+    }
+
+    public function verificaSeJaRecebeuSolicitacaoDeAmizade(SolicitacaoDeAmizade $solicitacaoRecebida): bool
+    {
+        foreach($this->solicitacoesDeAmizade as $solicitacao){
+            if($solicitacao->getSolicitante()->getId() === $solicitacaoRecebida->getSolicitante()->getId()){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function toArray(): mixed
